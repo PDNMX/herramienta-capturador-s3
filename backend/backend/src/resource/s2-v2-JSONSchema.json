@@ -1,0 +1,233 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "required": true
+        },
+        "fechaCaptura": {
+            "type": "string",
+            "required": true,
+            "format": "date-time"
+        },
+        "ejercicio": {
+            "type": "integer",
+            "required": true
+        },
+        "nombres": {
+            "type": "string",
+            "required": true
+        },
+        "primerApellido": {
+            "type": "string",
+            "required": true
+        },
+        "segundoApellido": {
+            "type": "string",
+            "required": true
+        },
+        "curp": {
+            "type": "string",
+            "required": true
+        },
+        "rfc": {
+            "type": "string",
+            "required": true
+        },
+        "sexo": {
+            "type": "string",
+            "required": true,
+            "enum": [
+                "FEMENINO",
+                "MASCULINO"
+            ]
+        },
+        "entePublico": {
+            "type": "object",
+            "required": true,
+            "properties": {
+                "entidadFederativa": {
+                    "type": "object",
+                    "properties": {
+                        "clave": {
+                            "type": "string",
+                            "required": true,
+                            "description": "Nombre de la entidad federativa del Marco Geoestadístico Nacional"
+                        },
+                        "valor": {
+                            "type": "string",
+                            "required": true,
+                            "description": "Clave de la entidad federativa del Marco Geoestadístico Nacional"
+                        }
+                    }
+                },
+                "ambitoGobierno": {
+                    "type": "object",
+                    "required": true,
+                    "properties": {
+                        "clave": {
+                            "type": "string",
+                            "enum": [
+                                "FEDERAL",
+                                "ESTATAL",
+                                "MUNICIPAL_ALCALDIA",
+                                "OTRO"
+                            ],
+                            "required": true
+                        },
+                        "valor": {
+                            "type": "string",
+                            "required": true
+                        }
+                    }
+                },
+                "poderOrganoGobierno": {
+                    "type": "string",
+                    "enum": [
+                        "EJECUTIVO",
+                        "LEGISLATIVO",
+                        "JUDICIAL",
+                        "ORGANO_AUTONOMO"
+                    ],
+                    "required": true
+                },
+                "nombre": {
+                    "type": "string",
+                    "required": true
+                },
+                "siglas": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "empleoCargoComision": {
+            "type": "object",
+            "required": true,
+            "properties": {
+                "areaAdscripcion": {
+                    "type": "string",
+                    "required": true
+                },
+                "nivel": {
+                    "type": "string",
+                    "required": true
+                },
+                "nombre": {
+                    "type": "string",
+                    "required": true
+                }
+            }
+        },
+        "tipoArea": {
+            "type": "array",
+            "required": true,
+            "description": "Tipo de área",
+            "items": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "bienesServicios": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "clave": {
+                                "type": "string",
+                                "enum": [
+                                    "REQUIRENTE",
+                                    "CONTRATANTE",
+                                    "TECNICA",
+                                    "OTRA"
+                                ],
+                                "required": true
+                            },
+                            "valor": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    },
+                    "obraPublica": {
+                        "type": "object",
+                        "required": true,
+                        "properties": {
+                            "clave": {
+                                "type": "string",
+                                "enum": [
+                                    "REQUIRENTE",
+                                    "RESPONSABLE_CONTRATACION",
+                                    "TECNICA",
+                                    "RESPONSABLE_EJECUCION",
+                                    "OTRA"
+                                ],
+                                "required": true
+                            },
+                            "valor": {
+                                "type": "string",
+                                "required": true
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "procedimientos": {
+            "type": "array",
+            "required": true,
+            "items": {
+                "type": "object",
+                "required": true,
+                "properties": {
+                    "tipo": {
+                        "type": "string",
+                        "enum": [
+                            "CONTRATACION_PUBLICA",
+                            "CONCESIONES",
+                            "LICENCIAS",
+                            "PERMISOS",
+                            "AUTORIZACIONES",
+                            "ENAJENACION_BIEN_MUEBLE",
+                            "DICTAMEN_AVALUO"
+                        ],
+                        "required": true
+                    },
+                    "nivelesresponsabilidad": {
+                        "type": "array",
+                        "required": true,
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "ambito": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ATENCION_TRAMITACION",
+                                        "RESOLUCION"
+                                    ],
+                                    "required": true
+                                },
+                                "nivel": {
+                                    "type": "string",
+                                    "enum": [
+                                        "ELABORAR",
+                                        "REVISAR",
+                                        "FIRMAR_AUTORIZAR_DICTAMINAR",
+                                        "SUPERVISAR",
+                                        "EMITIR_SUSCRIBIR"
+                                    ],
+                                    "required": true
+                                },
+                                "identificadorObjeto": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "observaciones": {
+            "type": "string",
+            "required": false
+        }
+    }
+}

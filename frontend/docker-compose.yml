@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  frontend:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      VITE_URL_API: ${VITE_URL_API}
+      VITE_URL_OAUTH: ${VITE_URL_OAUTH}
+      VITE_CLIENT_ID: ${VITE_CLIENT_ID}
+      VITE_CLIENT_SECRET: ${VITE_CLIENT_SECRET}
+    ports:
+      - ${PORT_FRONTEND}:5173

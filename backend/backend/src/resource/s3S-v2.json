@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "tipoDeFalta": {
+      "type": "string"
+    },
+    "faltaGrave": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "fechaCaptura": {
+          "type": "string"
+        },
+        "expediente": {
+          "type": "string"
+        },
+        "nombres": {
+          "type": "string"
+        },
+        "primerApellido": {
+          "type": "string"
+        },
+        "segundoApellido": {
+          "type": "string"
+        },
+        "curp": {
+          "type": "string"
+        },
+        "rfc": {
+          "type": "string"
+        },
+        "sexo": {
+          "type": "string"
+        },
+        "entePublico": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "empleoCargoComision": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "origenInvestigacion": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "faltaCometida": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "id",
+        "fechaCaptura",
+        "expediente",
+        "nombres",
+        "primerApellido",
+        "segundoApellido",
+        "curp",
+        "rfc",
+        "sexo",
+        "entePublico",
+        "empleoCargoComision",
+        "origenInvestigacion",
+        "faltaCometida"
+      ]
+    }
+  },
+  "required": [
+    "tipoDeFalta",
+    "faltaGrave"
+  ]
+}

@@ -1,0 +1,533 @@
+openapi: 3.0.0
+info:
+  version: "1.1"
+  title: >-
+    API del Registro de Servidores públicos de la Administración Pública Federal
+    que intervienen en procedimientos de contrataciones públicas.
+paths:
+  /v1/spic:
+    post:
+      tags:
+        - spic
+      summary: Servidores públicos que intervienen en contrataciones.
+      operationId: post_spic
+      requestBody:
+        description: JSON para peticiones de busqueda avanzada
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reqSpic'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resSpic'
+        '400':
+          description: Página inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        '401':
+          description: No tienes permisos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+      security:
+        - spic_auth: []
+  /v1/spic/dependencias:
+    get:
+      tags:
+        - spic
+      summary: Servidores públicos que intervienen en contrataciones
+      operationId: get_dependencias
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dependencias'
+        '400':
+          description: Página invalida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        '401':
+          description: No tienes permisos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+      security:
+        - spic_auth: []
+externalDocs:
+  description: Más información.
+  url: 'https://github.com/PDNMX/api_docs'
+components:
+  securitySchemes:
+    spic_auth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /oauth
+          scopes: {}
+  schemas:
+    resSpic:
+      type: object
+      required:
+        - pagination
+        - results
+      properties:
+        pagination:
+          type: object
+          required:
+            - pageSize
+            - page
+            - totalRows
+            - hasNextPage
+          properties:
+            pageSize:
+              type: integer
+              minimum: 1
+              description: 'Número de registros mostrados, por defecto muestra diez.'
+              example: 100
+            page:
+              type: integer
+              minimum: 1
+              description: Número de página actual
+              example: 20
+            totalRows:
+              type: integer
+              minimum: 1
+              description: Total de registros
+              example: 30
+            hasNextPage:
+              type: boolean
+              description: Indica si existe otra página
+              example: true
+        results:
+          $ref: '#/components/schemas/respSpic'
+    reqSpic:
+      type: object
+      properties:
+        sort:
+          type: object
+          description: 'El ordenamiento a emplear deberá ser lexicográfico basado en idioma Español'
+          properties:
+            nombres:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: 'Campo a ordenar de forma ascendente o descente'
+              example: asc
+            primerApellido:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: 'Campo a ordenar de forma ascendente o descente'
+              example: asc
+            segundoApellido:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: 'Campo a ordenar de forma ascendente o descente'
+              example: asc
+            institucionDependencia:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: 'Campo a ordenar de forma ascendente o descente, se debe ordenar por el valor'
+              example: asc
+            puesto:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: 'Campo a ordenar de forma ascendente o descente'
+              example: asc
+        page:
+          type: integer
+          description: Número de página a mostrar, por default 1
+          example: 1
+          default: 1
+        pageSize:
+          type: integer
+          description: >-
+            Número de registros a mostrar por página, el máximo permitido es
+            doscientos y el mínimo uno, por defecto muestra diez registros.
+            Por default 10
+          example: 10
+          default: 10
+        query:
+          properties:
+            id:
+              type: string
+              description: >-
+                Devuelve resultados al buscar un servidor público por su ID. Si se
+                especifica este valor, el objeto query es omitido.
+              example: 123abc
+            nombres:
+              type: string
+              description: Nombres o nombre de la persona.
+              example: Juan Pedro
+            primerApellido:
+              type: string
+              description: Primer apellido de la persona.
+              example: Tenorio
+            segundoApellido:
+              type: string
+              description: Segundo apellido de la persona.
+              example: Calderón
+            curp:
+              type: string
+              description: CURP de la persona.
+              example: PUXB571021HNELXR00
+            rfc:
+              type: string
+              description:  RFC de la persona
+              example: PUXB5710219K8
+            institucionDependencia:
+              type: string
+              description: >-
+                Se deberá señalar el Ente Público o entidad que corresponda al
+                Servidor Público.
+              example: Presidencia de la República
+            tipoProcedimiento:
+              type: array
+              uniqueItems: true
+              items:
+                type: integer
+                minimum: 1
+                maximum: 5
+                description: |
+
+                  Tipos de procedimiento en los que puede participar el Servidor Público.
+                    * `1` - CONTRATACIONES PÚBLICAS
+                    * `2` - CONCESIONES, LICENCIAS, PERMISOS, AUTORIZACIONES Y PRÓRROGAS
+                    * `3` - ENAJENACIÓN DE BIENES MUEBLES
+                    * `4` - ASIGNACIÓN Y EMISIÓN DE DICTÁMENES DE AVALÚOS NACIONALES
+                    * `5` - OTRO
+
+                    *******Deberá devolver todos los registros que contengan al menos uno de los valores solicitados.
+              example:
+                - 1
+                - 2
+            rfcSolicitante:
+              type: string
+              description: >-
+                RFC de la persona quien hace la consulta.
+              example: GOAP780710RH7
+    respSpic:
+      type: array
+      items:
+        type: object
+        required:
+          - id
+          - nombres
+          - fechaCaptura
+          - primerApellido
+          - tipoProcedimiento
+          - institucionDependencia
+          - puesto
+        properties:
+          id:
+            type: string
+            description: Dato que permita identificar de manera  unívoca al registro
+            example: RFT129
+          fechaCaptura:
+            type: string
+            format: date-time
+            description: >-
+              Fecha y hora en la que se agrega o modifca el registro. Fecha
+              en formato ISO 8601
+            example: '2019-01-21T17:32:28Z'
+          ejercicioFiscal:
+            type: string
+            description: Ejercicio fiscal
+            example: '2018'
+          ramo:
+            type: object
+            properties:
+              clave:
+                type: integer
+                minimum: 1
+                description: Identificador del ramo
+                example: 23
+              valor:
+                type: string
+                description: >-
+                  Identifica y clasifica los recursos en el presupuesto de
+                  egresos a las Dependencias y en su caso Entidades, a la
+                  Presidencia de la República, a la Procuraduría General de la
+                  República y a los Tribunales Administrativos.
+                example: Provisiones salariales y económicas
+          rfc:
+            type: string
+            description: RFC del Servidor Público con homoclave
+            example: JPM851111C44
+          curp:
+            type: string
+            description: CURP del Servidor Público
+            example: BEML920313HMCLNS09
+          nombres:
+            type: string
+            description: Nombre(s) del Servidor Público
+            example: John Juan
+          primerApellido:
+            type: string
+            description: Primer apellido del servidor público
+            example: Pérez
+          segundoApellido:
+            type: string
+            description: Segundo apellido del servidor público
+            example: Mendez
+          genero:
+            type: object
+            properties:
+              clave:
+                type: string
+                enum:
+                  - F
+                  - M
+                  - O
+                description: |
+                  Genero del Servidor Público.
+                    * `F` - FEMENINO
+                    * `M` - MASCULINO
+                    * `O` - OTRO
+                example: M
+              valor:
+                type: string
+                description: Valor del genero
+                example: 'MASCULINO'
+          institucionDependencia:
+            description: >-
+              Indicar el nombre de la institución donde se encuentren
+              registradas las inversiones, cuentas o valores
+            type: object
+            required:
+              - nombre
+            properties:
+              nombre:
+                type: string
+                description: >-
+                  Nombre de la institución o dependencia donde labora el
+                  Servidor Público
+                example: Secretaría de Hacienda y Crédito Público
+              siglas:
+                type: string
+                description: >-
+                  Siglas de la institución o dependencia donde labora el
+                  Servidor Público
+                example: SHCP
+              clave:
+                type: string
+                description: >-
+                  Clave de la institución o dependencia donde labora el
+                  Servidor Público
+                example: XYZ987
+          puesto:
+            type: object
+            properties:
+              nombre:
+                type: string
+                description: Nombre del puesto del Servidor Público
+                example: Director de área
+              nivel:
+                type: string
+                maxLength: 12
+                description: Nivel o identificador del puesto del Servidor Público
+                example: '1234567890'
+          tipoArea:
+            type: array
+            description: "Tipo de área."
+            uniqueItems: true
+            items:
+              type: object
+              properties:
+                clave:
+                  type: string
+                  enum:
+                    - T
+                    - RE
+                    - RC
+                    - O
+                    - C
+                    - R
+                  description: |
+                    Significado de Claves:
+                      * `T` - TÉCNICA
+                      * `RE` - RESPONSABLE DE LA EJECUCIÓN DE LOS TRABAJOS
+                      * `RC` - RESPONSABLE DE LA CONTRATACIÓN
+                      * `O` - OTRA
+                      * `C` - CONTRATANTE
+                      * `R` - REQUIRENTE
+                  example: "T"
+                valor:
+                  type: string
+                  description: 'Valor del tipo de área'
+                  example: 'TÉCNICA'
+            example:
+              - clave: 'T'
+                valor: 'TÉCNICA'
+              - clave: 'RE'
+                valor: 'RESPONSABLE DE LA EJECUCIÓN'
+          nivelResponsabilidad:
+            type: array
+            uniqueItems: true
+            items:
+              type: object
+              properties:
+                clave:
+                  type: string
+                  enum:
+                    - A
+                    - T
+                    - R
+                    - O
+                  example: A
+                valor:
+                  type: string
+                  enum:
+                    - ATENCIÓN
+                    - TRAMITACIÓN
+                    - RESOLUCIÓN
+                    - OTRO
+                  example: ATENCIÓN
+            description: |
+              Nivel de responsabilidad.
+              Significado de Claves:
+                * `A` - ATENCIÓN
+                * `T` - TRAMITACIÓN
+                * `R` - RESOLUCIÓN
+                * `O` - OTRO
+          tipoProcedimiento:
+            type: array
+            uniqueItems: true
+            items:
+              type: object
+              properties:
+                clave:
+                  type: integer
+                  minimum: 1
+                  example: 1
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                valor:
+                  type: string
+            description: |
+              Tipos de procedimiento en los que puede participar el Servidor Público.
+              * `1` - CONTRATACIONES PÚBLICAS
+              * `2` - CONCESIONES, LICENCIAS, PERMISOS, AUTORIZACIONES Y SUS PRÓRROGAS
+              * `3` - ENAJENACIÓN DE BIENES MUEBLES
+              * `4` - ASIGNACIÓN Y EMISIÓN DE DICTÁMENES DE AVALÚOS NACIONALES
+              * `5` - OTRO
+          superiorInmediato:
+            type: object
+            properties:
+              nombres:
+                type: string
+                description: Nombre(s) del superior inmediato del Servidor Público
+                example: Juan
+              primerApellido:
+                type: string
+                description: >-
+                  Primer apellido del superior inmediato del Servidor
+                  Público
+                example: Lopez
+              segundoApellido:
+                type: string
+                description: >-
+                  Segundo apellido del superior inmediato del Servidor
+                  Público
+                example: Perez
+              curp:
+                type: string
+                description: CURP del superior inmediato del Servidor Público
+                example: BADD110313HCMLNS09
+              rfc:
+                type: string
+                description: >-
+                  RFC con homoclave del superior inmediato del Servidor
+                  Público
+                example: CUPU800825569
+              puesto:
+                type: object
+                properties:
+                  nombre:
+                    type: string
+                    description: >-
+                      Nombre del puesto del superior inmediato del Servidor
+                      Público
+                    example: Director de área
+                  nivel:
+                    type: string
+                    description: >-
+                      Nivel del puesto del superior inmediato del Servidor
+                      Público
+                    example: '1234567890'
+          observaciones:
+            type: string
+            description: Aclaraciones y observaciones
+
+    dependencias:
+      description: >-
+        Instituciones o dependencias de los Servidores públicos de la
+        Administración Pública Federal que intervienen en procedimientos de
+        contrataciones públicas
+      type: array
+      items:
+        type: object
+        properties:
+          nombre:
+            type: string
+            description: Nombre de la Institución o Dependencia
+            example: Secretaría de Hacienda y Crédito Público
+          siglas:
+            type: string
+            description: Siglas de la Institución o Dependencia
+            example: SHCP
+          clave:
+            type: string
+            description: Clave de la Institución o Dependencia
+            example: XYZ987
+    resError:
+      description: Estos valores son definidos por el sistema del API.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Código alfa numérico del error de la consulta.
+          example: abc123
+        message:
+          type: string
+          description: Texto descriptivo para el usuario final del error en la consulta
+          example: 'Error al formar la consulta, revise el formato de los campos.'

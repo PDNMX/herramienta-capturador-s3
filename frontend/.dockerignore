@@ -1,0 +1,14 @@
+node_modules
+.dockerignore
+Dockerfile
+npm-debug.log
+.git
+.hg
+.svn
+.gitignore
+build
+.vscode
+Dockerfile*
+docker-compose*
+yarn-error.log
+package-lock.json

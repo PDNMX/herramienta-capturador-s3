@@ -1,0 +1,621 @@
+openapi: 3.0.0
+info:
+  version: 1.1.0
+  title: API de servidores sancionados
+paths:
+  /v1/ssancionados:
+    post:
+      tags:
+        - ssancionados
+      summary: >-
+        Muestra información de los servidores públicos sancionados permitiendo
+        busquedas avanzadas.
+      operationId: post_ssancionados
+      requestBody:
+        description: JSON para peticiones de búsqueda avanzada
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/post_query'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ssancionados'
+        '400':
+          description: Página inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        '401':
+          description: No tienes permisos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+      security:
+        - ssancionados_auth: []
+  /v1/ssancionados/dependencias:
+    get:
+      tags:
+        - dependencias
+      summary: Dependencias donde se cometió la sanción
+      operationId: get_dependencias
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dependencias'
+        '400':
+          description: Página inválida
+        '403':
+          description: No tienes permisos
+      security:
+        - ssancionados_auth: []
+externalDocs:
+  description: Más información
+  url: 'https://github.com/PDNMX/api_docs'
+components:
+  securitySchemes:
+    ssancionados_auth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /oauth
+          scopes: {}
+  schemas:
+    ssancionados:
+      type: object
+      required:
+        - pagination
+        - results
+      properties:
+        pagination:
+          type: object
+          required:
+            - pageSize
+            - page
+            - totalRows
+            - hasNextPage
+          properties:
+            pageSize:
+              type: integer
+              description: >-
+                Número de registros a mostrar por página, el máximo permitido es
+                200 y el minimo 1
+              example: 10
+            page:
+              type: integer
+              description: Número de página a mostrar
+              example: 10
+            totalRows:
+              type: number
+              minimum: 1
+              description: Total de registros
+              example: 100
+            hasNextPage:
+              type: boolean
+              minimum: 1
+              description: indica si existe una siguiente pagina
+              example: true
+        results:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - fechaCaptura
+              - institucionDependencia
+              - servidorPublicoSancionado
+              - tipoSancion
+              - causaMotivoHechos
+              - tipoFalta
+            properties:
+              id:
+                type: string
+                description: 'Dato que permita identificar de manera  unívoca al registro'
+                example: '1'
+              fechaCaptura:
+                type: string
+                format: date-time
+                description: >-
+                  La fecha y hora en la que se agrega o modifica el registro.
+                  Fecha en formato ISO 8601
+                example: '2017-07-21T17:32:28Z'
+              expediente:
+                type: string
+                description: >-
+                  Número de Expediente del Procedimiento Administrativo de Responsabilidades
+                example: ABC123
+              institucionDependencia:
+                type: object
+                required:
+                  - nombre
+                properties:
+                  nombre:
+                    type: string
+                    description: >-
+                      Nombre de la Institución o Dependencia a la que pertenece
+                      el Servidor Público Sancionado
+                    example: Secretaría de Hacienda y Crédito Público
+                  siglas:
+                    type: string
+                    description: >-
+                      Siglas de la Institución o Dependencia a la que pertenece
+                      el Servidor Público Sancionado
+                    example: SHCP
+                  clave:
+                    type: string
+                    description: >-
+                      Clave de la Institución o Dependencia a la que pertenece
+                      el Servidor Público Sancionado
+                    example: TRE345
+              servidorPublicoSancionado:
+                type: object
+                required:
+                  - nombres
+                  - primerApellido
+                  - puesto
+                properties:
+                  rfc:
+                    type: string
+                    description: RFC del Servidor Público con homoclave
+                    example: PAT21343213
+                  curp:
+                    type: string
+                    description: CURP del Servidor Público
+                    example: ABCD780814MDFAXL
+                  nombres:
+                    type: string
+                    description: Nombre(s) del Servidor Público Sancionado
+                    example: Carlos
+                  primerApellido:
+                    type: string
+                    description: Primer apellido del Servidor Público Sancionado
+                    example: Pérez
+                  segundoApellido:
+                    type: string
+                    description: Segundo apellido del Servidor Público Sancionado
+                    example: López
+                  genero:
+                    type: object
+                    properties:
+                      clave:
+                        type: string
+                        enum:
+                          - F
+                          - M
+                          - O
+                        description: |
+                          Genero del Servidor Público.
+                            * `F` - FEMENINO
+                            * `M` - MASCULINO
+                            * `O` - OTRO
+                        example: M
+                      valor:
+                        type: string
+                        description: Valor del genero
+                        example: 'MASCULINO'
+                  puesto:
+                    type: string
+                    description: Puesto del Servidor Público Sancionado
+                    example: Director de área
+                  nivel:
+                    type: string
+                    description: Clave del nivel del puesto del Servidor Público Sancionado
+                    example: ABCD1234
+              autoridadSancionadora:
+                type: string
+                description: 'Autoridad encarcada del proceso de sanción '
+                example: Organo Interno de Control
+              tipoFalta:
+                $ref: '#/components/schemas/tipoFalta'
+              tipoSancion:
+                $ref: '#/components/schemas/tipoSancion'
+              causaMotivoHechos:
+                type: string
+                description: 'Causa o motivo de la sanción, ejemplo: Abuso de autoridad'
+                example: Abuso de autoridad
+              resolucion:
+                type: object
+                required:
+                  - fechaResolucion
+                properties:
+                  url:
+                    type: string
+                    description: >-
+                      URL que apunta al documento en formato digital de la
+                      resolución emitida por el correspondiente Organo Interno
+                      de Control
+                    example: 'https://ejemplo.mx/archivo/documento.pdf'
+                  fechaResolucion:
+                    type: string
+                    format: date
+                    description: >-
+                      Fecha en la que se emite la resolución sancionatoria. Fecha en formato ISO 8601
+                    example: '2018-05-21'
+              multa:
+                type: object
+                required:
+                  - monto
+                  - moneda
+                properties:
+                  monto:
+                    type: number
+                    format: float
+                    description: 'Monto de la multa expresado en la moneda origen'
+                    example: 30000.19
+                  moneda:
+                    description: "Tipo de moneda. Señalar tipo de moneda."
+                    type: object
+                    properties:
+                      clave:
+                        type: string
+                        description: 'ISO 4217'
+                        example: "MXN"
+                      valor:
+                        type: string
+                        example: "Peso Mexicano"
+              inhabilitacion:
+                type: object
+                properties:
+                  plazo:
+                    type: string
+                    description: 'Plazo de la inhabilitación. Ej. 2 años'
+                    example: 3 meses
+                  fechaInicial:
+                    type: string
+                    format: date
+                    description: >-
+                      Fecha inicial de la inhabilitación. Fecha en formato ISO
+                      8601
+                    example: '2018-08-17'
+                  fechaFinal:
+                    type: string
+                    format: date
+                    description: >-
+                      Fecha final de la inhabilitación. Fecha en formato ISO
+                      8601
+                    example: '2018-11-17'
+              observaciones:
+                type: string
+                description: 'Cualquier observación pertinente '
+                example: ABC
+              documentos:
+                description: >-
+                  Es una sección que permite adjuntar referencias a cualquier
+                  documento que se considere de valor para transparentar el
+                  proceso de sanción.
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - titulo
+                    - descripcion
+                    - url
+                    - fecha
+                  properties:
+                    id:
+                      type: string
+                      description: >-
+                        Puede ser el folio del documento o al menos un
+                        consecutivo para identificar a los documentos en el
+                        registro.
+                      example: doc-1
+                    tipo:
+                      type: string
+                      description: >-
+                        Tipo de documento, Valores permitidos ["RESOLUCION",
+                        "CONSTANCIA_SANCION", "CONSTANCIA_INHABILITACION",
+                        "CONSTANCIA_ABSTENCION"]
+                      enum:
+                        - RESOLUCION
+                        - CONSTANCIA_SANCION
+                        - CONSTANCIA_INHABILITACION
+                        - CONSTANCIA_ABSTENCION
+                      example: CONSTANCIA_SANCION
+                    titulo:
+                      type: string
+                      description: Título del documento
+                      example: Constancia de sanción...
+                    descripcion:
+                      type: string
+                      description: Descripción del documento
+                      example: Descripción del documento
+                    url:
+                      type: string
+                      description: Hipervínculo al documento
+                      example: 'https://ejemplo.mx/archivo/documento.pdf'
+                    fecha:
+                      type: string
+                      format: date
+                      description: Fecha del documento. Fecha en formato ISO 8601
+                      example: '2019-11-20'
+    post_query:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          description: >-
+            Número de registros a mostrar por página, el máximo permitido es 200
+            y el minimo 1, en caso de no recibir el parámetro, su valor será el indicado en default.
+          example: 10
+          default: 10
+          maximum: 200
+        page:
+          type: integer
+          description: Número de página a mostrar, en caso de no recibir el parámetro, su valor será el indicado en default.
+          example: 10
+          default: 1
+        sort:
+          type: object
+          properties:
+            rfc:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            curp:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            nombres:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            primerApellido:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            segundoApellido:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            institucionDependencia:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+        query:
+          properties:
+            id:
+              type: string
+              description: >-
+                Devuelve resultados al buscar una declaración por su ID. Si se
+                especifica este valor, los demas filtros son omitidos. En caso de enviar cadena vacía, el filtro debe ser omitido.
+              example: 123abc
+            nombres:
+              type: string
+              description: Nombres o nombre del servidor público sancionado. Si se envía cadena vacía se debe omitir el filtro.
+              example: Juan Pedro
+            primerApellido:
+              type: string
+              description: Primer apellido del servidor público sancionado. Si se envía cadena vacía se debe omitir el filtro.
+              example: Tenorio
+            segundoApellido:
+              type: string
+              description: Segundo apellido del servidor público sancionado. Si se envía cadena vacía se debe omitir el filtro.
+              example: Calderon
+            rfc:
+              type: string
+              description: RFC del Servidor Público con homoclave. Si se envía cadena vacía se debe omitir el filtro.
+              example: PAT21343213
+            curp:
+              type: string
+              description: CURP del Servidor Público. Si se envía cadena vacía se debe omitir el filtro.
+              example: ABCD780814MDFAXL
+            institucionDependencia:
+              type: string
+              description: >-
+                Nombre de la institución dependencia a la que pertenece el
+                servidor público sancionado. Si se envía cadena vacía se debe omitir el filtro.
+              example: Secretaría de Hacienda y Crédito Público
+            tipoSancion:
+              type: array
+              uniqueItems: true
+              description: |
+                Clave(s) del tipo de sanción aplicada.
+                  * `I` - INHABILITADO
+                  * `M` - MULTADO
+                  * `S` - SUSPENSIÓN DEL EMPLEO, CARGO O COMISIÓN
+                  * `D` - DESTITUCIÓN DEL EMPLO, CARGO O COMISIÓN
+                  * `IRSC` - INDEMNIZACIÓN RESARCITORIA
+                  * `SE` - SANCIÓN ECONÓMICA
+                  * `O` - OTRO
+
+                *******Deberá devolver todos los registros que contengan al menos uno de los valores solicitados en el arreglo. En caso de enviar arreglo vacio se deberá omitir el filtro.
+              items:
+                type: string
+                enum:
+                  - I
+                  - M
+                  - S
+                  - D
+                  - IRSC
+                  - SE
+                  - O
+              example: [I,M]
+            rfcSolicitante:
+              type: string
+              description: >-
+                RFC de la persona quien hace la consulta, si se omite este
+                parametro, se enviaran solo los datos públicos
+              example: GOAP780710RH7
+
+    dependencias:
+      description: Instituciones o dependencias donde se cometió la sanción
+      type: array
+      items:
+        type: object
+        properties:
+          nombre:
+            type: string
+            description: >-
+              Nombre de la Institución o Dependencia donde el contratista
+              cometió la irregularidad
+            example: Secretaría de Hacienda y Crédito Público
+          siglas:
+            type: string
+            description: >-
+              Siglas de la Institución o Dependencia donde el contratista
+              cometió la irregularidad
+            example: SHCP
+          clave:
+            type: string
+            description: >-
+              Clave de la Institución o Dependencia donde el contratista cometió
+              la irregularidad
+            example: XYZ987
+    resError:
+      description: Estos valores son definidos por el sistema del API.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Código alfa numérico del error de la consulta.
+          example: abc123
+        message:
+          type: string
+          description: Texto descriptivo para el usuario final del error en la consulta
+          example: 'Error al formar la consulta, revise el formato de los campos.'
+    tipoSancion:
+      type: array
+      description: 'La sanción impuesta al servidor público, puede ser más de una. Ej. Inhabilitado y Multado. En caso de ser OTRO, en el atributo valor se deberá enviar la cadena correspondiente.'
+      items:
+        type: object
+        required:
+          - clave
+          - valor
+        properties:
+          clave:
+            type: string
+            enum:
+              - I
+              - M
+              - S
+              - D
+              - IRSC
+              - SE
+              - O
+            description: |
+              Tipo de sanción aplicada.
+                * `I` - INHABILITADO
+                * `M` - MULTADO
+                * `S` - SUSPENSIÓN DEL EMPLEO, CARGO O COMISIÓN
+                * `D` - DESTITUCIÓN DEL EMPLO, CARGO O COMISIÓN
+                * `IRSC` - INDEMNIZACIÓN RESARCITORIA
+                * `SE` - SANCIÓN ECONÓMICA
+                * `O` - OTRO
+            example: M
+          valor:
+            type: string
+            description: 'Valor del tipo de sanción'
+            example: 'MULTADO'
+          descripcion:
+            type: string
+            description: 'Descripción o nota aclaratoria'
+      example: [{'clave':'O', 'valor':'AMONESTACIÓN'},{'clave':'M','valor':'MULTADO'}]
+    tipoFalta:
+      description: 'Falta cometida por el servidor público'
+      type: object
+      required:
+        - clave
+        - valor
+      properties:
+        clave:
+          type: string
+          enum:
+            - NAD
+            - VPC
+            - VLNP
+            - AUT
+            - CEX
+            - IDSP
+            - DCSP
+            - EIFM
+            - VDH
+            - AG
+            - ANG
+            - AC
+            - HSEX
+            - ASEX
+            - PEC
+            - DRP
+            - UII
+            - AFN
+            - ABCI
+            - CIND
+            - EOCI
+            - TINF
+            - ENCB
+            - DSCT
+            - OJUST
+            - OTRO
+          description: |
+            Clave del tipo de falta cometida. Valores permitidos
+            * `NAD` - NEGLIGENCIA ADMINISTRATIVA
+            * `VPC` - VIOLACION PROCEDIMIENTOS DE CONTRATACION
+            * `VLNP` - VIOLACION LEYES Y NORMATIVIDAD PRESUPUESTAL
+            * `AUT` - ABUSO DE AUTORIDAD
+            * `CEX` - COHECHO O EXTORSION
+            * `IDSP` - INCUMPLIMIENTO EN DECLARACION DE SITUACION PATRIMONIAL
+            * `DCSP` - DELITO COMETIDO POR SERVIDORES PUBLICOS
+            * `EIFM` - EJERCICIO INDEBIDO DE SUS FUNCIONES EN MATERIA MIGRATORIA
+            * `VDH` - VIOLACIÓN A LOS DERECHOS HUMANOS
+            * `AG` - ADMINISTRATIVA GRAVE
+            * `ANG` - ADMINISTRATIVA NO GRAVE
+            * `AC` - ACTO DE CORRUPCIÓN
+            * `HSEX` - COMETER O TOLERAR CONDUCTAS DE HOSTIGAMIENTO SEXUAL
+            * `ASEX` - COMETER O TOLERAR CONDUCTAS DE ACOSO SEXUAL
+            * `PEC` - PECULADO
+            * `DRP` - DESVÍO DE RECURSOS PÚBLICOS
+            * `UII` - UTILIZACIÓN INDEBIDA DE INFORMACIÓN
+            * `AFN` - ABUSO DE FUNCIONES
+            * `ABCI` - ACTUACIÓN BAJO CONFLICTO DE INTERÉS
+            * `CIND` - CONTRATACIÓN INDEBIDA
+            * `EOCI` - ENRIQUECIMIENTO OCULTO U OCULTAMIENTO DE CONFLICTO DE INTERÉS
+            * `TINF` - TRÁFICO DE INFLUENCIAS
+            * `ENCB` - ENCUBRIMIENTO
+            * `DSCT` - DESACATO
+            * `OJUST` -  OBSTRUCCIÓN DE LA JUSTICIA
+            * `OTRO` - OTRO
+            example: AG
+        valor:
+          type: string
+          description: 'Valor del tipo de falta'
+          example: 'ADMINISTRATIVA GRAVE'
+        descripcion:
+          type: string
+          description: 'Descripción o nota aclaratoria.'
+          example: 'Administrativa grave'

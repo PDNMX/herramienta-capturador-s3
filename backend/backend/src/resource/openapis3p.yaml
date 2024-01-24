@@ -1,0 +1,748 @@
+openapi: 3.0.0
+info:
+  version: 1.1.0
+  title: API de particulares sancionados
+paths:
+  /v1/psancionados:
+    post:
+      tags:
+        - psancionados
+      summary: 'Muestra los particulares sancionados permitiendo búsquedas avanzadas.'
+      operationId: post_psancionados
+      requestBody:
+        description: 'JSON para peticiones de busqueda avanzada.'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/reqParticularesSancionados'
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resParticularesSancionados'
+        '400':
+          description: Página inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        '401':
+          description: No tienes permisos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+      security:
+        - psancionados_auth: []
+  /v1/psancionados/dependencias:
+    get:
+      tags:
+        - dependencias
+      summary: Dependencias donde se cometió la sanción
+      operationId: get_dependencias
+      responses:
+        '200':
+          description: Operación exitosa
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dependencias'
+        '400':
+          description: Página inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+        '401':
+          description: No tienes permisos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/resError'
+      security:
+        - psancionados_auth: []
+externalDocs:
+  description: Más información
+  url: 'https://github.com/PDNMX/api_docs'
+components:
+  securitySchemes:
+    psancionados_auth:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: /oauth
+          scopes: {}
+  schemas:
+    resParticularesSancionados:
+      type: object
+      required:
+        - pagination
+        - results
+      properties:
+        pagination:
+          type: object
+          required:
+            - pageSize
+            - page
+            - totalRows
+            - hasNextPage
+          properties:
+            pageSize:
+              type: number
+              minimum: 1
+              description: 'Número de registros a mostrar por página, el máximo permitido es 200 y el minimo 1'
+              example: 30
+            page:
+              type: number
+              minimum: 1
+              description: 'Número de página actual'
+              example: 20
+            totalRows:
+              type: number
+              minimum: 0
+              description: 'Total de registros que cumplen los parámetros de la petición'
+              example: 300
+            hasNextPage:
+              type: boolean
+              description: 'Indica si existe otra página'
+              example: true
+        results:
+          type: array
+          items:
+            type: object
+            required:
+              - id
+              - fechaCaptura
+              - institucionDependencia
+              - particularSancionado
+              - autoridadSancionadora
+              - tipoSancion
+              - causaMotivoHechos
+            properties:
+              id:
+                type: string
+                description: 'Dato que permita identificar de manera  unívoca al registro'
+                example: '1'
+              fechaCaptura:
+                type: string
+                format: date-time
+                description: >-
+                  Fecha y hora - en la que se agrega o modifica el registro.
+                  Fecha en formato ISO 8601
+                example: '2017-07-21T17:32:28Z'
+              expediente:
+                type: string
+                description: >-
+                  El expediente derivado de la investigación que las Autoridades
+                  Investigadoras realizan
+                example: 'ABC123'
+              institucionDependencia:
+                type: object
+                required:
+                  - nombre
+                properties:
+                  nombre:
+                    type: string
+                    description: >-
+                      Nombre de la Institución o Dependencia donde el
+                      contratista cometió la irregularidad
+                    example: 'Secretaría de Hacienda y Crédito Público'
+                  siglas:
+                    type: string
+                    description: >-
+                      Siglas de la Institución o Dependencia donde el
+                      contratista cometió la irregularidad
+                    example: SHCP
+                  clave:
+                    type: string
+                    description: >-
+                      Clave de la Institución o Dependencia donde el contratista
+                      cometió la irregularidad
+                    example: XYZ987
+              particularSancionado:
+                type: object
+                required:
+                  - nombreRazonSocial
+                  - tipoPersona
+                properties:
+                  nombreRazonSocial:
+                    type: string
+                    description: 'Razón social de la empresa'
+                    example: 'PATITO TELECOM S.A. de C.V.'
+                  objetoSocial:
+                    type: string
+                    description: 'Objeto social de la empresa'
+                    example: 'Objeto social de la empresa'
+                  rfc:
+                    type: string
+                    description: 'RFC del contratista.'
+                    example: 'PAT21343213'
+                  tipoPersona:
+                    type: string
+                    description: 'Tipo de persona. Valores permitidos F = Física, M = Moral'
+                    enum:
+                      - F
+                      - M
+                    example: F
+                  telefono:
+                    type: string
+                    maxLength: 12
+                    description: >-
+                      Teléfono del contratista. Número teléfonico estandarizado.
+                      http://www.itu.int/dms_pub/itu-t/opb/sp/T-SP-E.164D-2009-PDF-S.pdf.
+                    example: '552123244'
+                  domicilioMexico:
+                    description: >-
+                      Dirección del contratista en caso de que se encuentre en México. Este dato es información
+                      confidencial
+                    type: object
+                    properties:
+                      pais:
+                        type: object
+                        properties:
+                          valor:
+                            type: string
+                            description: 'Nombre del pais especificado en estándar ISO3166'
+                            example: 'México'
+                          clave:
+                            type: string
+                            description: >-
+                              Código alpha 2 del país especificado en estándar
+                              ISO3166
+                            example: 'MX'
+                      entidadFederativa:
+                        type: object
+                        properties:
+                          valor:
+                            type: string
+                            description: >-
+                              Nombre de la entidad federativa del Marco
+                              Geoestadístico Nacional
+                            example: 'México'
+                          clave:
+                            type: string
+                            description: >-
+                              Clave de la entidad federativa del Marco
+                              Geoestadístico Nacional
+                            example: '15'
+                      municipio:
+                        type: object
+                        properties:
+                          valor:
+                            type: string
+                            description: >-
+                              Nombre del municipio  del Marco Geoestadístico
+                              Nacional
+                            example: 'Ecatepec de Morelos'
+                          clave:
+                            type: string
+                            description: >-
+                              Clave del municipio del Marco Geoestadístico
+                              Nacional
+                            example: '033'
+                      codigoPostal:
+                        type: string
+                        maxLength: 5
+                        description: 'Código postal del domicilio'
+                        example: '55018'
+                      localidad:
+                        type: object
+                        description: 'Utilizar el Marco Geoestadístico Nacional'
+                        properties:
+                          valor:
+                            type: string
+                            description: 'Nombre de la localidad'
+                            example: 'Ecatepec de Morelos'
+                          clave:
+                            type: string
+                            description: 'Clave de la localidad'
+                            example: '0001'
+                      vialidad:
+                        type: object
+                        description: 'Utilizar el Marco Geoestadístico Nacional'
+                        properties:
+                          clave:
+                            type: string
+                            description: 'Tipo de vialidad'
+                            example: 'CALLE'
+                          valor:
+                            type: string
+                            description: 'Nombre de vialidad'
+                            example: 'El Rosal'
+                      numeroExterior:
+                        type: string
+                        description: 'Número exterior del domicilio'
+                        example: '24'
+                      numeroInterior:
+                        type: string
+                        description: 'Número interior del domicilio'
+                        example: '48'
+                  domicilioExtranjero:
+                    type: object
+                    description: 'Llenar en caso de que el domicilio del particular se encuentre en el extranjero'
+                    properties:
+                      calle:
+                        type: string
+                        example: 'Evergreen Terrace'
+                      numeroExterior:
+                        type: string
+                        example: '742'
+                      numeroInterior:
+                        type: string
+                        example: ''
+                      ciudadLocalidad:
+                        type: string
+                        example: Springfield
+                      estadoProvincia:
+                        type: string
+                        example: North Takoma
+                      pais:
+                        $ref: '#/components/schemas/pais'
+                      codigoPostal:
+                        type: string
+                        example: '01234'
+                  directorGeneral:
+                    type: object
+                    properties:
+                      nombres:
+                        type: string
+                        description: >-
+                          Nombre(s) del director general de la empresa al
+                          momento de la falta
+                        example: Carlos
+                      primerApellido:
+                        type: string
+                        description: >-
+                          Primer apellido del director general de la empresa al
+                          momento de la falta
+                        example: Pérez
+                      segundoApellido:
+                        type: string
+                        description: >-
+                          Segundo apellido del director general de la empresa al
+                          momento de la falta
+                        example: López
+                      curp:
+                        type: string
+                        maxLength: 18
+                        description: >-
+                          CURP del director general de la empresa al momento de
+                          la falta
+                        example: 'BADD110313HCMLNS09'
+                  apoderadoLegal:
+                    type: object
+                    properties:
+                      nombres:
+                        type: string
+                        description: >-
+                          Nombre(s) del apoderado legal de la empresa al momento
+                          de la falta
+                        example: Carlos
+                      primerApellido:
+                        type: string
+                        description: >-
+                          Primer apellido del apoderado legal de la empresa al
+                          momento de la falta
+                        example: Pérez
+                      segundoApellido:
+                        type: string
+                        description: >-
+                          Segundo apellido del apoderado legal de la empresa al
+                          momento de la falta
+                        example: López
+                      curp:
+                        type: string
+                        maxLength: 18
+                        description: >-
+                          CURP del apoderado legal de la empresa al momento de
+                          la falta
+                        example: 'BADD110313HCMLNS09'
+              objetoContrato:
+                type: string
+                description: 'Objeto del contrato'
+                example: 'Servicio de telefonía fija'
+              autoridadSancionadora:
+                type: string
+                description: 'OIC o Unidad responsable de la sanción'
+                example: 'OIC'
+              tipoFalta:
+                type: string
+                description: >-
+                  Tipo de falta. eg.,soborno, participación ilícita, tráfico de
+                  influencias, uso información falsa,colusión, obstrucción de
+                  facultades, contratación indebida, uso indebido de recusos
+                  públicos.
+                example: 'Contratación indebida'
+              tipoSancion:
+                $ref: '#/components/schemas/tipoSancion'
+              causaMotivoHechos:
+                type: string
+                description: 'Causa/motivo de la sanción'
+                example: 'Causa o motivo de la sanción'
+              acto:
+                type: string
+                description: 'Acto que originó la investigación. Ejm. Contrataciones'
+                example: 'Contrataciones'
+              responsableSancion:
+                type: object
+                required:
+                  - nombres
+                  - primerApellido
+                properties:
+                  nombres:
+                    type: string
+                    description: >-
+                      Nombre o nombres del Titular del área de responsabilidades
+                      o Contralor del Órgano Interno de Control responsable de
+                      la información registrada
+                    example: 'Carlos'
+                  primerApellido:
+                    type: string
+                    description: >-
+                      Primer apellido del Titular del área de responsabilidades
+                      o Contralor del Órgano Interno de Control responsable de
+                      la información registrada
+                    example: 'Pérez'
+                  segundoApellido:
+                    type: string
+                    description: >-
+                      Segundo apellido del Titular del área de responsabilidades
+                      o Contralor del Órgano Interno de Control responsable de
+                      la información registrada
+                    example: 'López'
+              resolucion:
+                type: object
+                properties:
+                  sentido:
+                    type: string
+                    description: >-
+                      Sentido de la resolución. Por ejemplo, Sancionatoria con
+                      multa.
+                    example: 'Sansionatoria con multa'
+                  url:
+                    type: string
+                    description: >-
+                      URL que apunta al documento en formato digital de la
+                      resolución emitida por el correspondiente Organo Interno
+                      de Control
+                    example: 'https://ejemplo.mx/archivo/documento.pdf'
+                  fechaNotificacion:
+                    type: string
+                    format: date
+                    description: >-
+                      Fecha de notificación de la resolución. Fecha en formato
+                      ISO 8601
+                    example: '2019-11-20'
+              multa:
+                type: object
+                description: 'Se llena en caso de que el particular haya tenido multa económica'
+                properties:
+                  monto:
+                    type: number
+                    format: float
+                    minimum: 0
+                    description: Monto de la multa impuesta a la empresa
+                    example: 5000000
+                  moneda:
+                    description: "Tipo de moneda. Señalar tipo de moneda."
+                    type: object
+                    properties:
+                      clave:
+                        type: string
+                        description: 'ISO 4217'
+                        example: "MXN"
+                      valor:
+                        type: string
+                        example: "Peso Mexicano"
+              inhabilitacion:
+                type: object
+                description: 'Se llena en caso de que el particular haya sido inhabilitado'
+                properties:
+                  plazo:
+                    type: string
+                    description: Plazo de la inhabilitación. Ej. 2 años
+                    example: 2 años
+                  fechaInicial:
+                    type: string
+                    format: date
+                    description: >-
+                      Fecha inicial de la inhabilitación. Fecha en formato ISO
+                      8601
+                    example: '2019-01-01'
+                  fechaFinal:
+                    type: string
+                    format: date
+                    description: >-
+                      Fecha final de la inhabilitación. Fecha en formato ISO
+                      8601
+                    example: '2020-12-31'
+              observaciones:
+                type: string
+                description: Cualquier observación pertinente
+                example: >-
+                  Se multo e inhabilitó al proveedor PATITO TELECOM S.A de C.V.
+                  por ...
+              documentos:
+                description: >-
+                  Es una sección que permite adjuntar referencias a cualquier
+                  documento que se considere de valor para transparentar el
+                  proceso de sanción.
+                type: array
+                items:
+                  type: object
+                  required:
+                    - id
+                    - titulo
+                    - descripcion
+                    - url
+                    - fecha
+                  properties:
+                    id:
+                      type: string
+                      description: >-
+                        Puede ser el folio del documento o al menos un
+                        consecutivo para identificar a los documentos en el
+                        registro.
+                      example: doc-1
+                    tipo:
+                      type: string
+                      description: >-
+                        Tipo de documento, Valores permitidos ["RESOLUCION",
+                        "CONSTANCIA_SANCION", "CONSTANCIA_INHABILITACION",
+                        "CONSTANCIA_ABSTENCION"]
+                      enum:
+                        - RESOLUCION
+                        - CONSTANCIA_SANCION
+                        - CONSTANCIA_INHABILITACION
+                        - CONSTANCIA_ABSTENCION
+                      example: CONSTANCIA_INHABILITACION
+                    titulo:
+                      type: string
+                      description: Titulo del documento
+                      example: Constancia de inhabilitación...
+                    descripcion:
+                      type: string
+                      description: Descripción del documento
+                      example: Descripción del documento
+                    url:
+                      type: string
+                      description: Hipervínculo al documento
+                      example: 'https://ejemplo.mx/archivo/documento.pdf'
+                    fecha:
+                      type: string
+                      format: date
+                      description: Fecha del documento. Fecha en formato ISO 8601
+                      example: '2019-11-20'
+    reqParticularesSancionados:
+      type: object
+      properties:
+        sort:
+          type: object
+          properties:
+            nombreRazonSocial:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            rfc:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+            institucionDependencia:
+              type: string
+              enum:
+                - asc
+                - desc
+              description: Campo a ordenar de forma ascendente o descente
+              example: asc
+        page:
+          type: integer
+          description: Número de página a mostrar, en caso de no recibir el parámetro, su valor será el indicado en default.
+          example: 1
+          default: 1
+        pageSize:
+          type: integer
+          description: >-
+            Número de registros a mostrar por página, el máximo permitido es 200
+            y el minimo 1, , en caso de no recibir el parámetro, su valor será el indicado en default.
+          example: 10
+          default: 10
+        query:
+          description: >-
+            En este objeto se pasan los parametros para las busquedas por medio
+            de los campos correspondientes
+          properties:
+            id:
+              type: string
+              description: >-
+                Devuelve resultados al buscar por su ID. Si se especifica este
+                valor, el objeto query es omitido.
+              example: 123abc
+            nombreRazonSocial:
+              type: string
+              description: Nombre o razón social
+              example: PATITO TELECOM
+            rfc:
+              type: string
+              description: >-
+                Se deberá escribir los 10 caracteres básicos y los 3 caracteres
+                de la homoclave
+              example: PAT21343213
+            institucionDependencia:
+              type: string
+              description: Nombre de la institución o dependencia dónde se cometió la falta
+              example: Secretaría de Hacienda y Crédito Público
+            expediente:
+              type: string
+              description: >-
+                El expediente derivado de la investigación que las Autoridades
+                Investigadoras realizan
+              example: ABC123
+            tipoSancion:
+              type: array
+              uniqueItems: true
+              description: |
+                Clave del Tipo de sanción. Valores permitidos
+                  * `I` - INHABILITADO
+                  * `M` - MULTADO
+                  * `S` - SUSPENSIÓN DE ACTIVIDADES
+                  * `D` - DISOLUCIÓN DE LA SOCIEDAD
+                  * `A` - AMONESTACIÓN
+                  * `IND` - INDEMNIZACIÓN POR LOS DAÑOS Y PERJUICIOS OCASIONADOS A LA HACIENDA PÚBLICA FEDERAL, LOCAL O MUNICIPAL, O AL PATRIMONIO DE LOS ENTES PÚBLICOS.
+                  * `SE` - SANCIÓN ECONÓMICA
+                  * `O` - OTRO
+
+                *******Deberá devolver todos los registros que contengan al menos uno de los valores solicitados.
+              items:
+                type: string
+                enum:
+                  - I
+                  - M
+                  - S
+                  - D
+                  - A
+                  - IND
+                  - SE
+                  - O
+              example: [I,M]
+            tipoPersona:
+              type: string
+              description: 'Los valores pueden ser:  F = Física, M = Moral'
+              example: F
+        rfcSolicitante:
+          type: string
+          description: >-
+            RFC de la persona quien hace la consulta, si se omite este
+            parametro, se enviaran solo los datos públicos
+          example: GOAP780710RH7
+    dependencias:
+      description: Instituciones o dependencias donde se cometió la sanción
+      type: array
+      items:
+        type: object
+        required:
+          - nombre
+        properties:
+          nombre:
+            type: string
+            description: >-
+              Nombre de la Institución o Dependencia donde el contratista
+              cometió la irregularidad
+            example: Secretaría de Hacienda y Crédito Público
+          siglas:
+            type: string
+            description: >-
+              Siglas de la Institución o Dependencia donde el contratista
+              cometió la irregularidad
+            example: SHCP
+          clave:
+            type: string
+            description: >-
+              Clave de la Institución o Dependencia donde el contratista cometió
+              la irregularidad
+            example: XYZ987
+    resError:
+      description: Estos valores son definidos por el sistema del API.
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Código alfa numérico del error de la consulta.
+          example: abc123
+        message:
+          type: string
+          description: Texto descriptivo para el usuario final del error en la consulta
+          example: 'Error al formar la consulta, revise el formato de los campos.'
+    tipoSancion:
+      type: array
+      uniqueItems: true
+      description: 'Sanción impuesta'
+      items:
+        type: object
+        properties:
+          clave:
+            type: string
+            description: |
+              Tipo de sanción. Valores permitidos
+                * `I` - INHABILITADO
+                * `M` - MULTADO
+                * `S` - SUSPENSIÓN DE ACTIVIDADES
+                * `D` - DISOLUCIÓN DE LA SOCIEDAD
+                * `A` - AMONESTACIÓN
+                * `IND` - INDEMNIZACIÓN POR LOS DAÑOS Y PERJUICIOS OCASIONADOS A LA HACIENDA PÚBLICA FEDERAL, LOCAL O MUNICIPAL, O AL PATRIMONIO DE LOS ENTES PÚBLICOS.
+                * `SE` - SANCIÓN ECONÓMICA
+                * `O` - OTRO
+            enum:
+              - I
+              - M
+              - S
+              - D
+              - A
+              - IND
+              - SE
+              - O
+            example: I
+          valor:
+            type: string
+            description: 'Valor del tipo de sanción'
+            example: 'INHABILITADO'
+          descripcion:
+            type: string
+            description: 'Descripción o nota aclaratoria.'
+            example: 'Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas'
+        required:
+          - clave
+          - valor
+      example:
+        - clave: I
+          valor: Inhabilitado
+        - clave: M
+          valor: Multado
+    pais:
+      type: object
+      properties:
+        clave:
+          type: string
+          maxLength: 2
+          description: "Código alpha 2 del país especificado en estándar ISO3166"
+          example: "MX"
+        valor:
+          type: string
+          description: "Nombre  del país especificado en estándar ISO3166"
+          example: "México"

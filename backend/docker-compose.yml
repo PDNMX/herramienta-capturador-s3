@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  mongo:
+    image: mongo:5
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${DB_NAME}
+      ADMIN_USER: ${ADMIN_USER}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+    volumes:
+      - mongo:/data/db
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+    ports:
+      - 27017:27017
+
+  oauth2:
+    restart: always
+    build:
+      context: ./oauth20
+      dockerfile: Dockerfile
+    environment:
+      EXT: 86400
+      RTEXT: 87000
+      SEED: ${JWT_SEED}
+      USERMONGO: ${DB_ROOT_USER}
+      PASSWORDMONGO: ${DB_ROOT_PASSWORD}
+      HOSTMONGO: mongo
+      DATABASE: ${DB_NAME}
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    ports:
+      - ${PORT_OAUTH}:3005
+
+  backend:
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      USERMONGO: ${DB_ROOT_USER}
+      PASSWORDMONGO: ${DB_ROOT_PASSWORD}
+      HOSTMONGO: mongo
+      DATABASE: ${DB_NAME}
+      SEED: ${JWT_SEED}
+      EMAIL: ${EMAIL}
+      PASS_EMAIL: ${PASS_EMAIL}
+      HOST_EMAIL: ${HOST_EMAIL}
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    ports:
+      - ${PORT_BACKEND}:3004
+
+volumes:
+  mongo: {}

@@ -1,0 +1,219 @@
+{
+  "id": "Lore",
+  "fechaCaptura": "2023-01-18T00:01:50.077Z",
+  "ejercicio": 2020,
+  "nombres": "occaecat ullamco sunt aute adipisicing nulla cillum elit ex minim in labore id Lorem p",
+  "primerApellido": "nulla ir",
+  "segundoApellido": "",
+  "curp": "exercitation aliquip adipisicing velit labore duis in amet officia incididunt cupi",
+  "rfc": "cupidatat aute ea officia non aliqua non ma",
+  "sexo": "FEMENINO",
+  "entePublico": {
+    "entidadFederativa": {
+      "clave": "ipsum consequat sint sint culpa proident magna ea ut dolore exercitation",
+      "valor": "excepteur consectetur"
+    },
+    "ambitoGobierno": {
+      "clave": "OTRO",
+      "valor": "deserunt nulla consequat quis occ"
+    },
+    "poderOrganoGobierno": "JUDICIAL",
+    "nombre": "proident adipisicing enim consequat ",
+    "siglas": "incididunt ullamco velit voluptate ad aliqua officia voluptate a"
+  },
+  "empleoCargoComision": {
+    "areaAdscripcion": "ess",
+    "nivel": "Lorem nisi reprehenderit aute cupidatat excepteur incididunt ad deserunt esse voluptate in ir",
+    "nombre": "nostrud ea nisi mollit esse ex proident ex eiusmod "
+  },
+  "tipoArea": [
+    {
+      "bienesServicios": {
+        "clave": "OTRA",
+        "valor": "eu quis esse voluptate Lorem voluptate officia tempor Lorem elit quis occaecat quis occaecat est ali"
+      },
+      "obraPublica": {
+        "clave": "TECNICA",
+        "valor": "excepteur eu nostrud voluptate"
+      }
+    },
+    {
+      "bienesServicios": {
+        "clave": "TECNICA",
+        "valor": "aute consequat sit eu proident dolor adipisicing proiden"
+      },
+      "obraPublica": {
+        "clave": "TECNICA",
+        "valor": "consectetur minim duis enim culpa irure anim enim cupidatat sint aute consectetur exercitation"
+      }
+    },
+    {
+      "bienesServicios": {
+        "clave": "OTRA",
+        "valor": "Soy otro valor"
+      },
+      "obraPublica": {
+        "clave": "OTRA",
+        "valor": "sit velit do enim ea sit id veniam id sunt consectetur officia enim occaecat tempor non eu "
+      }
+    },
+    {
+      "bienesServicios": {
+        "clave": "REQUIRENTE",
+        "valor": "nulla elit minim non irure laborum ipsum dolor excepteur elit ex aute anim ex sit esse et pa"
+      },
+      "obraPublica": {
+        "clave": "REQUIRENTE",
+        "valor": "Lorem voluptate minim cupidatat eiusmod aliqua Lorem occaecat qui ut esse"
+      }
+    },
+    {
+      "bienesServicios": {
+        "clave": "REQUIRENTE",
+        "valor": "in nulla sunt velit non sit e"
+      },
+      "obraPublica": {
+        "clave": "RESPONSABLE_CONTRATACION",
+        "valor": "pariatur eu et sit ex dolore do consequat incididunt ipsum Lorem incididunt dolor ut q"
+      }
+    }
+  ],
+  "procedimientos": [
+    {
+      "tipo": "LICENCIAS",
+      "nivelesresponsabilidad": [
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "SUPERVISAR",
+          "identificadorObjeto": 23
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "EMITIR_SUSCRIBIR",
+          "identificadorObjeto": 57
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "EMITIR_SUSCRIBIR",
+          "identificadorObjeto": 41
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "REVISAR",
+          "identificadorObjeto": 1
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "FIRMAR_AUTORIZAR_DICTAMINAR",
+          "identificadorObjeto": 57
+        }
+      ]
+    },
+    {
+      "tipo": "CONCESIONES",
+      "nivelesresponsabilidad": [
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "ELABORAR",
+          "identificadorObjeto": 61
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "SUPERVISAR",
+          "identificadorObjeto": 70
+        }
+      ]
+    },
+    {
+      "tipo": "PERMISOS",
+      "nivelesresponsabilidad": [
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "SUPERVISAR",
+          "identificadorObjeto": 80
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "SUPERVISAR",
+          "identificadorObjeto": 36
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "SUPERVISAR",
+          "identificadorObjeto": 97
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "REVISAR",
+          "identificadorObjeto": 54
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "SUPERVISAR",
+          "identificadorObjeto": 44
+        }
+      ]
+    },
+    {
+      "tipo": "LICENCIAS",
+      "nivelesresponsabilidad": [
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "EMITIR_SUSCRIBIR",
+          "identificadorObjeto": 62
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "FIRMAR_AUTORIZAR_DICTAMINAR",
+          "identificadorObjeto": 89
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "ELABORAR",
+          "identificadorObjeto": 17
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "ELABORAR",
+          "identificadorObjeto": 5
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "FIRMAR_AUTORIZAR_DICTAMINAR",
+          "identificadorObjeto": 52
+        }
+      ]
+    },
+    {
+      "tipo": "AUTORIZACIONES",
+      "nivelesresponsabilidad": [
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "FIRMAR_AUTORIZAR_DICTAMINAR",
+          "identificadorObjeto": 62
+        },
+        {
+          "ambito": "RESOLUCION",
+          "nivel": "REVISAR",
+          "identificadorObjeto": 23
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "ELABORAR",
+          "identificadorObjeto": 7
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "ELABORAR",
+          "identificadorObjeto": 6
+        },
+        {
+          "ambito": "ATENCION_TRAMITACION",
+          "nivel": "ELABORAR",
+          "identificadorObjeto": 87
+        }
+      ]
+    }
+  ],
+  "observaciones": "veniam incididunt qui in mollit dolore sint magna officia esse incididunt Lorem "
+}
