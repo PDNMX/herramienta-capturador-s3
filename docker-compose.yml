@@ -21,7 +21,7 @@ services:
   oauth2:
     restart: always
     build:
-      context: ./backend/oauth20
+      context: ./backend/oauth20/
       dockerfile: Dockerfile
     environment:
       EXT: 86400
@@ -41,7 +41,7 @@ services:
   backend:
     restart: always
     build:
-      context: ./backend/backend
+      context: ./backend/backend/
       dockerfile: Dockerfile
     environment:
       USERMONGO: ${DB_ROOT_USER}
