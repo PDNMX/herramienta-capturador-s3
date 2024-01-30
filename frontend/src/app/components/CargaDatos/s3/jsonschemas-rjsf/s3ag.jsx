@@ -1,3 +1,4 @@
+// ABSTENCIONES - GRAVES (10)
 let data = {
   definitions: {
     constancias: {

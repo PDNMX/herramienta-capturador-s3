@@ -1,3 +1,4 @@
+// ACTOS DE PARTICULARES VINCULADOS CON FALTAS GRAVES - PERSONAS MORALES (4)
 let data = {
   definitions: {
     entidad: {

@@ -1,3 +1,4 @@
+// SANCIONES (INHABILITACIONES) POR NORMAS DIVERSAS A LA LGRA - PERSONAS FISICAS (5)
 let data = {
   definitions: {
     entidad: {

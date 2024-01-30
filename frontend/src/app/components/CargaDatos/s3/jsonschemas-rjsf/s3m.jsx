@@ -1,3 +1,4 @@
+// SANCIONES (INHABILITACIONES) POR NORMAS DIVERSAS A LA LGRA - PERSONAS MORALES (6)
 let data = {
   definitions: {
     entidad: {
