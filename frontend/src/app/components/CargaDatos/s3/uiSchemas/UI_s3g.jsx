@@ -77,9 +77,9 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      nivel: { "ui:placeholder": "Ejemplo: KA4" },
+      denominacion: { "ui:placeholder": "Ejemplo: Subdirección general de tecnologias de la información" },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
+        "ui:placeholder": "Ejemplo: Dirección general de tecnologias de la información",
       },
     },
     origenInvestigacion: {
@@ -98,6 +98,7 @@ let data = {
           "nombreNormatividadInfringida",
           "articuloNormatividadInfringida",
           "fraccionNormatividadInfringida",
+          "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
@@ -116,13 +117,21 @@ let data = {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
         },
+        descripcionHechos:{
+          "ui:placeholder":
+            "Ejemplo: ...",
+        },
       },
     },
     resolucion: {
       documentoResolucion: {
         "ui:placeholder": "Ejemplo: Sentencia Final",
       },
-      url: {
+      //campo nuevo
+      urlNotificacion: {
+        "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
+      },
+      urlResolucion: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
     },
