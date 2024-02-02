@@ -92,6 +92,7 @@ let data = {
           "nombreNormatividadInfringida",
           "articuloNormatividadInfringida",
           "fraccionNormatividadInfringida",
+          "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
@@ -110,11 +111,20 @@ let data = {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
         },
+        //se agrega
+        descripcionHechos:{
+          "ui:placeholder":
+            "Ejemplo: ...",
+        },
       },
     },
     resolucion: {
       documentoResolucion: {
         "ui:placeholder": "Ejemplo: Sentencia Final",
+      },
+      //campo nuevo
+      urlNotificacion: {
+        "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
       url: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
