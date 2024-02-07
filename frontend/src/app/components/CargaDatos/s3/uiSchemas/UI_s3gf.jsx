@@ -42,7 +42,7 @@ let data = {
       "ui:placeholder": "Ejemplo: 5500000000",
       "ui:enableMarkdownInDescription": true,
       "ui:description":
-        "Escribir el número de teléfono de la persona física estandarizado <a target='_blank' href='http://www.itu.int/dms_pub/itu-t/opb/sp/T-SP-E.164D-2009-PDF-S.pdf'> ITU </a>.",
+        "Proporcionar el número telefónico de la persona física sancionada. <a target='_blank' href='http://www.itu.int/dms_pub/itu-t/opb/sp/T-SP-E.164D-2009-PDF-S.pdf'> ITU </a>.",
     },
     objetoSocial: {
       "ui:placeholder":
