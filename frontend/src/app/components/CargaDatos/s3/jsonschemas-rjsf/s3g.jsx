@@ -76,7 +76,6 @@ let data = {
         "faltaCometida",
         "resolucion",
         "tipoSancion",
-        "observaciones",
       ],
       properties: {
         nombres: {
@@ -155,7 +154,6 @@ let data = {
             "nivelOdenGobierno",
             "ambitoPublico",
             "nombre",
-            "siglas",
           ],
           properties: {
             entidadFederativa: {
@@ -304,10 +302,11 @@ let data = {
         },
         empleoCargoComision: {
           type: "object",
-          required: ["clave", "nivel", "areaAdscripcion"],
+          required: ["nombre", "denominacion", "areaAdscripcion"],
           properties: {
             nombre: {
               type: "object",
+              required: ["clave"],
               properties: {
                 clave: {
                   title:
@@ -319,7 +318,6 @@ let data = {
                     "ENLACE_U_HOMOLOGO",
                     "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                     "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                    //"COORDINACION_DIRECCIÓN_DE_AREA_U_HOMOLOGO",
                     "DIRECCION_GENERAL_ADJUNTA_U_HOMÓLOGO",
                     "DIRECCION_GENERAL_U_HOMOLOGO",
                     "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
@@ -332,7 +330,6 @@ let data = {
                     "Enlace u homologo",
                     "Jefatura de departamento u homologo",
                     "Subdireccion de area u homologo",
-                    //"Coordinacion direccon de area u homologo",
                     "Direccion general adjunta u homologo",
                     "Direccion general u homologo",
                     "Jefatura de unidad u homologo",
@@ -407,17 +404,17 @@ let data = {
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
+                "OFICIO",
                 "DENUNCIA_CIUDADADA",
                 "DENUNCIA_SP",
-                "OFICIO",
                 "OTRO",
               ],
               enumNames: [
                 "Auditoría superior de la federación o entidades de fiscalización superior de la entidades federativas",
                 "Auditoría del organo interno de control del ente público",
+                "De Oficio",
                 "Denuncia ciudadana",
                 "Denuncia de servidor público",
-                "De Oficio",
                 "Otro",
               ],
             },
@@ -445,9 +442,9 @@ let data = {
                       enum: [
                         "AUDITORIA_SUPERIOR",
                         "AUDITORIA_OIC",
+                        "OFICIO",
                         "DENUNCIA_CIUDADADA",
                         "DENUNCIA_SP",
-                        "OFICIO",
                       ],
                     },
                   },
@@ -465,7 +462,7 @@ let data = {
             title: "Falta cometida",
             required: [
               "clave",
-              "nombreNormatividadInfringida",
+              "normatividadInfringida",
               "articuloNormatividadInfringida",
               "fraccionNormatividadInfringida",
             ],
@@ -507,7 +504,7 @@ let data = {
                   "Otro",
                 ],
               },
-              nombreNormatividadInfringida: {
+              normatividadInfringida: {
                 type: "string",
                 title: "Normatividad infringida",
                 description:
@@ -559,7 +556,7 @@ let data = {
                     properties: {
                       clave: {
                         enum: [
-                          "CAUSAR_DAÑO",
+                          "ABUSO_FUNCIONES",
                           "COHECHO",
                           "PECULADO",
                           "DESVIO_RECURSOS",
@@ -591,7 +588,7 @@ let data = {
             "fechaResolucion",
             "fechaNotificacion",
             "fechaResolucionFirme",
-            "url",
+            "fechaNotificacionFirme",
           ],
           properties: {
             documentoResolucion: {
@@ -681,6 +678,7 @@ let data = {
             sancion: {
               type: "array",
               title: "Tipo de sancion",
+              description: "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron dictaminadas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
               items: {
                 type: "object",
                 title: "Tipo de sancion",
@@ -723,6 +721,7 @@ let data = {
                           suspensionEmpleo: {
                             type: "object",
                             title: "SUSPENSIÓN DEL EMPLEO CARGO O COMISIÓN",
+                            description: "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión.",
                             required: ["plazo", "constancia"],
                             properties: {
                               plazo: {

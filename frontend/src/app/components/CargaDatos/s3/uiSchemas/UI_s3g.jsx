@@ -95,7 +95,7 @@ let data = {
         "ui:order": [
           "clave",
           "valor",
-          "nombreNormatividadInfringida",
+          "normatividadInfringida",
           "articuloNormatividadInfringida",
           "fraccionNormatividadInfringida",
           "descripcionHechos",
@@ -110,7 +110,7 @@ let data = {
         articuloNormatividadInfringida: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
-          },
+          }
         },
         fraccionNormatividadInfringida: {
           items: {
