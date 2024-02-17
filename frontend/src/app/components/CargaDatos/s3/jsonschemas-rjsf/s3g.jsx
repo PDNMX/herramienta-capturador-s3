@@ -55,8 +55,7 @@ let data = {
     expediente: {
       type: "string",
       title: "Expediente",
-      description:
-        "Registrar el número de expediente del procedimiento.",
+      description: "Registrar el número de expediente del procedimiento.",
     },
     grave: {
       title: "1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
@@ -80,13 +79,13 @@ let data = {
       properties: {
         nombres: {
           type: "string",
-          title: "Nombre (s)",
+          title: "Nombre(s)",
           description:
             "Escribir el o los nombres completos, sin abreviaturas, sin acentos, ni signos especiales.",
         },
         primerApellido: {
           type: "string",
-          title: "Primer Apellido",
+          title: "Primer apellido",
           description:
             "Escribir el primer apellido completo, sin abreviaturas, sin acentos, ni signos especiales.",
         },
@@ -114,7 +113,7 @@ let data = {
                     sinSegundoApellido: { const: false },
                     valor: {
                       type: "string",
-                      title: "Segundo Apellido",
+                      title: "Segundo apellido",
                       description:
                         "En caso de tener solo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco y posteriormente seleccionar la opción de: No cuento con segundo apellido.",
                     },
@@ -142,11 +141,13 @@ let data = {
           enum: ["FEMENINO", "MASCULINO"],
           enumNames: ["Femenino", "Masculino"],
           title: "Sexo",
-          description: "Seleccionar la opción que corresponda: femenino/masculino.",
+          description:
+            "Seleccionar la opción que corresponda: femenino/masculino.",
         },
         entePublico: {
           type: "object",
-          title: "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
+          title:
+            "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
           description:
             "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
           required: [
@@ -310,7 +311,7 @@ let data = {
               properties: {
                 clave: {
                   title:
-                    "Nivel jerárquico del empleo, cargo o comisión",
+                    "Nivel jerárquico del empleo, cargo o comisiónde la persona servidora pública",
                   description:
                     "Señalar el nivel jerárquico del empleo, cargo o comisión que desempeña la persona servidora pública sancionada.",
                   enum: [
@@ -318,7 +319,7 @@ let data = {
                     "ENLACE_U_HOMOLOGO",
                     "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                     "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                    "DIRECCION_GENERAL_ADJUNTA_U_HOMÓLOGO",
+                    "DIRECTOR_DE_AREA_U_HOMÓLOGO",
                     "DIRECCION_GENERAL_U_HOMOLOGO",
                     "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                     "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
@@ -326,15 +327,15 @@ let data = {
                     "OTRO",
                   ],
                   enumNames: [
-                    "Operativo u homologo",
-                    "Enlace u homologo",
-                    "Jefatura de departamento u homologo",
-                    "Subdireccion de area u homologo",
-                    "Direccion general adjunta u homologo",
-                    "Direccion general u homologo",
-                    "Jefatura de unidad u homologo",
-                    "Subsecretaria de estado oficialia mayor MAYOR u homologo",
-                    "Secretaria de esatdo u homologo",
+                    "Operativo u homólogo",
+                    "Enlace u homólogo",
+                    "Jefatura de departamento u homólogo",
+                    "Subdirección de área u homólogo",
+                    "Director de área u homólogo",
+                    "Dirección General u homólogo",
+                    "Jefatura de Unidad u homólogo",
+                    "Subsecretaría de estado, oficial mayor u homólogo",
+                    "Secretaría de estado u homólogo",
                     "Otro",
                   ],
                 },
@@ -363,8 +364,7 @@ let data = {
                             "ENLACE_U_HOMOLOGO",
                             "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                             "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                            "COORDINACION_DIRECCIÓN_DE_AREA_U_HOMOLOGO",
-                            "DIRECCION_GENERAL_ADJUNTA_U_HOMÓLOGO",
+                            "DIRECTOR_DE_AREA_U_HOMÓLOGO",
                             "DIRECCION_GENERAL_U_HOMOLOGO",
                             "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                             "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
@@ -395,23 +395,23 @@ let data = {
           type: "object",
           title: "3. ORIGEN DEL PROCEDIMIENTO",
           description:
-            "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave:",
+            "Motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
           properties: {
             clave: {
               title: "Origen del procedimiento",
               description:
-                "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
+                "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave:",
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
-                "OFICIO",
+                "DE_OFICIO",
                 "DENUNCIA_CIUDADADA",
                 "DENUNCIA_SP",
                 "OTRO",
               ],
               enumNames: [
                 "Auditoría superior de la federación o entidades de fiscalización superior de la entidades federativas",
-                "Auditoría del organo interno de control del ente público",
+                "Auditoría del órgano interno de control del ente público",
                 "De Oficio",
                 "Denuncia ciudadana",
                 "Denuncia de servidor público",
@@ -530,7 +530,7 @@ let data = {
                     "Escribir la fracción(es) infringida de la normatividad infringida.",
                 },
               },
-              descripcionHechos:{
+              descripcionHechos: {
                 title: "Descripción breve de los hechos",
                 type: "string",
                 description: "Señalar una descripción breve de los hechos. ",
@@ -582,7 +582,8 @@ let data = {
           type: "object",
           title:
             "5. RESOLUCIÓN DE LA FALTA COMETIDA POR LA PERSONA SERVIDORA PÚBLICA",
-          description: "En esta sección se señalarán los datos relativos a la resolución firme.",
+          description:
+            "En esta sección se señalarán los datos relativos a la resolución firme.",
           required: [
             "documentoResolucion",
             "fechaResolucion",
@@ -593,7 +594,7 @@ let data = {
           properties: {
             documentoResolucion: {
               type: "string",
-              title: "Titulo del documento",
+              title: "Título del documento",
               description:
                 "Escribir el nombre del documento de la resolución definitiva que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme, sin abreviaturas, sin acentos, ni signos especiales.",
             },
@@ -611,7 +612,7 @@ let data = {
               description:
                 "Indicar la fecha en que se notifica la resolución al servidor público sancionado.",
             },
-            //Campo nuevo-Url del documento en formato digital       
+            //Campo nuevo-Url del documento en formato digital
             urlNotificacion: {
               type: "string",
               title: "URL del documento en formato digital",
@@ -643,7 +644,8 @@ let data = {
         tipoSancion: {
           type: "object",
           title: "6. TIPO DE SANCIÓN IMPUESTA A LA PERSONA SERVIDORA PÚBLICA",
-          description: "En esta sección se indicará la sanción y/o sanciones impuestas a la persona servidora pública.",
+          description:
+            "En esta sección se indicará la sanción y/o sanciones impuestas a la persona servidora pública.",
           required: [
             "ordenJurisdiccional",
             "autoridadSancionadora",
@@ -668,20 +670,23 @@ let data = {
             autoridadInvestigadora: {
               type: "string",
               title: "Autoridad investigadora",
-              description: "Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa grave. ",
+              description:
+                "Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa grave. ",
             },
             autoridadSubstanciadora: {
               type: "string",
               title: "Autoridad substanciadora ",
-              description: "Señalar el nombre de la autoridad substanciadora del procedimiento.",
+              description:
+                "Señalar el nombre de la autoridad substanciadora del procedimiento.",
             },
             sancion: {
               type: "array",
-              title: "Tipo de sancion",
-              description: "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron dictaminadas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
+              title: "Tipo de sanción",
+              description:
+                "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron dictaminadas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
               items: {
                 type: "object",
-                title: "Tipo de sancion",
+                title: "Tipo de sanción",
                 required: ["clave"],
                 properties: {
                   clave: {
@@ -712,16 +717,11 @@ let data = {
                           clave: {
                             enum: ["SUSPENSION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión. ",
-                          },
                           suspensionEmpleo: {
                             type: "object",
                             title: "SUSPENSIÓN DEL EMPLEO CARGO O COMISIÓN",
-                            description: "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión.",
+                            description:
+                              "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión.",
                             required: ["plazo", "constancia"],
                             properties: {
                               plazo: {
@@ -730,16 +730,14 @@ let data = {
                                 description:
                                   "Colocar el plazo de la suspensión de la persona servidora pública sancionada, el cual podrán ser en meses o días naturales.",
                                 required: [
-                                  "año",
-                                  "mes",
-                                  "dia",
+                                  "meses",
+                                  "dias",
                                   "fechaInicial",
                                   "fechaFinal",
                                 ],
                                 properties: {
-                                  año: { title: "Año(s)", type: "string" },
-                                  mes: { title: "Mes(es)", type: "string" },
-                                  dia: { title: "Día(s)", type: "string" },
+                                  meses: { title: "Meses", type: "string" },
+                                  dias: { title: "Días", type: "string" },
                                   fechaInicial: {
                                     type: "string",
                                     format: "date",
@@ -756,29 +754,21 @@ let data = {
                                   },
                                 },
                               },
-                              constancia: {
-                                title: "Constancia de la suspensión",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
-                        required: ["descripcion", "suspensionEmpleo"],
+                        required: ["suspensionEmpleo"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["DESTITUCION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Descripción o nota aclaratoria del tipo de sanción infringida.",
-                          },
                           destitucionEmpleo: {
                             type: "object",
                             title: "DESTITUCIÓN DEL EMPLEO CARGO O COMISIÓN",
+                            description:
+                              "Este apartado se deberá llenar si en la resolución definitiva se le impuso destitución del empleo, cargo o comisión a la persona servidora pública.",
                             required: ["fechaDestitucion", "constancia"],
                             properties: {
                               fechaDestitucion: {
@@ -788,85 +778,76 @@ let data = {
                                 description:
                                   "indicar la fecha de destitución de la persona servidora pública en formato dd-mm-aaaa.",
                               },
-                              constancia: {
-                                title: "Constancia de la destitución",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
-                        required: [
-                          "descripcion",
-                          "destitucionEmpleo",
-                        ],
+                        required: ["destitucionEmpleo"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["SANCION_ECONOMICA"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Descripción o nota aclaratoria del tipo de sanción infringida.",
-                          },
                           sancionEconomica: {
                             type: "object",
                             title: "SANCIÓN ECONÓMICA",
+                            description:
+                              "Llenar este apartado en caso de que el servidor público sea acreedor a una sanción económica.",
                             required: [
-                              "monto",
-                              "moneda",
+                              "sancionImpuesta",
                               "plazo",
                               "cobrado",
                               "constancia",
                             ],
                             properties: {
-                              monto: {
-                                type: "number",
-                                title: "Monto",
-                                description:
-                                  "Colocar el monto total de la sanción económica.",
-                              },
-                              moneda: {
-                                title: "Moneda",
-                                description:
-                                  "Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
-                                enum: ["MXN", "UMA"],
+                              sancionImpuesta: {
+                                type: "object",
+                                title: "Sanción econónomica impuesta",
+                                required: ["monto", "moneda"],
+                                properties: {
+                                  monto: {
+                                    type: "number",
+                                    title: "Monto",
+                                    description:
+                                      "Colocar el monto total de la sanción económica.",
+                                  },
+                                  moneda: {
+                                    title: "Moneda",
+                                    description:
+                                      "Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
+                                    enum: ["MXN", "UMA"],
+                                  },
+                                },
                               },
                               plazo: {
                                 type: "object",
                                 title: "Plazo de la sanción económica",
                                 description:
                                   "Señalar el plazo para dar cumplimiento a la sanción económica: años, meses y días.",
-                                required: ["año", "mes", "dia"],
+                                required: ["años", "meses", "dias"],
                                 properties: {
-                                  año: { title: "Año(s)", type: "string" },
-                                  mes: { title: "Mes(es)", type: "string" },
-                                  dia: { title: "Día(s)", type: "string" },
+                                  años: { title: "Año(s)", type: "string" },
+                                  meses: { title: "Mes(es)", type: "string" },
+                                  dias: { title: "Día(s)", type: "string" },
                                 },
                               },
                               cobrado: {
                                 type: "object",
                                 title:
                                   "Sanción económica efectivamente cobrada",
-                                required: [
-                                  "monto",
-                                  "moneda",
-                                  "fecha",
-                                  "fechaPagoSancion",
-                                ],
+                                description:
+                                  "Indicar el monto efectivamente cobrado: monto y moneda",
                                 properties: {
                                   monto: {
                                     type: "number",
                                     title: "Monto",
                                     description:
-                                      "Indicar el monto efectivamente cobrado: monto",
+                                      "Indicar el monto efectivamente cobrado",
                                   },
                                   moneda: {
                                     title: "Moneda",
                                     description:
-                                      "SIndicar el monto efectivamente cobrado: moneda.",
+                                      "Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
                                     enum: ["MXN", "UMA"],
                                   },
                                   fecha: {
@@ -874,7 +855,7 @@ let data = {
                                     format: "date",
                                     title: "Fecha de cobro de la sanción",
                                     description:
-                                      "Registrar la fecha en que se realizó el cobro de la sanción económica en formato dd-mm-aaaa.",
+                                      "Especificar la fecha en que se realizó el cobro de la sanción económica en formato dd-mm-aaaa.",
                                   },
                                   fechaPagoSancion: {
                                     type: "string",
@@ -886,10 +867,6 @@ let data = {
                                   },
                                 },
                               },
-                              constancia: {
-                                title: "Constancia de la sanción",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
@@ -900,34 +877,29 @@ let data = {
                           clave: {
                             enum: ["INHABILITACION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Esta sección deberá llenarse en caso de que el servidor público sea sancionado con una inhabilitación. ",
-                          },
                           inhabilitacion: {
                             type: "object",
                             title:
                               "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
+                            description: "Esta sección deberá llenarse en caso de que el servidor público sea sancionado con una inhabilitación.", 
                             required: ["plazo", "constancia"],
                             properties: {
                               plazo: {
                                 type: "object",
-                                title: "Plazo de la inhabilitación",
+                                title: "Plazo de la inhabilitación del empleo",
                                 description:
                                   "Colocar el plazo de la inhabilitación de la persona servidora pública, empezando por año(s), mes(es) y día(s).",
                                 required: [
-                                  "año",
-                                  "mes",
-                                  "dia",
+                                  "años",
+                                  "meses",
+                                  "dias",
                                   "fechaInicial",
                                   "fechaFinal",
                                 ],
                                 properties: {
-                                  año: { title: "Año(s)", type: "string" },
-                                  mes: { title: "Mes(es)", type: "string" },
-                                  dia: { title: "Día(s)", type: "string" },
+                                  años: { title: "Año(s)", type: "string" },
+                                  meses: { title: "Mes(es)", type: "string" },
+                                  dias: { title: "Día(s)", type: "string" },
                                   fechaInicial: {
                                     type: "string",
                                     format: "date",
@@ -944,52 +916,41 @@ let data = {
                                   },
                                 },
                               },
-                              constancia: {
+                              //PREGUNTAR A YURI SI USARA LA PARTE DE CONSTANCIA EN SANCION DE INHABILITACIONES
+                              /*constancia: {
                                 title: "Constancia de la inhabilitación",
                                 $ref: "#/definitions/constancias",
-                              },
+                              },*/
                             },
                           },
                         },
-                        required: ["descripcion", "inhabilitacion"],
+                        required: ["inhabilitacion"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["OTRO"],
                           },
-                          valor: {
-                            title: "Otro",
-                            description: "Especifique",
-                            type: "string",
-                          },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas. ",
-                          },
                           otro: {
                             type: "object",
                             title: "OTRO",
-                            required: ["nombre", "urlDocumento"],
+                            description: "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
                             properties: {
                               nombre: {
                                 title: "Sanción",
                                 type: "string",
-                                description:
-                                  "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
+                                description: "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
                               },
-                              urlDocumento: {
+                              descripcion: {
                                 type: "string",
-                                title: "URL del documento digital",
+                                title: "Descripción de la sanción",
                                 description:
-                                  "Colocar el enlace o link del documento digital de la constancia.",
+                                  "FALTA EN DOCUMENTO DE DESCRIPCIONES ESTE CAMPO DECIR A YURI",
                               },
                             },
                           },
                         },
-                        required: ["valor", "descripcion", "otro"],
+                        required: ["otro"],
                       },
                     ],
                   },

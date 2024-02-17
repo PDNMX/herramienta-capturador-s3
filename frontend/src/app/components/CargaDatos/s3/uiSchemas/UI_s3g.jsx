@@ -46,10 +46,10 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Secretaría de Hacienda y Crédito Público",
+        "ui:placeholder": "Ejemplo: Instituto nacional de transparencia, acceso a la información y protección de datos personales",
       },
       siglas: {
-        "ui:placeholder": "Ejemplo: SHCP",
+        "ui:placeholder": "Ejemplo: INAI",
       },
       nivelOdenGobierno: {
         "ui:options": { label: false },
@@ -77,9 +77,13 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      denominacion: { "ui:placeholder": "Ejemplo: Subdirección general de tecnologias de la información" },
+      denominacion: {
+        "ui:placeholder":
+          "Ejemplo: Subdirección general de tecnologias de la información",
+      },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Dirección general de tecnologias de la información",
+        "ui:placeholder":
+          "Ejemplo: Dirección general de tecnologias de la información",
       },
     },
     origenInvestigacion: {
@@ -103,23 +107,22 @@ let data = {
         valor: {
           "ui:placeholder": "...",
         },
-        nombreNormatividadInfringida: {
+        normatividadInfringida: {
           "ui:placeholder":
-            "Ejemplo: Ley General de Responsabilidades Administrativas",
+            "Ejemplo: Ley General de Responsabilidades Administrativas o Ley General de Responsabilidades Administrativas del estado de Guanajuato",
         },
         articuloNormatividadInfringida: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
-          }
+          },
         },
         fraccionNormatividadInfringida: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
         },
-        descripcionHechos:{
-          "ui:placeholder":
-            "Ejemplo: ...",
+        descripcionHechos: {
+          "ui:placeholder": "Ejemplo: ...",
         },
       },
     },
@@ -157,23 +160,10 @@ let data = {
             "ui:options": { label: false },
             "ui:widget": "RadioWidget",
           },
-          valor: {
-            "ui:placeholder": "...",
-          },
-          descripcion: {
-            "ui:placeholder": "Ejemplo: Sancion impuesta por ...",
-          },
           suspensionEmpleo: {
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
-            },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
           },
           destituciónEmpleoCargoComision: {
@@ -185,14 +175,16 @@ let data = {
             },
           },
           sancionEconomica: {
-            moneda: {
-              "ui:widget": "RadioWidget",
-              "ui:options": { inline: true },
+            sancionImpuesta: {
+              moneda: {
+                "ui:widget": "RadioWidget",
+                "ui:options": { inline: true },
+              },
             },
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
             cobrado: {
               moneda: {
@@ -209,21 +201,15 @@ let data = {
           },
           inhabilitacion: {
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
-            },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
           },
           otro: {
             nombre: { "ui:placeholder": "..." },
-            urlDocumento: {
-              "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
+            descripcion: {
+              "ui:placeholder": "Ejemplo: Sancion impuesta por ...",
             },
           },
         },
