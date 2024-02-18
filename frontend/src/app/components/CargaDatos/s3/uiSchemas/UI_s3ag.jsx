@@ -23,7 +23,7 @@ let data = {
         title: false,
       },
       valor: {
-        "ui:placeholder": "Ejemplo: Gomez",
+        "ui:placeholder": "Ejemplo: Gómez",
       },
     },
     sexo: {
@@ -46,12 +46,12 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Secretaría de Hacienda y Crédito Público",
+        "ui:placeholder": "Ejemplo: Instituto nacional de transparencia, acceso a la información y protección de datos personales",
       },
       siglas: {
-        "ui:placeholder": "Ejemplo: SHCP",
+        "ui:placeholder": "Ejemplo: INAI",
       },
-      nivelOdenGobierno: {
+      nivelOrdenGobierno: {
         "ui:options": { label: false },
         clave: {
           "ui:widget": "RadioWidget",
@@ -77,9 +77,9 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      nivel: { "ui:placeholder": "Ejemplo: KA4" },
+      nivel: { "ui:placeholder": "Ejemplo: Departamento de Desarrollo de Sistemas" },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
+        "ui:placeholder": "Ejemplo: Direccion General de Tecnologias de la Informacion",
       },
     },
     origenInvestigacion: {
@@ -104,16 +104,16 @@ let data = {
         },
         nombreNormatividad: {
           "ui:placeholder":
-            "Ejemplo: Ley General de Responsabilidades Administrativas",
+            "Ejemplo: Ley General de Responsabilidades Administrativas o Ley General de Responsabilidades Administrativas del estado de Guanajuato.",
         },
         articuloNormatividad: {
           items: {
-            "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
+            "ui:placeholder": "Ejemplo: Artículo 10, ...",
           },
         },
         fraccionNormatividad: {
           items: {
-            "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
+            "ui:placeholder": "Ejemplo: Fracción 10, ...",
           },
         },
       },

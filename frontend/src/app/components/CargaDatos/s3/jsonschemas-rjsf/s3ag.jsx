@@ -56,12 +56,12 @@ let data = {
       type: "string",
       title: "Expediente",
       description:
-        "Capturar el número que refiere al procedimiento único que da inicio en materia de responsabilidades administrativas.",
+        "Registrar el número de expediente del procedimiento.",
     },
     absGrave: {
-      title: "1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
+      title: "1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA.",
       description:
-        "Indicar los datos generales de la persona servidora pública sancionados.",
+        "En esta sección se registrarán los datos generales de la persona servidora pública.",
       type: "object",
       required: [
         "nombres",
@@ -81,18 +81,18 @@ let data = {
       properties: {
         nombres: {
           type: "string",
-          title: "Nombre (s)",
+          title: "Nombre(s)",
           description:
-            "Escribir el o los nombres de la persona servidora pública sancionada, sin abreviaturas, ni signos especiales.",
+            "Escribir el o los nombres de la persona servidora pública, sin abreviaturas, ni signos especiales.",
         },
         primerApellido: {
           type: "string",
-          title: "Primer Apellido",
+          title: "Primer apellido",
           description:
-            "Escribir el primer apellido de la persona servidora pública sancionada, sin abreviaturas, ni signos especiales.",
+            "Escribir el primer apellido de la persona servidora pública, sin abreviaturas, ni signos especiales.",
         },
         segundoApellido: {
-          title: "Segundo Apellido",
+          title: "Segundo apellido",
           type: "object",
           properties: {
             sinSegundoApellido: {
@@ -115,9 +115,9 @@ let data = {
                     sinSegundoApellido: { const: false },
                     valor: {
                       type: "string",
-                      title: "Segundo Apellido",
+                      title: "Segundo apellido",
                       description:
-                        "Escribir el segundo apellido de la persona servidora pública sancionada, sin abreviaturas, ni signos especiales.",
+                        "Escribir el segundo apellido de la persona servidora pública, sin abreviaturas, ni signos especiales.",
                     },
                   },
                   required: ["sinSegundoApellido", "valor"],
@@ -129,14 +129,10 @@ let data = {
         curp: {
           type: "string",
           title: "CURP",
-          description:
-            "Escribir los dieciocho caracteres alfanuméricos como la emitió la Secretaría de Gobernación.  En caso de no contar con ella, podrá consultarla en la siguiente página: https://www.gob.mx/curp/",
         },
         rfc: {
           type: "string",
           title: "RFC con homoclave",
-          description:
-            "Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave. En caso de no contar con este dato, podrá consultarlo en la página del Servicio de Administración Tributaria: https://www.sat.gob.mx/aplicacion/operacion/31274/consulta-tu-clave-de-rfc-mediante-curp",
         },
         sexo: {
           type: "string",
@@ -153,7 +149,7 @@ let data = {
             "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
           required: [
             "entidadFederativa",
-            "nivelOdenGobierno",
+            "nivelOrdenGobierno",
             "ambitoPublico",
             "nombre",
             "siglas",
@@ -232,7 +228,7 @@ let data = {
                 { clave: "32", valor: "Zacatecas" },
               ],
             },
-            nivelOdenGobierno: {
+            nivelOrdenGobierno: {
               type: "object",
               properties: {
                 clave: {
@@ -243,7 +239,7 @@ let data = {
                   enumNames: [
                     "Federal",
                     "Estatal",
-                    "Municipal y/o Alcadía",
+                    "Municipal/Alcadía",
                     "Otro",
                   ],
                 },
@@ -312,33 +308,31 @@ let data = {
               properties: {
                 clave: {
                   title:
-                    "Empleo, cargo o comisión de la persona servidora pública sancionada",
+                    "Nivel jerárquico del empleo, cargo o comisión de la persona servidora pública",
                   description:
-                    "Escribir el nombre completo del empleo, cargo o comisión que aparece en su recibo de nómina, nombramiento, contrato u oficio de comisión.",
+                    "Seleccionar el nivel jerárquico del empleo, cargo o comisión que desempeña la persona servidora pública sancionada.",
                   enum: [
                     "OPERATIVO_U_HOMOLOGO",
                     "ENLACE_U_HOMOLOGO",
                     "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                     "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                    "COORDINACION_DIRECCIÓN_DE_AREA_U_HOMOLOGO",
-                    "DIRECCION_GENERAL_ADJUNTA_U_HOMÓLOGO",
+                    "DIRECCION_DE_AREA_U_HOMOLOGO",
                     "DIRECCION_GENERAL_U_HOMOLOGO",
                     "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                     "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
-                    "SECRETARIA_DE_ESTADO_U_HOMÓLOGO",
+                    "SECRETARIA_DE_ESTADO_U_HOMOLOGO",
                     "OTRO",
                   ],
                   enumNames: [
-                    "Operativo u homologo",
-                    "Enlace u homologo",
-                    "Jefatura de departamento u homologo",
-                    "Subdireccion de area u homologo",
-                    "Coordinacion direccon de area u homologo",
-                    "Direccion general adjunta u homologo",
-                    "Direccion general u homologo",
-                    "Jefatura de unidad u homologo",
-                    "Subsecretaria de estado oficialia mayor MAYOR u homologo",
-                    "Secretaria de esatdo u homologo",
+                    "Operativo u homólogo",
+                    "Enlace u homólogo",
+                    "Jefatura de departamento u homólogo",
+                    "Subdirección de área u homólogo",
+                    "Dirección de área u homólogo",
+                    "Dirección general u homólogo",
+                    "Jefatura de unidad u homólogo",
+                    "Subsecretaría de estado oficialía mayor u homólogo",
+                    "Secretaría de estado u homólogo",
                     "Otro",
                   ],
                 },
@@ -367,12 +361,11 @@ let data = {
                             "ENLACE_U_HOMOLOGO",
                             "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                             "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                            "COORDINACION_DIRECCIÓN_DE_AREA_U_HOMOLOGO",
-                            "DIRECCION_GENERAL_ADJUNTA_U_HOMÓLOGO",
+                            "DIRECCION_DE_AREA_U_HOMOLOGO",
                             "DIRECCION_GENERAL_U_HOMOLOGO",
                             "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                             "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
-                            "SECRETARIA_DE_ESTADO_U_HOMÓLOGO",
+                            "SECRETARIA_DE_ESTADO_U_HOMOLOGO",
                           ],
                         },
                       },
@@ -383,23 +376,23 @@ let data = {
             },
             nivel: {
               type: "string",
-              title: "Nivel del empleo, cargo o comisión",
+              title: "Denominación del empleo, cargo o comisión",
               description:
-                "Escribir los caracteres alfanuméricos de la clave o nivel del empleo, cargo o comisión que desempeña la persona servidora pública que interviene en alguno de los procedimientos citados en el objeto del sistema.",
+                "Escribir la denominación completa del empleo, cargo o comisión que aparece en su recibo de nómina, nombramiento, contrato u oficio de comisión, sin abreviaturas, sin acentos, ni signos especiales.",
             },
             areaAdscripcion: {
               type: "string",
-              title: "Denominación del area de adscripción",
+              title: "Área de adscripción",
               description:
-                "Escribir el nombre de la Unidad Administrativa a la que está adscrita la persona servidora pública que interviene en alguno de los procedimientos citados en el objeto del sistema.",
+                "Escribir el nombre de la Unidad Administrativa a la que está adscrita la persona servidora pública sancionada, sin abreviaturas, sin acentos, ni signos especiales.",
             },
           },
         },
         origenInvestigacion: {
           type: "object",
-          title: "3. ORIGEN PROBABLE FALTA ADMINISTRATIVA",
+          title: "3. ORIGEN DEL PROCEDIMIENTO",
           description:
-            "Indicar el origen y tipo de falta cometida conforme a los catálogos de cada sección.",
+            "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
           properties: {
             clave: {
               title: "Origen de la falta administrativa",
@@ -408,19 +401,15 @@ let data = {
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
-                "QUEJA",
-                "DENUNCIA_CIUDADADA",
                 "DENUNCIA_SP",
                 "OFICIO",
                 "OTRO",
               ],
               enumNames: [
-                "Auditoria superior de la federacion o entidades de fiscalizacion superior de la entidades federativas",
-                "Auditoria del organo interno de control del ente publico",
-                "Queja ciudadana",
-                "Denuncia ciudadana",
-                "Denuncia de servidor publico",
-                "Oficio",
+                "Auditoría superior de la federación o entidades de fiscalización superior de la entidades federativas",
+                "Auditoría del órgano interno de control del ente público",
+                "Denuncia de servidor público",
+                "De oficio",
                 "Otro",
               ],
             },
@@ -448,10 +437,8 @@ let data = {
                       enum: [
                         "AUDITORIA_SUPERIOR",
                         "AUDITORIA_OIC",
-                        "QUEJA",
-                        "DENUNCIA_CIUDADADA",
-                        "DENUNCIA_SP",
                         "OFICIO",
+                        "DENUNCIA_SP",
                       ],
                     },
                   },
@@ -462,7 +449,7 @@ let data = {
         },
         faltaCometida: {
           type: "array",
-          title: "4. TIPO DE FALTA PROBABLE FALTA ADMINISTRATIVA",
+          title: "4. PROBABLE FALTA COMETIDA POR LA PERSONA SERVIDORA PÚBLICA",
           items: {
             type: "object",
             title: "Falta cometida",
@@ -475,9 +462,9 @@ let data = {
             properties: {
               clave: {
                 title: "Falta cometida",
-                description: "Seleccionar el tipo de falta.",
+                description: "Seleccionar el tipo de falta cometida de la persona servidora pública sancionada.",
                 enum: [
-                  "CAUSAR_DAÑO",
+                  "ABUSO_FUNCIONES",
                   "COHECHO",
                   "PECULADO",
                   "DESVIO_RECURSOS",
@@ -485,53 +472,47 @@ let data = {
                   "CONFLICTO_INTERES",
                   "CONTRATACION_INDEBIDA",
                   "ENRIQUECIMIENTO",
-                  "SIMULACION",
                   "TRAFICO_INFLUENCIAS",
+                  "SIMULACION",
                   "ENCUBRIMIENTO",
                   "DESACATO",
-                  "NEPOTISMO",
-                  "OBSTRUCCION",
-                  "OTRO",
                 ],
                 enumNames: [
-                  "Causar daños y perjuicios a la hacienda pública",
-                  "Cohecho (PSP exija, acepte, obtenga o pretenda obtener, por sí o a través de terceros, con motivo de sus funciones, cualquier beneficio no comprendido en su remuneración)",
-                  "Peculado (PSP autorice, solicite o realice actos de apropiación de recursos públicos, para sí u otro.)",
-                  "Desvío de recursos públicos (PSP autorice, solicite o realice actos para la asignación o desvío de recursos públicos.)",
-                  "Utilización indebida de información (PSP adquiera para sí u otro, cualquier ventaja o beneficio privado, resultado de información privilegiada.)",
-                  "Actuación bajo conflicto de interés (PSP intervenga en la atención, tramitación o resolución de asuntos en los que tenga conflicto de interés o impedimento legal.)",
-                  "Contratación indebida (PSP que autorice cualquier tipo de contratación, así como la selección, nombramiento o designación, de quien se encuentre impedido por disposición legal o inhabilitado por resolución de autoridad competente para ocupar un empleo)",
-                  "Enriquecimiento oculto (PSP que falte a la veracidad en las declaraciones de situación patrimonial o de intereses.)",
-                  "Simulación del acto jurídico (PSP induzca a que otra PSP efectúe, retrase u omita realizar algún acto de su competencia para generar cualquier beneficio, provecho o ventaja para sí u otro.)",
-                  "Tráfico de influencias (PSP induzca a que otra PSP efectúe, retrase u omita realizar algún acto de su competencia para generar cualquier beneficio, provecho o ventaja para sí u otro.)",
-                  "Encubrimiento (PSP llegará a advertir actos u omisiones que pudieran constituir faltas administrativas, realice alguna conducta para su ocultamiento.)",
-                  "Desacato (PSP proporcione información falsa, o no dé respuesta, retrasa deliberadamente y sin justificación la entrega de información a autoridades fiscalizadoras o de control interno.)",
-                  "Nepotismo (PSP que directa o indirectamente, designe o intervenga para contratar a personas con las que tenga lazos de parentesco por consanguinidad, afinidad, matrimonio o concubinato.)",
-                  "Obstrucción de la justicia",
-                  "Otro",
+                  "Abuso de funciones",
+                  "Cohecho",
+                  "Peculado",
+                  "Desvío de recursos públicos",
+                  "Utilización indebida de información",
+                  "Actuación bajo conflicto de interés",
+                  "Contratación indebida",
+                  "Enriquecimiento oculto",
+                  "Tráfico de influencias",
+                  "Simulación del acto jurídico",
+                  "Encubrimiento",
+                  "Desacato",
                 ],
               },
               nombreNormatividad: {
                 type: "string",
-                title: "Ley y/o normatividad",
+                title: "Normatividad infringida",
                 description: "Escribir el nombre de la ley o normatividad.",
               },
               articuloNormatividad: {
                 type: "array",
-                title: "Artículo(s) ",
+                title: "Artículo(s) de la normatividad infringida",
                 items: {
-                  title: "Artículo",
+                  title: "Artículo(s)",
                   type: "string",
-                  description: "Escribir el artículo(s).",
+                  description: "Escribir el(los) artículo(s).",
                 },
               },
               fraccionNormatividad: {
                 type: "array",
-                title: "Fracción(es)",
+                title: "Fracción(es) de la normatividad infringida",
                 items: {
-                  title: "Fracción",
+                  title: "Fracción(es)",
                   type: "string",
-                  description: "Escribir la fracción(es).",
+                  description: "Escribir la(s) fracción(es).",
                 },
               },
             },
@@ -555,7 +536,7 @@ let data = {
                     properties: {
                       clave: {
                         enum: [
-                          "CAUSAR_DAÑO",
+                          "ABUSO_FUNCIONES",
                           "COHECHO",
                           "PECULADO",
                           "DESVIO_RECURSOS",
@@ -563,12 +544,10 @@ let data = {
                           "CONFLICTO_INTERES",
                           "CONTRATACION_INDEBIDA",
                           "ENRIQUECIMIENTO",
-                          "SIMULACION",
                           "TRAFICO_INFLUENCIAS",
+                          "SIMULACION",
                           "ENCUBRIMIENTO",
                           "DESACATO",
-                          "NEPOTISMO",
-                          "OBSTRUCCION",
                         ],
                       },
                     },
@@ -581,7 +560,7 @@ let data = {
         resolucion: {
           type: "object",
           title: "5. RESOLUCIÓN DE ABSTENCIÓN DE IMPOSICIÓN DE SANCIÓN",
-          description: "Indicar la resolución de la abstención.",
+          description: "En esta sección se señalarán los datos relativos a la resolución firme.",
           required: [
             "documentoResolucion",
             "fechaResolucion",
@@ -597,21 +576,21 @@ let data = {
               type: "string",
               title: "Titulo del documento",
               description:
-                "Escribir el nombre del documento de la sentencia definitiva que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme.",
+                "Escribir el nombre del documento de la resolución definitiva que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme, sin abreviaturas, sin acentos, ni signos especiales.",
             },
             fechaResolucion: {
               type: "string",
               format: "date",
               title: "Fecha de resolución",
               description:
-                "Registrar la echa en la que se emite la resolución sancionatoria de la persona servidora pública sancionada en formato dd-mm-aaaa.",
+                "Colocar la fecha en la que se emite la resolución sancionatoria en formato dd-mm-aaaa.",
             },
             fechaNotificacion: {
               type: "string",
               format: "date",
               title: "Fecha de notificación",
               description:
-                "Registrar la fecha en la que se le notifica al servidor público su sentencia en formato dd-mm-aaaa",
+                "Indicar la fecha en que se notifica la resolución al servidor público sancionado.",
             },
             descripcionAbstención: {
               type: "string",
@@ -627,25 +606,25 @@ let data = {
             ordenJurisdiccional: {
               title: "Orden jurisdiccional de la sanción.",
               description:
-                "Seleccionar la opción correspondiente al nivel de la orden jurisdiccional de la sanción.",
+                "Seleccionar la opción correspondiente al nivel de la orden jurisdiccional de la autoridad.",
               enum: ["FEDERAL", "ESTATAL"],
               enumNames: ["Federal", "Estatal"],
             },
             autoridadResolutora: {
               type: "string",
-              title: "Nombre de la autoridad resolutora",
+              title: "Autoridad resolutora",
               description:
                 "Indicar el nombre de la autoridad resolutora facultada para aplicar la sanción.",
             },
             autoridadInvestigadora: {
               type: "string",
-              title: "Nombre de la autoridad investigadora",
-              description: "Indicar el nombre de la autoridad invetigadora.",
+              title: "Autoridad investigadora",
+              description: "Especificar el nombre de la autoridad encargada de la investigación de la abstención grave",
             },
             autoridadSubstanciadora: {
               type: "string",
               title: "Nombre de la autoridad substanciadora.",
-              description: "Indicar el nombre de la autoridad substanciadora.",
+              description: "Señalar el nombre de la autoridad substanciadora del procedimiento.",
             },
           },
         },
@@ -653,7 +632,7 @@ let data = {
           title: "6. OBSERVACIONES",
           type: "string",
           description:
-            "En este espacio se podrán realizar las observaciones que se consideren pertinentes. aclaraciones u En virtud de que las aclaraciones pueden contener información reservada y/o confidencial, esta información no será de carácter pública.",
+            "En este espacio podrá realizar las aclaraciones u observaciones que considere pertinentes respecto de alguno o algunos de los apartados del documento.",
         },
       },
     },
