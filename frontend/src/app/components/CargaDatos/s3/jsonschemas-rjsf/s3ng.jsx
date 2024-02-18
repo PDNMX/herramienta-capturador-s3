@@ -18,20 +18,20 @@ let data = {
                 sinConstancia: { const: false },
                 titulo: {
                   type: "string",
-                  title: "Título de la constancia de la sanción",
+                  title: "Título de la constancia.",
                   description:
-                    "Proporcionar el nombre del título de la constancia de la persona servidora pública.",
+                    "Proporcionar el nombre del título de la constancia de la inhabilitación.",
                 },
                 fecha: {
                   type: "string",
                   format: "date",
-                  title: "Fecha de la constancia de la sanción",
+                  title: "Fecha de la expedición.",
                   description:
-                    "Indicar la fecha de expedición de la constancia de la persona servidora pública en formato dd-mm-aaaa.",
+                    "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
                 },
                 url: {
                   type: "string",
-                  title: "URL del documento digital",
+                  title: "URL de la constancia de inhabilitación",
                   description:
                     "Colocar el enlace o link del documento digital de la constancia.",
                 },
@@ -75,7 +75,6 @@ let data = {
         "faltaCometida",
         "resolucion",
         "tipoSancion",
-        "observaciones",
       ],
       properties: {
         nombres: {
@@ -156,7 +155,6 @@ let data = {
             "nivelOdenGobierno",
             "ambitoPublico",
             "nombre",
-            "siglas",
           ],
           properties: {
             entidadFederativa: {
@@ -579,7 +577,6 @@ let data = {
             "fechaResolucion",
             "fechaNotificacion",
             "fechaResolucionFirme",
-            "url",
           ],
           properties: {
             documentoResolucion: {
