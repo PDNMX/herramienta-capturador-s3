@@ -648,7 +648,7 @@ let data = {
             "En esta sección se indicará la sanción y/o sanciones impuestas a la persona servidora pública.",
           required: [
             "ordenJurisdiccional",
-            "autoridadSancionadora",
+            "autoridadResolutora",
             "autoridadInvestigadora",
             "autoridadSubstanciadora",
             "sancion",
@@ -661,7 +661,7 @@ let data = {
               enum: ["FEDERAL", "ESTATAL"],
               enumNames: ["Federal", "Estatal"],
             },
-            autoridadSancionadora: {
+            autoridadResolutora: {
               type: "string",
               title: "Autoridad resolutora",
               description:

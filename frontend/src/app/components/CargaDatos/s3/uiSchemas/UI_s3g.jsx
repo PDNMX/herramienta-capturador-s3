@@ -46,7 +46,8 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Instituto nacional de transparencia, acceso a la información y protección de datos personales",
+        "ui:placeholder":
+          "Ejemplo: Instituto nacional de transparencia, acceso a la información y protección de datos personales",
       },
       siglas: {
         "ui:placeholder": "Ejemplo: INAI",
@@ -143,7 +144,7 @@ let data = {
         "ui:widget": "RadioWidget",
         "ui:options": { inline: true },
       },
-      autoridadSancionadora: {
+      autoridadResolutora: {
         "ui:placeholder": "Ejemplo: Secretaría de la Función Pública",
       },
       autoridadInvestigadora: {

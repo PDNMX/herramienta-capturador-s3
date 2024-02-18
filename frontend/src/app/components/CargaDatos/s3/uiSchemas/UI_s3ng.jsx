@@ -40,10 +40,11 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Secretaría de Hacienda y Crédito Público",
+        "ui:placeholder":
+          "Ejemplo: Instituto Nacional de Transparencia, Acceso a la información y protección de datos personales",
       },
       siglas: {
-        "ui:placeholder": "Ejemplo: SHCP",
+        "ui:placeholder": "Ejemplo: INAI",
       },
       nivelOdenGobierno: {
         "ui:options": { label: false },
@@ -71,9 +72,13 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      nivel: { "ui:placeholder": "Ejemplo: KA4" },
+      denominacion: {
+        "ui:placeholder":
+          "Ejemplo: Subdirección general de tecnologias de la información",
+      },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
+        "ui:placeholder":
+          "Ejemplo: Dirección general de tecnologias de la información",
       },
     },
     origenInvestigacion: {
@@ -99,22 +104,21 @@ let data = {
         },
         nombreNormatividadInfringida: {
           "ui:placeholder":
-            "Ejemplo: Ley General de Responsabilidades Administrativas",
+            "Ejemplo: Ley General de Responsabilidades Administrativas o Ley General de Responsabilidades Administrativas del estado de Guanajuato.",
         },
         articuloNormatividadInfringida: {
           items: {
-            "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
+            "ui:placeholder": "Ejemplo: Artículo 10",
           },
         },
         fraccionNormatividadInfringida: {
           items: {
-            "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
+            "ui:placeholder": "Ejemplo: Fracción 3",
           },
         },
         //se agrega
-        descripcionHechos:{
-          "ui:placeholder":
-            "Ejemplo: ...",
+        descripcionHechos: {
+          "ui:placeholder": "Ejemplo: ...",
         },
       },
     },
@@ -130,19 +134,12 @@ let data = {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
     },
-    ordenJurisdiccional: {
-      "ui:widget": "RadioWidget",
-      "ui:options": { inline: true },
-    },
-    autoridadSancionadora: {
-      "ui:placeholder": "Ejemplo: Secretaría de la Función Pública",
-    },
     tipoSancion: {
       ordenJurisdiccional: {
         "ui:widget": "RadioWidget",
         "ui:options": { inline: true },
       },
-      autoridadSancionadora: {
+      autoridadResolutora: {
         "ui:placeholder": "Ejemplo: Secretaría de la Función Pública",
       },
       autoridadInvestigadora: {
@@ -179,9 +176,9 @@ let data = {
           },
           suspensionEmpleo: {
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
             constancia: {
               titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
@@ -200,9 +197,9 @@ let data = {
           },
           inhabilitacion: {
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
             constancia: {
               titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },

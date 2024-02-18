@@ -55,8 +55,7 @@ let data = {
     expediente: {
       type: "string",
       title: "Expediente",
-      description:
-        "Registrar el número de expediente del procedimiento.",
+      description: "Registrar el número de expediente del procedimiento.",
     },
     noGrave: {
       title: "1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
@@ -81,18 +80,18 @@ let data = {
       properties: {
         nombres: {
           type: "string",
-          title: "Nombre (s)",
+          title: "Nombre(s)",
           description:
             "Escribir el o los nombres, sin abreviaturas, sin acentos, ni signos especiales.",
         },
         primerApellido: {
           type: "string",
-          title: "Primer Apellido",
+          title: "Primer apellido",
           description:
             "Escribir los apellidos completos, sin abreviaturas, sin acentos, ni signos especiales.",
         },
         segundoApellido: {
-          title: "Segundo Apellido",
+          title: "Segundo apellido",
           type: "object",
           properties: {
             sinSegundoApellido: {
@@ -115,7 +114,7 @@ let data = {
                     sinSegundoApellido: { const: false },
                     valor: {
                       type: "string",
-                      title: "Segundo Apellido",
+                      title: "Segundo apellido",
                       description:
                         "En caso de tener solo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco y posteriormente seleccionar la opción de: No tengo segundo apellido. ",
                     },
@@ -143,11 +142,13 @@ let data = {
           enum: ["FEMENINO", "MASCULINO"],
           enumNames: ["Femenino", "Masculino"],
           title: "Sexo",
-          description: "Seleccionar la opción que corresponda: femenino/masculino.",
+          description:
+            "Seleccionar la opción que corresponda: femenino/masculino.",
         },
         entePublico: {
           type: "object",
-          title: "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
+          title:
+            "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
           description:
             "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
           required: [
@@ -237,7 +238,7 @@ let data = {
                 clave: {
                   title: "Nivel/Orden de Gobierno",
                   description:
-                    "Seleccionar el orden de gobierno al que pertenece el ente público donde labora la persona servidora pública sancionada: Federal, Estatal, Municipal/Alcaldía u otro (especificar).",
+                    "Seleccionar el nivel u orden de gobierno al que pertenece el ente público donde labora la persona servidora pública sancionada:",
                   enum: ["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA", "OTRO"],
                   enumNames: [
                     "Federal",
@@ -292,7 +293,7 @@ let data = {
               type: "string",
               title: "Nombre del ente público",
               description:
-                "Escribir el nombre completo del ente público donde labora la persona servidora pública sancionada, sin abreviaturas, ni signos especiales.",
+                "Escribir el nombre completo del ente público donde labora la persona servidora pública sancionada, sin abreviaturas, sin acentos, ni signos especiales.",
             },
             siglas: {
               type: "string",
@@ -310,8 +311,7 @@ let data = {
               type: "object",
               properties: {
                 clave: {
-                  title:
-                    "Nivel jerárquico del empleo, cargo o comisión",
+                  title: "Nivel jerárquico del empleo, cargo o comisión",
                   description:
                     "Señalar el nivel jerárquico del empleo, cargo o comisión que desempeña la persona servidora pública sancionada.",
                   enum: [
@@ -319,8 +319,7 @@ let data = {
                     "ENLACE_U_HOMOLOGO",
                     "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                     "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                    //"COORDINACION_DIRECCIÓN_DE_AREA_U_HOMOLOGO",
-                    "DIRECCION_GENERAL_ADJUNTA_U_HOMÓLOGO",
+                    "DIRECTOR_DE_AREA_U_HOMÓLOGO",
                     "DIRECCION_GENERAL_U_HOMOLOGO",
                     "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                     "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
@@ -328,16 +327,15 @@ let data = {
                     "OTRO",
                   ],
                   enumNames: [
-                    "Operativo u homologo",
-                    "Enlace u homologo",
-                    "Jefatura de departamento u homologo",
-                    "Subdireccion de area u homologo",
-                    //"Coordinacion direccon de area u homologo",
-                    "Direccion general adjunta u homologo",
-                    "Direccion general u homologo",
-                    "Jefatura de unidad u homologo",
-                    "Subsecretaria de estado oficialia mayor MAYOR u homologo",
-                    "Secretaria de esatdo u homologo",
+                    "Operativo u homólogo",
+                    "Enlace u homólogo",
+                    "Jefatura de departamento u homólogo",
+                    "Subdirección de área u homólogo",
+                    "Director de área u homólogo",
+                    "Dirección General u homólogo",
+                    "Jefatura de Unidad u homólogo",
+                    "Subsecretaría de estado, oficial mayor u homólogo",
+                    "Secretaría de estado u homólogo",
                     "Otro",
                   ],
                 },
@@ -398,26 +396,26 @@ let data = {
           type: "object",
           title: "3. ORIGEN DEL PROCEDIMIENTO",
           description:
-            "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave:",
+            "Motivo que dio origen a la investigación por la comisión de la falta administrativa no grave.",
           properties: {
             clave: {
               title: "Origen del procedimiento",
               description:
-                "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
+                "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa no grave",
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
+                "OFICIO",
                 "DENUNCIA_CIUDADADA",
                 "DENUNCIA_SP",
-                "OFICIO",
                 "OTRO",
               ],
               enumNames: [
                 "Auditoría superior de la federación o entidades de fiscalización superior de la entidades federativas",
                 "Auditoría del organo interno de control del ente público",
+                "De Oficio",
                 "Denuncia ciudadana",
                 "Denuncia de servidor público",
-                "De Oficio",
                 "Otro",
               ],
             },
@@ -445,9 +443,9 @@ let data = {
                       enum: [
                         "AUDITORIA_SUPERIOR",
                         "AUDITORIA_OIC",
+                        "OFICIO",
                         "DENUNCIA_CIUDADADA",
                         "DENUNCIA_SP",
-                        "OFICIO",
                       ],
                     },
                   },
@@ -458,11 +456,11 @@ let data = {
         },
         faltaCometida: {
           type: "array",
-          title: "4. TIPO DE FALTA COMETIDA POR LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
+          title:
+            "4. TIPO DE FALTA COMETIDA POR LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
           items: {
             type: "object",
             title: "Falta cometida",
-            description: "Por actos u omisiones que incumplan o transgredan las siguientes obligaciones:",
             required: [
               "clave",
               "nombreNormatividadInfringida",
@@ -479,31 +477,30 @@ let data = {
                   "DENUNCIE",
                   "ATENDER",
                   "PRESENTAR_DECLARACIONES",
-                  "DOCUMENTAR",
+                  "REGISTRAR",
                   "SUPERVISAR",
                   "RENDIR_CUENTAS",
-                  "CERCIORARSE",
-                  //Se agrega daños
-                  "DANOS",
+                  "COLABORAR",
+                  "DAÑOS",
                   "OTRO",
                 ],
                 enumNames: [
                   "Cumplir con las funciones, atribuciones y comisiones encomendadas, observando en su desempeño disciplina y respeto, tanto a los demás servidores públicos como a los particulares con los que llegare a tratar, en los términos que se establezcan en el código de ética.",
-                  "Denunciar los actos u omisiones que en ejercicio de sus funciones llegare a advertir, que puedan constituir faltas administrativas",
-                  "Atender las instrucciones de sus superiores, siempre que éstas sean acordes con las disposiciones relacionadas con el servicio público. En caso de recibir instrucción o encomienda contraria a dichas disposiciones, deberá denunciar esta circunstancia.",
-                  "Presentar en tiempo y forma las declaraciones de situación patrimonial y de intereses",
+                  "Denunciar los actos u omisiones que en ejercicio de sus funciones llegare a advertir, que puedan constituir faltas administrativas.",
+                  "Atender las instrucciones de sus superiores, siempre que éstas sean acordes con las disposiciones relacionadas con el servicio público.En caso de recibir instrucción o encomienda contraria a dichas disposiciones, deberá denunciar esta circunstancia.",
+                  "Presentar en tiempo y forma las declaraciones de situación patrimonial y de intereses.",
                   "Registrar, integrar, custodiar y cuidar la documentación e información que por razón de su empleo, cargo o comisión, tenga bajo su responsabilidad, e impedir o evitar su uso, divulgación, sustracción, destrucción, ocultamiento o inutilización indebidos.",
                   "Supervisar que los servidores públicos sujetos a su dirección, cumplan con las disposiciones de este artículo.",
                   "Rendir cuentas sobre el ejercicio de las funciones, en términos de las normas aplicables.",
                   "Colaborar en los procedimientos judiciales y administrativos en los que sea parte.",
-                  //se agrega segun el formato
-                  "Causar daños y prejuicios a la hacienda pública.",
+                  "Causar daños y perjuicios a la hacienda pública.",
                   "Otro",
                 ],
               },
               nombreNormatividadInfringida: {
                 type: "string",
-                title: "Normatividad infringida.",
+                //Preguntar a Yuri si queda con este titulo o con el nombre que esta en el formulario de faltas graves (1)
+                title: "Ley y/o normatividad infringida.",
                 description:
                   "Escribir el nombre de la ley o normatividad infringida por la persona servidora pública.",
               },
@@ -527,9 +524,10 @@ let data = {
                     "Escribir la fracción(es) infringida de la normatividad infringida.",
                 },
               },
-              descripcionHechos:{
-                title: "Descripción breve de los hechos",
+              //agregar este campo en el documento de descripciones
+              descripcionHechos: {
                 type: "string",
+                title: "Descripción breve de los hechos",
                 description: "Señalar una descripción breve de los hechos. ",
               },
             },
@@ -574,7 +572,8 @@ let data = {
           type: "object",
           title:
             "5. RESOLUCIÓN DE LA FALTA COMETIDA POR LA PERSONA SERVIDORA PÚBLICA",
-          description: "En esta sección se deberán indicar los datos relativos a la resolución firme.",
+          description:
+            "En esta sección se deberán indicar los datos relativos a la resolución firme.",
           required: [
             "documentoResolucion",
             "fechaResolucion",
@@ -585,7 +584,7 @@ let data = {
           properties: {
             documentoResolucion: {
               type: "string",
-              title: "Titulo del documento",
+              title: "TÍtulo del documento",
               description:
                 "Escribir el nombre del documento de la resolución que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme.",
             },
@@ -603,11 +602,12 @@ let data = {
               description:
                 "Indicar la fecha en que se notifica la resolución firme al servidor público sancionado formato dd-mm-aaaa.",
             },
-            //Campo que se agrega para url
-            urlNotificacion:{
-              type:"string",
-              title:"URL del documento en formato digital",
-              description:"Colocar el enlace o link de la resolución firme emitida por la autoridad a la que corresponde la sanción en su versión pública.",
+            //falta agregar este campo en el documento de descripciones
+            urlNotificacion: {
+              type: "string",
+              title: "URL del documento en formato digital",
+              description:
+                "Colocar el enlace o link de la resolución firme emitida por la autoridad a la que corresponde la sanción en su versión pública.",
             },
             fechaResolucionFirme: {
               type: "string",
@@ -635,15 +635,16 @@ let data = {
         tipoSancion: {
           type: "object",
           title: "6. TIPO DE SANCIÓN IMPUESTA A LA PERSONA SERVIDORA PÚBLICA",
-          description: "En esta sección se indicará la sanción y/o sanciones impuestas a la persona servidora pública.",
+          description:
+            "En esta sección se indicará la sanción y/o sanciones impuestas a la persona servidora pública.",
           required: [
-            "autoridadSancionadora",
+            "autoridadResolutora",
             "autoridadInvestigadora",
             "autoridadSubstanciadora",
             "sancion",
           ],
           properties: {
-            autoridadSancionadora: {
+            autoridadResolutora: {
               type: "string",
               title: "Autoridad resolutora",
               description:
@@ -652,12 +653,14 @@ let data = {
             autoridadInvestigadora: {
               type: "string",
               title: "Autoridad investigadora",
-              description: "Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa.",
+              description:
+                "Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa.",
             },
             autoridadSubstanciadora: {
               type: "string",
               title: "Autoridad substanciadora.",
-              description: "Señalar el nombre de la autoridad substanciadora del procedimiento.",
+              description:
+                "Señalar el nombre de la autoridad substanciadora del procedimiento.",
             },
             sancion: {
               type: "array",
@@ -679,10 +682,10 @@ let data = {
                       "OTRO",
                     ],
                     enumNames: [
-                      "Amonestacion publica o privada",
-                      "Suspension del empleo cargo o comision",
-                      "Destitucion de su empleo cargo o comision",
-                      "Inhabilitacion temporal para desempenar empleos cargos o comisiones en el servicio publico y para participar en adquisiciones arrendamientos servicios u obras publicas",
+                      "Amonestación pública o privada",
+                      "Suspensión del empleo cargo o comisión",
+                      "Destitución de su empleo cargo o comisión",
+                      "Inhabilitación temporal para desempeñar empleos cargos o comisiones en el servicio público y para participar en adquisiciones arrendamientos servicios u obras públicas",
                       "Otro",
                     ],
                   },
@@ -695,48 +698,36 @@ let data = {
                           clave: {
                             enum: ["AMONESTACION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Este campo se deberá llenar si en la resolución se sancionó con la amonestación público o privada.",
-                          },
                           amonestacionPublicaPrivada: {
                             type: "object",
                             title: "AMONESTACIÓN PÚBLICA O PRIVADA ",
-                            required: ["tipoAmonestacion", "constancia"],
+                            description:
+                              "Este campo se deberá llenar si en la resolución se sancionó con la amonestación público o privada.",
+                            required: ["tipoAmonestacion"],
                             properties: {
                               tipoAmonestacion: {
                                 title: "Tipo de amonestación",
                                 description:
                                   "Seleccionar el tipo de amonestación: PÚBLICA o PRIVADA",
-                                enum: ["PUBLICO", "PRIVADO"],
-                                enumNames: ["Publico", "Privado"],
-                              },
-                              constancia: {
-                                title: "Constancia de la amonestación",
-                                $ref: "#/definitions/constancias",
+                                enum: ["PUBLICA", "PRIVADA"],
+                                enumNames: ["Pública", "Privada"],
                               },
                             },
                           },
                         },
-                        required: ["descripcion", "amonestacionPublicaPrivada"],
+                        required: ["amonestacionPublicaPrivada"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["SUSPENSION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión. ",
-                          },
                           suspensionEmpleo: {
                             type: "object",
                             title: "SUSPENSIÓN DEL EMPLEO CARGO O COMISIÓN",
-                            required: ["plazo", "constancia"],
+                            description:
+                              "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión. ",
+                            required: ["plazo"],
                             properties: {
                               plazo: {
                                 type: "object",
@@ -744,16 +735,16 @@ let data = {
                                 description:
                                   "Colocar el plazo de la suspensión de la persona servidora pública sancionada, empezando por año(s), mes(es) y día(s).",
                                 required: [
-                                  "año",
-                                  "mes",
-                                  "dia",
+                                  "años",
+                                  "meses",
+                                  "dias",
                                   "fechaInicial",
                                   "fechaFinal",
                                 ],
                                 properties: {
-                                  año: { title: "Año", type: "string" },
-                                  mes: { title: "Mes", type: "string" },
-                                  dia: { title: "Día", type: "string" },
+                                  años: { title: "Años", type: "string" },
+                                  meses: { title: "Meses", type: "string" },
+                                  dias: { title: "Días", type: "string" },
                                   fechaInicial: {
                                     type: "string",
                                     format: "date",
@@ -770,36 +761,22 @@ let data = {
                                   },
                                 },
                               },
-                              constancia: {
-                                title: "Constancia de la suspensión",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
-                        required: [
-                          "descripcion",
-                          "suspensionEmpleoCargoComisión",
-                        ],
+                        required: ["suspensionEmpleoCargoComisión"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["DESTITUCION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Este apartado se deberá llenar si en la resolución definitiva se impuso la destitución del empleo, cargo o comisión a la persona servidora pública. ",
-                          },
                           destituciónEmpleoCargoComision: {
                             type: "object",
                             title: "DESTITUCIÓN DEL EMPLEO CARGO O COMISIÓN",
-                            required: [
-                              "destituciónEmpleoCargoComision",
-                              "constancia",
-                            ],
+                            description:
+                              "Este apartado se deberá llenar si en la resolución definitiva se impuso la destitución del empleo, cargo o comisión a la persona servidora pública.",
+                            required: ["destituciónEmpleoCargoComision"],
                             properties: {
                               fechaDestitución: {
                                 title: "Fecha de destitución",
@@ -808,33 +785,22 @@ let data = {
                                 description:
                                   "Indicar la fecha de destitución del empleo, cargo o comisión de la persona servidora pública en formato dd-mm-aaaa.",
                               },
-                              constancia: {
-                                title: "Constancia de la destitución",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
-                        required: [
-                          "descripcion",
-                          "destituciónEmpleoCargoComision",
-                        ],
+                        required: ["destituciónEmpleoCargoComision"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["INHABILITACION"],
                           },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Esta sección deberá llenarse en caso de que la persona servidora pública haya sido sancionada con una inhabilitación. ",
-                          },
                           inhabilitacion: {
                             type: "object",
                             title:
                               "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
+                            description:
+                              "Esta sección deberá llenarse en caso de que la persona servidora pública haya sido sancionada con una inhabilitación. ",
                             required: ["plazo", "constancia"],
                             properties: {
                               plazo: {
@@ -843,16 +809,16 @@ let data = {
                                 description:
                                   "Colocar el plazo de la inhabilitación de la persona servidora pública, empezando por año(s), mes(es) y día(s).",
                                 required: [
-                                  "año",
-                                  "mes",
-                                  "dia",
+                                  "años",
+                                  "meses",
+                                  "dias",
                                   "fechaInicial",
                                   "fechaFinal",
                                 ],
                                 properties: {
-                                  año: { title: "Año", type: "string" },
-                                  mes: { title: "Mes", type: "string" },
-                                  dia: { title: "Día", type: "string" },
+                                  años: { title: "Años", type: "string" },
+                                  meses: { title: "Meses", type: "string" },
+                                  dias: { title: "Días", type: "string" },
                                   fechaInicial: {
                                     type: "string",
                                     format: "date",
@@ -869,6 +835,7 @@ let data = {
                                   },
                                 },
                               },
+                              //falta agregar las descripciones de las costancias o en su caso indicar si llevara constancia o no
                               constancia: {
                                 title: "Constancia de la inhabilitación",
                                 $ref: "#/definitions/constancias",
@@ -883,38 +850,29 @@ let data = {
                           clave: {
                             enum: ["OTRO"],
                           },
-                          valor: {
-                            title: "Otro",
-                            description: "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas. ",
-                            type: "string",
-                          },
-                          descripcion: {
-                            type: "string",
-                            title: "Sanción ",
-                            description:
-                              "Indicar el nombre de la sanción impuesta.",
-                          },
                           otro: {
                             type: "object",
                             title: "OTRO",
-                            required: ["nombre", "urlDocumento"],
+                            description: 
+                              "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
+                            required: ["denominacion", "descripcion"],
                             properties: {
-                              nombre: {
-                                title: "Nombre de la sanción",
+                              denominacion: {
+                                title: "Denominación de la sanción",
                                 type: "string",
                                 description:
-                                  "Escribir el título de la constancia de la sanción impuesta.",
+                                  "Indicar el nombre de la sanción impuesta.",
                               },
-                              urlDocumento: {
+                              descripcion: {
                                 type: "string",
-                                title: "URL del documento digital",
+                                title: "Descripción breve de los hechos",
                                 description:
-                                  "Colocar el enlace o link del documento digital de la constancia.",
+                                  "Indicar una descripción breve de los hechos que motivaron la sanción.",
                               },
                             },
                           },
                         },
-                        required: ["valor", "descripcion", "otro"],
+                        required: ["otro"],
                       },
                     ],
                   },
