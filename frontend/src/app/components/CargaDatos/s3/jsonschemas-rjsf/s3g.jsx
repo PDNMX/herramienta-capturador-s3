@@ -722,7 +722,7 @@ let data = {
                             title: "SUSPENSIÓN DEL EMPLEO CARGO O COMISIÓN",
                             description:
                               "Este campo se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión.",
-                            required: ["plazo", "constancia"],
+                            required: ["plazo"],
                             properties: {
                               plazo: {
                                 type: "object",

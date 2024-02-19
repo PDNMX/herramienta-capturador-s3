@@ -166,7 +166,7 @@ let data = {
             sinSegundoApellido: {
               type: "boolean",
               default: false,
-              title: "No tengo segundo apellido",
+              title: "No cuento con segundo apellido",
             },
           },
           dependencies: {
@@ -663,7 +663,7 @@ let data = {
               format: "date",
               title: "Fecha de notificación firme",
               description:
-                "Indicar la fecha en que se notifica la resolución al servidor público sancionado.",
+                "Indicar la fecha de notificación de la resolución firme a la persona física sancionada, en formato dd-mm-aaaa..",
             },
             urlResolucion: {
               type: "string",
@@ -889,12 +889,6 @@ let data = {
                         properties: {
                           clave: {
                             enum: ["SANCION_ECONOMICA"],
-                          },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Llenar este apartado en caso de que la persona física sea acreedora a una sanción económica.",
                           },
                           sancionEconomica: {
                             type: "object",

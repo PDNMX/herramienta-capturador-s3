@@ -96,7 +96,7 @@ let data = {
             sinSegundoApellido: {
               type: "boolean",
               default: false,
-              title: "No tengo segundo apellido",
+              title: "No cuento con segundo apellido",
             },
           },
           dependencies: {
