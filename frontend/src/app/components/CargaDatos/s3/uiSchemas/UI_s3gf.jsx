@@ -118,6 +118,14 @@ let data = {
         "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
       },
     },
+    origenInvestigacion: {
+      clave: {
+        "ui:widget": "RadioWidget",
+      },
+      valor: {
+        "ui:placeholder": "...",
+      },
+    },
     faltaCometida: {
       items: {
         "ui:order": [
@@ -148,14 +156,6 @@ let data = {
         descripcionHechos: {
           "ui:placeholder": "Ejemplo: ...",
         },
-      },
-    },
-    origenInvestigacion: {
-      clave: {
-        "ui:widget": "RadioWidget",
-      },
-      valor: {
-        "ui:placeholder": "...",
       },
     },
     resolucion: {

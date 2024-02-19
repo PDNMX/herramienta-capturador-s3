@@ -139,7 +139,7 @@ let data = {
         "segundoApellido",
         "rfc",
         "curp",
-        "domicilioMexico",
+        "domicilio",
         "entePublico",
         "faltaCometida",
         "origenInvestigacion",

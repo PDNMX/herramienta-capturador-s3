@@ -88,20 +88,20 @@ let data = {
                 sinConstancia: { const: false },
                 titulo: {
                   type: "string",
-                  title: "Título de la constancia de la sanción",
+                  title: "Título de la constancia.",
                   description:
-                    "Proporcionar el nombre del título de la constancia de la persona física.",
+                    "Proporcionar el nombre del título de la constancia de la inhabilitación.",
                 },
                 fecha: {
                   type: "string",
                   format: "date",
-                  title: "Fecha de la constancia de la sanción",
+                  title: "Fecha de la expedición.",
                   description:
                     "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
                 },
                 url: {
                   type: "string",
-                  title: "URL del documento digital",
+                  title: "URL de la constancia de inhabilitación",
                   description:
                     "Colocar el enlace o link del documento digital de la constancia.",
                 },
@@ -125,8 +125,7 @@ let data = {
     expediente: {
       type: "string",
       title: "Expediente",
-      description:
-        "Capturar el número que refiere al procedimiento único que da inicio en materia de responsabilidades administrativas.",
+      description: "Registrar el número de expediente del procedimiento.",
     },
     otroFisica: {
       title: "1. DATOS GENERALES DE LA PERSONA FÍSICA",
@@ -139,37 +138,34 @@ let data = {
         "segundoApellido",
         "rfc",
         "curp",
-        "telefono",
-        "objetoSocial",
-        "domicilioMexico",
+        "domicilio",
         "entePublico",
         "faltaCometida",
         "origenInvestigacion",
         "resolucion",
         "tipoSancion",
-        "observaciones",
       ],
       properties: {
         nombres: {
           type: "string",
-          title: "Nombre (s)",
+          title: "Nombre(s)",
           description:
-            "Escribir el o los nombres de la persona física sancionada, sin abreviaturas, ni signos especiales.",
+            "Escribir el o los nombres, sin abreviaturas, sin acentos, ni signos especiales.",
         },
         primerApellido: {
           type: "string",
-          title: "Primer Apellido",
+          title: "Primer apellido",
           description:
-            "Escribir el primer apellido de la persona física sancionada, sin abreviaturas, ni signos especiales.",
+            "Escribir los apellidos completos, sin abreviaturas, sin acentos, ni signos especiales.",
         },
         segundoApellido: {
-          title: "Segundo Apellido",
+          title: "Segundo apellido",
           type: "object",
           properties: {
             sinSegundoApellido: {
               type: "boolean",
               default: false,
-              title: "No tengo segundo apellido",
+              title: "No cuento con segundo apellido",
             },
           },
           dependencies: {
@@ -186,9 +182,9 @@ let data = {
                     sinSegundoApellido: { const: false },
                     valor: {
                       type: "string",
-                      title: "Segundo Apellido",
+                      title: "Segundo apellido",
                       description:
-                        "Escribir el segundo apellido de la persona física sancionada, sin abreviaturas, ni signos especiales.",
+                        "En caso de tener solo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco y posteriormente seleccionar la opción de: No tengo segundo apellido.",
                     },
                   },
                   required: ["sinSegundoApellido", "valor"],
@@ -204,155 +200,157 @@ let data = {
         curp: {
           type: "string",
           title: "CURP",
-          description:
-            "Escribir los dieciocho caracteres alfanuméricos como la emitió la Secretaría de Gobernación.  En caso de no contar con ella, podrá consultarla en la siguiente página: https://www.gob.mx/curp/",
         },
         telefono: {
           type: "string",
           title: "Telefono",
+          description:
+            "Proporcionar el número telefónico de la persona física sancionada.",
         },
         objetoSocial: {
           type: "string",
           title: "Objeto social de la actividad",
+          //pendiente validar informacion de la descriocipcion de este campo
           description:
             "Describir la o las actividades principales que lleva a cabo la persona física.",
         },
-        domicilioMexico: {
+        domicilio: {
           type: "object",
           title: "Domicilio",
           properties: {
-            domicilioExtranjero: {
+            tipoDomicilio: {
               type: "boolean",
               default: false,
               title: "Domicilio extranjero",
             },
           },
           dependencies: {
-            domicilioExtranjero: {
+            tipoDomicilio: {
               oneOf: [
                 {
                   properties: {
-                    domicilioExtranjero: { const: false },
-                    vialidad: {
+                    tipoDomicilio: { const: false },
+                    domicilioMexico: {
                       type: "object",
-                      required: ["clave", "valor", "numeroExterior", "colonia"],
+                      //Preguntar si este nombre es el correcto
+                      title: "Domicilio en la república mexicana",
+                      description:
+                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal, país.",
                       properties: {
-                        clave: {
+                        //falta hacer las descripciones para cada uno de los campos de Domicilio Mexico
+                        vialidad: {
+                          type: "object",
+                          properties: {
+                            clave: {
+                              type: "string",
+                              title: "Tipo de vialidad",
+                              description:
+                                "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco Geoestadístico Nacional. https://www.inegi.org.mx/temas/mg/#Documentacion",
+                            },
+                            valor: {
+                              type: "string",
+                              title: "Nombre de la vialidad",
+                              description:
+                                "Escribir el nombre completo de la calle, boulevard, avenida, etc.",
+                            },
+                            numeroExterior: {
+                              type: "string",
+                              title: "Número exterior",
+                              description: "Escribir el número exterior.",
+                            },
+                            numeroInterior: {
+                              type: "string",
+                              title: "Número interior",
+                              description: "Escribir el número interior.",
+                            },
+                            colonia: {
+                              type: "string",
+                              title: "Colonia",
+                              description:
+                                "Escribir el nombre completo de la colonia.",
+                            },
+                          },
+                        },
+                        localidad: {
                           type: "string",
-                          title: "Tipo de vialidad",
+                          title: "Localidad",
+                          description: "Nombre de la localidad.",
+                        },
+                        municipio: {
+                          type: "string",
+                          title: "Municipio",
+                          description: "Nombre del municipio/alcaldia.",
+                        },
+                        codigoPostal: {
+                          type: "integer",
+                          title: "Codigo Postal",
+                          description: "Escribir el número código postal.",
+                        },
+                        entidadFederativa: {
+                          title: "Entidad federativa",
                           description:
-                            "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco Geoestadístico Nacional. https://www.inegi.org.mx/temas/mg/#Documentacion",
-                        },
-                        valor: {
-                          type: "string",
-                          title: "Nombre de la vialidad",
-                          description:
-                            "Escribir el nombre completo de la calle, boulevard, avenida, etc.",
-                        },
-                        numeroExterior: {
-                          type: "string",
-                          title: "Número exterior",
-                          description: "Escribir el número exterior.",
-                        },
-                        numeroInterior: {
-                          type: "string",
-                          title: "Número interior",
-                          description: "Escribir el número interior.",
-                        },
-                        colonia: {
-                          type: "string",
-                          title: "Colonia",
-                          description:
-                            "Escribir el nombre completo de la colonia.",
+                            "Seleccionar la entidad federativa que corresponda al domicilio completo previamente documentado.",
+                          $ref: "#/definitions/entidad",
                         },
                       },
                     },
-                    localidad: {
-                      type: "string",
-                      title: "Localidad",
-                      description: "Nombre de la localidad.",
-                    },
-                    municipio: {
-                      type: "string",
-                      title: "Municipio",
-                      description: "Nombre del municipio/alcaldia.",
-                    },
-                    codigoPostal: {
-                      type: "integer",
-                      title: "Codigo Postal",
-                      description: "Escribir el número código postal.",
-                    },
-                    entidadFederativa: {
-                      title: "Entidad federativa",
-                      description:
-                        "Seleccionar la entidad federativa que corresponda al domicilio completo previamente documentado.",
-                      $ref: "#/definitions/entidad",
-                    },
                   },
-                  required: [
-                    "vialidad",
-                    "localidad",
-                    "municipio",
-                    "codigoPostal",
-                    "entidadFederativa",
-                  ],
                 },
                 {
                   properties: {
-                    domicilioExtranjero: { const: true },
-                    ciudadLocalidad: {
-                      type: "string",
-                      title: "Ciudad",
+                    tipoDomicilio: { const: true },
+                    domicilioExtranjero: {
+                      type: "object",
+                      title: "Domicilio Extranjero",
                       description:
-                        "Escribir el nombre de la localidad del domicilio extranjero.",
-                    },
-                    estadoProvincia: {
-                      type: "string",
-                      title: "Provincia",
-                      description:
-                        "Escribir el nombre del estado/provincia del domicilio extranjero.",
-                    },
-                    calle: {
-                      type: "string",
-                      title: "Calle",
-                      description:
-                        "Escribir el nombre de la calle del domicilio extranjero.",
-                    },
-                    numeroExterior: {
-                      type: "string",
-                      title: "Numero Exterior",
-                      description:
-                        "Escribir el numero exterior del domicilio extranjero.",
-                    },
-                    numeroInterior: {
-                      type: "string",
-                      title: "Numero Interior",
-                      description:
-                        "Escribir el numero interior del domicilio extranjero.",
-                    },
-                    codigoPostal: {
-                      type: "integer",
-                      title: "Codigo Postal",
-                      description:
-                        "Escribir el codigo postal del domicilio extranjero.",
-                    },
-                    pais: {
-                      type: "string",
-                      title: "Pais",
-                      description:
-                        "Nombre del país especificado en estándar ISO3166.",
+                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal, país.",
+                      properties: {
+                        //Faltan las descripciones para los campos de Domicilio Extranjero
+                        ciudadLocalidad: {
+                          type: "string",
+                          title: "Ciudad",
+                          description:
+                            "Escribir el nombre de la localidad del domicilio extranjero.",
+                        },
+                        estadoProvincia: {
+                          type: "string",
+                          title: "Provincia",
+                          description:
+                            "Escribir el nombre del estado/provincia del domicilio extranjero.",
+                        },
+                        calle: {
+                          type: "string",
+                          title: "Calle",
+                          description:
+                            "Escribir el nombre de la calle del domicilio extranjero.",
+                        },
+                        numeroExterior: {
+                          type: "string",
+                          title: "Numero Exterior",
+                          description:
+                            "Escribir el numero exterior del domicilio extranjero.",
+                        },
+                        numeroInterior: {
+                          type: "string",
+                          title: "Numero Interior",
+                          description:
+                            "Escribir el numero interior del domicilio extranjero.",
+                        },
+                        codigoPostal: {
+                          type: "integer",
+                          title: "Codigo Postal",
+                          description:
+                            "Escribir el codigo postal del domicilio extranjero.",
+                        },
+                        pais: {
+                          type: "string",
+                          title: "Pais",
+                          description:
+                            "Nombre del país especificado en estándar ISO3166.",
+                        },
+                      },
                     },
                   },
-                  required: [
-                    "domicilioExtranjero",
-                    "ciudadLocalidad",
-                    "estadoProvincia",
-                    "calle",
-                    "numeroExterior",
-                    "numeroInterior",
-                    "codigoPostal",
-                    "pais",
-                  ],
                 },
               ],
             },
@@ -363,19 +361,12 @@ let data = {
           title:
             "2. DATOS DEL ENTE PÚBLICO EN DONDE SE COMETIÓ LA FALTA ADMINISTRATIVA",
           description:
-            "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
-          required: [
-            "entidadFederativa",
-            "nivelOdenGobierno",
-            "ambitoPublico",
-            "nombre",
-            "siglas",
-          ],
+            "Indicar (si aplica) los datos del ente público donde se cometió la falta administrativa.",
           properties: {
             entidadFederativa: {
               title: "Entidad federativa",
               description:
-                "Seleccionar la entidad federativa en la cual se localiza el ente público donde labora la persona física sancionada.",
+                "Seleccionar la entidad federativa en la cual se localiza el ente público donde se cometió la falta administrativa.",
               $ref: "#/definitions/entidad",
             },
             nivelOdenGobierno: {
@@ -384,7 +375,7 @@ let data = {
                 clave: {
                   title: "Nivel/Orden de Gobierno",
                   description:
-                    "Seleccionar el orden de gobierno al que pertenece el ente público donde labora la persona física sancionada: Federal, Estatal, Municipal/Alcaldía u otro (especificar).",
+                    "Seleccionar el nivel u orden de gobierno al que pertenece el ente público donde se cometió la falta administrativa: Federal, Estatal, Municipal/Alcaldía, otro (especificar).",
                   enum: ["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA", "OTRO"],
                   enumNames: [
                     "Federal",
@@ -426,7 +417,7 @@ let data = {
               type: "string",
               title: "Ambito público",
               description:
-                "Seleccionar el poder u órgano de gobierno del ente público donde labora la persona física sancionada: Ejecutivo, Legislativo, Judicial u Órgano autónomo.",
+                "Seleccionar el ámbito público: Ejecutivo, Legislativo, Judicial u Órgano autónomo.",
               enum: ["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"],
               enumNames: [
                 "Ejecutivo",
@@ -439,42 +430,39 @@ let data = {
               type: "string",
               title: "Nombre del ente público",
               description:
-                "Escribir el nombre completo del ente público donde labora la persona física sancionada, sin abreviaturas, ni signos especiales.",
+                "Escribir el nombre completo del ente público sin abreviaturas, sin acentos, ni signos especiales.",
             },
             siglas: {
               type: "string",
               title: "Siglas del ente público",
-              description:
-                "Escribir las siglas del ente público en el que labora la persona física sancionada.",
+              description: "Escribir (si aplica) las siglas del ente público.",
             },
           },
         },
         origenInvestigacion: {
           type: "object",
-          title: "3. ORIGEN DE LA FALTA ADMINISTRATIVA",
+          title: "3. ORIGEN DEL PROCEDIMIENTO",
           description:
-            "Indicar el origen y tipo de falta cometida conforme a los catálogos de cada sección.",
+            "Señalar el motivo que dio origen a la investigación por la realización de actos vinculados con faltas administrativas graves por parte de la persona física. ",
           properties: {
             clave: {
-              title: "Origen de la falta administrativa",
+              title: "Origen del procedimiento",
               description:
                 "Seleccionar conforme al catálogo el origen de la falta administrativa:",
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
-                "QUEJA",
+                "OFICIO",
                 "DENUNCIA_CIUDADADA",
                 "DENUNCIA_SP",
-                "OFICIO",
                 "OTRO",
               ],
               enumNames: [
-                "Auditoria superior de la federacion o entidades de fiscalizacion superior de la entidades federativas",
-                "Auditoria del organo interno de control del ente publico",
-                "Queja ciudadana",
+                "Auditoria superior de la federación o entidades de fiscalización superior de la entidades federativas",
+                "Auditoria del organo interno de control del ente público",
+                "De Oficio",
                 "Denuncia ciudadana",
                 "Denuncia de servidor publico",
-                "Oficio",
                 "Otro",
               ],
             },
@@ -502,10 +490,9 @@ let data = {
                       enum: [
                         "AUDITORIA_SUPERIOR",
                         "AUDITORIA_OIC",
-                        "QUEJA",
+                        "OFICIO",
                         "DENUNCIA_CIUDADADA",
                         "DENUNCIA_SP",
-                        "OFICIO",
                       ],
                     },
                   },
@@ -521,27 +508,28 @@ let data = {
             type: "object",
             title: "Falta cometida",
             required: [
-              "falta",
+              "clave",
               "nombreNormatividadInfringida",
               "articuloNormatividadInfringida",
               "fraccionNormatividadInfringida",
             ],
             properties: {
-              falta: {
+              clave: {
                 type: "string",
                 title: "Falta cometida",
                 description:
-                  "Seleccionar el tipo de falta cometida por parte de la persona física sancionada.",
+                  "Escribir el tipo de falta cometida por parte de la persona física.",
               },
               nombreNormatividadInfringida: {
                 type: "string",
-                title: "Ley y/o normatividad infringida",
+                title: "Normatividad infringida",
                 description:
                   "Escribir el nombre de la ley o normatividad infringida por la persona física.",
               },
               articuloNormatividadInfringida: {
                 type: "array",
-                title: "Artículo(s) de la normatividad infringida",
+                //preguntar por que cambia el nombre para ver si queda en plural o no
+                title: "Artículo infringido",
                 items: {
                   title: "Artículo",
                   type: "string",
@@ -551,7 +539,8 @@ let data = {
               },
               fraccionNormatividadInfringida: {
                 type: "array",
-                title: "Fracción(es) de la normatividad infringida",
+                //preguntar por que cambia el nombre para ver si queda en plural o no
+                title: "Fracción infringida",
                 items: {
                   title: "Fracción",
                   type: "string",
@@ -559,66 +548,88 @@ let data = {
                     "Escribir la fracción(es) infringida de la normatividad infringida.",
                 },
               },
+              descripcionHechos: {
+                title: "Descripción breve de los hechos",
+                type: "string",
+                description: "Señalar una descripción breve de los hechos. ",
+              },
             },
           },
         },
         resolucion: {
           type: "object",
-          title: "5. RESOLUCIÓN",
-          description: "Indicar la resolución de la falta cometida.",
+          title: "5. RESOLUCIÓN DE LA FALTA COMETIDA POR LA PERSONA FÍSICA",
+          description:
+            "En esta sección se señalarán los datos relativos a la resolución firme.",
           required: [
             "documentoResolucion",
             "fechaResolucion",
             "fechaNotificacion",
             "fechaResolucionFirme",
-            "url",
           ],
           properties: {
             documentoResolucion: {
               type: "string",
               title: "Titulo del documento",
               description:
-                "Escribir el nombre del documento de la sentencia definitiva que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme.",
+                "Escribir el nombre del documento de la resolución que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme.",
             },
             fechaResolucion: {
               type: "string",
               format: "date",
               title: "Fecha de resolución",
               description:
-                "Registrar la echa en la que se emite la resolución sancionatoria de la persona física sancionada en formato dd-mm-aaaa.",
+                "Colocar la fecha en la que se emite la resolución firme en formato dd-mm-aaaa.",
             },
             fechaNotificacion: {
               type: "string",
               format: "date",
               title: "Fecha de notificación",
               description:
-                "Registrar la fecha en la que se le notifica al servidor público su sentencia en formato dd-mm-aaaa",
+                "Indicar la fecha en que se notifica la resolución firme en formato dd-mm-aaaa.",
+            },
+            urlNotificacion: {
+              type: "string",
+              title: "URL del documento en formato digital",
+              description:
+                "Colocar el enlace o link de la resolución firme emitida por la autoridad a la que corresponde la sanción en su versión pública.",
             },
             fechaResolucionFirme: {
               type: "string",
               format: "date",
               title: "Fecha de resolución firme",
               description:
-                "Registrar la fecha en que quedó firme la  sentencia de la persona física en formato dd-mm-aaaa.",
+                "Indicar la fecha de notificación de la resolución firme a la persona física sancionada, en formato dd-mm-aaaa.",
             },
-            url: {
+            fechaNotificacionFirme: {
+              type: "string",
+              format: "date",
+              title: "Fecha de notificación firme",
+              description:
+                "Indicar la fecha de notificación de la resolución firme a la persona física sancionada, en formato dd-mm-aaaa..",
+            },
+            urlResolucion: {
               type: "string",
               title: "URL del documento en formato digital",
               description:
-                "Colocar el enlace o link de la resolución emitida por la autoridad sancionadora a la que corresponde la sanción en su versión pública.",
+                "Colocar el enlace o link de la resolución emitida por la autoridad a la que corresponde la sanción en su versión pública.",
             },
           },
         },
         tipoSancion: {
           type: "object",
           title: "6. TIPO DE SANCIÓN APLICADA A LA PERSONA FÍSICA",
-          description: "Indicar el tipo de sanción impuesta",
-          required: ["ordenJurisdiccional", "autoridadSancionadora", "sancion"],
+          description:
+            "En esta sección se indicará la sanción y/o sanciones impuestas a la persona física.",
+          rrequired: [
+            "ordenJurisdiccional",
+            "autoridadSancionadora",
+            "sancion",
+          ],
           properties: {
             ordenJurisdiccional: {
               title: "Orden jurisdiccional de la sanción.",
-              description:
-                "Seleccionar la opción correspondiente al nivel de la orden jurisdiccional de la sanción.",
+              description: "Seleccionar: Federal o Estatal.",
               enum: ["FEDERAL", "ESTATAL"],
               enumNames: ["Federal", "Estatal"],
             },
@@ -626,11 +637,13 @@ let data = {
               type: "string",
               title: "Nombre de la autoridad sancionadora",
               description:
-                "Indicar el nombre de la autoridad sancionadora facultada para aplicar la sanción.",
+                "Indicar el nombre de la autoridad facultada para aplicar la sanción.",
             },
             sancion: {
               type: "array",
               title: "Tipo de sancion",
+              description:
+                "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron impuestas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
               items: {
                 type: "object",
                 title: "Tipo de sancion",
@@ -638,10 +651,8 @@ let data = {
                 properties: {
                   clave: {
                     title: "Tipo de sancion",
-                    description:
-                      "Elegir una o varias sanciones que fueron dictaminadas en la resolución, conforme a la o las elecciones del catálogo, es como deberá llenarse el resto del formato. Se podrán elegir de las siguientes opciones:",
-                    enum: ["INHABILITADO", "OTRO"],
-                    enumNames: ["Inhabilitado", "Otro"],
+                    enum: ["INHABILITACION", "OTRO"],
+                    enumNames: ["Inhabilitación", "Otro"],
                   },
                 },
                 dependencies: {
@@ -650,58 +661,52 @@ let data = {
                       {
                         properties: {
                           clave: {
-                            enum: ["INHABILITADO"],
-                          },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Descripción o nota aclaratoria del tipo de sanción infringida.",
+                            enum: ["INHABILITACION"],
                           },
                           inhabilitado: {
                             type: "object",
-                            title: "INHABILITADO",
-                            required: [
-                              "plazo",
-                              "fechaInicial",
-                              "fechaFinal",
-                              "constancia",
-                            ],
-                            properties: { //CAMBIAR POR AÑO, MES , DIA 
+                            title:
+                              "INHABILITACIÓN TEMPORAL PARA PARA PARTICIPAR EN ADQUISICIONES, ARRENDAMIENTOS, SERVICIOS U OBRAS PÚBLICAS.",
+                            description:
+                              "Este campo se deberá llenar si en la resolución se sancionó con una inhabilitación.",
+                            required: ["plazo"],
+                            properties: {
                               plazo: {
+                                //Homologar con el de Servidores Publicos o dejar como esta en el formato de este formulario
                                 type: "object",
-                                title: "Plazo de la inhabilitación del empleo",
+                                title: "Plazo de la inhabilitación",
                                 description:
-                                  "Colocar el plazo de la inhabilitación de la persona servidora pública, empezando por año(s), mes(es) y día(s).",
+                                  "Colocar el plazo de la inhabilitación de la persona física sancionada, empezando por año(s), mes(es) y día(s).",
                                 required: [
-                                  "año",
-                                  "mes",
-                                  "dia",
+                                  "años",
+                                  "meses",
+                                  "dias",
                                   "fechaInicial",
                                   "fechaFinal",
                                 ],
                                 properties: {
-                                  año: { title: "Año(s)", type: "string" },
-                                  mes: { title: "Mes(es)", type: "string" },
-                                  dia: { title: "Día(s)", type: "string" },
+                                  años: { title: "Año(s)", type: "string" },
+                                  meses: { title: "Mes(es)", type: "string" },
+                                  dias: { title: "Día(s)", type: "string" },
                                   fechaInicial: {
                                     type: "string",
                                     format: "date",
-                                    title: "Fecha inicial de la inhabilitación",
+                                    title: "Fecha inicial",
                                     description:
-                                      "Registrar la fecha en la que inició la inhabilitación de la persona servidora pública en formato dd-mm-aaaa.",
+                                      "Indicar la fecha en la que inició la inhabilitación de la persona física en formato dd-mm-aaaa.",
                                   },
                                   fechaFinal: {
                                     type: "string",
                                     format: "date",
-                                    title: "Fecha final de la inhabilitación",
+                                    title: "Fecha final",
                                     description:
-                                      "Indicar la fecha en la que se concluyó la inhabilitación de la persona servidora pública en formato dd-mm-aaaa.",
+                                      "Indicar la fecha en la que se concluyó la inhabilitación en formato dd-mm-aaaa.",
                                   },
                                 },
                               },
                               constancia: {
-                                title: "Constancia de la inhabilitación",
+                                title:
+                                  "Título de la constancia de inhabilitación.",
                                 $ref: "#/definitions/constancias",
                               },
                             },
@@ -714,33 +719,18 @@ let data = {
                           clave: {
                             enum: ["OTRO"],
                           },
-                          valor: {
-                            title: "Otro",
-                            description: "Especifique",
-                            type: "string",
-                          },
-                          descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Descripción o nota aclaratoria del tipo de sanción infringida.",
-                          },
                           otro: {
                             type: "object",
                             title: "OTRO",
+                            description: 
+                              "Llenar este apartado en caso de que el particular sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
                             required: ["nombre", "urlDocumento"],
                             properties: {
+                              //preguntar si esta opcion no va como la de servidores publicos con denominacion de la sancion y la descripcion de los hechos
                               nombre: {
                                 title: "Nombre de la sanción",
                                 type: "string",
-                                description:
-                                  "Escribir el título de la constancia de la sanción impuesta.",
-                              },
-                              urlDocumento: {
-                                type: "string",
-                                title: "URL del documento digital",
-                                description:
-                                  "Colocar el enlace o link del documento digital de la constancia.",
+                                description: "Indicar el nombre de la sanción ",
                               },
                             },
                           },
@@ -758,7 +748,7 @@ let data = {
           title: "7. OBSERVACIONES",
           type: "string",
           description:
-            "En este espacio se podrán realizar las observaciones que se consideren pertinentes. aclaraciones u En virtud de que las aclaraciones pueden contener información reservada y/o confidencial, esta información no será de carácter pública.",
+            "En este espacio podrá realizar las aclaraciones u observaciones que considere pertinentes respecto de alguno o algunos de los apartados del documento.",
         },
       },
     },
