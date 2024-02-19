@@ -46,7 +46,7 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Instituto nacional de transparencia, acceso a la información y protección de datos personales",
+        "ui:placeholder": "Ejemplo: Instituto Nacional de Transparencia, Acceso a la informacion y Proteccion de Datos Personales",
       },
       siglas: {
         "ui:placeholder": "Ejemplo: INAI",

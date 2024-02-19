@@ -139,12 +139,12 @@ let data = {
           enum: ["FEMENINO", "MASCULINO"],
           enumNames: ["Femenino", "Masculino"],
           title: "Sexo",
-          description: "Seleccionar la opción que corresponda.",
+          description: "Seleccionar la opción que corresponda femenino/masculino.",
         },
         entePublico: {
           type: "object",
           title:
-            "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA",
+            "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
           description:
             "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
           required: [
@@ -395,9 +395,10 @@ let data = {
             "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
           properties: {
             clave: {
-              title: "Origen de la falta administrativa",
+              title: "Seleccionar conforme al catálogo el origen de la falta administrativa:",
               description:
                 "Seleccionar conforme al catálogo el origen de la falta administrativa:",
+                //La siguiente lista no coindiciden entre el formato y el documento de las descripciones, nos basamos en el formato.
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",

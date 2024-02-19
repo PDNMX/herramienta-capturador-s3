@@ -46,10 +46,10 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Secretaría de Hacienda y Crédito Público",
+        "ui:placeholder": "Ejemplo: Instituto Nacional de Transparencia, Acceso a la Informacion y Proteccion de Datos Personales",
       },
       siglas: {
-        "ui:placeholder": "Ejemplo: SHCP",
+        "ui:placeholder": "Ejemplo: INAI",
       },
       nivelOdenGobierno: {
         "ui:options": { label: false },
@@ -77,9 +77,9 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      nivel: { "ui:placeholder": "Ejemplo: KA4" },
+      nivel: { "ui:placeholder": "Ejemplo: Departamento de desarrollo de sistemas" },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
+        "ui:placeholder": "Ejemplo: Dirección general de tecnologías de la información",
       },
     },
     origenInvestigacion: {
@@ -108,12 +108,12 @@ let data = {
         },
         articuloNormatividad: {
           items: {
-            "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
+            "ui:placeholder": "Ejemplo: Artículo 10, ...",
           },
         },
         fraccionNormatividad: {
           items: {
-            "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
+            "ui:placeholder": "Ejemplo: Fracción 20, ...",
           },
         },
       },
