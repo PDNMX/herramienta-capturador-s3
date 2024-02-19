@@ -870,7 +870,7 @@ let data = {
                             },
                           },
                         },
-                        required: ["descripcion", "sancionEconomica"],
+                        required: ["sancionEconomica"],
                       },
                       {
                         properties: {
