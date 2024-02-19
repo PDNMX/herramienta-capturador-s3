@@ -918,10 +918,10 @@ let data = {
                                 },
                               },
                               //PREGUNTAR A YURI SI USARA LA PARTE DE CONSTANCIA EN SANCION DE INHABILITACIONES
-                              /*constancia: {
+                              constancia: {
                                 title: "Constancia de la inhabilitación",
                                 $ref: "#/definitions/constancias",
-                              },*/
+                              },
                             },
                           },
                         },
