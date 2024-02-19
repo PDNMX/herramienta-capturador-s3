@@ -745,6 +745,7 @@ let data = {
                           },
                           inhabilitado: {
                             type: "object",
+                            //revisar el nombre ya que cambia para personas fisicas y personas morales
                             title:
                               "INHABILITACIÓN TEMPORAL PARA PARA PARTICIPAR EN ADQUISICIONES, ARRENDAMIENTOS, SERVICIOS U OBRAS PÚBLICAS.",
                             description:

@@ -199,7 +199,7 @@ let data = {
       required: [
         "rfc",
         "razonSocial",
-        "domicilioMexico",
+        "domicilio",
         "entePublico",
         "faltaCometida",
         "origenInvestigacion",

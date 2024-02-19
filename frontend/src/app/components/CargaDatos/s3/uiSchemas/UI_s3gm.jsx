@@ -152,18 +152,6 @@ let data = {
         },
       },
     },
-    empleoCargoComision: {
-      "ui:options": { label: false },
-      nombre: {
-        "ui:options": { label: false },
-        clave: {},
-        valor: { "ui:placeholder": "..." },
-      },
-      nivel: { "ui:placeholder": "Ejemplo: KA4" },
-      areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
-      },
-    },
     origenInvestigacion: {
       clave: {
         "ui:widget": "RadioWidget",

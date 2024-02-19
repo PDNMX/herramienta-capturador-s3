@@ -130,7 +130,7 @@ let data = {
     otroFisica: {
       title: "1. DATOS GENERALES DE LA PERSONA FÍSICA",
       description:
-        "Indicar los datos generales de la persona física sancionados.",
+        "En esta sección se registrarán los datos generales de la persona física sancionada.",
       type: "object",
       required: [
         "nombres",
@@ -558,7 +558,8 @@ let data = {
         },
         resolucion: {
           type: "object",
-          title: "5. RESOLUCIÓN DE LA FALTA COMETIDA POR LA PERSONA FÍSICA",
+          title:
+            "5. RESOLUCIÓN QUE IMPONE LA INHABILITACIÓN APLICADA A LA PERSONA FÍSICA",
           description:
             "En esta sección se señalarán los datos relativos a la resolución firme.",
           required: [
@@ -566,6 +567,7 @@ let data = {
             "fechaResolucion",
             "fechaNotificacion",
             "fechaResolucionFirme",
+            "fechaNotificacionFirme",
           ],
           properties: {
             documentoResolucion: {
@@ -618,7 +620,7 @@ let data = {
         },
         tipoSancion: {
           type: "object",
-          title: "6. TIPO DE SANCIÓN APLICADA A LA PERSONA FÍSICA",
+          title: "6. DATOS DE LA INHABILITACIÓN APLICADA A LA PERSONA FÍSICA",
           description:
             "En esta sección se indicará la sanción y/o sanciones impuestas a la persona física.",
           rrequired: [
@@ -666,7 +668,7 @@ let data = {
                           inhabilitado: {
                             type: "object",
                             title:
-                              "INHABILITACIÓN TEMPORAL PARA PARA PARTICIPAR EN ADQUISICIONES, ARRENDAMIENTOS, SERVICIOS U OBRAS PÚBLICAS.",
+                              "INHABILITACIÓN PARA CELEBRAR CONTRATOS CON LOS ENTES PÚBLICOS",
                             description:
                               "Este campo se deberá llenar si en la resolución se sancionó con una inhabilitación.",
                             required: ["plazo"],
@@ -722,7 +724,7 @@ let data = {
                           otro: {
                             type: "object",
                             title: "OTRO",
-                            description: 
+                            description:
                               "Llenar este apartado en caso de que el particular sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
                             required: ["nombre", "urlDocumento"],
                             properties: {

@@ -122,15 +122,7 @@ let data = {
     },
     faltaCometida: {
       items: {
-        "ui:order": [
-          "clave",
-          "valor",
-          "nombreNormatividadInfringida",
-          "articuloNormatividadInfringida",
-          "fraccionNormatividadInfringida",
-          "descripcionHechos",
-        ],
-        valor: {
+        clave: {
           "ui:placeholder": "...",
         },
         nombreNormatividadInfringida: {
