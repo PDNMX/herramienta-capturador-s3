@@ -6,7 +6,7 @@ import { esES } from '@mui/material/locale';
 const theme = createTheme({
   palette: {
       primary: {
-          main: '#D8ACD8'
+          main: '#9085DA'
       }
   }
 }, esES);

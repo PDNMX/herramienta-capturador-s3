@@ -2,11 +2,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import CssBaseline from "@mui/material/CssBaseline";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import makeStyles from "@mui/styles/makeStyles";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import { Form } from "react-final-form";
 import { requestTokenAuth } from "../../store/mutations";
 import { TextField, makeValidate } from "mui-rff";
@@ -17,6 +13,13 @@ import { Alert } from "@mui/material";
 import { alertActions } from "../../_actions/alert.actions";
 import { history } from "../../store/history";
 
+import { useTheme } from "@mui/material/styles";
+import { Divider, Stack, useMediaQuery } from "@mui/material";
+import Card from "@mui/material/Card";
+
+import logoS3 from "../../../../public/ico_s3.svg";
+import AuthFooter from "./AuthFooter";
+
 export const LoginV = () => {
   return <MyForm initialValues={{ username: "", password: "" }} />;
 };
@@ -24,88 +27,13 @@ export const LoginV = () => {
 function MyForm(props) {
   const { initialValues } = props;
 
-  const style = makeStyles((theme) => ({
-    gridpadding: {
-      padding: "30px",
-    },
-
-    container1: {
-      paddingTop: "75px",
-      paddingBottom: "75px",
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-      position: "relative",
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center center",
-      backgroundSize: "cover",
-    },
-
-    root: {
-      maxWidth: 1200,
-      margin: "0 auto",
-    },
-    paper: {
-      //marginTop: theme.spacing(8),
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      //paddingTop: '-100px'
-    },
-    field: {
-      width: "100%",
-    },
-    item2: {
-      paddingRight: theme.spacing(2),
-      paddingLeft: theme.spacing(2),
-    },
-
+  const style = makeStyles(() => ({
     fontblack: {
       color: "#666666",
     },
-    purpleText: {
-      color: "#FFFFFF",
-    },
-
-    avatar: {
-      margin: theme.spacing(1),
-    },
-    form: {
-      width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing(2),
-    },
-    submit: {
-      margin: theme.spacing(3, 0, 2),
-      backgroundColor: "#34b3eb",
-      color: "#666666",
-    },
-    logo: {
-      margin: "auto",
-      display: "block",
-      maxWidth: "15%",
-      maxHeight: "15%",
-    },
-    textfield: {
-      "&.Mui-focused fieldset": {
-        borderColor: "#666666",
-      },
-      "& label.Mui-focused": {
-        color: "#666666",
-      },
-      "& .MuiInput-underline:after": {
-        borderBottomColor: "#34b3eb",
-      },
-      "& .MuiOutlinedInput-root": {
-        "&:hover fieldset": {
-          borderColor: "#34b3eb",
-        },
-        "&.Mui-focused fieldset": {
-          borderColor: "#34b3eb",
-        },
-      },
-    },
-    boton: {
-      backgroundColor: "#ffe01b",
-      color: "#666666",
+    root: {
+      backgroundColor: "#eef2f6",
+      minHeight: "100vh",
     },
   }));
 
@@ -143,111 +71,150 @@ function MyForm(props) {
 
   const classes = style();
 
-  return (
-    <div>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={alerta.status}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackbar}>
-        <Alert onClose={handleCloseSnackbar} severity={alerta.type}>
-          {alerta.message}
-        </Alert>
-      </Snackbar>
+  const theme = useTheme();
+  const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
 
+  return (
+    <div className={classes.root}>
       <Grid
         container
-        spacing={0}
-        className={classes.container1}
-        justifyContent="center">
-        <Grid
-          item
-          xs={12}
-          md={6}
-          className={classes.item2}
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center">
-          <Typography
-            variant="h4"
-            paragraph
-            className={classes.fontblack}
-            style={{ fontWeight: 600 }}>
-            Sistema de Captura de Información
-          </Typography>
-        </Grid>
-      </Grid>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography className={classes.fontblack} component="h1" variant="h5">
-            Inicio de sesión
-          </Typography>
-
-          <Form
-            onSubmit={onSubmit}
-            initialValues={initialValues}
-            validate={validate}
-            render={({ handleSubmit, submitting }) => (
-              <form onSubmit={handleSubmit} noValidate>
-                <Grid className={classes.gridpadding} spacing={3} container>
-                  <Grid item xs={12} md={12}>
-                    <TextField
-                      label="Usuario"
-                      name="username"
-                      required={true}
-                    />
+        direction="column"
+        justifyContent="flex-end"
+        sx={{ minHeight: "100vh" }}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={alerta.status}
+          autoHideDuration={3000}
+          onClose={handleCloseSnackbar}>
+          <Alert onClose={handleCloseSnackbar} severity={alerta.type}>
+            {alerta.message}
+          </Alert>
+        </Snackbar>
+        <Grid item xs={12}>
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{ minHeight: "calc(100vh - 68px)" }}>
+            <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
+              <Card
+                sx={{
+                  maxWidth: { xs: 400, lg: 475 },
+                  margin: { xs: 2.5, md: 3 },
+                  "& > *": {
+                    flexGrow: 1,
+                    flexBasis: "50%",
+                  },
+                  textAlign: "center",
+                  borderBottom: "0.3rem solid #9085DA",
+                }}>
+                <Grid
+                  container
+                  spacing={1}
+                  alignItems="center"
+                  justifyContent="center">
+                  <Grid item sx={{ mb: 3 }}>
+                    <Link to="#"></Link>
                   </Grid>
-                  <Grid item xs={12} md={12}>
-                    <TextField
-                      label="Contraseña"
-                      name="password"
-                      type="password"
-                      required={true}
-                    />
+                  <Grid item xs={12}>
+                    <Grid
+                      container
+                      direction={matchDownSM ? "column-reverse" : "row"}
+                      alignItems="center"
+                      justifyContent="center">
+                      <Grid item>
+                        <Stack
+                          alignItems="center"
+                          justifyContent="center"
+                          spacing={1}>
+                          <img src={logoS3} alt="logo-s3" height={120} />
+                          <Typography
+                            variant="h4"
+                            className={classes.fontblack}>
+                            Herramienta de Captura de Información
+                          </Typography>
+                          <Typography
+                            className={classes.fontblack}
+                            variant="subtitle1">
+                            Introduce tus credenciales
+                          </Typography>
+                          <Form
+                            onSubmit={onSubmit}
+                            initialValues={initialValues}
+                            validate={validate}
+                            render={({ handleSubmit, submitting }) => (
+                              <form onSubmit={handleSubmit} noValidate>
+                                <Grid spacing={3} p={2} container>
+                                  <Grid item xs={12} md={12}>
+                                    <TextField
+                                      label="Usuario"
+                                      name="username"
+                                      required={true}
+                                    />
+                                  </Grid>
+                                  <Grid item xs={12} md={12}>
+                                    <TextField
+                                      label="Contraseña"
+                                      name="password"
+                                      type="password"
+                                      required={true}
+                                    />
+                                  </Grid>
+                                  <Grid
+                                    item
+                                    xs={12}
+                                    md={12}
+                                    container
+                                    direction="row"
+                                    justifyContent="center"
+                                    alignItems="center">
+                                    <Button
+                                      size="large"
+                                      variant="contained"
+                                      type="submit"
+                                      disabled={submitting}>
+                                      Entrar
+                                    </Button>
+                                  </Grid>
+                                </Grid>
+                              </form>
+                            )}
+                          />
+                        </Stack>
+                      </Grid>
+                    </Grid>
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center">
-                    <Button
-                      size="large"
-                      variant="contained"
-                      type="submit"
-                      disabled={submitting}>
-                      Entrar
-                    </Button>
+                  {/* <Grid item xs={12}></Grid> */}
+                  <Grid item xs={12}>
+                    <Divider />
                   </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    md={12}
-                    container
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center">
-                    <Link
-                      underline="hover"
-                      component="button"
-                      variant="body2"
-                      onClick={() => redirectToRoute("/restaurar-contraseña")}>
-                      Restablecer Contraseña
-                    </Link>
+                  <Grid item xs={12} mb={2}>
+                    <Grid
+                      item
+                      container
+                      direction="column"
+                      alignItems="center"
+                      xs={12}>
+                      <Link
+                        underline="hover"
+                        component="button"
+                        variant="body2"
+                        onClick={() =>
+                          redirectToRoute("/restaurar-contraseña")
+                        }>
+                        Restablecer Contraseña
+                      </Link>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </form>
-            )}
-          />
-        </div>
-      </Container>
+              </Card>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={12} sx={{ m: 3, mt: 1 }}>
+          <AuthFooter />
+        </Grid>
+      </Grid>
     </div>
   );
 }
