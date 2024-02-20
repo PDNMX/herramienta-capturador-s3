@@ -106,14 +106,12 @@ let data = {
     curp: {
       type: "string",
       title: "CURP",
-      format: 'curp',
       description:
         "Escribir los dieciocho caracteres alfanuméricos como la emitió la Secretaría de Gobernación.  En caso de no contar con ella, podrá consultarla en la siguiente página: https://www.gob.mx/curp/",
       example: "PERG850101HDF",
     },
     rfc: {
       type: "string",
-      format: 'rfc',
       title: "RFC con Homoclave",
       description:
         "Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave. En caso de no contar con este dato, podrá consultarlo en la página del Servicio de Administración Tributaria: https://www.sat.gob.mx/aplicacion/operacion/31274/consulta-tu-clave-de-rfc-mediante-curp",

@@ -305,8 +305,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography component="div" variant="h6" color="#fff" noWrap>
-            {"Sistema de Captura de Información"}
-            <br />
+          Herramienta de captura de información del Sistema nacional de servidores públicos y particulares sancionados
           </Typography>
           <div sx={{ justifyContent: "flex-end" }}>
             <Button

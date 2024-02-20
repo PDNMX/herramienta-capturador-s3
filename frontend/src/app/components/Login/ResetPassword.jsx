@@ -126,12 +126,14 @@ function MyForm(props) {
                         <Stack
                           alignItems="center"
                           justifyContent="center"
-                          spacing={1}>
+                          spacing={1}
+                          ml={1}
+                          mr={1}>
                           <img src={logoS3} alt="logo-s3" height={120} />
                           <Typography
                             variant="h4"
                             className={classes.fontblack}>
-                            Herramienta de Captura de Información
+                            Herramienta de captura de información del <br/>Sistema nacional de servidores públicos y particulares sancionados
                           </Typography>
                           <Typography
                             className={classes.fontblack}
