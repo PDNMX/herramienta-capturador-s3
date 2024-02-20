@@ -70,7 +70,7 @@ services:
       VITE_CLIENT_ID: ${CLIENT_ID}
       VITE_CLIENT_SECRET: ${CLIENT_SECRET}
     ports:
-      - ${PORT_FRONTEND}:500
+      - ${PORT_FRONTEND}:5000
 
 volumes:
   mongo: {}
