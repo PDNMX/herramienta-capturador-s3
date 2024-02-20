@@ -42,32 +42,39 @@ let data = {
       "ui:placeholder":
         "Ejemplo: Adquisición y enajenación de bienes inmuebles de cualquier",
     },
-    domicilioMexico: {
-      //false
-      vialidad: {
-        "ui:options": { label: false },
-        clave: {
-          "ui:placeholder": "Ejemplo: Calle",
-          "ui:enableMarkdownInDescription": true,
-          "ui:description":
-            "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco <a target='_blank' href='https://www.inegi.org.mx/temas/mg/#Documentacion'> Geoestadístico Nacional </a>.",
-        },
-        valor: { "ui:placeholder": "Ejemplo: Adolfo López Mateos" },
-        numeroExterior: { "ui:placeholder": "Ejemplo: 21" },
-        numeroInterior: { "ui:placeholder": "Ejemplo: 4A" },
-        colonia: { "ui:placeholder": "Ejemplo: San Cristóbal Centro" },
+    domicilio: {
+      "ui:options": {
+        title: false,
       },
-      localidad: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
-      municipio: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
-      codigoPostal: { "ui:placeholder": "Ejemplo: 55000" },
-      entidadFederativa: {},
+      //false
+      domicilioMexico: {
+        vialidad: {
+          "ui:options": { label: false },
+          clave: {
+            "ui:placeholder": "Ejemplo: Calle",
+            "ui:enableMarkdownInDescription": true,
+            "ui:description":
+              "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco <a target='_blank' href='https://www.inegi.org.mx/temas/mg/#Documentacion'> Geoestadístico Nacional </a>.",
+          },
+          valor: { "ui:placeholder": "Ejemplo: Adolfo López Mateos" },
+          numeroExterior: { "ui:placeholder": "Ejemplo: 21" },
+          numeroInterior: { "ui:placeholder": "Ejemplo: 4A" },
+          colonia: { "ui:placeholder": "Ejemplo: San Cristóbal Centro" },
+        },
+        localidad: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
+        municipio: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
+        codigoPostal: { "ui:placeholder": "Ejemplo: 55000" },
+        entidadFederativa: {},
+      },
       //true
-      ciudadLocalidad: { "ui:placeholder": "Ejemplo: San Jose" },
-      estadoProvincia: { "ui:placeholder": "Ejemplo: California" },
-      calle: { "ui:placeholder": "Ejemplo: Elizabeth St" },
-      numeroExterior: { "ui:placeholder": "Ejemplo: 421" },
-      numeroInterior: { "ui:placeholder": "Ejemplo: 202" },
-      pais: { "ui:placeholder": "Ejemplo: Estados Unidos de América" },
+      domicilioExtranjero: {
+        ciudadLocalidad: { "ui:placeholder": "Ejemplo: San Jose" },
+        estadoProvincia: { "ui:placeholder": "Ejemplo: California" },
+        calle: { "ui:placeholder": "Ejemplo: Elizabeth St" },
+        numeroExterior: { "ui:placeholder": "Ejemplo: 421" },
+        numeroInterior: { "ui:placeholder": "Ejemplo: 202" },
+        pais: { "ui:placeholder": "Ejemplo: Estados Unidos de América" },
+      },
     },
     entePublico: {
       nombre: {
@@ -118,7 +125,15 @@ let data = {
     },
     faltaCometida: {
       items: {
-        clave: {
+        "ui:order": [
+          "clave",
+          "valor",
+          "nombreNormatividadInfringida",
+          "articuloNormatividadInfringida",
+          "fraccionNormatividadInfringida",
+          "descripcionHechos",
+        ],
+        valor: {
           "ui:placeholder": "...",
         },
         nombreNormatividadInfringida: {
@@ -135,13 +150,19 @@ let data = {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
         },
+        descripcionHechos: {
+          "ui:placeholder": "Ejemplo: ...",
+        },
       },
     },
     resolucion: {
       documentoResolucion: {
         "ui:placeholder": "Ejemplo: Sentencia Final",
       },
-      url: {
+      urlNotificacion: {
+        "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
+      },
+      urlResolucion: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
     },
@@ -150,7 +171,10 @@ let data = {
         "ui:widget": "RadioWidget",
         "ui:options": { inline: true },
       },
-      autoridadSancionadora: {
+      autoridadJurisdiccional: {
+        "ui:placeholder": "Ejemplo: Secretaría de la Función Pública",
+      },
+      autoridadInvestigadora: {
         "ui:placeholder": "Ejemplo: Secretaría de la Función Pública",
       },
       sancion: {
@@ -167,11 +191,11 @@ let data = {
           descripcion: {
             "ui:placeholder": "Ejemplo: Sancion impuesta por ...",
           },
-          inhabilitado: {
+          inhabilitacion: {
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
             constancia: {
               titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
@@ -182,26 +206,22 @@ let data = {
           },
           prision: {
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
-            },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
           },
           sancionEconomica: {
-            moneda: {
-              "ui:widget": "RadioWidget",
-              "ui:options": { inline: true },
+            sancionImpuesta: {
+              moneda: {
+                "ui:widget": "RadioWidget",
+                "ui:options": { inline: true },
+              },
             },
             plazo: {
-              año: { "ui:placeholder": "Ejemplo: 2 años" },
-              mes: { "ui:placeholder": "Ejemplo: 10 meses" },
-              dia: { "ui:placeholder": "Ejemplo: 24 dias" },
+              años: { "ui:placeholder": "Ejemplo: 2 años" },
+              meses: { "ui:placeholder": "Ejemplo: 10 meses" },
+              dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
             cobrado: {
               moneda: {
@@ -218,8 +238,8 @@ let data = {
           },
           otro: {
             nombre: { "ui:placeholder": "..." },
-            urlDocumento: {
-              "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
+            descripcion: {
+              "ui:placeholder": "Ejemplo: Sancion impuesta por ...",
             },
           },
         },

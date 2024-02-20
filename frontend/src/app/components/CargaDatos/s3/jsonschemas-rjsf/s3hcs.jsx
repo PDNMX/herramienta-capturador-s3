@@ -710,7 +710,7 @@ let data = {
                             },
                           },
                         },
-                        required: ["descripcion", "prision"],
+                        required: ["prision"],
                       },
                       {
                         properties: {

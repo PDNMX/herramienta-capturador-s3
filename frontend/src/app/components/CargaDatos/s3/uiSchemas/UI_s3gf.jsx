@@ -197,7 +197,7 @@ let data = {
           descripcion: {
             "ui:placeholder": "Ejemplo: Sancion impuesta por ...",
           },
-          inhabilitado: {
+          inhabilitacion: {
             plazo: {
               años: { "ui:placeholder": "Ejemplo: 2 años" },
               meses: { "ui:placeholder": "Ejemplo: 10 meses" },

@@ -86,6 +86,7 @@ function MyForm(props) {
     <Grid item xs={12}>
       <Card>
         <CardHeader
+          //No hay cambios en el titulo, preguntar si es correcto el nombre que se tenia o habra alguna modificacion
           title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES IMPUESTAS A PARTICULARES (PERSONA FÍSICA) POR LA COMISÓN DE HECHOS DE CORRUPIÓN."
         />
         <Divider />
