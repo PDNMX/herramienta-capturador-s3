@@ -124,14 +124,10 @@ let data = {
         rfc: {
           type: "string",
           title: "RFC con homoclave",
-          description:
-            "Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave. En caso de no contar con este dato, podrá consultarlo en la página del Servicio de Administración Tributaria: https://www.sat.gob.mx/aplicacion/operacion/31274/consulta-tu-clave-de-rfc-mediante-curp",
         },
         curp: {
           type: "string",
           title: "CURP",
-          description:
-            "Escribir los dieciocho caracteres alfanuméricos como la emitió la Secretaría de Gobernación.  En caso de no contar con ella, podrá consultarla en la siguiente página: https://www.gob.mx/curp/",
         },
       },
     },
@@ -190,18 +186,16 @@ let data = {
       type: "string",
       title: "Expediente",
       description:
-        "Capturar el número que refiere al procedimiento único que da inicio en materia de responsabilidades administrativas.",
+        "Registrar el número de expediente del procedimiento.",
     },
     hechosMorales: {
       title: "1. DATOS GENERALES DE LA PERSONA MORAL",
       description:
-        "Indicar los datos generales de la persona moral sancionados.",
+        "En esta sección se registrarán los datos generales de la persona moral sancionada.",
       type: "object",
       required: [
         "rfc",
         "razonSocial",
-        "telefono",
-        "objetoSocial",
         "domicilioMexico",
         "directorApoderado",
         "entePublico",
@@ -215,158 +209,184 @@ let data = {
           type: "string",
           title: "RFC con homoclave",
         },
+        //En el documento de descripciones está en otro orden primero va denominación o razón social
         razonSocial: {
           type: "string",
-          title: "Denominación razón social",
+          title: "Denominación/Razón social",
           description:
-            "Indicar la denominación o razón social de la empresa tal y como se encuentra registrada en la escritura pública.",
+            "Deberá proporcionar la denominación o razón social de la institución tal y como se encuentra registrada en la escritura pública.",
         },
         telefono: {
           type: "string",
-          title: "Telefono",
+          title: "Teléfono",
         },
+        //En el documento de descripciones este campo no tiene descripción
+        //ni algún ejemplo, checar con Yu.
         objetoSocial: {
           type: "string",
           title: "Objeto social de la actividad",
           description:
             "Describir la o las actividades principales que lleva a cabo la persona moral.",
         },
-        domicilioMexico: {
+        domicilio: {
           type: "object",
           title: "Domicilio",
           properties: {
-            domicilioExtranjero: {
+            tipoDomicilio: {
               type: "boolean",
               default: false,
               title: "Domicilio extranjero",
             },
           },
           dependencies: {
-            domicilioExtranjero: {
+            tipoDomicilio: {
               oneOf: [
                 {
                   properties: {
-                    domicilioExtranjero: { const: false },
-                    vialidad: {
+                    tipoDomicilio: { const: false },
+                    domicilioMexico: {
                       type: "object",
-                      required: ["clave", "valor", "numeroExterior", "colonia"],
+                      title: "Domicilio México",
+                      description:
+                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal, país.",
+                      required: [
+                        "vialidad",
+                        "localidad",
+                        "municipio",
+                        "codigoPostal",
+                        "entidadFederativa",
+                      ],
                       properties: {
-                        clave: {
+                        //falta hacer las descripciones para cada uno de los campos de Domicilio Mexico
+                        vialidad: {
+                          type: "object",
+                          required: [
+                            "clave",
+                            "valor",
+                            "numeroExterior",
+                            "numeroInterior",
+                            "colonia",
+                          ],
+                          properties: {
+                            clave: {
+                              type: "string",
+                              title: "Tipo de vialidad",
+                              description:
+                                "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco Geoestadístico Nacional. https://www.inegi.org.mx/temas/mg/#Documentacion",
+                            },
+                            valor: {
+                              type: "string",
+                              title: "Nombre de la vialidad",
+                              description:
+                                "Escribir el nombre completo de la calle, boulevard, avenida, etc.",
+                            },
+                            numeroExterior: {
+                              type: "string",
+                              title: "Número exterior",
+                              description: "Escribir el número exterior.",
+                            },
+                            numeroInterior: {
+                              type: "string",
+                              title: "Número interior",
+                              description: "Escribir el número interior.",
+                            },
+                            colonia: {
+                              type: "string",
+                              title: "Colonia",
+                              description:
+                                "Escribir el nombre completo de la colonia.",
+                            },
+                          },
+                        },
+                        localidad: {
                           type: "string",
-                          title: "Tipo de vialidad",
+                          title: "Localidad",
+                          description: "Nombre de la localidad.",
+                        },
+                        municipio: {
+                          type: "string",
+                          title: "Municipio",
+                          description: "Nombre del municipio/alcaldia.",
+                        },
+                        codigoPostal: {
+                          type: "integer",
+                          title: "Codigo Postal",
+                          description: "Escribir el número código postal.",
+                        },
+                        entidadFederativa: {
+                          title: "Entidad federativa",
                           description:
-                            "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco Geoestadístico Nacional. https://www.inegi.org.mx/temas/mg/#Documentacion",
-                        },
-                        valor: {
-                          type: "string",
-                          title: "Nombre de la vialidad",
-                          description:
-                            "Escribir el nombre completo de la calle, boulevard, avenida, etc.",
-                        },
-                        numeroExterior: {
-                          type: "string",
-                          title: "Número exterior",
-                          description: "Escribir el número exterior.",
-                        },
-                        numeroInterior: {
-                          type: "string",
-                          title: "Número interior",
-                          description: "Escribir el número interior.",
-                        },
-                        colonia: {
-                          type: "string",
-                          title: "Colonia",
-                          description:
-                            "Escribir el nombre completo de la colonia.",
+                            "Seleccionar la entidad federativa que corresponda al domicilio completo previamente documentado.",
+                          $ref: "#/definitions/entidad",
                         },
                       },
                     },
-                    localidad: {
-                      type: "string",
-                      title: "Localidad",
-                      description: "Nombre de la localidad.",
-                    },
-                    municipio: {
-                      type: "string",
-                      title: "Municipio",
-                      description: "Nombre del municipio/alcaldia.",
-                    },
-                    codigoPostal: {
-                      type: "integer",
-                      title: "Codigo Postal",
-                      description: "Escribir el número código postal.",
-                    },
-                    entidadFederativa: {
-                      title: "Entidad federativa",
-                      description:
-                        "Seleccionar la entidad federativa que corresponda al domicilio completo previamente documentado.",
-                      $ref: "#/definitions/entidad",
-                    },
                   },
-                  required: [
-                    "vialidad",
-                    "localidad",
-                    "municipio",
-                    "codigoPostal",
-                    "entidadFederativa",
-                  ],
                 },
                 {
                   properties: {
-                    domicilioExtranjero: { const: true },
-                    ciudadLocalidad: {
-                      type: "string",
-                      title: "Ciudad",
+                    tipoDomicilio: { const: true },
+                    domicilioExtranjero: {
+                      type: "object",
+                      title: "Domicilio Extranjero",
                       description:
-                        "Escribir el nombre de la localidad del domicilio extranjero.",
-                    },
-                    estadoProvincia: {
-                      type: "string",
-                      title: "Provincia",
-                      description:
-                        "Escribir el nombre del estado/provincia del domicilio extranjero.",
-                    },
-                    calle: {
-                      type: "string",
-                      title: "Calle",
-                      description:
-                        "Escribir el nombre de la calle del domicilio extranjero.",
-                    },
-                    numeroExterior: {
-                      type: "string",
-                      title: "Numero Exterior",
-                      description:
-                        "Escribir el numero exterior del domicilio extranjero.",
-                    },
-                    numeroInterior: {
-                      type: "string",
-                      title: "Numero Interior",
-                      description:
-                        "Escribir el numero interior del domicilio extranjero.",
-                    },
-                    codigoPostal: {
-                      type: "integer",
-                      title: "Codigo Postal",
-                      description:
-                        "Escribir el codigo postal del domicilio extranjero.",
-                    },
-                    pais: {
-                      type: "string",
-                      title: "Pais",
-                      description:
-                        "Nombre del país especificado en estándar ISO3166.",
+                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal, país.",
+                      required: [
+                        "ciudadLocalidad",
+                        "estadoProvincia",
+                        "calle",
+                        "numeroExterior",
+                        "numeroInterior",
+                        "codigoPostal",
+                        "pais",
+                      ],
+                      properties: {
+                        //Faltan las descripciones para los campos de Domicilio Extranjero
+                        ciudadLocalidad: {
+                          type: "string",
+                          title: "Ciudad",
+                          description:
+                            "Escribir el nombre de la localidad del domicilio extranjero.",
+                        },
+                        estadoProvincia: {
+                          type: "string",
+                          title: "Provincia",
+                          description:
+                            "Escribir el nombre del estado/provincia del domicilio extranjero.",
+                        },
+                        calle: {
+                          type: "string",
+                          title: "Calle",
+                          description:
+                            "Escribir el nombre de la calle del domicilio extranjero.",
+                        },
+                        numeroExterior: {
+                          type: "string",
+                          title: "Numero Exterior",
+                          description:
+                            "Escribir el numero exterior del domicilio extranjero.",
+                        },
+                        numeroInterior: {
+                          type: "string",
+                          title: "Numero Interior",
+                          description:
+                            "Escribir el numero interior del domicilio extranjero.",
+                        },
+                        codigoPostal: {
+                          type: "integer",
+                          title: "Codigo Postal",
+                          description:
+                            "Escribir el codigo postal del domicilio extranjero.",
+                        },
+                        pais: {
+                          type: "string",
+                          title: "Pais",
+                          description:
+                            "Nombre del país especificado en estándar ISO3166.",
+                        },
+                      },
                     },
                   },
-                  required: [
-                    "domicilioExtranjero",
-                    "ciudadLocalidad",
-                    "estadoProvincia",
-                    "calle",
-                    "numeroExterior",
-                    "numeroInterior",
-                    "codigoPostal",
-                    "pais",
-                  ],
                 },
               ],
             },
