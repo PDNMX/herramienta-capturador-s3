@@ -42,7 +42,7 @@ const schemaUser = Yup.object().shape({
   telefono: Yup.string().matches(new RegExp('^[0-9]{10}$'), 'Inserta un número de teléfono valido, 10 caracteres').required('El campo Número de teléfono es requerido').trim(),
   extension: Yup.string().matches(new RegExp('^[0-9]{0,10}$'), 'Inserta un número de extensión valido , maximo 10 caracteres').trim(),
   usuario: Yup.string().matches(new RegExp('^[a-zA-Z0-9]{8,}$'), 'Inserta al menos 8 caracteres, no se permiten caracteres especiales').required('El campo Nombre de usuario es requerido').trim(),
-  constrasena: Yup.string(),
+  contrasena: Yup.string(),
   sistemas: Yup.array().min(1).required('El campo Sistemas aplicables es requerido'),
   proveedorDatos: Yup.string().required('El campo Proveedor de datos es requerido'),
   estatus: Yup.boolean().required('El campo Estatus es requerido')

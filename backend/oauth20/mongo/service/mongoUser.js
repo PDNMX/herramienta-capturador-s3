@@ -4,7 +4,7 @@ var userModel = require('../model/user');
 async  function getUser (username, password){
    return  await userModel.findOne({
        usuario: username,
-       constrasena : password
+       contrasena : password
     }).exec();
 }
 

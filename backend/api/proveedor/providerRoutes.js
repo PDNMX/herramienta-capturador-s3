@@ -5,6 +5,7 @@ const ProviderController = require("./controllers/ProviderController");
 // Middleware Imports
 const isAuthenticatedMiddleware = require("../common/middlewares/IsAuthenticatedMiddleware");
 const SchemaValidationMiddleware = require("../common/middlewares/SchemaValidationMiddleware");
+const IsAuthenticatedMiddleware = require("../common/middlewares/IsAuthenticatedMiddleware");
 
 //********************************************************** crear proveedoor */*********************************************************/
 
@@ -30,7 +31,7 @@ router.post(
     } */
   );
   
-  router.post(
+  router.put(
     "/edit/provider",
     [
       isAuthenticatedMiddleware.check,
@@ -42,8 +43,20 @@ router.post(
       res.send(' funcionando correctamente desde el edit provider router!')
     }  */
   );
+
+  router.post(
+    "/getProviders",
+    [IsAuthenticatedMiddleware.check],
+    ProviderController.getProviders
+  );
+
+  router.post(
+    "/getProvidersFull",
+    [IsAuthenticatedMiddleware.check],
+    ProviderController.getProvidersFull
+  );
   
-    module.exports = router;
+  module.exports = router;
 
   /********************************************************* Final crear proveedoor **********************************************************/
   

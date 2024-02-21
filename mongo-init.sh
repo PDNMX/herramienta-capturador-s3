@@ -12,7 +12,7 @@ db.usuarios.insertOne({
   telefono: '',
   extension: '',
   usuario: '$ADMIN_USER',
-  constrasena: '$(echo -n "$ADMIN_PASSWORD" | sha256sum | cut -c-64)',
+  contrasena: '$(echo -n "$ADMIN_PASSWORD" | sha256sum | cut -c-64)',
   sistemas: ['S2', 'S3S', 'S3P'],
   proveedorDatos: 'Proveedor DEMO',
   fechaAlta: '2021-01-15T15:28:28-06:00',

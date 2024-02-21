@@ -10,7 +10,7 @@ const userSchema = new Schema({
   telefono: String,
   extension: String,
   usuario: { type: String, unique: true },
-  constrasena: String,
+  contrasena: String,
   sistemas: { type: [], default: void 0 },
   fechaAlta: String,
   fechaBaja: String,

@@ -1,17 +1,18 @@
 const Express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const bodyParser = require('body-parser');
 const app = Express();
 const cors = require("cors");
 const morgan = require("morgan");
 
 const { port } = require("./config");
 
-const PORT = process.env.PORT || 30040;
-const USERMONGO = process.env.USERMONGO || "usuario-capturador";
-const PASSWORDMONGO = process.env.PASSWORDMONGO || "password-capturador";
-const HOSTMONGO = process.env.HOSTMONGO || "localhost";
-const DATABASE = process.env.DATABASE || "admin";
+const PORT = process.env.PORT;
+const USERMONGO = process.env.USERMONGO;
+const PASSWORDMONGO = process.env.PASSWORDMONGO;
+const HOSTMONGO = process.env.HOSTMONGO;
+const DATABASE = process.env.DATABASE;
 
 console.log("PORT: ", PORT);
 console.log("USERMONGO: ", USERMONGO);
@@ -29,7 +30,8 @@ const providerRoutes = require("./proveedor/providerRoutes");
 const userRoutes = require("./usuario/userRoutes");
 
 app.use(morgan("tiny"));
-app.use(cors());
+//app.use(cors());
+app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 
 // Middleware that parses the body payloads as JSON to be consumed next set
 // of middlewares and controllers.

@@ -56,7 +56,7 @@ function MyForm(props) {
   }
 
   const schema = Yup.object().shape({
-    constrasena: Yup.string()
+    contrasena: Yup.string()
       .matches(
         new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*()_+,.\\\\\\/;':\"-]).{8,}$"),
         "Inserta al menos 8 caracteres, al menos una mayúscula, al menos un número, al menos un carácter especial ",
@@ -65,12 +65,12 @@ function MyForm(props) {
       .trim(),
     passwordConfirmation: Yup.string()
       .required("Confirmar contraseña es un campo requerido")
-      .when("constrasena", (password, field) =>
+      .when("contrasena", (password, field) =>
         password
           ? field
               .required("Confirmar contraseña es un campo requerido")
               .oneOf(
-                [Yup.ref("constrasena")],
+                [Yup.ref("contrasena")],
                 "Este campo tiene que coincidir con el campo contraseña",
               )
           : field,
@@ -128,7 +128,7 @@ function MyForm(props) {
                           <TextField
                             fullWidth
                             label="Contraseña nueva"
-                            name="constrasena"
+                            name="contrasena"
                             type="password"
                             required={true}
                           />
