@@ -115,7 +115,7 @@ let data = {
                       type: "string",
                       title: "Segundo apellido",
                       description:
-                        "En caso de tener solo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco y posteriormente seleccionar la opción de: No cuento con segundo apellido.",
+                        "Escribir el segundo apellido completo, sin abreviaturas, sin acentos, ni signos especiales.",
                     },
                   },
                   required: ["sinSegundoApellido", "valor"],
@@ -881,7 +881,8 @@ let data = {
                             type: "object",
                             title:
                               "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
-                            description: "Esta sección deberá llenarse en caso de que el servidor público sea sancionado con una inhabilitación.", 
+                            description:
+                              "Esta sección deberá llenarse en caso de que el servidor público sea sancionado con una inhabilitación.",
                             required: ["plazo", "constancia"],
                             properties: {
                               plazo: {
@@ -934,12 +935,14 @@ let data = {
                           otro: {
                             type: "object",
                             title: "OTRO",
-                            description: "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
+                            description:
+                              "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
                             properties: {
                               nombre: {
                                 title: "Sanción",
                                 type: "string",
-                                description: "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
+                                description:
+                                  "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
                               },
                               descripcion: {
                                 type: "string",

@@ -18,7 +18,7 @@ let data = {
     segundoApellido: {
       "ui:placeholder": "Ejemplo: Gómez",
       "ui:widget": "textarea",
-      "ui:order": ["valor", "sinSegundoApellido"],
+      "ui:order": ["sinSegundoApellido","valor", ],
       "ui:options": {
         title: false,
       },

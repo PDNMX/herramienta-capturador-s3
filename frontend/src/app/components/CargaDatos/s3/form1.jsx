@@ -90,7 +90,7 @@ function MyForm(props) {
         />
         <Divider />
         <CardHeader
-          subheader={id != undefined ? "Edición" : "TODOS LOS CAMPOS SEÑALADOS CON UN * SON DE CARÁCTER OBLIGATORIOS."}
+          subheader={id != undefined ? "Edición" : "TODOS LOS CAMPOS SEÑALADOS CON UN ASTERISCO (*) SON DE CARÁCTER OBLIGATORIO."}
         />
         <CardContent>
           <Grid container>
