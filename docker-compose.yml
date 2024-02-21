@@ -15,8 +15,8 @@ services:
     volumes:
       - mongo:/data/db
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
-    #ports:
-    #  - 27017:27017
+    ports:
+      - 27017:27017
 
   oauth2:
     restart: always
