@@ -9,8 +9,9 @@ let data = {
       "ui:description":
         "Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave. En caso de no contar con este dato, podrá consultarlo en la página del <a target='_blank' href='https://www.sat.gob.mx/aplicacion/operacion/31274/consulta-tu-clave-de-rfc-mediante-curp'>Servicio de Administración Tributaria</a>.",
     },
-    razonSocial:{
-      "ui:placeholder": "Ejemplo: Empresa de Servicios de Consultoría",},
+    razonSocial: {
+      "ui:placeholder": "Ejemplo: Empresa de Servicios de Consultoría",
+    },
     telefono: {
       "ui:placeholder": "Ejemplo: 5500000000",
       "ui:enableMarkdownInDescription": true,
@@ -21,32 +22,39 @@ let data = {
       "ui:placeholder":
         "Ejemplo: Adquisición y enajenación de bienes inmuebles de cualquier",
     },
-    domicilioMexico: {
-      //false
-      vialidad: {
-        "ui:options": { label: false },
-        clave: {
-          "ui:placeholder": "Ejemplo: Calle",
-          "ui:enableMarkdownInDescription": true,
-          "ui:description":
-            "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco <a target='_blank' href='https://www.inegi.org.mx/temas/mg/#Documentacion'> Geoestadístico Nacional </a>.",
-        },
-        valor: { "ui:placeholder": "Ejemplo: Adolfo López Mateos" },
-        numeroExterior: { "ui:placeholder": "Ejemplo: 21" },
-        numeroInterior: { "ui:placeholder": "Ejemplo: 4A" },
-        colonia: { "ui:placeholder": "Ejemplo: San Cristóbal Centro" },
+    domicilio: {
+      "ui:options": {
+        title: false,
       },
-      localidad: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
-      municipio: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
-      codigoPostal: { "ui:placeholder": "Ejemplo: 55000" },
-      entidadFederativa: {},
+      //false
+      domicilioMexico: {
+        vialidad: {
+          "ui:options": { label: false },
+          clave: {
+            "ui:placeholder": "Ejemplo: Calle",
+            "ui:enableMarkdownInDescription": true,
+            "ui:description":
+              "Colocar el nombre de la vialidad correspondiente con base al catálogo de vialidades del marco <a target='_blank' href='https://www.inegi.org.mx/temas/mg/#Documentacion'> Geoestadístico Nacional </a>.",
+          },
+          valor: { "ui:placeholder": "Ejemplo: Adolfo López Mateos" },
+          numeroExterior: { "ui:placeholder": "Ejemplo: 21" },
+          numeroInterior: { "ui:placeholder": "Ejemplo: 4A" },
+          colonia: { "ui:placeholder": "Ejemplo: San Cristóbal Centro" },
+        },
+        localidad: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
+        municipio: { "ui:placeholder": "Ejemplo: Ecatepec de Morelos" },
+        codigoPostal: { "ui:placeholder": "Ejemplo: 55000" },
+        entidadFederativa: {},
+      },
       //true
-      ciudadLocalidad: { "ui:placeholder": "Ejemplo: San Jose" },
-      estadoProvincia: { "ui:placeholder": "Ejemplo: California" },
-      calle: { "ui:placeholder": "Ejemplo: Elizabeth St" },
-      numeroExterior: { "ui:placeholder": "Ejemplo: 421" },
-      numeroInterior: { "ui:placeholder": "Ejemplo: 202" },
-      pais: { "ui:placeholder": "Ejemplo: Estados Unidos de América" },
+      domicilioExtranjero: {
+        ciudadLocalidad: { "ui:placeholder": "Ejemplo: San Jose" },
+        estadoProvincia: { "ui:placeholder": "Ejemplo: California" },
+        calle: { "ui:placeholder": "Ejemplo: Elizabeth St" },
+        numeroExterior: { "ui:placeholder": "Ejemplo: 421" },
+        numeroInterior: { "ui:placeholder": "Ejemplo: 202" },
+        pais: { "ui:placeholder": "Ejemplo: Estados Unidos de América" },
+      },
     },
     directorApoderado: {
       directorGeneral: {
@@ -114,10 +122,10 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Secretaría de Hacienda y Crédito Público",
+        "ui:placeholder": "Ejemplo: Instituto Nacional de Transparencia, Acceso a la informacion y Proteccion de Datos Personales",
       },
       siglas: {
-        "ui:placeholder": "Ejemplo: SHCP",
+        "ui:placeholder": "Ejemplo: INAI",
       },
       nivelOdenGobierno: {
         "ui:options": { label: false },
@@ -184,8 +192,11 @@ let data = {
       documentoResolucion: {
         "ui:placeholder": "Ejemplo: Sentencia Final",
       },
-      url: {
+      urlResolucion: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
+      },
+      urlResolucionFirme: {
+        "ui:placeholder": "https://www.ejemplo.com/resolucion-firme.pdf",
       },
     },
     tipoSancion: {
