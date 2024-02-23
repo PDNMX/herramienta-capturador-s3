@@ -23,7 +23,6 @@ const labelNoSeHaIniciado = "No se ha iniciado sesión";
 
 export const App = () => (
   <Router history={history}>
-    {" "}
     <Provider store={storeValidate}>
       <Route
         exact
@@ -40,6 +39,36 @@ export const App = () => (
       />
       {/* ----------- NUEVAS VERSIONES - INICIO ----------- */}
       {/* ----------- NUEVAS VERSIONES - s3: 11 Formatos ----------- */}
+      <Route
+        exact
+        path="/inicio"
+        render={() => {
+          if (localStorage.token) {
+            if ((JSON.parse(window.atob(localStorage.token.split(".")[1]))) < (new Date().getTime() + 1) / 1000) {
+              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
+              localStorage.clear();
+              return <Redirect to="/ingresar" />;
+            } else {
+              if (
+                localStorage.token &&
+                localStorage.rol == "2"
+              ) {
+                storeValidate.dispatch(alertActions.clear());
+                return (
+                  <ConnectedMenuV
+                    propiedades={{ renderView: "inicio" }}
+                  />
+                );
+              } else {
+                return <Redirect to="/ingresar" />;
+              }
+            }
+          } else {
+            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
+            return <Redirect to="/ingresar" />;
+          }
+        }}
+      />
       <Route
         exact
         path="/captura/s3/faltas-administrativas/graves"

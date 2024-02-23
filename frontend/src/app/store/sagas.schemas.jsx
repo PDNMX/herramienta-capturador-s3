@@ -348,7 +348,7 @@ export function* loginUser() {
 					history.push('/usuario/cambiarcontrasena');
 					yield put(alertActions.error('¡Debes cambiar tu contraseña de manera obligatoria!'));
 				} else if (status.data.rol == '2') {
-					history.push('/captura/S2v2');
+					history.push('/inicio');
 				} else {
 					history.push('/usuarios');
 				}

@@ -55,6 +55,8 @@ import { ListS2Schemav2 } from "../CargaDatos/listSchemaS2-v2";
 import { ListS3SSchemav2 } from "../CargaDatos/listSchemaS3S-v2";
 import { ListS3PSchemav2 } from "../CargaDatos/listSchemaS3P-v2";
 
+import { Inicio } from "../Inicio";
+
 import { useSelector } from "react-redux";
 
 import FolderIcon from "@mui/icons-material/Folder";
@@ -771,6 +773,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
             <ConnectedCreateProvider match={match} />
           )}
           {vistaRender === "providers" && <ListProvider />}
+          {vistaRender === "inicio" && <Inicio />}
 
           {/* ----------- NUEVAS VERSIONES - INICIO ----------- */}
           {/* ----------- NUEVAS VERSIONES - s3: 11 Formatos ----------- */}
