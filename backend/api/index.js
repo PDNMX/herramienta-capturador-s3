@@ -48,7 +48,8 @@ const start = async () => {
         "@" +
         HOSTMONGO +
         "/" +
-        DATABASE,
+        DATABASE +
+        '?authSource=admin',
       { useNewUrlParser: true, useUnifiedTopology: true },
     );
 
