@@ -1,7 +1,7 @@
 const Express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const app = Express();
 const cors = require("cors");
 const morgan = require("morgan");
@@ -18,14 +18,13 @@ console.log("PORT: ", PORT);
 console.log("USERMONGO: ", USERMONGO);
 console.log("PASSWORDMONGO: ", PASSWORDMONGO);
 console.log("HOSTMONGO: ", HOSTMONGO);
-console.log("DATABASE: ", DATABASE);  
-
+console.log("DATABASE: ", DATABASE);
 
 // Express Routes Import
 /* const AuthorizationRoutes = require("./authorization/routes");
 const UserRoutes = require("./users/routes");
 const ProductRoutes = require("./products/routes"); */
-const S2Routes = require("./sistema2/routes");
+const S3Routes = require("./sistema3/routes");
 const providerRoutes = require("./proveedor/providerRoutes");
 const userRoutes = require("./usuario/userRoutes");
 
@@ -49,16 +48,15 @@ const start = async () => {
         HOSTMONGO +
         "/" +
         DATABASE +
-        '?authSource=admin',
-      { useNewUrlParser: true, useUnifiedTopology: true },
+        "?authSource=admin",
+      { useNewUrlParser: true, useUnifiedTopology: true }
     );
 
     // Attaching the Authentication and User Routes to the app.
     //app.use("/", AuthorizationRoutes);
-    app.use("/s2", S2Routes);
+    app.use("/", S3Routes);
     app.use("/", providerRoutes);
     app.use("/", userRoutes);
-
     app.listen(PORT, () => console.log("Server Listening on PORT:", PORT));
   } catch (error) {
     console.error(error);
