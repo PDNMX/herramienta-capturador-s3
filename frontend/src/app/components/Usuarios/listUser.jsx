@@ -23,7 +23,6 @@ import {
   CardActions,
   Divider,
 } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { userActions } from "../../_actions/user.action";
 import Dialog from "@mui/material/Dialog";
@@ -31,7 +30,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import createStyles from "@mui/styles/createStyles";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { history } from "../../store/history";
 import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
@@ -173,41 +171,6 @@ export const ListUser = () => {
     setUsuarioCorreo(correoElectronico);
   };
 
-  const useStyles = makeStyles((theme) =>
-    createStyles({
-      titlegridModal: {
-        color: "#666666",
-      },
-      body2: {
-        color: "#666666",
-      },
-      fontblack: {
-        color: "#666666",
-      },
-      titleDialogDetail: {
-        flex: 1,
-        color: "#ffff",
-      },
-
-      tableHead: {
-        backgroundColor: "#34b3eb",
-      },
-      tableHeaderColumn: {
-        color: "#ffff",
-      },
-      toolBarModal: {
-        backgroundColor: "#34b3eb",
-      },
-      whiteStyle: {
-        color: "#ffff",
-      },
-      tableGrantsHead: {
-        backgroundColor: "#ffe01b",
-      },
-    }),
-  );
-
-  const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -221,34 +184,34 @@ export const ListUser = () => {
         onClose={handleCloseModalUserInfo}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
-        <Toolbar className={classes.toolBarModal}>
-          <Typography variant="h6" className={classes.titleDialogDetail}>
+        <Toolbar>
+          <Typography variant="h6">
             <b>Detalle del usuario</b>
-            <Typography className={classes.whiteStyle}>
-              *(DNC) = Dato No Capturado
-            </Typography>
           </Typography>
           <IconButton
-            className={classes.fontblack}
             edge="end"
             color="inherit"
             onClick={handleCloseModalUserInfo}
             aria-label="close"
-            size="large">
-            <CloseIcon className={classes.whiteStyle} />
+            size="large"
+            sx={{
+              position: 'absolute',
+              right: 20,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}>
+            <CloseIcon />
           </IconButton>
         </Toolbar>
         <DialogContent dividers>
           <Grid container item md={12} lg={12}>
             <Grid item md={3} sm={12}>
-              <Typography
-                className={classes.titlegridModal}
+              <Typography            
                 align="left"
                 variant="subtitle2">
                 <b>Fecha alta</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {new Date(selectedUser.fechaAlta).toLocaleDateString(
@@ -259,27 +222,23 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Nombre</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
-                {selectedUser.nombre + " " + selectedUser.apellidoUno}
+                {selectedUser.nombre}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Apellido uno</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.apellidoUno ? selectedUser.apellidoUno : <Nota />}
@@ -287,13 +246,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Apellido dos</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.apellidoDos ? selectedUser.apellidoDos : <Nota />}
@@ -301,13 +258,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Usuario</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.usuario}
@@ -315,13 +270,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Estatus</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.estatus.toString() == "true"
@@ -331,13 +284,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Vigencia de contraseña</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {new Date(selectedUser.vigenciaContrasena).toLocaleDateString(
@@ -348,13 +299,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Cargo</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.cargo}
@@ -362,13 +311,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Correo electrónico</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.correoElectronico}
@@ -376,13 +323,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Teléfono</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.telefono}
@@ -390,13 +335,11 @@ export const ListUser = () => {
             </Grid>
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Extensión</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {selectedUser.extension ? selectedUser.extension : <Nota />}
@@ -405,13 +348,11 @@ export const ListUser = () => {
 
             <Grid item md={3} sm={12}>
               <Typography
-                className={classes.titlegridModal}
                 align="left"
                 variant="subtitle2">
                 <b>Proveedor</b>
               </Typography>
               <Typography
-                className={classes.body2}
                 align="left"
                 variant="body2">
                 {renderSelect(selectedUser)}
@@ -423,7 +364,7 @@ export const ListUser = () => {
             <Grid item md={12} sm={12}>
               <TableContainer component={Paper}>
                 <Table aria-label="customized table">
-                  <TableHead className={classes.tableGrantsHead}>
+                  <TableHead>
                     <TableRow>
                       <TableCell>
                         <b>Sistema</b>
@@ -525,35 +466,35 @@ export const ListUser = () => {
             <TableContainer component={Paper}>
               {users.length > 0 && (
                 <Table aria-label="custom pagination table">
-                  <TableHead className={classes.tableHead}>
+                  <TableHead>
                     <TableRow>
                       <TableCell
                         align="left"
                         style={{ width: "20%" }}
-                        className={classes.tableHeaderColumn}>
+                        >
                         <b>Nombre completo</b>
                       </TableCell>
                       <TableCell
                         align="left"
                         style={{ width: "20%" }}
-                        className={classes.tableHeaderColumn}>
+                      >
                         <b>Usuario</b>
                       </TableCell>
                       <TableCell
                         align="left"
-                        className={classes.tableHeaderColumn}>
+                      >
                         <b>Correo</b>
                       </TableCell>
                       <TableCell
                         align="left"
                         style={{ width: "20%" }}
-                        className={classes.tableHeaderColumn}>
+                      >
                         <b>Proveedor</b>
                       </TableCell>
                       <TableCell
                         align="center"
                         style={{ width: "20%" }}
-                        className={classes.tableHeaderColumn}>
+                      >
                         <b>Acciones</b>
                       </TableCell>
                     </TableRow>
@@ -567,21 +508,20 @@ export const ListUser = () => {
                       )
                       .map((user) => (
                         <TableRow key={user._id}>
-                          <TableCell className={classes.fontblack} align="left">
+                          <TableCell align="left">
                             {user.nombre + " " + user.apellidoUno}
                             {user.apellidoDos ? " " + user.apellidoDos : ""}
                           </TableCell>
-                          <TableCell className={classes.fontblack} align="left">
+                          <TableCell align="left">
                             {user.usuario}
                           </TableCell>
-                          <TableCell className={classes.fontblack} align="left">
+                          <TableCell align="left">
                             {user.correoElectronico}
                           </TableCell>
-                          <TableCell className={classes.fontblack} align="left">
+                          <TableCell align="left">
                             {renderSelect(user)}
                           </TableCell>
                           <TableCell
-                            className={classes.fontblack}
                             style={{ width: 430 }}
                             align="center">
                             
