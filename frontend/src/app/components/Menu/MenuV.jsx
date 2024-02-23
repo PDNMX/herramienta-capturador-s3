@@ -36,17 +36,17 @@ import { ConnectedCreateRegS3Sv2 } from "../CargaDatos/createRegS3S-v2";
 import { ConnectedCreateRegS3Pv2 } from "../CargaDatos/createRegS3P-v2";
 
 /* S3 - 11 Forms */
-import {CreateRegForm1} from "../CargaDatos/s3/form1";
-import {CreateRegForm2} from "../CargaDatos/s3/form2";
-import {CreateRegForm3} from "../CargaDatos/s3/form3";
-import {CreateRegForm4} from "../CargaDatos/s3/form4";
-import {CreateRegForm5} from "../CargaDatos/s3/form5";
-import {CreateRegForm6} from "../CargaDatos/s3/form6";
-import {CreateRegForm7} from "../CargaDatos/s3/form7";
-import {CreateRegForm8} from "../CargaDatos/s3/form8";
-import {CreateRegForm9} from "../CargaDatos/s3/form9";
-import {CreateRegForm10} from "../CargaDatos/s3/form10";
-import {CreateRegForm11} from "../CargaDatos/s3/form11";
+import { CreateRegForm1 } from "../CargaDatos/s3/form1";
+import { CreateRegForm2 } from "../CargaDatos/s3/form2";
+import { CreateRegForm3 } from "../CargaDatos/s3/form3";
+import { CreateRegForm4 } from "../CargaDatos/s3/form4";
+import { CreateRegForm5 } from "../CargaDatos/s3/form5";
+import { CreateRegForm6 } from "../CargaDatos/s3/form6";
+import { CreateRegForm7 } from "../CargaDatos/s3/form7";
+import { CreateRegForm8 } from "../CargaDatos/s3/form8";
+import { CreateRegForm9 } from "../CargaDatos/s3/form9";
+import { CreateRegForm10 } from "../CargaDatos/s3/form10";
+import { CreateRegForm11 } from "../CargaDatos/s3/form11";
 
 //import { useLocation } from "react-router-dom";
 import { userActions } from "../../_actions/user.action";
@@ -71,43 +71,20 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
   //MSubmenus
   const [submenuAdmonDatos, setsubmenuAdmonDatos] = useState(false);
-  const [submenuUsuario, setsubMenuUsuario] = useState(false);
+  const [submenuUsuario, setsubMenuUsuario] = useState(true);
   const [submenuBitacora, setsubMenuBitacora] = useState(false);
   const [crearProovedor, setcrearProovedor] = useState(false);
   //const [submenuAdmonDatosS2, setsubmenuAdmonDatosS2] = useState(false);
-
-  const menuUser = (e) => {
-    setsubmenuAdmonDatos(false);
-    setsubMenuUsuario(true);
-    setsubMenuBitacora(false);
-    setcrearProovedor(false);
-    setCheckedUser((prev) => !prev);
-    setCheckedBitacora((prev) => false);
-    setCheckedDatos((prev) => false);
-    setcheckedDatos2((prev) => false);
-    setcheckedDatosS3S((prev) => false);
-    setcheckedDatosS3P((prev) => false);
-    setcheckedAdminDatos2((prev) => false);
-    setcheckedAdminDatosS3S((prev) => false);
-    setcheckedAdminDatosS3P((prev) => false);
-  };
-
-  const menuProveedor = (e) => {
-    setsubmenuAdmonDatos(false);
-    setsubMenuUsuario(false);
-    setcrearProovedor(true);
-    setCheckedProveedor((prev) => !prev);
-    setCheckedUser((prev) => false);
-    setCheckedDatos((prev) => false);
-    setCheckedBitacora((prev) => false);
-    setsubMenuBitacora(false);
-    setcheckedDatos2((prev) => false);
-    setcheckedDatosS3S((prev) => false);
-    setcheckedDatosS3P((prev) => false);
-    setcheckedAdminDatos2((prev) => false);
-    setcheckedAdminDatosS3S((prev) => false);
-    setcheckedAdminDatosS3P((prev) => false);
-  };
+  const [checkedBitacora, setCheckedBitacora] = useState(false);
+  const [checkedUser, setCheckedUser] = useState(false);
+  const [checkedDatos, setCheckedDatos] = useState(false);
+  const [checkedProveedor, setCheckedProveedor] = useState(false);
+  const [checkedDatos2, setcheckedDatos2] = useState(false);
+  const [checkedDatosS3S, setcheckedDatosS3S] = useState(false);
+  const [checkedDatosS3P, setcheckedDatosS3P] = useState(false);
+  const [checkedAdminDatos2, setcheckedAdminDatos2] = useState(false);
+  const [checkedAdminDatosS3S, setcheckedAdminDatosS3S] = useState(false);
+  const [checkedAdminDatosS3P, setcheckedAdminDatosS3P] = useState(false);
 
   const menuDatos2 = (e) => {
     setsubmenuAdmonDatos(true);
@@ -127,7 +104,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
   };
 
   const menuAdminDatos2 = (e) => {
-    setsubmenuAdmonDatos(true);
+    //setsubmenuAdmonDatos(true);
     setsubMenuBitacora(false);
     setsubMenuUsuario(false);
     setcrearProovedor(false);
@@ -194,7 +171,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      background: "#9085DA"
+      background: "#9085DA",
     },
     appBarShift: {
       marginLeft: drawerWidth,
@@ -285,16 +262,6 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
   }));
 
   const classes = useStyles();
-  const [checkedBitacora, setCheckedBitacora] = useState(false);
-  const [checkedUser, setCheckedUser] = useState(false);
-  const [checkedDatos, setCheckedDatos] = useState(false);
-  const [checkedProveedor, setCheckedProveedor] = useState(false);
-  const [checkedDatos2, setcheckedDatos2] = useState(false);
-  const [checkedDatosS3S, setcheckedDatosS3S] = useState(false);
-  const [checkedDatosS3P, setcheckedDatosS3P] = useState(false);
-  const [checkedAdminDatos2, setcheckedAdminDatos2] = useState(false);
-  const [checkedAdminDatosS3S, setcheckedAdminDatosS3S] = useState(false);
-  const [checkedAdminDatosS3P, setcheckedAdminDatosS3P] = useState(false);
 
   return (
     <div className={classes.root}>
@@ -305,7 +272,8 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Typography component="div" variant="h6" color="#fff" noWrap>
-          Herramienta de captura de información del Sistema nacional de servidores públicos y particulares sancionados
+            Herramienta de captura de información del Sistema nacional de
+            servidores públicos y particulares sancionados
           </Typography>
           <div sx={{ justifyContent: "flex-end" }}>
             <Button
@@ -358,7 +326,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/faltas-administrativas/graves")
+                        redirectToRoute(
+                          "/captura/s3/faltas-administrativas/graves",
+                        )
                       }
                       key={"form1"}
                       sx={{ pl: 3.5 }}>
@@ -371,7 +341,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/faltas-administrativas/no-graves")
+                        redirectToRoute(
+                          "/captura/s3/faltas-administrativas/no-graves",
+                        )
                       }
                       key={"form2"}
                       sx={{ pl: 3.5 }}>
@@ -394,7 +366,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/actos-particulares/personas-fisicas")
+                        redirectToRoute(
+                          "/captura/s3/actos-particulares/personas-fisicas",
+                        )
                       }
                       key={"form3"}
                       sx={{ pl: 3.5 }}>
@@ -407,7 +381,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/actos-particulares/personas-morales")
+                        redirectToRoute(
+                          "/captura/s3/actos-particulares/personas-morales",
+                        )
                       }
                       key={"form4"}
                       sx={{ pl: 3.5 }}>
@@ -430,7 +406,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/inhabilitaciones/personas-fisicas")
+                        redirectToRoute(
+                          "/captura/s3/inhabilitaciones/personas-fisicas",
+                        )
                       }
                       key={"form5"}
                       sx={{ pl: 3.5 }}>
@@ -443,7 +421,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/inhabilitaciones/personas-morales")
+                        redirectToRoute(
+                          "/captura/s3/inhabilitaciones/personas-morales",
+                        )
                       }
                       key={"form6"}
                       sx={{ pl: 3.5 }}>
@@ -466,7 +446,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/hechos-corrupcion/servidores-publicos")
+                        redirectToRoute(
+                          "/captura/s3/hechos-corrupcion/servidores-publicos",
+                        )
                       }
                       key={"form7"}
                       sx={{ pl: 3.5 }}>
@@ -479,7 +461,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/hechos-corrupcion/personas-fisicas")
+                        redirectToRoute(
+                          "/captura/s3/hechos-corrupcion/personas-fisicas",
+                        )
                       }
                       key={"form8"}
                       sx={{ pl: 3.5 }}>
@@ -492,7 +476,9 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   <List component="div" disablePadding>
                     <ListItemButton
                       onClick={() =>
-                        redirectToRoute("/captura/s3/hechos-corrupcion/personas-morales")
+                        redirectToRoute(
+                          "/captura/s3/hechos-corrupcion/personas-morales",
+                        )
                       }
                       key={"form9"}
                       sx={{ pl: 3.5 }}>
@@ -681,82 +667,81 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
             {/* ADMINiSTRACIÓN */}
             {rol == 1 && (
-              <ListItem onClick={(e) => menuUser(e)} key={"mu"} disablePadding>
-                <ListItemButton sx={{ p: 2 }}>
-                  <ListItemIcon>
-                    <PeopleIcon style={{ color: "#34b3eb" }} />
-                  </ListItemIcon>
-                  <ListItemText primary="Usuarios" />
-                  {checkedUser ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-              </ListItem>
-            )}
-            {submenuUsuario && (
-              <Collapse in={checkedUser}>
+              <>
                 <ListItem
-                  onClick={() => redirectToRoute("/usuario/crear")}
-                  key={"mu1"}
+                  onClick={() => setCheckedUser((prev) => !prev)}
+                  key={"mu"}
                   disablePadding>
-                  <ListItemButton sx={{ pl: 3.5 }}>
+                  <ListItemButton sx={{ p: 2 }}>
                     <ListItemIcon>
-                      <ControlPointIcon />
+                      <PeopleIcon style={{ color: "#34b3eb" }} />
                     </ListItemIcon>
-                    <ListItemText primary="Crear" />
+                    <ListItemText primary="Usuarios" />
+                    {checkedUser ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                 </ListItem>
+                <Collapse in={!checkedUser}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/usuario/crear")}
+                    key={"mu1"}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <ControlPointIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Crear" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("/usuarios")}
+                    key={"mu2"}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <FormatListBulletedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Listar" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
                 <ListItem
-                  onClick={() => redirectToRoute("/usuarios")}
-                  key={"mu2"}
+                  onClick={() => setCheckedProveedor((prev) => !prev)}
+                  key={"mp"}
                   disablePadding>
-                  <ListItemButton sx={{ pl: 3.5 }}>
+                  <ListItemButton sx={{ p: 2 }}>
                     <ListItemIcon>
-                      <FormatListBulletedIcon />
+                      <AssignmentIcon className={classes.itemTwo} />
                     </ListItemIcon>
-                    <ListItemText primary="Listar" />
+                    <ListItemText primary="Proveedores" />
+                    {checkedProveedor ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                 </ListItem>
-              </Collapse>
-            )}
-            {rol == "1" && (
-              <ListItem
-                onClick={(e) => menuProveedor(e)}
-                key={"mp"}
-                disablePadding>
-                <ListItemButton sx={{ p: 2 }}>
-                  <ListItemIcon>
-                    <AssignmentIcon className={classes.itemTwo} />
-                  </ListItemIcon>
-                  <ListItemText primary="Proveedores" />
-                  {checkedProveedor ? <ExpandLess /> : <ExpandMore />}
-                </ListItemButton>
-              </ListItem>
-            )}
-            {crearProovedor && (
-              <Collapse in={checkedProveedor}>
-                <ListItem
-                  onClick={() => redirectToRoute("/proveedor/crear")}
-                  key={"mp1"}
-                  disablePadding>
-                  <ListItemButton sx={{ pl: 3.5 }}>
-                    <ListItemIcon>
-                      <ControlPointIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Crear" />
-                  </ListItemButton>
-                </ListItem>
+                <Collapse in={!checkedProveedor}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/proveedor/crear")}
+                    key={"mp1"}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <ControlPointIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Crear" />
+                    </ListItemButton>
+                  </ListItem>
 
-                <ListItem
-                  onClick={() => redirectToRoute("/proveedores")}
-                  key={"mp2"}
-                  disablePadding>
-                  <ListItemButton sx={{ pl: 3.5 }}>
-                    <ListItemIcon>
-                      <FormatListBulletedIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Listar" />
-                  </ListItemButton>
-                </ListItem>
-              </Collapse>
+                  <ListItem
+                    onClick={() => redirectToRoute("/proveedores")}
+                    key={"mp2"}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <FormatListBulletedIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Listar" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+              </>
             )}
           </List>
         </Box>
@@ -807,13 +792,16 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {vistaRender === "createReg-form10" && <CreateRegForm10 />}
           {vistaRender === "createReg-form11" && <CreateRegForm11 />}
 
-
           {vistaRender === "createRegv2" && <ConnectedCreateRegv2 />}
           {vistaRender === "createRegS3Sv2" && <ConnectedCreateRegS3Sv2 />}
           {vistaRender === "createRegS3Pv2" && <ConnectedCreateRegS3Pv2 />}
 
-          {vistaRender === "editRegS3Sv2" && ( <ConnectedCreateRegS3Sv2 match={match} /> )}
-          {vistaRender === "editRegS2v2" && ( <ConnectedCreateRegv2 match={match} /> )}
+          {vistaRender === "editRegS3Sv2" && (
+            <ConnectedCreateRegS3Sv2 match={match} />
+          )}
+          {vistaRender === "editRegS2v2" && (
+            <ConnectedCreateRegv2 match={match} />
+          )}
 
           {vistaRender === "S2Schemav2" && <ListS2Schemav2 />}
           {vistaRender === "S3SSchemav2" && <ListS3SSchemav2 />}
