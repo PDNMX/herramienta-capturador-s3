@@ -6,7 +6,8 @@ const generator = require('generate-password');
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: process.env.HOST_EMAIL,
+    port: process.env.PORT_EMAIL,
     auth: {
         user: process.env.EMAIL,
         pass: process.env.PASS_EMAIL
