@@ -12,8 +12,23 @@ async (req, res) => {
     }
 );
 
-router.post("/create_s3ag", 
+router.post("/insert_s3ag", 
             [isAuthenticatedMiddleware.check,],
             S3_Controller_s3ag.create_s3ag);
+router.post("/getAll_s3ag",
+            [isAuthenticatedMiddleware.check,],
+            S3_Controller_s3ag.getAll_s3ag);
+router.post("/list_s3ag", 
+            [isAuthenticatedMiddleware.check,],
+            S3_Controller_s3ag.list_s3ag);
+router.put("/update_s3ag",
+            [isAuthenticatedMiddleware.check,],
+            S3_Controller_s3ag.update_s3ag);
+            
+/*router.post("/edit_s3ag",[isAuthenticatedMiddleware.check,],S3_Controller_s3ag.edit_s3ag);
+router.post("/get_s3ag",[isAuthenticatedMiddleware.check,],S3_Controller_s3ag.get_s3ag);
+router.post("/get_all_s3ag",[isAuthenticatedMiddleware.check,],S3_Controller_s3ag.get_all_s3ag);
+router.post("/delete_s3ag",[isAuthenticatedMiddleware.check,],S3_Controller_s3ag.delete_s3ag);
+router.post("/update_s3ag",[isAuthenticatedMiddleware.check,],S3_Controller_s3ag.update_s3ag); */
 
 module.exports = router;
