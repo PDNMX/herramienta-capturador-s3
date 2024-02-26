@@ -27,6 +27,7 @@ const ProductRoutes = require("./products/routes"); */
 const S3Routes = require("./sistema3/routes");
 const providerRoutes = require("./proveedor/providerRoutes");
 const userRoutes = require("./usuario/userRoutes");
+const AGRoutes = require("./sistema3/ABSTENCIONES_GRAVES/routesAG");
 
 app.use(morgan("tiny"));
 //app.use(cors());
@@ -57,6 +58,8 @@ const start = async () => {
     app.use("/", S3Routes);
     app.use("/", providerRoutes);
     app.use("/", userRoutes);
+    app.use("/S3/ABSTENCIONES-GRAVES/", AGRoutes);
+    
     app.listen(PORT, () => console.log("Server Listening on PORT:", PORT));
   } catch (error) {
     console.error(error);

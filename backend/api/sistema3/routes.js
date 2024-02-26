@@ -12,19 +12,7 @@ async (req, res) => {
     res.status(200).send("Sistema 3 AG funcionando correctamente. Ahora a probar los endpoints");
     }
 );
-//rutas ag
-router.post("/insert_s3ag", 
-            [isAuthenticatedMiddleware.check,],
-            S3_Controller_s3ag.create_s3ag);
-router.post("/getAll_s3ag",
-            [isAuthenticatedMiddleware.check,],
-            S3_Controller_s3ag.getAll_s3ag);
-router.post("/list_s3ag", 
-            [isAuthenticatedMiddleware.check,],
-            S3_Controller_s3ag.list_s3ag);
-router.put("/update_s3ag",
-            [isAuthenticatedMiddleware.check,],
-            S3_Controller_s3ag.update_s3ag);
+
 //rutas ang
 router.post("/insert_s3ang",
             [isAuthenticatedMiddleware.check,],
