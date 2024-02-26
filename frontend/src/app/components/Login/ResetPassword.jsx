@@ -20,7 +20,7 @@ import Card from "@mui/material/Card";
 import AuthFooter from "./AuthFooter";
 import { useTheme } from "@mui/material/styles";
 
-import logoS3 from "../../../../public/ico_s3.svg";
+import logoS3 from '../../../assets/img/ico_s3.svg'
 
 export const ResetPasswordV = () => {
   return <MyForm initialValues={{ correo: "" }} />;

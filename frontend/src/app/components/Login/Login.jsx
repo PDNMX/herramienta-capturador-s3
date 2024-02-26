@@ -17,7 +17,8 @@ import { useTheme } from "@mui/material/styles";
 import { Divider, Stack, useMediaQuery } from "@mui/material";
 import Card from "@mui/material/Card";
 
-import logoS3 from "../../../../public/ico_s3.svg";
+//import logoS3 from "../../../../public/ico_s3.svg";
+import logoS3 from '../../../assets/img/ico_s3.svg'
 import AuthFooter from "./AuthFooter";
 
 export const LoginV = () => {
