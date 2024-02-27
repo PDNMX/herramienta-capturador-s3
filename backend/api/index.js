@@ -28,7 +28,8 @@ const S3Routes = require("./sistema3/routes");
 const providerRoutes = require("./proveedor/providerRoutes");
 const userRoutes = require("./usuario/userRoutes");
 const AGRoutes = require("./sistema3/ABSTENCIONES_GRAVES/routesAG");
-
+const ANGRoutes = require("./sistema3/ABSTENCIONES_NO_GRAVES/routesANG");
+const IPFRoutes = require("./sistema3/INHABILITACIONES_PERSONAS_FISICAS/routesIPF");
 app.use(morgan("tiny"));
 //app.use(cors());
 app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
@@ -59,6 +60,8 @@ const start = async () => {
     app.use("/", providerRoutes);
     app.use("/", userRoutes);
     app.use("/S3/ABSTENCIONES-GRAVES/", AGRoutes);
+    app.use("/S3/ABSTENCIONES-NO-GRAVES/", ANGRoutes);
+    app.use("/S3/INHABILITACIONES-PERSONAS-FISICAS/", IPFRoutes);
     
     app.listen(PORT, () => console.log("Server Listening on PORT:", PORT));
   } catch (error) {
