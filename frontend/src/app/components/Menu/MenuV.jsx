@@ -24,6 +24,7 @@ import { ConnectedCreateProvider } from "../Proveedores/CreateProvider";
 import { history } from "../../store/history";
 import Collapse from "@mui/material/Collapse";
 import Tooltip from "@mui/material/Tooltip";
+import Divider from "@mui/material/Divider";
 /* import { LoadFileV } from "../UploadFile/LoadFileV"; */
 import { connect } from "react-redux";
 import { ConnectedCreateUser } from "../Usuarios/createUser";
@@ -87,6 +88,20 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
   const [checkedAdminDatos2, setcheckedAdminDatos2] = useState(false);
   const [checkedAdminDatosS3S, setcheckedAdminDatosS3S] = useState(false);
   const [checkedAdminDatosS3P, setcheckedAdminDatosS3P] = useState(false);
+
+  const [checkedFaltasGraves, setCheckFaltasGraves] = useState(false);
+  const [checkedFaltasNoGraves, setCheckFaltasNoGraves] = useState(false);
+  const [checkedActosParticularesFisicas, setCheckActosParticularesFisicas] = useState(false);
+  const [checkedActosParticularesMorales, setCheckActosParticularesMorales] = useState(false);
+  const [checkedInhabilitacionesFisicas, setCheckInhabilitacionesFisicas] = useState(false);
+  const [checkedInhabilitacionesMorales, setCheckInhabilitacionesMorales] = useState(false);  
+  const [checkedCorrupcionServidoresPublicos, setCheckCorrupcionServidoresPublicos] = useState(false);
+  const [checkedCorrupcionFisicas, setCheckCorrupcionFisicas] = useState(false);
+  const [checkedCorrupcionMorales, setCheckCorrupcionMorales] = useState(false);
+  const [checkedAbstencionesGraves, setCheckAbstencionesGraves] = useState(false);
+  const [checkedAbstencionesNoGraves, setCheckAbstencionesNoGraves] = useState(false);
+
+
 
   const menuDatos2 = (e) => {
     setsubmenuAdmonDatos(true);
@@ -314,438 +329,539 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
         }}>
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
-          <List>
-            {rol == 2 && (
-              <>
-                <ListItemButton disabled={true}>
-                  {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-                  <ListItemText primary="Faltas Administrativas de Servidores Públicos" />
-                  {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-                </ListItemButton>
-                <Collapse in={true} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/faltas-administrativas/graves",
-                        )
-                      }
-                      key={"form1"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Graves" />
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/faltas-administrativas/no-graves",
-                        )
-                      }
-                      key={"form2"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="No Graves" />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-
-                <ListItemButton disabled={true}>
-                  {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-                  <ListItemText primary="Actos de Particulares vinculados con Faltas Graves" />
-                  {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-                </ListItemButton>
-                <Collapse in={true} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/actos-particulares/personas-fisicas",
-                        )
-                      }
-                      key={"form3"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Personas Físicas" />
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/actos-particulares/personas-morales",
-                        )
-                      }
-                      key={"form4"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Personas Morales" />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-
-                <ListItemButton disabled={true}>
-                  {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-                  <ListItemText primary="Sanciones (Inhabilitaciones) por normas diversas a la LGRA" />
-                  {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-                </ListItemButton>
-                <Collapse in={true} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/inhabilitaciones/personas-fisicas",
-                        )
-                      }
-                      key={"form5"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Personas Físicas" />
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/inhabilitaciones/personas-morales",
-                        )
-                      }
-                      key={"form6"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Personas Morales" />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-
-                <ListItemButton disabled={true}>
-                  {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-                  <ListItemText primary="Hechos de Corrupción" />
-                  {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-                </ListItemButton>
-                <Collapse in={true} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/hechos-corrupcion/servidores-publicos",
-                        )
-                      }
-                      key={"form7"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Servidores Públicos" />
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/hechos-corrupcion/personas-fisicas",
-                        )
-                      }
-                      key={"form8"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Personas Físicas" />
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute(
-                          "/captura/s3/hechos-corrupcion/personas-morales",
-                        )
-                      }
-                      key={"form9"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Personas Morales" />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-
-                <ListItemButton disabled={true}>
-                  {/* <ListItemIcon>
-                  <InboxIcon />
-                </ListItemIcon> */}
-                  <ListItemText primary="Abstenciones" />
-                  {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-                </ListItemButton>
-                <Collapse in={true} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute("/captura/s3/abstenciones/graves")
-                      }
-                      key={"form10"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Graves" />
-                    </ListItemButton>
-                  </List>
-                  <List component="div" disablePadding>
-                    <ListItemButton
-                      onClick={() =>
-                        redirectToRoute("/captura/s3/abstenciones/no-graves")
-                      }
-                      key={"form11"}
-                      sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="No Graves" />
-                    </ListItemButton>
-                  </List>
-                </Collapse>
-
+          {rol == 2 && (
+            <>
+              {/* Faltas Administrativas de Servidores Públicos */}
+              {console.log("hola")}
+              <List
+                component="div"
+                disablePadding
+                subheader="Faltas Administrativas de Servidores Públicos"
+                sx={{
+                  padding: "0.6rem",
+                }}>
+                {/* GRAVES */}
                 <ListItem
-                  onClick={(e) => menuAdminDatos2(e)}
-                  key={"m1"}
+                  onClick={() => setCheckFaltasGraves((prev) => !prev)}
+                  key={"m3"}
                   disablePadding>
-                  <ListItemButton sx={{ p: 2 }}>
-                    <ListItemIcon>
-                      <FolderIcon className={classes.itemOne} />
-                    </ListItemIcon>
-                    <ListItemText primary="Administrar Información" />
-                    {checkedAdminDatos2 ? <ExpandLess /> : <ExpandMore />}
+                  <ListItemButton>
+                    <ListItemText primary="Graves" />
+                    {checkedFaltasGraves ? <ExpandLess /> : <ExpandMore />}
                   </ListItemButton>
                 </ListItem>
-              </>
-            )}
-            {permisos.map(
-              (item) =>
-                item === "S2" && (
-                  <Collapse in={checkedAdminDatos2} key="S2">
-                    <ListItem
-                      onClick={() => redirectToRoute("/consulta/S2v2")}
-                      key={"m1s2v2"}
-                      disablePadding>
-                      <ListItemButton sx={{ pl: 3.5 }}>
-                        <ListItemIcon>
-                          <CircleIcon sx={{ maxHeight: "8px" }} />
-                        </ListItemIcon>
-                        <ListItemText secondary="Sistema 2" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Collapse>
-                ),
-            )}
-            {permisos.map(
-              (item) =>
-                item === "S3S" && (
-                  <Collapse in={checkedAdminDatosS3S} key="S3S">
-                    <ListItem
-                      onClick={() => redirectToRoute("/consulta/S3Sv2")}
-                      key={"m1s3sv2"}
-                      disablePadding>
-                      <ListItemButton sx={{ pl: 3.5 }}>
-                        <ListItemIcon>
-                          <CircleIcon sx={{ maxHeight: "8px" }} />
-                        </ListItemIcon>
-                        <ListItemText secondary="Sistema 3: Servidores Públicos" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Collapse>
-                ),
-            )}
-            {permisos.map(
-              (item) =>
-                item === "S3P" && (
-                  <Collapse in={checkedAdminDatosS3P} key="S3P">
-                    <Tooltip title="Particulares Sancionados" disablePadding>
-                      <ListItem
-                        onClick={() => redirectToRoute("/consulta/S3Pv2")}
-                        key={"m1s3pv2"}>
-                        <ListItemButton sx={{ pl: 3.5 }}>
-                          <ListItemIcon>
-                            <CircleIcon sx={{ maxHeight: "8px" }} />
-                          </ListItemIcon>
-                          <ListItemText secondary="Sistema 3: Particulares" />
-                        </ListItemButton>
-                      </ListItem>
-                    </Tooltip>
-                  </Collapse>
-                ),
-            )}
+                <Collapse in={checkedFaltasGraves}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/faltas-administrativas/graves")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
 
-            {rol == 2 && (
+                {/* NO GRAVES */}
+                <ListItem
+                  onClick={() => setCheckFaltasNoGraves((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="No Graves" />
+                    {checkedFaltasNoGraves ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedFaltasNoGraves}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/faltas-administrativas/no-graves")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+                <Divider sx={{ mt: 0.25, mb: 1.25 }} />
+              </List>
+
+              {/* Actos de Particulares vinculados con Faltas Graves */}
+              <List
+                component="div"
+                disablePadding
+                subheader="Actos de Particulares vinculados con Faltas Graves"
+                sx={{
+                  padding: "0.6rem",
+                }}>
+                {/* Personas Físicas */}
+                <ListItem
+                  onClick={() => setCheckActosParticularesFisicas((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Personas Físicas" />
+                    {checkedActosParticularesFisicas ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedActosParticularesFisicas}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/actos-particulares/personas-fisicas")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+
+                {/* Personas Morales */}
+                <ListItem
+                  onClick={() => setCheckActosParticularesMorales((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Personas Morales" />
+                    {checkedActosParticularesMorales ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedActosParticularesMorales}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/actos-particulares/personas-morales")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+                <Divider sx={{ mt: 0.25, mb: 1.25 }} />
+              </List>
+
+              {/* Sanciones (Inhabilitaciones) por normas diversas a la LGRA */}
+              <List
+                component="div"
+                disablePadding
+                subheader="Sanciones (Inhabilitaciones) por normas diversas a la LGRA"
+                sx={{
+                  padding: "0.6rem",
+                }}>
+                {/* Personas Físicas */}
+                <ListItem
+                  onClick={() => setCheckInhabilitacionesFisicas((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Personas Físicas" />
+                    {checkedInhabilitacionesFisicas ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedInhabilitacionesFisicas}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/inhabilitaciones/personas-fisicas")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+
+                {/* Personas Morales */}
+                <ListItem
+                  onClick={() => setCheckInhabilitacionesMorales((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Personas Morales" />
+                    {checkedInhabilitacionesMorales ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedInhabilitacionesMorales}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/inhabilitaciones/personas-morales")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+                <Divider sx={{ mt: 0.25, mb: 1.25 }} />
+              </List>
+
+              {/* Hechos de Corrupción */}
+              <List
+                component="div"
+                disablePadding
+                subheader="Hechos de Corrupción"
+                sx={{
+                  padding: "0.6rem",
+                }}>
+                {/* Servidores Públicos */}
+                <ListItem
+                  onClick={() => setCheckCorrupcionServidoresPublicos((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Servidores Públicos" />
+                    {checkedCorrupcionServidoresPublicos ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedCorrupcionServidoresPublicos}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/hechos-corrupcion/servidores-publicos")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+
+                {/* Personas Físicas */}
+                <ListItem
+                  onClick={() => setCheckCorrupcionFisicas((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Personas Físicas" />
+                    {checkedCorrupcionFisicas ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedCorrupcionFisicas}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/hechos-corrupcion/personas-fisicas")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+
+                {/* Personas Morales */}
+                <ListItem
+                  onClick={() => setCheckCorrupcionMorales((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Personas Morales" />
+                    {checkedCorrupcionMorales ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedCorrupcionMorales}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/hechos-corrupcion/personas-morales")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+                <Divider sx={{ mt: 0.25, mb: 1.25 }} />
+              </List>
+
+              {/* Abstenciones */}
+              <List
+                component="div"
+                disablePadding
+                subheader="Abstenciones"
+                sx={{
+                  padding: "0.6rem",
+                }}>
+                {/* GRAVES */}
+                <ListItem
+                  onClick={() => setCheckAbstencionesGraves((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Graves" />
+                    {checkedAbstencionesGraves ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedAbstencionesGraves}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/abstenciones/graves")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+
+                {/* NO GRAVES */}
+                <ListItem
+                  onClick={() => setCheckAbstencionesNoGraves((prev) => !prev)}
+                  disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="No Graves" />
+                    {checkedAbstencionesNoGraves ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                </ListItem>
+                <Collapse in={checkedAbstencionesNoGraves}>
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/s3/abstenciones/no-graves")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Capturar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Administrar Información" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+              </List>
+            </>
+          )}
+
+          {/* {rol == 2 && (
+            <ListItem onClick={(e) => menuDatos2(e)} key={"m3"} disablePadding>
+              <ListItemButton sx={{ p: 2 }}>
+                <ListItemIcon>
+                  <KeyboardIcon className={classes.itemThree} />
+                </ListItemIcon>
+                <ListItemText primary="Capturar Información" />
+                {checkedDatos2 ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+            </ListItem>
+          )}
+          {permisos.map(
+            (item) =>
+              item === "S3S" && (
+                <Collapse in={checkedDatosS3S} key="S3S">
+                  <ListItem
+                    onClick={() => redirectToRoute("#")}
+                    key={"m3s3sv2"}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Sistema 3: Servidores Públicos" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+              ),
+          )}
+          {permisos.map(
+            (item) =>
+              item === "S3P" && (
+                <Collapse in={checkedDatosS3P} key="S3P">
+                  <ListItem
+                    onClick={() => redirectToRoute("/captura/S3Pv2")}
+                    key={"m3s3pv2"}
+                    disablePadding>
+                    <ListItemButton sx={{ pl: 3.5 }}>
+                      <ListItemIcon>
+                        <CircleIcon sx={{ maxHeight: "8px" }} />
+                      </ListItemIcon>
+                      <ListItemText secondary="Sistema 3: Particulares" />
+                    </ListItemButton>
+                  </ListItem>
+                </Collapse>
+              ),
+          )} */}
+
+          {/* ADMINiSTRACIÓN */}
+          {rol == 1 && (
+            <>
               <ListItem
-                onClick={(e) => menuDatos2(e)}
-                key={"m3"}
+                onClick={() => setCheckedUser((prev) => !prev)}
+                key={"mu"}
                 disablePadding>
                 <ListItemButton sx={{ p: 2 }}>
                   <ListItemIcon>
-                    <KeyboardIcon className={classes.itemThree} />
+                    <PeopleIcon style={{ color: "#34b3eb" }} />
                   </ListItemIcon>
-                  <ListItemText primary="Capturar Información" />
-                  {checkedDatos2 ? <ExpandLess /> : <ExpandMore />}
+                  <ListItemText primary="Usuarios" />
+                  {checkedUser ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
               </ListItem>
-            )}
-            {permisos.map(
-              (item) =>
-                item === "S2" && (
-                  <Collapse in={checkedDatos2} key="S2">
-                    <ListItem
-                      onClick={() => redirectToRoute("/captura/S2v2")}
-                      key={"m3s2v2"}
-                      disablePadding>
-                      <ListItemButton sx={{ pl: 3.5 }}>
-                        <ListItemIcon>
-                          <CircleIcon sx={{ maxHeight: "8px" }} />
-                        </ListItemIcon>
-                        <ListItemText secondary="Sistema 2" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Collapse>
-                ),
-            )}
-            {permisos.map(
-              (item) =>
-                item === "S3S" && (
-                  <Collapse in={checkedDatosS3S} key="S3S">
-                    <ListItem
-                      onClick={() => redirectToRoute("/captura/S3Sv2")}
-                      key={"m3s3sv2"}
-                      disablePadding>
-                      <ListItemButton sx={{ pl: 3.5 }}>
-                        <ListItemIcon>
-                          <CircleIcon sx={{ maxHeight: "8px" }} />
-                        </ListItemIcon>
-                        <ListItemText secondary="Sistema 3: Servidores Públicos" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Collapse>
-                ),
-            )}
-            {permisos.map(
-              (item) =>
-                item === "S3P" && (
-                  <Collapse in={checkedDatosS3P} key="S3P">
-                    <ListItem
-                      onClick={() => redirectToRoute("/captura/S3Pv2")}
-                      key={"m3s3pv2"}
-                      disablePadding>
-                      <ListItemButton sx={{ pl: 3.5 }}>
-                        <ListItemIcon>
-                          <CircleIcon sx={{ maxHeight: "8px" }} />
-                        </ListItemIcon>
-                        <ListItemText secondary="Sistema 3: Particulares" />
-                      </ListItemButton>
-                    </ListItem>
-                  </Collapse>
-                ),
-            )}
-
-            {/* ADMINiSTRACIÓN */}
-            {rol == 1 && (
-              <>
+              <Collapse in={!checkedUser}>
                 <ListItem
-                  onClick={() => setCheckedUser((prev) => !prev)}
-                  key={"mu"}
+                  onClick={() => redirectToRoute("/usuario/crear")}
+                  key={"mu1"}
                   disablePadding>
-                  <ListItemButton sx={{ p: 2 }}>
+                  <ListItemButton sx={{ pl: 3.5 }}>
                     <ListItemIcon>
-                      <PeopleIcon style={{ color: "#34b3eb" }} />
+                      <ControlPointIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Usuarios" />
-                    {checkedUser ? <ExpandLess /> : <ExpandMore />}
+                    <ListItemText primary="Crear" />
                   </ListItemButton>
                 </ListItem>
-                <Collapse in={!checkedUser}>
-                  <ListItem
-                    onClick={() => redirectToRoute("/usuario/crear")}
-                    key={"mu1"}
-                    disablePadding>
-                    <ListItemButton sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <ControlPointIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Crear" />
-                    </ListItemButton>
-                  </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("/usuarios")}
-                    key={"mu2"}
-                    disablePadding>
-                    <ListItemButton sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <FormatListBulletedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Listar" />
-                    </ListItemButton>
-                  </ListItem>
-                </Collapse>
                 <ListItem
-                  onClick={() => setCheckedProveedor((prev) => !prev)}
-                  key={"mp"}
+                  onClick={() => redirectToRoute("/usuarios")}
+                  key={"mu2"}
                   disablePadding>
-                  <ListItemButton sx={{ p: 2 }}>
+                  <ListItemButton sx={{ pl: 3.5 }}>
                     <ListItemIcon>
-                      <AssignmentIcon className={classes.itemTwo} />
+                      <FormatListBulletedIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Proveedores" />
-                    {checkedProveedor ? <ExpandLess /> : <ExpandMore />}
+                    <ListItemText primary="Listar" />
                   </ListItemButton>
                 </ListItem>
-                <Collapse in={!checkedProveedor}>
-                  <ListItem
-                    onClick={() => redirectToRoute("/proveedor/crear")}
-                    key={"mp1"}
-                    disablePadding>
-                    <ListItemButton sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <ControlPointIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Crear" />
-                    </ListItemButton>
-                  </ListItem>
+              </Collapse>
+              <ListItem
+                onClick={() => setCheckedProveedor((prev) => !prev)}
+                key={"mp"}
+                disablePadding>
+                <ListItemButton sx={{ p: 2 }}>
+                  <ListItemIcon>
+                    <AssignmentIcon className={classes.itemTwo} />
+                  </ListItemIcon>
+                  <ListItemText primary="Proveedores" />
+                  {checkedProveedor ? <ExpandLess /> : <ExpandMore />}
+                </ListItemButton>
+              </ListItem>
+              <Collapse in={!checkedProveedor}>
+                <ListItem
+                  onClick={() => redirectToRoute("/proveedor/crear")}
+                  key={"mp1"}
+                  disablePadding>
+                  <ListItemButton sx={{ pl: 3.5 }}>
+                    <ListItemIcon>
+                      <ControlPointIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Crear" />
+                  </ListItemButton>
+                </ListItem>
 
-                  <ListItem
-                    onClick={() => redirectToRoute("/proveedores")}
-                    key={"mp2"}
-                    disablePadding>
-                    <ListItemButton sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <FormatListBulletedIcon />
-                      </ListItemIcon>
-                      <ListItemText primary="Listar" />
-                    </ListItemButton>
-                  </ListItem>
-                </Collapse>
-              </>
-            )}
-          </List>
+                <ListItem
+                  onClick={() => redirectToRoute("/proveedores")}
+                  key={"mp2"}
+                  disablePadding>
+                  <ListItemButton sx={{ pl: 3.5 }}>
+                    <ListItemIcon>
+                      <FormatListBulletedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Listar" />
+                  </ListItemButton>
+                </ListItem>
+              </Collapse>
+            </>
+          )}
         </Box>
       </Drawer>
       <Box
