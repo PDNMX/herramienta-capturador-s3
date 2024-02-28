@@ -60,8 +60,6 @@ import { Inicio } from "../Inicio";
 
 import { useSelector } from "react-redux";
 
-import FolderIcon from "@mui/icons-material/Folder";
-import KeyboardIcon from "@mui/icons-material/Keyboard";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -332,7 +330,6 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {rol == 2 && (
             <>
               {/* Faltas Administrativas de Servidores Públicos */}
-              {console.log("hola")}
               <List
                 component="div"
                 disablePadding

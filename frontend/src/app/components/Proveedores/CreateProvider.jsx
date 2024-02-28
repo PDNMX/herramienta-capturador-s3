@@ -21,11 +21,7 @@ import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 
-const CreateProvider = ({
-  id,
-  provider,
-  alert,
-}) => {
+const CreateProvider = ({ id, provider, alert }) => {
   return <Proveedor initialValues={provider} id={id} alerta={alert} />;
 };
 
@@ -45,17 +41,35 @@ function Proveedor(props) {
       },
       sistemas: {
         type: "array",
-        title: "Sistemas del proveedor",
-        description:
-          "Selecciona los sistemas que se podrán usar con el proveedor",
+        title: "Formatos",
+        description: "Selecciona los formatos que se podrá usar el proveedor",
         uniqueItems: true,
         items: {
-          type: "string",
-          enum: ["S2", "S3S", "S3P"],
           enumNames: [
-            "Servidores Públicos que Intervienen en Procedimientos de Contratación (S2)",
-            "Servidores Públicos Sancionados (S3)",
-            "Particulares Sancionados (S3)",
+            "Faltas Administrativas de Servidores Públicos: GRAVES",
+            "Faltas Administrativas de Servidores Públicos: NO GRAVES",
+            "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
+            "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
+            "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
+            "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
+            "Hechos de Corrupción: SERVIDORES PÚBLICOS",
+            "Hechos de Corrupción: PERSONAS FÍSICAS",
+            "Hechos de Corrupción: PERSONAS MORALES",
+            "Abstenciones: GRAVES",
+            "Abstenciones: NO GRAVES",
+          ],
+          enum: [
+            { label: "Faltas Administrativas de Servidores Públicos: GRAVES", value: "faltas-administrativas-graves" },
+            { label: "Faltas Administrativas de Servidores Públicos: NO GRAVES", value: "faltas-administrativas-no-graves" },
+            { label: "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS", value: "actos-de-particulares-personas-fisicas" },
+            { label: "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES", value: "actos-de-particulares-personas-morales" },
+            { label: "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS", value: "inhabilitaciones-personas-fisicas" },
+            { label: "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES", value: "inhabilitaciones-personas-morales" },
+            { label: "Hechos de Corrupción: SERVIDORES PÚBLICOS", value: "hechos-de-corrupcion-servidores-publicos" },
+            { label: "Hechos de Corrupción: PERSONAS FÍSICAS", value: "hechos-de-corrupcion-personas-fisicas" },
+            { label: "Hechos de Corrupción: PERSONAS MORALES", value: "hechos-de-corrupcion-personas-morales" },
+            { label: "Abstenciones: GRAVES", value: "abstenciones-graves" },
+            { label: "Abstenciones: NO GRAVES", value: "abstenciones-no-graves" },
           ],
         },
       },
@@ -92,7 +106,7 @@ function Proveedor(props) {
     } else {
       dispatch(requestCreationProvider(formData));
     }
-    setOpen(true)
+    setOpen(true);
     //setLoaderDisplay(true);
   };
 
