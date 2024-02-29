@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const proveedorRegistrosSchema = new Schema({
   proveedorId: mongoose.ObjectId,
   registroSistemaId: mongoose.ObjectId,
-  sistema: String,
+  sistema: Object,//cambiar a objeto
   fechaCaptura: Date,
   fechaActualizacion: Date,
 

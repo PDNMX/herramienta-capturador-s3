@@ -1,3 +1,4 @@
+/* SANCIONES (INHABILITACIONES) POR NORMAS DIVERSAS A LA LGRA - PERSONAS FISICAS */
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 

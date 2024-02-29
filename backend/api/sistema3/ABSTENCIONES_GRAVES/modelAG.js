@@ -1,3 +1,4 @@
+/* ABSTENCIONES - GRAVES */
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
 

@@ -1,3 +1,4 @@
+/* SANCIONES (INHABILITACIONES) POR NORMAS DIVERSAS A LA LGRA - PERSONAS FISICAS */
 const router = require("express").Router();
 const controllerIPF = require("./controllerIPF");
 // Middleware Imports

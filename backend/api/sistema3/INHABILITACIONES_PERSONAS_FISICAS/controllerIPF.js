@@ -1,3 +1,4 @@
+/* SANCIONES (INHABILITACIONES) POR NORMAS DIVERSAS A LA LGRA - PERSONAS FISICAS  */
 const {S3f} = require("./modelIPF");
 const _ = require("lodash");
 const moment = require("moment-timezone");

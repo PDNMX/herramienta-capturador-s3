@@ -1,3 +1,4 @@
+/* ABSTENCIONES - NO GRAVES */
 const { S3ang } = require("./modelANG");
 const _ = require("lodash");
 const moment = require("moment-timezone");
