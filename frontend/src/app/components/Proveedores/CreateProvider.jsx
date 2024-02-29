@@ -59,17 +59,51 @@ function Proveedor(props) {
             "Abstenciones: NO GRAVES",
           ],
           enum: [
-            { label: "Faltas Administrativas de Servidores Públicos: GRAVES", value: "faltas-administrativas-graves" },
-            { label: "Faltas Administrativas de Servidores Públicos: NO GRAVES", value: "faltas-administrativas-no-graves" },
-            { label: "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS", value: "actos-de-particulares-personas-fisicas" },
-            { label: "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES", value: "actos-de-particulares-personas-morales" },
-            { label: "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS", value: "inhabilitaciones-personas-fisicas" },
-            { label: "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES", value: "inhabilitaciones-personas-morales" },
-            { label: "Hechos de Corrupción: SERVIDORES PÚBLICOS", value: "hechos-de-corrupcion-servidores-publicos" },
-            { label: "Hechos de Corrupción: PERSONAS FÍSICAS", value: "hechos-de-corrupcion-personas-fisicas" },
-            { label: "Hechos de Corrupción: PERSONAS MORALES", value: "hechos-de-corrupcion-personas-morales" },
+            {
+              label: "Faltas Administrativas de Servidores Públicos: GRAVES",
+              value: "faltas-administrativas-graves",
+            },
+            {
+              label: "Faltas Administrativas de Servidores Públicos: NO GRAVES",
+              value: "faltas-administrativas-no-graves",
+            },
+            {
+              label:
+                "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
+              value: "actos-de-particulares-personas-fisicas",
+            },
+            {
+              label:
+                "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
+              value: "actos-de-particulares-personas-morales",
+            },
+            {
+              label:
+                "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
+              value: "inhabilitaciones-personas-fisicas",
+            },
+            {
+              label:
+                "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
+              value: "inhabilitaciones-personas-morales",
+            },
+            {
+              label: "Hechos de Corrupción: SERVIDORES PÚBLICOS",
+              value: "hechos-de-corrupcion-servidores-publicos",
+            },
+            {
+              label: "Hechos de Corrupción: PERSONAS FÍSICAS",
+              value: "hechos-de-corrupcion-personas-fisicas",
+            },
+            {
+              label: "Hechos de Corrupción: PERSONAS MORALES",
+              value: "hechos-de-corrupcion-personas-morales",
+            },
             { label: "Abstenciones: GRAVES", value: "abstenciones-graves" },
-            { label: "Abstenciones: NO GRAVES", value: "abstenciones-no-graves" },
+            {
+              label: "Abstenciones: NO GRAVES",
+              value: "abstenciones-no-graves",
+            },
           ],
         },
       },

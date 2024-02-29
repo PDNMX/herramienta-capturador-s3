@@ -167,113 +167,13 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
     root: {
       display: "flex",
     },
-    toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
-    },
-    toolbarIcon: {
-      /* backgroundImage: `url(${LOGO})`, */
-      backgroundRepeat: "no-repeat",
-      backgroundPosition: "center center",
-      backgroundSize: "contain",
-
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
-      padding: "0 8px",
-      ...theme.mixins.toolbar,
-      marginTop: "5px",
-      marginBottom: "5px",
-    },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
       background: "#9085DA",
     },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginRight: 36,
-    },
-    menuButtonHidden: {
-      display: "none",
-    },
-    title: {
-      flexGrow: 1,
-      textAlign: "center",
-    },
-    drawerPaper: {
-      position: "relative",
-      whiteSpace: "nowrap",
-      width: drawerWidth,
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerPaperClose: {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      height: "100vh",
-      overflow: "auto",
-    },
-    container: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
-    },
-    paper: {
-      padding: theme.spacing(2),
-      display: "flex",
-      overflow: "auto",
-      flexDirection: "column",
-    },
-    paperPadding: {
-      padding: theme.spacing(2),
-    },
-    fixedHeight: {
-      height: 240,
-    },
-    fontblack: {
-      color: "#666666",
-    },
-
-    submenuicono: {
-      paddingLeft: "15px",
-      backgroundColor: "#ffff",
-    },
-    submenuicono2: {
-      backgroundColor: "#eee",
-    },
-    itemOne: {
-      color: "#34b3eb",
-    },
-    itemTwo: {
-      color: "#9ACA83",
-    },
-    itemThree: {
-      color: "#67BFB7",
-    },
-    itemIcon: {
-      minWidth: "35px",
-    },
-    colorico: {
-      color: "#fff",
-    },
+    colorIco: {
+      color: "#fff"
+    }
   }));
 
   const classes = useStyles();
@@ -296,7 +196,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
               aria-haspopup="true"
               onClick={handleClick}>
               <ManageAccountsIcon
-                className={classes.colorico}
+                className={classes.colorIco}
                 fontSize="large"
               />
             </Button>
