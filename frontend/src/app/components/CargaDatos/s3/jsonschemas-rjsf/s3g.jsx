@@ -97,6 +97,8 @@ let data = {
               type: "boolean",
               default: false,
               title: "No cuento con segundo apellido.",
+              description:
+                "En caso de tener solo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco y posteriormente seleccionar la opción de:",
             },
           },
           dependencies: {
@@ -127,22 +129,17 @@ let data = {
         curp: {
           type: "string",
           title: "CURP",
-          description:
-            "Escribir los dieciocho caracteres alfanuméricos como la emitió la Secretaría de Gobernación.En caso de no contar con ella, podrá consultarla en la siguiente página: https://www.gob.mx/curp/ ",
         },
         rfc: {
           type: "string",
           title: "RFC con homoclave",
-          description:
-            "Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave. En caso de no contar con este dato, podrá consultarlo en la página del Servicio de Administración Tributaria: https://www.sat.gob.mx/aplicacion/operacion/31274/consulta-tu-clave-de-rfc-mediante-curp",
         },
         sexo: {
           type: "string",
-          enum: ["FEMENINO", "MASCULINO"],
-          enumNames: ["Femenino", "Masculino"],
+          enum: ["HOMBRE", "MUJER"],
+          enumNames: ["Hombre", "Mujer"],
           title: "Sexo",
-          description:
-            "Seleccionar la opción que corresponda: femenino/masculino.",
+          description: "Seleccionar la opción que corresponda:",
         },
         entePublico: {
           type: "object",
@@ -236,7 +233,7 @@ let data = {
                 clave: {
                   title: "Nivel/Orden de Gobierno",
                   description:
-                    "Seleccionar el orden de gobierno al que pertenece el ente público donde labora la persona servidora pública sancionada: Federal, Estatal, Municipal/Alcaldía u otro (especificar).",
+                    "Seleccionar el nivel u orden de gobierno al que pertenece el ente público donde labora la persona servidora pública sancionada:",
                   enum: ["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA", "OTRO"],
                   enumNames: [
                     "Federal",
@@ -278,7 +275,7 @@ let data = {
               type: "string",
               title: "Ambito público",
               description:
-                "Seleccionar el ámbito público del ente público donde labora la persona servidora pública sancionada: Ejecutivo, Legislativo, Judicial u Órgano autónomo.",
+                "Seleccionar el ámbito público del ente público donde labora la persona servidora pública sancionada:",
               enum: ["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"],
               enumNames: [
                 "Ejecutivo",
@@ -291,13 +288,13 @@ let data = {
               type: "string",
               title: "Nombre del ente público",
               description:
-                "Escribir el nombre completo del ente público donde labora la persona servidora pública sancionada, sin abreviaturas, ni signos especiales.",
+                "Indicar el nombre completo del ente público donde labora la persona servidora pública sancionada, sin abreviaturas, sin acentos, ni signos especiales, sin abreviaturas, sin acentos, ni signos especiales.",
             },
             siglas: {
               type: "string",
               title: "Siglas del ente público",
               description:
-                "Escribir las siglas del ente público en el que labora la persona servidora pública sancionada.",
+                "Indicar las siglas del ente público en el que labora la persona servidora pública sancionada.",
             },
           },
         },
@@ -311,7 +308,7 @@ let data = {
               properties: {
                 clave: {
                   title:
-                    "Nivel jerárquico del empleo, cargo o comisiónde la persona servidora pública",
+                    "Nivel jerárquico del empleo, cargo o comisión de la persona servidora pública",
                   description:
                     "Señalar el nivel jerárquico del empleo, cargo o comisión que desempeña la persona servidora pública sancionada.",
                   enum: [
@@ -319,7 +316,7 @@ let data = {
                     "ENLACE_U_HOMOLOGO",
                     "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                     "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                    "DIRECTOR_DE_AREA_U_HOMÓLOGO",
+                    "DIRECCION_DE_AREA_U_HOMÓLOGO",
                     "DIRECCION_GENERAL_U_HOMOLOGO",
                     "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                     "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
@@ -331,7 +328,7 @@ let data = {
                     "Enlace u homólogo",
                     "Jefatura de departamento u homólogo",
                     "Subdirección de área u homólogo",
-                    "Director de área u homólogo",
+                    "Dirección de área u homólogo",
                     "Dirección General u homólogo",
                     "Jefatura de Unidad u homólogo",
                     "Subsecretaría de estado, oficial mayor u homólogo",
@@ -364,7 +361,7 @@ let data = {
                             "ENLACE_U_HOMOLOGO",
                             "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO",
                             "SUBDIRECCION_DE_AREA_U_HOMOLOGO",
-                            "DIRECTOR_DE_AREA_U_HOMÓLOGO",
+                            "DIRECCION_DE_AREA_U_HOMÓLOGO",
                             "DIRECCION_GENERAL_U_HOMOLOGO",
                             "JEFATURA_DE_UNIDAD_U_HOMOLOGO",
                             "SUBSECRETARIA_DE_ESTADO_OFICIALIA_MAYOR_U_HOMOLOGO",
@@ -394,13 +391,11 @@ let data = {
         origenInvestigacion: {
           type: "object",
           title: "3. ORIGEN DEL PROCEDIMIENTO",
-          description:
-            "Motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
           properties: {
             clave: {
               title: "Origen del procedimiento",
               description:
-                "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave:",
+                "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
@@ -514,26 +509,26 @@ let data = {
                 type: "array",
                 title: "Artículo(s) de la normatividad infringida",
                 items: {
-                  title: "Artículo",
+                  title: "Artículo(s)",
                   type: "string",
-                  description:
-                    "Escribir el artículo(s) infringido de la normatividad infringida.",
+                  description: "Escribir el (los) artículo (s) infringido (s).",
                 },
               },
               fraccionNormatividadInfringida: {
                 type: "array",
                 title: "Fracción(es) de la normatividad infringida",
                 items: {
-                  title: "Fracción",
+                  title: "Fracción(es)",
                   type: "string",
                   description:
-                    "Escribir la fracción(es) infringida de la normatividad infringida.",
+                    "En su caso, escribir la (las) fracción (es) infringida (s).",
                 },
               },
               descripcionHechos: {
                 title: "Descripción breve de los hechos",
                 type: "string",
-                description: "Señalar una descripción breve de los hechos. ",
+                description:
+                  "Señalar una descripción breve de los hechos, sin incluir información reservada o confidencial.",
               },
             },
             dependencies: {
@@ -603,7 +598,7 @@ let data = {
               format: "date",
               title: "Fecha de la resolución",
               description:
-                "Colocar la fecha en la que se emite la resolución sancionatoria en formato dd-mm-aaaa.",
+                "Colocar la fecha en la que se emite la resolución sancionatoria en formato DD-MM-AAAA.",
             },
             fechaNotificacion: {
               type: "string",
@@ -613,31 +608,31 @@ let data = {
                 "Indicar la fecha en que se notifica la resolución al servidor público sancionado.",
             },
             //Campo nuevo-Url del documento en formato digital
-            urlNotificacion: {
+            urlResolucion: {
               type: "string",
               title: "URL del documento en formato digital",
               description:
-                "Colocar el enlace o link de la resolución firme emitida por la autoridad a la que corresponde la sanción en su versión pública.",
+                "Colocar el enlace o link de la resolución emitida por la autoridad a la que corresponde la sanción, en su versión pública.",
             },
             fechaResolucionFirme: {
               type: "string",
               format: "date",
               title: "Fecha de resolución firme",
               description:
-                "Colocar la fecha en que quedó firme la resolución de la persona servidora pública en formato dd-mm-aaaa.",
+                "Colocar la fecha en que quedó firme la resolución de la persona servidora pública en formato DD-MM-AAAA.",
             },
             fechaNotificacionFirme: {
               type: "string",
               format: "date",
-              title: "Fecha de notificación firme",
+              title: "Fecha de notificación de la resolución firme",
               description:
-                "Indicar la fecha en que se notifica la resolución al servidor público sancionado.",
+                "Indicar la fecha en que se notifica la resolución al servidor público sancionado.u",
             },
-            urlResolucion: {
+            urlResolucionFirme: {
               type: "string",
               title: "URL del documento en formato digital",
               description:
-                "Colocar el enlace o link de la resolución firme emitida por la autoridad a la que corresponde la sanción en su versión pública.",
+                "Colocar el enlace o link del acuerdo o resolución firme emitida por la autoridad a la que corresponde la sanción, en su versión pública.",
             },
           },
         },
@@ -657,7 +652,7 @@ let data = {
             ordenJurisdiccional: {
               title: "Orden jurisdiccional de la sanción.",
               description:
-                "Seleccionar la opción correspondiente el orden jurisdiccional de la sanción: FEDERAL o ESTATAL.",
+                "Seleccionar la opción correspondiente el orden jurisdiccional de la sanción:",
               enum: ["FEDERAL", "ESTATAL"],
               enumNames: ["Federal", "Estatal"],
             },
@@ -671,7 +666,7 @@ let data = {
               type: "string",
               title: "Autoridad investigadora",
               description:
-                "Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa grave. ",
+                "Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa grave.",
             },
             autoridadSubstanciadora: {
               type: "string",
@@ -743,14 +738,14 @@ let data = {
                                     format: "date",
                                     title: "Fecha inicial",
                                     description:
-                                      "Indicar la fecha en la que inició la suspensión de la persona servidora pública en formato dd-mm-aaaa.",
+                                      "Indicar la fecha en la que inició la suspensión de la persona servidora pública en formato DD-MM-AAAA.",
                                   },
                                   fechaFinal: {
                                     type: "string",
                                     format: "date",
                                     title: "Fecha final",
                                     description:
-                                      "Indicar la fecha en la que se concluyó la suspensión de la persona servidora pública en formato dd-mm-aaaa.",
+                                      "Indicar la fecha en la que se concluye la suspensión de la persona servidora pública en formato DD-MM-AAAA.",
                                   },
                                 },
                               },
@@ -769,14 +764,14 @@ let data = {
                             title: "DESTITUCIÓN DEL EMPLEO CARGO O COMISIÓN",
                             description:
                               "Este apartado se deberá llenar si en la resolución definitiva se le impuso destitución del empleo, cargo o comisión a la persona servidora pública.",
-                            required: ["fechaDestitucion", "constancia"],
+                            required: ["fechaDestitucion"],
                             properties: {
                               fechaDestitucion: {
                                 title: "Fecha de la destitución",
                                 type: "string",
                                 format: "date",
                                 description:
-                                  "indicar la fecha de destitución de la persona servidora pública en formato dd-mm-aaaa.",
+                                  "Indicar la fecha de destitución de la persona servidora pública en formato DD-MM-AAAA. ",
                               },
                             },
                           },
@@ -793,12 +788,7 @@ let data = {
                             title: "SANCIÓN ECONÓMICA",
                             description:
                               "Llenar este apartado en caso de que el servidor público sea acreedor a una sanción económica.",
-                            required: [
-                              "sancionImpuesta",
-                              "plazo",
-                              "cobrado",
-                              "constancia",
-                            ],
+                            required: ["sancionImpuesta", "plazo", "cobrado"],
                             properties: {
                               sancionImpuesta: {
                                 type: "object",
@@ -863,7 +853,7 @@ let data = {
                                     title:
                                       "Fecha en la que se realizo el pago total de la sanción",
                                     description:
-                                      "En caso de que la sanción económica no se realice en una sola exhibición, especificar la fecha en que la persona servidora pública cubrió el pago total de la sanción económica en formato dd-mm-aaaa.",
+                                      "En caso de que la sanción económica no se realice en una sola exhibición, especificar la fecha en que la persona servidora pública cubrió el pago total de la sanción económica en formato DD-MM-AAAA.",
                                   },
                                 },
                               },
@@ -896,6 +886,7 @@ let data = {
                                   "dias",
                                   "fechaInicial",
                                   "fechaFinal",
+                                  "constacia",
                                 ],
                                 properties: {
                                   años: { title: "Año(s)", type: "string" },
@@ -937,18 +928,13 @@ let data = {
                             title: "OTRO",
                             description:
                               "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
+                            required: ["nombre"],
                             properties: {
                               nombre: {
                                 title: "Sanción",
                                 type: "string",
                                 description:
                                   "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
-                              },
-                              descripcion: {
-                                type: "string",
-                                title: "Descripción de la sanción",
-                                description:
-                                  "FALTA EN DOCUMENTO DE DESCRIPCIONES ESTE CAMPO DECIR A YURI",
                               },
                             },
                           },
