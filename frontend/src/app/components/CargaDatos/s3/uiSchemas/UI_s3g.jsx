@@ -200,7 +200,7 @@ let data = {
               },
             },
           },
-          inhabilitacion: {
+          inhabilitacionEmpleo: {
             plazo: {
               años: { "ui:placeholder": "Ejemplo: 2 años" },
               meses: { "ui:placeholder": "Ejemplo: 10 meses" },

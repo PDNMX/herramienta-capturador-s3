@@ -1,54 +1,5 @@
 // FALTAS ADMINISTRATIVAS DE SERVIDORES PUBLICOS - GRAVES (1)
 let data = {
-  definitions: {
-    constancias: {
-      type: "object",
-      properties: {
-        sinConstancia: {
-          type: "boolean",
-          default: false,
-          title: "No existe constancia",
-        },
-      },
-      dependencies: {
-        sinConstancia: {
-          oneOf: [
-            {
-              properties: {
-                sinConstancia: { const: false },
-                titulo: {
-                  type: "string",
-                  title: "Título de la constancia.",
-                  description:
-                    "Proporcionar el nombre del título de la constancia de la inhabilitación.",
-                },
-                fecha: {
-                  type: "string",
-                  format: "date",
-                  title: "Fecha de la expedición.",
-                  description:
-                    "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
-                },
-                url: {
-                  type: "string",
-                  title: "URL de la constancia de inhabilitación",
-                  description:
-                    "Colocar el enlace o link del documento digital de la constancia.",
-                },
-              },
-              required: ["sinConstancia", "titulo", "fecha", "url"],
-            },
-            {
-              properties: {
-                sinConstaancia: { const: true },
-              },
-              required: ["sinConstancia"],
-            },
-          ],
-        },
-      },
-    },
-  },
   type: "object",
   required: ["expediente", "grave"],
   properties: {
@@ -776,7 +727,6 @@ let data = {
                             },
                           },
                         },
-                        required: ["destitucionEmpleo"],
                       },
                       {
                         properties: {
@@ -860,14 +810,13 @@ let data = {
                             },
                           },
                         },
-                        required: ["sancionEconomica"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["INHABILITACION"],
                           },
-                          inhabilitacion: {
+                          inhabilitacionEmpleo: {
                             type: "object",
                             title:
                               "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
@@ -886,7 +835,6 @@ let data = {
                                   "dias",
                                   "fechaInicial",
                                   "fechaFinal",
-                                  "constacia",
                                 ],
                                 properties: {
                                   años: { title: "Año(s)", type: "string" },
@@ -911,12 +859,33 @@ let data = {
                               //PREGUNTAR A YURI SI USARA LA PARTE DE CONSTANCIA EN SANCION DE INHABILITACIONES
                               constancia: {
                                 title: "Constancia de la inhabilitación",
-                                $ref: "#/definitions/constancias",
+                                type: "object",
+                                properties: {
+                                  titulo: {
+                                    type: "string",
+                                    title: "Título de la constancia.",
+                                    description:
+                                      "Proporcionar el nombre del título de la constancia de la inhabilitación.",
+                                  },
+                                  fecha: {
+                                    type: "string",
+                                    format: "date",
+                                    title: "Fecha de la expedición.",
+                                    description:
+                                      "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
+                                  },
+                                  url: {
+                                    type: "string",
+                                    title:
+                                      "URL de la constancia de inhabilitación",
+                                    description:
+                                      "Colocar el enlace o link del documento digital de la constancia.",
+                                  },
+                                },
                               },
                             },
                           },
                         },
-                        required: ["inhabilitacion"],
                       },
                       {
                         properties: {
@@ -939,7 +908,6 @@ let data = {
                             },
                           },
                         },
-                        required: ["otro"],
                       },
                     ],
                   },
