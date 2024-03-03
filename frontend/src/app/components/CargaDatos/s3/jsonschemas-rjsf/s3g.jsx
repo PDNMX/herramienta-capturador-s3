@@ -556,9 +556,8 @@ let data = {
               format: "date",
               title: "Fecha de notificación",
               description:
-                "Indicar la fecha en que se notifica la resolución al servidor público sancionado.",
+                "Indicar la fecha en que se notifica la resolución a la persona servidora pública sancionada, en formato DD-MM-AAAA. ",
             },
-            //Campo nuevo-Url del documento en formato digital
             urlResolucion: {
               type: "string",
               title: "URL del documento en formato digital",
@@ -577,7 +576,7 @@ let data = {
               format: "date",
               title: "Fecha de notificación de la resolución firme",
               description:
-                "Indicar la fecha en que se notifica la resolución al servidor público sancionado.u",
+                "Indicar la fecha en que se notifica la resolución firme a la persona servidora pública sancionada.",
             },
             urlResolucionFirme: {
               type: "string",
@@ -737,7 +736,7 @@ let data = {
                             type: "object",
                             title: "SANCIÓN ECONÓMICA",
                             description:
-                              "Llenar este apartado en caso de que el servidor público sea acreedor a una sanción económica.",
+                              "Llenar este apartado en caso de que ela persona servidora pública sea acreedora a una sanción económica.",
                             required: ["sancionImpuesta", "plazo", "cobrado"],
                             properties: {
                               sancionImpuesta: {
@@ -822,7 +821,7 @@ let data = {
                               "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
                             description:
                               "Esta sección deberá llenarse en caso de que el servidor público sea sancionado con una inhabilitación.",
-                            required: ["plazo", "constancia"],
+                            required: ["plazo"],
                             properties: {
                               plazo: {
                                 type: "object",
@@ -853,33 +852,6 @@ let data = {
                                     title: "Fecha final",
                                     description:
                                       "Indicar la fecha en la que se concluyó la inhabilitación de la persona servidora pública en formato dd-mm-aaaa.",
-                                  },
-                                },
-                              },
-                              //PREGUNTAR A YURI SI USARA LA PARTE DE CONSTANCIA EN SANCION DE INHABILITACIONES
-                              constancia: {
-                                title: "Constancia de la inhabilitación",
-                                type: "object",
-                                properties: {
-                                  titulo: {
-                                    type: "string",
-                                    title: "Título de la constancia.",
-                                    description:
-                                      "Proporcionar el nombre del título de la constancia de la inhabilitación.",
-                                  },
-                                  fecha: {
-                                    type: "string",
-                                    format: "date",
-                                    title: "Fecha de la expedición.",
-                                    description:
-                                      "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
-                                  },
-                                  url: {
-                                    type: "string",
-                                    title:
-                                      "URL de la constancia de inhabilitación",
-                                    description:
-                                      "Colocar el enlace o link del documento digital de la constancia.",
                                   },
                                 },
                               },

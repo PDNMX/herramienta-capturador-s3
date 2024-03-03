@@ -1,10 +1,4 @@
 let data = {
-  definitions: {
-    constancias: {
-      titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-      url: { "ui:placeholder": "https://www.ejemplo.com/constancia.pdf" },
-    },
-  },
   expediente: {
     "ui:placeholder": "Ejemplo: 123456789",
   },
