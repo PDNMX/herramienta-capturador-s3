@@ -55,8 +55,8 @@ function MyForm(props) {
     dispatch(alertActions.clear());
   };
 
-  const onSubmit = (formData) => {
-    console.log("Data submitted: ", formData);
+  const onSubmit = (values) => {
+    let formData = values.formData;
     if (id != undefined) {
       dispatch(S2Actions.requestEditDo({ ...formData, _id: id }));
     } else {

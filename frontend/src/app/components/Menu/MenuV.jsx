@@ -170,9 +170,6 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
       background: "#9085DA",
-    },
-    colorIco: {
-      color: "#fff"
     }
   }));
 
@@ -190,13 +187,14 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
             Herramienta de captura de información del Sistema nacional de
             servidores públicos y particulares sancionados
           </Typography>
+          
           <div sx={{ justifyContent: "flex-end" }}>
             <Button
               aria-controls="simple-menu"
               aria-haspopup="true"
               onClick={handleClick}>
               <ManageAccountsIcon
-                className={classes.colorIco}
+                style={{ color: "#fff" }}
                 fontSize="large"
               />
             </Button>
@@ -690,7 +688,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 disablePadding>
                 <ListItemButton sx={{ p: 2 }}>
                   <ListItemIcon>
-                    <PeopleIcon style={{ color: "#34b3eb" }} />
+                    <PeopleIcon style={{ color: "#9085DA" }} />
                   </ListItemIcon>
                   <ListItemText primary="Usuarios" />
                   {checkedUser ? <ExpandLess /> : <ExpandMore />}
@@ -726,7 +724,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 disablePadding>
                 <ListItemButton sx={{ p: 2 }}>
                   <ListItemIcon>
-                    <AssignmentIcon className={classes.itemTwo} />
+                    <AssignmentIcon style={{ color: "#9085DA" }} />
                   </ListItemIcon>
                   <ListItemText primary="Proveedores" />
                   {checkedProveedor ? <ExpandLess /> : <ExpandMore />}

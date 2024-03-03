@@ -38,7 +38,6 @@ const CreateReg = ({ id, alert, catalogos, registry }) => {
   );
 };
 
-
 function MyForm(props) {
   const { initialValues, alerta, id } = props;
   const alert = alerta;
@@ -55,8 +54,8 @@ function MyForm(props) {
     dispatch(alertActions.clear());
   };
 
-  const onSubmit = (formData) => {
-    console.log("Data submitted: ", formData);
+  const onSubmit = (values) => {
+    let formData = values.formData;
     if (id != undefined) {
       dispatch(S2Actions.requestEditDo({ ...formData, _id: id }));
     } else {
@@ -71,7 +70,7 @@ function MyForm(props) {
 
   const validator = customizeValidator({ customFormats }, spanishLocalizer);
 
-  const handleChange = ({ formData}) => console.log(formData);
+  const handleChange = ({ formData }) => console.log(formData);
 
   /* function transformErrors(errors) {
     return errors.map((error) => {
@@ -81,16 +80,89 @@ function MyForm(props) {
       return error;
     });
   } */
+  const dataEjemplo = {
+    grave: {
+      segundoApellido: {
+        sinSegundoApellido: true,
+      },
+      entePublico: {
+        nivelOdenGobierno: {
+          clave: "FEDERAL",
+        },
+        entidadFederativa: {
+          clave: "09",
+          valor: "Ciudad de México",
+        },
+        ambitoPublico: "ORGANO_AUTONOMO",
+        nombre: "Secretaria Ejecutiva del Sistema Nacional Anticorrupción",
+        siglas: "SESNA",
+      },
+      empleoCargoComision: {
+        nombre: {
+          clave: "ENLACE_U_HOMOLOGO",
+        },
+        denominacion:
+          "Enlace de Consulta de las Plataformas y Sistemas Digitales Anticorrupción",
+        areaAdscripcion: "Unidad de Plataforma Digital Nacional",
+      },
+      origenInvestigacion: {
+        clave: "DENUNCIA_SP",
+      },
+      faltaCometida: [
+        {
+          articuloNormatividadInfringida: ["Articulo 21"],
+          fraccionNormatividadInfringida: ["Fracción 6"],
+          clave: "CONTRATACION_INDEBIDA",
+          normatividadInfringida:
+            "Ley General de Responsabilidades Administrativas",
+          descripcionHechos: "Lo contrato su tío el inombrable",
+        },
+      ],
+      resolucion: {
+        documentoResolucion: "Sentencia Final",
+        fechaResolucion: "2022-03-01",
+        fechaNotificacion: "2022-03-15",
+        urlResolucion: "https://www.google.com",
+        fechaResolucionFirme: "2022-04-01",
+        fechaNotificacionFirme: "2022-04-17",
+        urlResolucionFirme: "https://www.promodescuentos.com/12%0183?dxjk=0$",
+      },
+      tipoSancion: {
+        sancion: [
+          {
+            clave: "DESTITUCION",
+            destitucionEmpleo: {
+              fechaDestitucion: "2022-05-15",
+            },
+          },
+        ],
+        ordenJurisdiccional: "FEDERAL",
+        autoridadResolutora: "OIC de la SESNA",
+        autoridadInvestigadora: "Comite de ética",
+        autoridadSubstanciadora: "Su jefa directa",
+      },
+      nombres: "Alan",
+      primerApellido: "Rojas",
+      curp: "RXBA990410HDFJTL00",
+      rfc: "ROBA990410GQ8",
+      sexo: "HOMBRE",
+      observaciones:
+        "Tambien se impondra sancion por molestar a una pequeña persona..",
+    },
+    expediente: "1",
+  };
 
   return (
     <Grid item xs={12}>
       <Card>
-        <CardHeader
-          title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS."
-        />
+        <CardHeader title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." />
         <Divider />
         <CardHeader
-          subheader={id != undefined ? "Edición" : "TODOS LOS CAMPOS SEÑALADOS CON UN ASTERISCO (*) SON DE CARÁCTER OBLIGATORIO."}
+          subheader={
+            id != undefined
+              ? "Edición"
+              : "TODOS LOS CAMPOS SEÑALADOS CON UN ASTERISCO (*) SON DE CARÁCTER OBLIGATORIO."
+          }
         />
         <CardContent>
           <Grid container>
@@ -102,7 +174,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={initialValues}
+                formData={dataEjemplo}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}

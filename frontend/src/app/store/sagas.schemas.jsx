@@ -769,7 +769,6 @@ export function* creationS2v2() {
 	while (true) {
 		const { values } = yield take(S2Constants.REQUEST_CREATION_S2v2);
 		console.log("entra al creationS2v2");
-		console.log(values);
 		let docSend = values;
 		const token = localStorage.token;
 
