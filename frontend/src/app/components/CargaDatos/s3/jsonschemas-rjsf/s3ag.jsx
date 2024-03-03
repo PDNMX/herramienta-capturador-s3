@@ -55,8 +55,7 @@ let data = {
     expediente: {
       type: "string",
       title: "Expediente",
-      description:
-        "Registrar el número de expediente del procedimiento.",
+      description: "Registrar el número de expediente del procedimiento.",
     },
     absGrave: {
       title: "1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA.",
@@ -139,7 +138,8 @@ let data = {
           enum: ["FEMENINO", "MASCULINO"],
           enumNames: ["Femenino", "Masculino"],
           title: "Sexo",
-          description: "Seleccionar la opción que corresponda femenino/masculino.",
+          description:
+            "Seleccionar la opción que corresponda femenino/masculino.",
         },
         entePublico: {
           type: "object",
@@ -395,10 +395,11 @@ let data = {
             "Señalar el motivo que dio origen a la investigación por la comisión de la falta administrativa grave.",
           properties: {
             clave: {
-              title: "Seleccionar conforme al catálogo el origen de la falta administrativa:",
+              title:
+                "Seleccionar conforme al catálogo el origen de la falta administrativa:",
               description:
                 "Seleccionar conforme al catálogo el origen de la falta administrativa:",
-                //La siguiente lista no coindiciden entre el formato y el documento de las descripciones, nos basamos en el formato.
+              //La siguiente lista no coindiciden entre el formato y el documento de las descripciones, nos basamos en el formato.
               enum: [
                 "AUDITORIA_SUPERIOR",
                 "AUDITORIA_OIC",
@@ -463,7 +464,8 @@ let data = {
             properties: {
               clave: {
                 title: "Falta cometida",
-                description: "Seleccionar el tipo de falta cometida de la persona servidora pública sancionada.",
+                description:
+                  "Seleccionar el tipo de falta cometida de la persona servidora pública sancionada.",
                 enum: [
                   "ABUSO_FUNCIONES",
                   "COHECHO",
@@ -561,7 +563,8 @@ let data = {
         resolucion: {
           type: "object",
           title: "5. RESOLUCIÓN DE ABSTENCIÓN DE IMPOSICIÓN DE SANCIÓN",
-          description: "En esta sección se señalarán los datos relativos a la resolución firme.",
+          description:
+            "En esta sección se señalarán los datos relativos a la resolución firme.",
           required: [
             "documentoResolucion",
             "fechaResolucion",
@@ -604,6 +607,11 @@ let data = {
               description:
                 "Colocar el enlace o link de la resolución emitida por la autoridad sancionadora a la que corresponde la sanción en su versión pública.",
             },
+          },
+        },
+        tipoSancion: {
+          type: "object",
+          properties: {
             ordenJurisdiccional: {
               title: "Orden jurisdiccional de la sanción.",
               description:
@@ -620,12 +628,14 @@ let data = {
             autoridadInvestigadora: {
               type: "string",
               title: "Autoridad investigadora",
-              description: "Especificar el nombre de la autoridad encargada de la investigación de la abstención grave",
+              description:
+                "Especificar el nombre de la autoridad encargada de la investigación de la abstención grave",
             },
             autoridadSubstanciadora: {
               type: "string",
               title: "Nombre de la autoridad substanciadora.",
-              description: "Señalar el nombre de la autoridad substanciadora del procedimiento.",
+              description:
+                "Señalar el nombre de la autoridad substanciadora del procedimiento.",
             },
           },
         },

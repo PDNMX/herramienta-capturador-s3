@@ -46,7 +46,8 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Instituto Nacional de Transparencia, Acceso a la informacion y Proteccion de Datos Personales",
+        "ui:placeholder":
+          "Ejemplo: Instituto Nacional de Transparencia, Acceso a la informacion y Proteccion de Datos Personales",
       },
       siglas: {
         "ui:placeholder": "Ejemplo: INAI",
@@ -77,9 +78,12 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      nivel: { "ui:placeholder": "Ejemplo: Departamento de Desarrollo de Sistemas" },
+      nivel: {
+        "ui:placeholder": "Ejemplo: Departamento de Desarrollo de Sistemas",
+      },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Direccion General de Tecnologias de la Informacion",
+        "ui:placeholder":
+          "Ejemplo: Direccion General de Tecnologias de la Informacion",
       },
     },
     origenInvestigacion: {
@@ -125,6 +129,9 @@ let data = {
       url: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
+    },
+    tipoSancion: {
+      "ui:options": { label: false },
       ordenJurisdiccional: {
         "ui:widget": "RadioWidget",
         "ui:options": { inline: true },
