@@ -41,7 +41,7 @@ services:
   backend:
     restart: always
     build:
-      context: ./backend/backend/
+      context: ./backend/api/
       dockerfile: Dockerfile
     environment:
       USERMONGO: ${DB_ROOT_USER}
@@ -52,6 +52,7 @@ services:
       EMAIL: ${EMAIL}
       PASS_EMAIL: ${PASS_EMAIL}
       HOST_EMAIL: ${HOST_EMAIL}
+      PORT_EMAIL: ${PORT_EMAIL}
     depends_on:
       - mongo
     links:
@@ -64,11 +65,11 @@ services:
     build:
       context: ./frontend/
       dockerfile: Dockerfile
-    environment:
-      VITE_URL_API: ${URL_BACKEND}
-      VITE_URL_OAUTH: ${URL_OAUTH}
-      VITE_CLIENT_ID: ${CLIENT_ID}
-      VITE_CLIENT_SECRET: ${CLIENT_SECRET}
+      args:
+        VITE_URL_API: ${URL_BACKEND}
+        VITE_URL_OAUTH: ${URL_OAUTH}
+        VITE_CLIENT_ID: ${CLIENT_ID}
+        VITE_CLIENT_SECRET: ${CLIENT_SECRET}
     ports:
       - ${PORT_FRONTEND}:5000
 
