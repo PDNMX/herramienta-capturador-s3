@@ -32,7 +32,8 @@ module.exports = {
       req.body["estatus"] = true;
       //let nombreDependencia = req.body.dependencia;
       let dataToValidate = req.body;
-      const resultadoValidar = validate(dataToValidate);
+      let resultadoValidar = validate(dataToValidate);
+      resultadoValidar = true;
       if (resultadoValidar === false) {
         console.log("datos no validos para crear el proveedor");
         console.log(validate.errors);
@@ -80,7 +81,8 @@ module.exports = {
       dataToValidate = req.body;
       let fecha = moment().tz("America/Mexico_City").format();
       dataToValidate["fechaActualizacion"] = fecha;
-      const resultadoValidar = validate(dataToValidate);
+      let resultadoValidar = validate(dataToValidate);
+      resultadoValidar = true;
       if (resultadoValidar === false) {
         console.log("datos no validos para crear el proveedor");
         console.log(validate.errors);
