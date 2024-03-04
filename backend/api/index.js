@@ -8,7 +8,7 @@ const morgan = require("morgan");
 
 const { port } = require("./config");
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3004;
 const USERMONGO = process.env.USERMONGO;
 const PASSWORDMONGO = process.env.PASSWORDMONGO;
 const HOSTMONGO = process.env.HOSTMONGO;
