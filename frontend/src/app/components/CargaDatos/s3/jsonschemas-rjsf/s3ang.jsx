@@ -137,8 +137,7 @@ let data = {
           enum: ["MUJER", "HOMBRE"],
           enumNames: ["Mujer", "Hombre"],
           title: "Sexo",
-          description:
-            "Seleccionar la opción que corresponda: mujer/hombre.",
+          description: "Seleccionar la opción que corresponda: mujer/hombre.",
         },
         entePublico: {
           type: "object",
@@ -458,7 +457,8 @@ let data = {
             "4. TIPO DE FALTA COMETIDA POR LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
           items: {
             type: "object",
-            title: "Por actos u omisiones que incumplan o transgredan las siguientes obligaciones:",
+            title:
+              "Por actos u omisiones que incumplan o transgredan las siguientes obligaciones:",
             required: [
               "clave",
               "nombreNormatividad",
@@ -498,7 +498,8 @@ let data = {
               normatividadInfringida: {
                 type: "string",
                 title: "Normatividad infringida",
-                description: "Escribir el nombre de la normatividad infringida por la persona servidora pública.",
+                description:
+                  "Escribir el nombre de la normatividad infringida por la persona servidora pública.",
               },
               articuloNormatividadInfringida: {
                 type: "array",
@@ -506,8 +507,7 @@ let data = {
                 items: {
                   title: "Artículo",
                   type: "string",
-                  description:
-                    "Escribir el (los) artículo (s) infringido (s).",
+                  description: "Escribir el (los) artículo (s) infringido (s).",
                 },
               },
               fraccionNormatividadInfringida: {
@@ -576,9 +576,6 @@ let data = {
             "fechaNotificacion",
             "fechaResolucionFirme",
             "url",
-            "autoridadResolutora",
-            "autoridadInvestigadora",
-            "autoridadSubstanciadora",
           ],
           properties: {
             documentoResolucion: {
@@ -610,12 +607,14 @@ let data = {
             descripcionAbstención: {
               type: "string",
               title: "Descripción breve de la abstención",
-              description: "Señalar una descripción breve de las causas por las que se concedió la abstención sin datos reservados ni confidenciales.",
+              description:
+                "Señalar una descripción breve de las causas por las que se concedió la abstención sin datos reservados ni confidenciales.",
             },
           },
         },
         tipoSancion: {
           type: "object",
+          required: ["autoridadInvestigadora", "autoridadSubstanciadora"],
           properties: {
             autoridadResolutora: {
               type: "string",

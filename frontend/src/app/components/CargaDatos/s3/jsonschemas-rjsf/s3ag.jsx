@@ -571,9 +571,6 @@ let data = {
             "fechaNotificacion",
             "fechaResolucionFirme",
             "url",
-            "autoridadResolutora",
-            "autoridadInvestigadora",
-            "autoridadSubstanciadora",
           ],
           properties: {
             documentoResolucion: {
@@ -611,6 +608,7 @@ let data = {
         },
         tipoSancion: {
           type: "object",
+          required: ["autoridadInvestigadora", "autoridadSubstanciadora"],
           properties: {
             ordenJurisdiccional: {
               title: "Orden jurisdiccional de la sanción.",
