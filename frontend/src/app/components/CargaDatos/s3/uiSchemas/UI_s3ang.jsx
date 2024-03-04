@@ -46,7 +46,8 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Instituto Nacional de Transparencia, Acceso a la Informacion y Proteccion de Datos Personales",
+        "ui:placeholder":
+          "Ejemplo: Instituto Nacional de Transparencia, Acceso a la Informacion y Proteccion de Datos Personales",
       },
       siglas: {
         "ui:placeholder": "Ejemplo: INAI",
@@ -77,9 +78,12 @@ let data = {
         clave: {},
         valor: { "ui:placeholder": "..." },
       },
-      nivel: { "ui:placeholder": "Ejemplo: Departamento de desarrollo de sistemas" },
+      nivel: {
+        "ui:placeholder": "Ejemplo: Departamento de desarrollo de sistemas",
+      },
       areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Dirección general de tecnologías de la información",
+        "ui:placeholder":
+          "Ejemplo: Dirección general de tecnologías de la información",
       },
     },
     origenInvestigacion: {
@@ -95,26 +99,30 @@ let data = {
         "ui:order": [
           "clave",
           "valor",
-          "nombreNormatividad",
-          "articuloNormatividad",
-          "fraccionNormatividad",
+          "normatividadInfringida",
+          "articuloNormatividadInfringida",
+          "fraccionNormatividadInfringida",
+          "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
         },
-        nombreNormatividad: {
+        normatividadInfringida: {
           "ui:placeholder":
             "Ejemplo: Ley General de Responsabilidades Administrativas",
         },
-        articuloNormatividad: {
+        articuloNormatividadInfringida: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, ...",
           },
         },
-        fraccionNormatividad: {
+        fraccionNormatividadInfringida: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 20, ...",
           },
+        },
+        descripcionHechos: {
+          "ui:placeholder": "Ejemplo: ...",
         },
       },
     },
@@ -125,6 +133,9 @@ let data = {
       url: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
+    },
+    tipoSancion: {
+      "ui:options": { label: false },
       autoridadResolutora: {
         "ui:placeholder": "Ejemplo: Secretaría de la Función Pública",
       },
