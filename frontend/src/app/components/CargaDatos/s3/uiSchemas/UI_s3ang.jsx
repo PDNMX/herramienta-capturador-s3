@@ -99,24 +99,24 @@ let data = {
         "ui:order": [
           "clave",
           "valor",
-          "normatividadInfringida",
-          "articuloNormatividadInfringida",
-          "fraccionNormatividadInfringida",
+          "nombreNormatividad",
+          "articuloNormatividad",
+          "fraccionNormatividad",
           "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
         },
-        normatividadInfringida: {
+        nombreNormatividad: {
           "ui:placeholder":
             "Ejemplo: Ley General de Responsabilidades Administrativas",
         },
-        articuloNormatividadInfringida: {
+        articuloNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, ...",
           },
         },
-        fraccionNormatividadInfringida: {
+        fraccionNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 20, ...",
           },

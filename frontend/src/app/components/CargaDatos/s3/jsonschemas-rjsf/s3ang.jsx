@@ -1,54 +1,5 @@
 // ABSTENCIONES - NO GRAVES (11)
 let data = {
-  /*definitions: {
-    constancias: {
-      type: "object",
-      properties: {
-        sinConstancia: {
-          type: "boolean",
-          default: false,
-          title: "No existe constancia",
-        },
-      },
-      dependencies: {
-        sinConstancia: {
-          oneOf: [
-            {
-              properties: {
-                sinConstancia: { const: false },
-                titulo: {
-                  type: "string",
-                  title: "Título de la constancia de la sanción",
-                  description:
-                    "Proporcionar el nombre del título de la constancia de la persona servidora pública.",
-                },
-                fecha: {
-                  type: "string",
-                  format: "date",
-                  title: "Fecha de la constancia de la sanción",
-                  description:
-                    "Indicar la fecha de expedición de la constancia de la persona servidora pública en formato dd-mm-aaaa.",
-                },
-                url: {
-                  type: "string",
-                  title: "URL del documento digital",
-                  description:
-                    "Colocar el enlace o link del documento digital de la constancia.",
-                },
-              },
-              required: ["sinConstancia", "titulo", "fecha", "url"],
-            },
-            {
-              properties: {
-                sinConstaancia: { const: true },
-              },
-              required: ["sinConstancia"],
-            },
-          ],
-        },
-      },
-    },
-  },*/
   type: "object",
   required: ["expediente", "absNoGrave"],
   properties: {
@@ -142,7 +93,7 @@ let data = {
         entePublico: {
           type: "object",
           title:
-            "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
+            "2. DATOS DEL EMPLEO, CARGO O COMISIÓN DE LA PERSONA SERVIDORA PÚBLICA",
           description:
             "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
           required: [
@@ -462,8 +413,8 @@ let data = {
             required: [
               "clave",
               "nombreNormatividad",
-              "articuloNormatividadInfringida",
-              "fraccionNormatividadInfringida",
+              "articuloNormatividad",
+              "fraccionNormatividad",
             ],
             properties: {
               clave: {
@@ -495,26 +446,26 @@ let data = {
                   "Otro",
                 ],
               },
-              normatividadInfringida: {
+              nombreNormatividad: {
                 type: "string",
                 title: "Normatividad infringida",
                 description:
                   "Escribir el nombre de la normatividad infringida por la persona servidora pública.",
               },
-              articuloNormatividadInfringida: {
+              articuloNormatividad: {
                 type: "array",
-                title: "Artículo(s) de la normatividad infringida",
+                title: "Artículo (s) de la normatividad infringida",
                 items: {
-                  title: "Artículo",
+                  title: "Artículo (s)",
                   type: "string",
                   description: "Escribir el (los) artículo (s) infringido (s).",
                 },
               },
-              fraccionNormatividadInfringida: {
+              fraccionNormatividad: {
                 type: "array",
-                title: "Fracción(es) de la normatividad infringida",
+                title: "Fracción (es) de la normatividad infringida",
                 items: {
-                  title: "Fracción",
+                  title: "Fracción (es)",
                   type: "string",
                   description:
                     "En su caso, escribir la (s) fracción (es) infringida (s).",
@@ -587,7 +538,7 @@ let data = {
             fechaResolucion: {
               type: "string",
               format: "date",
-              title: "Fecha de la resolución",
+              title: "Fecha de resolución",
               description:
                 "Colocar la fecha en la que se emite la resolución o acuerdo en formato DD-MM-AAAA.",
             },

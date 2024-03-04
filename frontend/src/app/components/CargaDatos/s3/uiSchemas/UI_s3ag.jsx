@@ -1,10 +1,4 @@
 let data = {
-  definitions: {
-    constancias: {
-      titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-      url: { "ui:placeholder": "https://www.ejemplo.com/constancia.pdf" },
-    },
-  },
   expediente: {
     "ui:placeholder": "Ejemplo: 123456789",
   },
@@ -102,6 +96,7 @@ let data = {
           "nombreNormatividad",
           "articuloNormatividad",
           "fraccionNormatividad",
+          "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
@@ -119,6 +114,9 @@ let data = {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 10, ...",
           },
+        },
+        descripcionHechos: {
+          "ui:placeholder": "Ejemplo: ...",
         },
       },
     },
