@@ -94,24 +94,24 @@ let data = {
         "ui:order": [
           "clave",
           "valor",
-          "normatividadInfringida",
-          "articuloNormatividadInfringida",
-          "fraccionNormatividadInfringida",
+          "nombreNormatividad",
+          "articuloNormatividad",
+          "fraccionNormatividad",
           "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
         },
-        normatividadInfringida: {
+        nombreNormatividad: {
           "ui:placeholder":
             "Ejemplo: Ley General de Responsabilidades Administrativas o Ley General de Responsabilidades Administrativas del estado de Guanajuato",
         },
-        articuloNormatividadInfringida: {
+        articuloNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
           },
         },
-        fraccionNormatividadInfringida: {
+        fraccionNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },

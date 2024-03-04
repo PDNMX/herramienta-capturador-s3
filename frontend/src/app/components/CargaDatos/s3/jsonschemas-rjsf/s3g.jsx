@@ -408,9 +408,9 @@ let data = {
             title: "Falta cometida",
             required: [
               "clave",
-              "normatividadInfringida",
-              "articuloNormatividadInfringida",
-              "fraccionNormatividadInfringida",
+              "nombreNormatividad",
+              "articuloNormatividad",
+              "fraccionNormatividad",
             ],
             properties: {
               clave: {
@@ -450,13 +450,13 @@ let data = {
                   "Otro",
                 ],
               },
-              normatividadInfringida: {
+              nombreNormatividad: {
                 type: "string",
                 title: "Normatividad infringida",
                 description:
                   "Escribir el nombre de la normatividad infringida por la persona servidora pública, sin abreviaturas, sin acentos, ni signos especiales.",
               },
-              articuloNormatividadInfringida: {
+              articuloNormatividad: {
                 type: "array",
                 title: "Artículo(s) de la normatividad infringida",
                 items: {
@@ -465,7 +465,7 @@ let data = {
                   description: "Escribir el (los) artículo (s) infringido (s).",
                 },
               },
-              fraccionNormatividadInfringida: {
+              fraccionNormatividad: {
                 type: "array",
                 title: "Fracción(es) de la normatividad infringida",
                 items: {
