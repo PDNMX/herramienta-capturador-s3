@@ -5,7 +5,6 @@ const providerSchema = new mongoose.Schema({
   //type: mongoose.Schema.Types.Mixed,
   dependencia: String,
   fechaAlta: String,
-  fechaBaja: String,
   fechaActualizacion: String,
   estatus: Boolean,
   sistemas: { type: [], default: void 0 },
