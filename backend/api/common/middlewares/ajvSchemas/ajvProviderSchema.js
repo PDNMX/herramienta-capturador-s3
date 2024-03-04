@@ -14,7 +14,7 @@ const providerSchemaJSON = {
     sistemas: { type: "array", items: { type: "string" } }
   },
   required: ["dependencia", "sistemas", "estatus"],
-  additionalProperties: false,
+  additionalProperties: true,
 
 };
 /* const providerSchemaJSON = {

@@ -69,45 +69,51 @@ module.exports = {
     }
   },
   editProvider: async (req, res) => {
-    try {
-      const nuevoProovedor = new Provider(req.body);
-      let responce;
-      //console.log(req.body);
-      if (req.body._id) {
-        if (req.body.estatus === false) {
-          /// desactivar todos los usuarios que tengan el id del proveedor
-          await User.updateMany(
-            { proveedorDatos: req.body._id },
-            { estatus: false }
-          ).exec();
-          //console.log("Se desactivo el proveedor");
+   try {
+    
+    // Crear un nuevo objeto AJV
+      //const ajv = new Ajv({ allErrors: true,formats: {date: true, time: true }});
+      const ajv = new Ajv();
+      addFormats(ajv);
+      // Agregar el plugin de formatos al objeto AJV
+      const validate = ajv.compile(providerSchemaJSON);
+      dataToValidate = req.body;
+      let fecha = moment().tz("America/Mexico_City").format();
+      dataToValidate["fechaActualizacion"] = fecha;
+      const resultadoValidar = validate(dataToValidate);
+      if (resultadoValidar === false) {
+        console.log("datos no validos para crear el proveedor");
+        console.log(validate.errors);
+        return res.status(400).json({
+          message: "Error al validar el proveedor.",
+          error: validate.errors,
+        });
+      } else {
+        let dataToValidate = req.body;
+        const nuevoProovedor = new Provider(req.body);
+        let responce;
+        if(req.body.estatus == false){
+          User.updateMany({ proveedorDatos: req.body._id }, { estatus: false }).exec();
         }
-        /// encontrar todos los usuarios que tengan el id del proveedor
         let id = req.body._id.toString();
         let sistemasproveedor = req.body.sistemas;
         let usuarios = await User.find({ proveedorDatos: id });
         let nuevoSistemas = [];
-        //console.log("usuarios encontrados");
-        //console.log(usuarios);
-
-        usuarios.map(async (row) => {
+        usuarios.map(async row => {
           if (sistemasproveedor.length < row.sistemas.length) {
             nuevoSistemas = [];
-            row.sistemas.map((sistemasusuario) => {
-              sistemasproveedor.map((sistema) => {
+            row.sistemas.map(sistemasusuario => {
+              sistemasproveedor.map(sistema => {
                 if (sistema == sistemasusuario) {
                   nuevoSistemas.push(sistema);
                 }
               });
             });
             await User.updateOne({ _id: row._id }, { sistemas: nuevoSistemas });
-          } else if (
-            (sistemasproveedor.length == 2 || sistemasproveedor.length == 1) &&
-            (row.sistemas.length == 1 || row.sistemas.length == 2)
-          ) {
+          } else if ((sistemasproveedor.length == 2 || sistemasproveedor.length == 1) && (row.sistemas.length == 1 || row.sistemas.length == 2)) {
             nuevoSistemas = [];
-            row.sistemas.map((sistemasusuario) => {
-              sistemasproveedor.map((sistema) => {
+            row.sistemas.map(sistemasusuario => {
+              sistemasproveedor.map(sistema => {
                 if (sistema == sistemasusuario) {
                   nuevoSistemas.push(sistema);
                 }
@@ -116,20 +122,16 @@ module.exports = {
             await User.updateOne({ _id: row._id }, { sistemas: nuevoSistemas });
           }
         });
-        responce = await Provider.findByIdAndUpdate(
-          req.body._id,
-          nuevoProovedor
-        ).exec();
-        res.status(200).json(responce);
-      }
 
-      //res.status(200).json({ message: 'Usuario editado correctamente.' });
-    } catch (error) {
-      console.error("Error al editar proveedor:", error);
-      return res
-        .status(500)
-        .json({ message: "Error al editar proveedor.", error: error.message });
-    }
+        responce = await Provider.findByIdAndUpdate(req.body._id, nuevoProovedor).exec();
+        res.status(200).json(responce);
+        /* const nuevoProovedor = new Provider(dataToValidate);
+        let responce = await nuevoProovedor.save(); */
+        
+      }
+   } catch (error) {
+    res.status(500).json({ message: "Error al editar proveedor.", error: error.message });
+   }
   },
   getProviders: async (req, res) => {
     try {
