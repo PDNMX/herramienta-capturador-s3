@@ -12,4 +12,3 @@ Dockerfile*
 docker-compose*
 yarn-error.log
 package-lock.json
-./backend/.env

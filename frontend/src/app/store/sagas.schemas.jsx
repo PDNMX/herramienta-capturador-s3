@@ -1,4 +1,4 @@
-import { take, put, select } from 'redux-saga/effects';
+import { take, put } from 'redux-saga/effects';
 //import uuid from 'uuid';
 import axios from 'axios';
 import * as mutations from './mutations';
@@ -11,10 +11,8 @@ import { userActions } from '../_actions/user.action';
 import { providerConstants } from '../_constants/provider.constants';
 import { providerActions } from '../_actions/provider.action';
 
-import { catalogConstants } from '../_constants/catalogs.constants';
 import { catalogActions } from '../_actions/catalog.action';
 import { S2Constants } from '../_constants/s2.constants';
-import { storeValidate } from './index';
 import { S2Actions } from '../_actions/s2.action';
 import { bitacoraActions } from '../_actions/bitacora.action';
 import { S3SConstants } from '../_constants/s3s.constants';
@@ -25,7 +23,6 @@ import { S3PActions } from '../_actions/s3p.action';
 import jwt_decode from "jwt-decode";
 
 import _ from "underscore"
-import { formatISO } from 'date-fns';
 
 import momento from 'moment-timezone';
 
@@ -50,7 +47,6 @@ export function* validationErrors() {
 			}
 
 			try {
-				let respuestaArray;
 				let urlValidation;
 
 				if (systemId === 'S2') {
@@ -115,7 +111,6 @@ export function* requestProviderPerPage() {
 		const token = localStorage.token;
 		let payload = jwt_decode(token);
 		yield put(userActions.setUserInSession(payload.idUser));
-		let query = { usuario: payload.idUser };
 		const respuestaArray = yield axios.post(url_api + `/getProvidersFull`, objPaginationReq, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -236,7 +231,6 @@ export function* deleteUser() {
 		const { id } = yield take(userConstants.DELETE_REQUEST);
 		const token = localStorage.token;
 		if (token) {
-			let request = { _id: id };
 			try {
 				let payload = jwt_decode(token);
 				yield put(userActions.setUserInSession(payload.idUser));
@@ -395,7 +389,6 @@ export function* permisosSistemas() {
 		localStorage.setItem('S3P', false);
 		let permisos = [];
 		permisos = status.data.sistemas;
-		let permiso = false;
 
 		permisos.map((item) => {
 			if (item == 'S2') {
@@ -478,7 +471,6 @@ export function* creationUser() {
 export function* editUser() {
 	while (true) {
 		const { usuarioJson } = yield take(mutations.REQUEST_EDIT_USER);
-		let fechaActual = moment();
 		const token = localStorage.token;
 		let payload = jwt_decode(token);
 		yield put(userActions.setUserInSession(payload.idUser));
@@ -591,7 +583,7 @@ export function* creationS3PSchema() {
 
 		delete values.__v;
 		if (values._id) {
-			values['_id'] = values._id;
+			//values['_id'] = values._id;
 			const { status } = yield axios.post(
 				url_api + `/updateS3Pv2`,
 				{ ...values, usuario: usuario },
@@ -956,69 +948,6 @@ export function* getListSchemaS3P() {
 	}
 }
 
-async function formatS3PField(registro, respuestaArrayTipoPersona) {
-	let token = localStorage.token;
-	for (let [ key, row ] of Object.entries(registro)) {
-		if (key === 'particularSancionado') {
-			if (row.tipoPersona) {
-				let tipoPersona = row.tipoPersona;
-
-				for (let persona of respuestaArrayTipoPersona.data.results) {
-					if (persona.clave === tipoPersona) {
-						row.tipoPersona = JSON.stringify({ clave: persona.clave, valor: persona.valor });
-					}
-				}
-			}
-			if (row.domicilioMexico) {
-				if (row.domicilioMexico.pais) {
-					row.domicilioMexico.pais = JSON.stringify(row.domicilioMexico.pais);
-				}
-				if (row.domicilioMexico.entidadFederativa) {
-					row.domicilioMexico.entidadFederativa = JSON.stringify(row.domicilioMexico.entidadFederativa);
-				}
-				if (row.domicilioMexico.municipio) {
-					row.domicilioMexico.municipio = JSON.stringify(row.domicilioMexico.municipio);
-				}
-				if (row.domicilioMexico.localidad) {
-					row.domicilioMexico.localidad = JSON.stringify(row.domicilioMexico.localidad);
-				}
-				if (row.domicilioMexico.vialidad) {
-					row.domicilioMexico.descripcionVialidad = row.domicilioMexico.vialidad.valor;
-					row.domicilioMexico.vialidad = JSON.stringify({
-						clave: row.domicilioMexico.vialidad.clave,
-						valor: row.domicilioMexico.vialidad.clave
-					});
-				}
-			}
-		} else if (key === 'multa') {
-			if (row.moneda) {
-				row.moneda = JSON.stringify(row.moneda);
-			}
-		} else if (key === 'documentos') {
-			if (Array.isArray(row)) {
-				for (let i of row) {
-					i.tipo = JSON.stringify({ clave: i.tipo, valor: i.tipo });
-				}
-			}
-		} else if (key === 'tipoSancion') {
-			let arraySanciones = [];
-			for (let objTipoSancion of row) {
-				let obj = {};
-				if (objTipoSancion.clave && objTipoSancion.valor) {
-					obj['tipoSancion'] = JSON.stringify({ clave: objTipoSancion.clave, valor: objTipoSancion.valor });
-				}
-				if (objTipoSancion.descripcion) {
-					obj['descripcion'] = objTipoSancion.descripcion;
-				}
-
-				arraySanciones.push(obj);
-			}
-			registro.tipoSancion = arraySanciones;
-		}
-	}
-	return registro;
-}
-
 export function* fillUpdateRegS3P() {
 	while (true) {
 		const { id } = yield take(S3PConstants.FILL_REG_S3P_EDIT);
@@ -1125,29 +1054,6 @@ export function* fillUpdateRegS3P() {
 				if (row.moneda) {
 					row.moneda = JSON.stringify(row.moneda);
 				}
-				// } else if (key === "documentos") {
-				//     if (Array.isArray(row)) {
-				//         for (let i of row) {
-				//             i.tipo = JSON.stringify({clave: i.tipo, valor: i.tipo});
-
-				//             if(i.fecha){
-				//                 let fecha = new Date(i.fecha+ "T00:00:00.000");
-				//                 i.fecha = momento(fecha).tz("America/Mexico_City");
-				//             }
-				//         }
-				//     }
-				// }else if(key === "tipoSancion"){
-				//     let arraySanciones= [];
-				//     for(let objTipoSancion of row){
-				//         let obj={};
-				//         if(objTipoSancion.clave && objTipoSancion.valor){
-				//             obj["tipoSancion"] = JSON.stringify({clave:objTipoSancion.clave ,valor : objTipoSancion.valor});
-				//         }
-				//         if(objTipoSancion.descripcion){obj["descripcion"] = objTipoSancion.descripcion;}
-
-				//         arraySanciones.push(obj);
-				//     }
-				//     registro.tipoSancion = arraySanciones;
 			} else if (key === 'resolucion') {
 				if (row.fechaNotificacion) {
 					let fecha = new Date(row.fechaNotificacion + 'T00:00:00.000');
@@ -1287,16 +1193,6 @@ export function* fillUpdateRegS3S() {
 			} else if (key === 'documentos') {
 				let arrayDocumentos = [];
 				for (let objDocumentos of row) {
-					// let obj={};
-					// if(objDocumentos.id){ obj["id"] = objDocumentos.id;}
-					// if(objDocumentos.titulo){ obj["titulo"] = objDocumentos.titulo;}
-					// if(objDocumentos.descripcion){ obj["descripcion"] = objDocumentos.descripcion;}
-					// if(objDocumentos.url){ obj["url"] = objDocumentos.url;}
-					// if(objDocumentos.fecha){
-					//     let fecha = new Date( objDocumentos.fecha+ "T00:00:00.000");
-					//     obj["fecha"] = momento(fecha).tz("America/Mexico_City");
-					// }
-					// if(objDocumentos.tipo){ obj["tipo"] = JSON.stringify({clave:objDocumentos.tipo ,valor : objDocumentos.tipo});}
 					arrayDocumentos.push(objDocumentos);
 				}
 
@@ -1497,7 +1393,6 @@ export function* deleteSchemaS3P() {
 export function* consultBitacora() {
 	while (true) {
 		const { usuarioJson } = yield take(mutations.REQUEST_CONSULT_BITACORA);
-		let fechaActual = moment();
 		const token = localStorage.token;
 		let payload = jwt_decode(token);
 		yield put(userActions.setUserInSession(payload.idUser));
