@@ -110,12 +110,15 @@ function MyForm(props) {
       },
       faltaCometida: [
         {
+          articuloNormatividad: ["10"],
+          fraccionNormatividad: ["20"],
           articuloNormatividadInfringida: ["Articulo 21"],
           fraccionNormatividadInfringida: ["Fracción 6"],
           clave: "CONTRATACION_INDEBIDA",
           normatividadInfringida:
             "Ley General de Responsabilidades Administrativas",
           descripcionHechos: "Lo contrato su tío el inombrable",
+          nombreNormatividad: "Ley General de Responsabilidades",
         },
       ],
       resolucion: {
