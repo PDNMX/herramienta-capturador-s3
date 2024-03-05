@@ -818,7 +818,7 @@ export function* creationS2v2() {
 		//docSend['observaciones'] = values.observaciones;
 		console.log("docSENDD");
 		console.log(docSend);
-		const { status, data } = yield axios.post(url_api + `/insertS2v2`, docSend, {
+		const { status, data } = yield axios.post(url_api + `/S3/SERVIDORES-FALTAS-GRAVES/insert`, docSend, {
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
