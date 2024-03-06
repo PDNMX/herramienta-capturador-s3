@@ -79,13 +79,13 @@ let data = {
           type: "string",
           title: "Nombre(s)",
           description:
-            "Escribir el o los nombres, sin abreviaturas, ni signos especiales.",
+            "Escribir el o los nombres, sin abreviaturas, sin acentos, ni signos especiales.",
         },
         primerApellido: {
           type: "string",
           title: "Primer apellido",
           description:
-            "Escribir el primer apellido sin abreviaturas, ni signos especiales.",
+            "Escribir el primer apellido sin abreviaturas, sin acentos, ni signos especiales.",
         },
         segundoApellido: {
           type: "object",
@@ -112,7 +112,7 @@ let data = {
                       type: "string",
                       title: "Segundo apellido",
                       description:
-                        "Escribir el segundo apellido , sin abreviaturas, ni signos especiales.",
+                        "Escribir el segundo apellido , sin abreviaturas, sin acento, ni signos especiales.",
                     },
                   },
                   required: ["sinSegundoApellido", "valor"],
@@ -128,53 +128,6 @@ let data = {
         curp: {
           type: "string",
           title: "CURP",
-        },
-      },
-    },
-    constancias: {
-      type: "object",
-      properties: {
-        sinConstancia: {
-          type: "boolean",
-          default: false,
-          title: "No existe constancia",
-        },
-      },
-      dependencies: {
-        sinConstancia: {
-          oneOf: [
-            {
-              properties: {
-                sinConstancia: { const: false },
-                titulo: {
-                  type: "string",
-                  title: "Título de la constancia",
-                  description:
-                    "Proporcionar el nombre del título de la constancia de la persona moral.",
-                },
-                fecha: {
-                  type: "string",
-                  format: "date",
-                  title: "Fecha de expedición",
-                  description:
-                    "Indicar la fecha de expedición de la constancia de la persona moral en formato dd-mm-aaaa.",
-                },
-                url: {
-                  type: "string",
-                  title: "URL del documento digital",
-                  description:
-                    "Colocar el enlace o link del documento digital de la constancia.",
-                },
-              },
-              required: ["sinConstancia", "titulo", "fecha", "url"],
-            },
-            {
-              properties: {
-                sinConstaancia: { const: true },
-              },
-              required: ["sinConstancia"],
-            },
-          ],
         },
       },
     },
@@ -226,7 +179,7 @@ let data = {
           type: "string",
           title: "Objeto social de la actividad",
           description:
-            "Describir la o las actividades principales que lleva a cabo la persona moral.",
+            "Proporcionar el objeto social de la persona moral.",
         },
         domicilio: {
           type: "object",
@@ -439,7 +392,6 @@ let data = {
                   enumNames: [
                     "Federal",
                     "Estatal",
-                    //Se sugiere eliminar el conector "y/o"
                     "Municipal/Alcadía",
                     "Otro",
                   ],
@@ -490,13 +442,13 @@ let data = {
               type: "string",
               title: "Nombre del ente público",
               description:
-                "Escribir el nombre completo del ente público sin abreviaturas, ni signos especiales.",
+                "Indicar el nombre completo del ente público sin abreviaturas, sin acentos, ni signos especiales.",
             },
             siglas: {
               type: "string",
               title: "Siglas del ente público",
               description:
-                "Escribir (si aplica) las siglas del ente público.",
+                "Indicar (si aplica) las siglas del ente público.",
             },
           },
         },
@@ -551,16 +503,14 @@ let data = {
         },
         faltaCometida: {
           type: "array",
-          title: "5. TIPO DE DELITO COMETIDO A LA PERSONA MORAL",
-          description: "Especificar nombre del delito por hecho de corrupción cometido por parte de la persona moral sancionada.",
+          title: "5. TIPO DE DELITO COMETIDO POR LA PERSONA MORAL",
+          description: "En esta sección se señalarán los datos relativos al delito cometido por la persona moral",
           items: {
             type: "object",
-            title: "Delito por hechos de corrupción",
             required: [
               "clave",
-              "nombreNormatividadInfringida",
-              "articuloNormatividadInfringida",
-              "fraccionNormatividadInfringida",
+              "nombreNormatividad",
+              "articuloNormatividad",
             ],
             properties: {
               clave: {
@@ -569,31 +519,36 @@ let data = {
                 description:
                   "Escribir el nombre del delito por hecho de corrupción cometido por parte de la persona moral sancionada.",
               },
-              nombreNormatividadInfringida: {
+              nombreNormatividad: {
                 type: "string",
                 title: "Ley o normatividad infringida",
                 description:
                   "Escribir el nombre de la ley o normatividad infringida.",
               },
-              articuloNormatividadInfringida: {
+              articuloNormatividad: {
                 type: "array",
-                title: "Artículo(s) de la normatividad infringida",
+                title: "Artículo (s) de la normatividad infringida",
                 items: {
-                  title: "Artículo",
+                  title: "Artículo (s)",
                   type: "string",
                   description:
-                    "Escribir el artículo(s) infringido de la normatividad infringida.",
+                    "Escribir el (los) artículo (s) infringido (s).",
                 },
               },
-              fraccionNormatividadInfringida: {
+              fraccionNormatividad: {
                 type: "array",
-                title: "Fracción(es) de la normatividad infringida",
+                title: "Fracción (es) de la normatividad infringida",
                 items: {
-                  title: "Fracción",
+                  title: "Fracción (es)",
                   type: "string",
                   description:
-                    "Escribir la fracción(es) infringida de la normatividad infringida.",
+                    "En su caso, escribir la (s) fracción (es) infringida (s).",
                 },
+              },
+              descripcionHechos: {
+                title: "Descripción breve de los hechos",
+                type: "string",
+                description: "Realizar una descripción breve de los hechos sin incluir información reservada o confidencial.",
               },
             },
           },
@@ -623,14 +578,14 @@ let data = {
               format: "date",
               title: "Fecha de resolución",
               description:
-                "Colocar la fecha en la que se emite la resolución en formato dd-mm-aaaa.",
+                "Colocar la fecha en la que se emite la resolución en formato DD-MM-AAAA.",
             },
             fechaNotificacion: {
               type: "string",
               format: "date",
               title: "Fecha de notificación",
               description:
-                "Indicar la fecha en que se notifica la resolución a la persona moral.",
+                "Indicar la fecha en que se notifica la resolución a la persona moral, en formato DD-MM-AAAA.",
             },
             urlResolucion: {
               type: "string",
@@ -641,17 +596,16 @@ let data = {
             fechaResolucionFirme: {
               type: "string",
               format: "date",
-              title: "Fecha de resolución firme",
-              // La descripción en el documento de las descripciones no está correcta dice "persona servidora publica"
+              title: "Fecha de la resolución firme",
               description:
-                "Colocar la fecha en que quedó firme la resolución de la persona moral en formato dd-mm-aaaa.",
+                "Colocar la fecha en que quedó firme la resolución de la persona servidora pública en formato DD-MM-AAAA.",
             },
             fechaNotificacionFirme: {
               type: "string",
               format: "date",
-              title: "Fecha de notificación firme",
+              title: "Fecha de notificación de la resolución firme",
               description:
-                "Indicar la fecha de notificación de la resolución firme a la persona moral sancionada, en formato dd-mm-aaaa.",
+                "Indicar la fecha en que se notifica la resolución firme a la persona moral, en formato DD-MM-AAAA.",
             },
             urlResolucionFirme: {
               type: "string",
@@ -682,7 +636,7 @@ let data = {
               type: "string",
               title: "Autoridad jurisdiccional ",
               description:
-                "Indicar el nombre de la autoridad sancionadora facultada para aplicar la sanción.",
+                "Indicar el nombre de la autoridad facultada para aplicar la sanción.",
             },
             autoridadInvestigadora: {
               type: "string",
@@ -729,28 +683,21 @@ let data = {
                           clave: {
                             enum: ["INHABILITACION"],
                           },
-                          /*descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Descripción o nota aclaratoria del tipo de sanción infringida.",
-                          },*/
                           inhabilitacion: {
                             type: "object",
                             title: "INHABILITACIÓN",
-                            description: "Este campo se deberá llenar si en la resolución se sancionó con una inhabilitación.",
+                            description: "Colocar el plazo de la inhabilitación de la persona moral sancionada, empezando por año(s), mes(es) y día(s).",
                             required: [
                               "plazo",
                               "fechaInicial",
                               "fechaFinal",
-                              "constancia",
                             ],
                             properties: {
                               plazo: {
                                 type: "object",
                                 title: "Plazo de la sanción",
                                 description:
-                                  "Colocar el plazo de pago de la inhabilitación de la persona moral, empezando por año(s), mes(es) y día(s).",
+                                  "Colocar el plazo de pago de la inhabilitación de la persona moral, empezando por año (s), mes (es) y día (s).",
                                 required: ["año", "mes", "dia"],
                                 properties: {
                                   año: { title: "Año(s)", type: "string" },
@@ -763,18 +710,14 @@ let data = {
                                 format: "date",
                                 title: "Fecha inicial de la inhabilitación",
                                 description:
-                                  "Registrar la fecha en la que inició la inhabilitación de la persona moral en formato dd-mm-aaaa.",
+                                  "Indicar la fecha en la que inició la inhabilitación de la persona moral en formato DD-MM-AAAA.",
                               },
                               fechaFinal: {
                                 type: "string",
                                 format: "date",
                                 title: "Fecha final de la inhabilitación",
                                 description:
-                                  "Indicar la fecha en la que se concluyó la inhabilitación de la persona moral en formato dd-mm-aaaa.",
-                              },
-                              constancia: {
-                                title: "Constancia de la inhabilitación",
-                                $ref: "#/definitions/constancias",
+                                  "Indicar la fecha en la que se concluyó la inhabilitación en formato DD-MM-AAAA.",
                               },
                             },
                           },
@@ -786,12 +729,6 @@ let data = {
                           clave: {
                             enum: ["INDEMNIZACION"],
                           },
-                          /*descripcion: {
-                            type: "string",
-                            title: "Descripción",
-                            description:
-                              "Descripción o nota aclaratoria del tipo de sanción infringida.",
-                          },*/
                           indemnizacion: {
                             type: "object",
                             title: "INDEMNIZACIÓN",
@@ -867,10 +804,6 @@ let data = {
                                       "En caso de no pagarse en una sola exhibición la indemnización, especificar la fecha en que la persona moral cubrió el pago total de la sanción económica en formato dd-mm-aaaa.",
                                   },
                                 },
-                              },
-                              constancia: {
-                                title: "Constancia de la indemnización",
-                                $ref: "#/definitions/constancias",
                               },
                             },
                           },
@@ -963,10 +896,6 @@ let data = {
                                   },
                                 },
                               },
-                              constancia: {
-                                title: "Constancia de la sanción",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
@@ -1006,10 +935,6 @@ let data = {
                                 description:
                                   "Indicar la fecha en la que se concluyó la suspensión de actividades de la persona moral en formato dd-mm-aaaa.",
                               },
-                              constancia: {
-                                title: "Constancia de la suspensión de actividades",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
@@ -1037,10 +962,6 @@ let data = {
                                 format: "date",
                                 description:
                                   "Indicar la fecha a partir de la cual se disuleve la sociedad en formato dd-mm-aaaa.",
-                              },
-                              constancia: {
-                                title: "Constancia de la disolución de la sociedad",
-                                $ref: "#/definitions/constancias",
                               },
                             },
                           },

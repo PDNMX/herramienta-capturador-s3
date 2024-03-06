@@ -169,22 +169,23 @@ let data = {
     },
     faltaCometida: {
       items: {
-        clave: {
-          "ui:placeholder": "...",
-        },
-        nombreNormatividadInfringida: {
+        "ui:options": { label: false },
+        nombreNormatividad: {
           "ui:placeholder":
-            "Ejemplo: Ley General de Responsabilidades Administrativas",
+            "Ejemplo: Código Penal Federal.",
         },
-        articuloNormatividadInfringida: {
+        articuloNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
           },
         },
-        fraccionNormatividadInfringida: {
+        fraccionNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
+        },
+        descripcionHechos: {
+          "ui:placeholder": "Ejemplo: ...",
         },
       },
     },
