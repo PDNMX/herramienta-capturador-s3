@@ -234,12 +234,6 @@ let data = {
               mes: { "ui:placeholder": "Ejemplo: 10 meses" },
               dia: { "ui:placeholder": "Ejemplo: 24 dias" },
             },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
           indemnizacion: {
             moneda: {
@@ -255,12 +249,6 @@ let data = {
               moneda: {
                 "ui:widget": "RadioWidget",
                 "ui:options": { inline: true },
-              },
-            },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
               },
             },
           },
@@ -280,34 +268,13 @@ let data = {
                 "ui:options": { inline: true },
               },
             },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
           suspensionActividades: {
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
           disolucionSociedad: {
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
           otro: {
             nombre: { "ui:placeholder": "..." },
-            urlDocumento: {
-              "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-            },
           },
         },
       },
