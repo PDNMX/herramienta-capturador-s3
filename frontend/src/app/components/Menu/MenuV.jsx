@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -23,7 +23,6 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import { ConnectedCreateProvider } from "../Proveedores/CreateProvider";
 import { history } from "../../store/history";
 import Collapse from "@mui/material/Collapse";
-import Tooltip from "@mui/material/Tooltip";
 import Divider from "@mui/material/Divider";
 /* import { LoadFileV } from "../UploadFile/LoadFileV"; */
 import { connect } from "react-redux";
@@ -64,76 +63,40 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import CircleIcon from "@mui/icons-material/Circle";
 
+import logoS3 from "../../../assets/img/ico_s3_light.svg";
+
 const MenuV = ({ vistaRender, match, closeSession }) => {
   const { vigencia, permisos } = useSelector((state) => ({
     vigencia: state.vigencia,
     permisos: state.permisos,
   }));
+  console.log(permisos);
 
   //MSubmenus
-  const [submenuAdmonDatos, setsubmenuAdmonDatos] = useState(false);
-  const [submenuUsuario, setsubMenuUsuario] = useState(true);
-  const [submenuBitacora, setsubMenuBitacora] = useState(false);
-  const [crearProovedor, setcrearProovedor] = useState(false);
   //const [submenuAdmonDatosS2, setsubmenuAdmonDatosS2] = useState(false);
-  const [checkedBitacora, setCheckedBitacora] = useState(false);
   const [checkedUser, setCheckedUser] = useState(false);
-  const [checkedDatos, setCheckedDatos] = useState(false);
   const [checkedProveedor, setCheckedProveedor] = useState(false);
-  const [checkedDatos2, setcheckedDatos2] = useState(false);
-  const [checkedDatosS3S, setcheckedDatosS3S] = useState(false);
-  const [checkedDatosS3P, setcheckedDatosS3P] = useState(false);
-  const [checkedAdminDatos2, setcheckedAdminDatos2] = useState(false);
-  const [checkedAdminDatosS3S, setcheckedAdminDatosS3S] = useState(false);
-  const [checkedAdminDatosS3P, setcheckedAdminDatosS3P] = useState(false);
 
   const [checkedFaltasGraves, setCheckFaltasGraves] = useState(false);
   const [checkedFaltasNoGraves, setCheckFaltasNoGraves] = useState(false);
-  const [checkedActosParticularesFisicas, setCheckActosParticularesFisicas] = useState(false);
-  const [checkedActosParticularesMorales, setCheckActosParticularesMorales] = useState(false);
-  const [checkedInhabilitacionesFisicas, setCheckInhabilitacionesFisicas] = useState(false);
-  const [checkedInhabilitacionesMorales, setCheckInhabilitacionesMorales] = useState(false);  
-  const [checkedCorrupcionServidoresPublicos, setCheckCorrupcionServidoresPublicos] = useState(false);
+  const [checkedActosParticularesFisicas, setCheckActosParticularesFisicas] =
+    useState(false);
+  const [checkedActosParticularesMorales, setCheckActosParticularesMorales] =
+    useState(false);
+  const [checkedInhabilitacionesFisicas, setCheckInhabilitacionesFisicas] =
+    useState(false);
+  const [checkedInhabilitacionesMorales, setCheckInhabilitacionesMorales] =
+    useState(false);
+  const [
+    checkedCorrupcionServidoresPublicos,
+    setCheckCorrupcionServidoresPublicos,
+  ] = useState(false);
   const [checkedCorrupcionFisicas, setCheckCorrupcionFisicas] = useState(false);
   const [checkedCorrupcionMorales, setCheckCorrupcionMorales] = useState(false);
-  const [checkedAbstencionesGraves, setCheckAbstencionesGraves] = useState(false);
-  const [checkedAbstencionesNoGraves, setCheckAbstencionesNoGraves] = useState(false);
-
-
-
-  const menuDatos2 = (e) => {
-    setsubmenuAdmonDatos(true);
-    setsubMenuBitacora(false);
-    setsubMenuUsuario(false);
-    setcrearProovedor(false);
-    setCheckedBitacora((prev) => false);
-    setCheckedUser((prev) => false);
-    setCheckedDatos(true);
-    setCheckedProveedor((prev) => false);
-    setcheckedDatos2((prev) => !prev);
-    setcheckedDatosS3S((prev) => !prev);
-    setcheckedDatosS3P((prev) => !prev);
-    setcheckedAdminDatos2((prev) => false);
-    setcheckedAdminDatosS3S((prev) => false);
-    setcheckedAdminDatosS3P((prev) => false);
-  };
-
-  const menuAdminDatos2 = (e) => {
-    //setsubmenuAdmonDatos(true);
-    setsubMenuBitacora(false);
-    setsubMenuUsuario(false);
-    setcrearProovedor(false);
-    setCheckedBitacora((prev) => false);
-    setCheckedUser((prev) => false);
-    setCheckedDatos(true);
-    setCheckedProveedor((prev) => false);
-    setcheckedDatos2((prev) => false);
-    setcheckedDatosS3S((prev) => false);
-    setcheckedDatosS3P((prev) => false);
-    setcheckedAdminDatos2((prev) => !prev);
-    setcheckedAdminDatosS3S((prev) => !prev);
-    setcheckedAdminDatosS3P((prev) => !prev);
-  };
+  const [checkedAbstencionesGraves, setCheckAbstencionesGraves] =
+    useState(false);
+  const [checkedAbstencionesNoGraves, setCheckAbstencionesNoGraves] =
+    useState(false);
 
   const rol = localStorage.getItem("rol");
 
@@ -170,7 +133,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
       background: "#9085DA",
-    }
+    },
   }));
 
   const classes = useStyles();
@@ -183,20 +146,21 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
         className={classes.appBar}
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
+          <Button disabled>
+            <img src={logoS3} alt="logo-s3"/>
+          </Button>
+
           <Typography component="div" variant="h6" color="#fff" noWrap>
             Herramienta de captura de información del Sistema nacional de
             servidores públicos y particulares sancionados
           </Typography>
-          
-          <div sx={{ justifyContent: "flex-end" }}>
+
+          <div>
             <Button
               aria-controls="simple-menu"
               aria-haspopup="true"
               onClick={handleClick}>
-              <ManageAccountsIcon
-                style={{ color: "#fff" }}
-                fontSize="large"
-              />
+              <ManageAccountsIcon style={{ color: "#fff" }} fontSize="large" />
             </Button>
             <Menu
               id="simple-menu"
@@ -247,7 +211,11 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 </ListItem>
                 <Collapse in={checkedFaltasGraves}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/faltas-administrativas/graves")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/faltas-administrativas/graves",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -256,9 +224,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -279,7 +245,11 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 </ListItem>
                 <Collapse in={checkedFaltasNoGraves}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/faltas-administrativas/no-graves")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/faltas-administrativas/no-graves",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -288,9 +258,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -312,16 +280,26 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 }}>
                 {/* Personas Físicas */}
                 <ListItem
-                  onClick={() => setCheckActosParticularesFisicas((prev) => !prev)}
+                  onClick={() =>
+                    setCheckActosParticularesFisicas((prev) => !prev)
+                  }
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Personas Físicas" />
-                    {checkedActosParticularesFisicas ? <ExpandLess /> : <ExpandMore />}
+                    {checkedActosParticularesFisicas ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedActosParticularesFisicas}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/actos-particulares/personas-fisicas")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/actos-particulares/personas-fisicas",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -330,9 +308,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -344,16 +320,26 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
                 {/* Personas Morales */}
                 <ListItem
-                  onClick={() => setCheckActosParticularesMorales((prev) => !prev)}
+                  onClick={() =>
+                    setCheckActosParticularesMorales((prev) => !prev)
+                  }
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Personas Morales" />
-                    {checkedActosParticularesMorales ? <ExpandLess /> : <ExpandMore />}
+                    {checkedActosParticularesMorales ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedActosParticularesMorales}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/actos-particulares/personas-morales")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/actos-particulares/personas-morales",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -362,9 +348,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -386,16 +370,26 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 }}>
                 {/* Personas Físicas */}
                 <ListItem
-                  onClick={() => setCheckInhabilitacionesFisicas((prev) => !prev)}
+                  onClick={() =>
+                    setCheckInhabilitacionesFisicas((prev) => !prev)
+                  }
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Personas Físicas" />
-                    {checkedInhabilitacionesFisicas ? <ExpandLess /> : <ExpandMore />}
+                    {checkedInhabilitacionesFisicas ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedInhabilitacionesFisicas}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/inhabilitaciones/personas-fisicas")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/inhabilitaciones/personas-fisicas",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -404,9 +398,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -418,16 +410,26 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
                 {/* Personas Morales */}
                 <ListItem
-                  onClick={() => setCheckInhabilitacionesMorales((prev) => !prev)}
+                  onClick={() =>
+                    setCheckInhabilitacionesMorales((prev) => !prev)
+                  }
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Personas Morales" />
-                    {checkedInhabilitacionesMorales ? <ExpandLess /> : <ExpandMore />}
+                    {checkedInhabilitacionesMorales ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedInhabilitacionesMorales}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/inhabilitaciones/personas-morales")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/inhabilitaciones/personas-morales",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -436,9 +438,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -460,16 +460,26 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 }}>
                 {/* Servidores Públicos */}
                 <ListItem
-                  onClick={() => setCheckCorrupcionServidoresPublicos((prev) => !prev)}
+                  onClick={() =>
+                    setCheckCorrupcionServidoresPublicos((prev) => !prev)
+                  }
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Servidores Públicos" />
-                    {checkedCorrupcionServidoresPublicos ? <ExpandLess /> : <ExpandMore />}
+                    {checkedCorrupcionServidoresPublicos ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedCorrupcionServidoresPublicos}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/hechos-corrupcion/servidores-publicos")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/hechos-corrupcion/servidores-publicos",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -478,9 +488,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -501,7 +509,11 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 </ListItem>
                 <Collapse in={checkedCorrupcionFisicas}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/hechos-corrupcion/personas-fisicas")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/hechos-corrupcion/personas-fisicas",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -510,9 +522,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -533,7 +543,11 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                 </ListItem>
                 <Collapse in={checkedCorrupcionMorales}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/hechos-corrupcion/personas-morales")}
+                    onClick={() =>
+                      redirectToRoute(
+                        "/captura/s3/hechos-corrupcion/personas-morales",
+                      )
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -542,9 +556,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -570,12 +582,18 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Graves" />
-                    {checkedAbstencionesGraves ? <ExpandLess /> : <ExpandMore />}
+                    {checkedAbstencionesGraves ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedAbstencionesGraves}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/abstenciones/graves")}
+                    onClick={() =>
+                      redirectToRoute("/captura/s3/abstenciones/graves")
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -584,9 +602,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -602,12 +618,18 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   disablePadding>
                   <ListItemButton>
                     <ListItemText primary="No Graves" />
-                    {checkedAbstencionesNoGraves ? <ExpandLess /> : <ExpandMore />}
+                    {checkedAbstencionesNoGraves ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )}
                   </ListItemButton>
                 </ListItem>
                 <Collapse in={checkedAbstencionesNoGraves}>
                   <ListItem
-                    onClick={() => redirectToRoute("/captura/s3/abstenciones/no-graves")}
+                    onClick={() =>
+                      redirectToRoute("/captura/s3/abstenciones/no-graves")
+                    }
                     disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
@@ -616,9 +638,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    disablePadding>
+                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -834,7 +854,7 @@ function mapStateToProps(_, ownProps) {
   return { vistaRender, match };
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   closeSession() {
     dispatch(userActions.removeSessionLogIn());
   },
