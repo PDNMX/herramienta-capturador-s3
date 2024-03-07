@@ -133,7 +133,7 @@ let data = {
       siglas: {
         "ui:placeholder": "Ejemplo: SHCP",
       },
-      nivelOdenGobierno: {
+      nivelOrdenGobierno: {
         "ui:options": { label: false },
         clave: {
           "ui:widget": "RadioWidget",

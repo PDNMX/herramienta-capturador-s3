@@ -127,7 +127,7 @@ let data = {
       siglas: {
         "ui:placeholder": "Ejemplo: INAI",
       },
-      nivelOdenGobierno: {
+      nivelOrdenGobierno: {
         "ui:options": { label: false },
         clave: {
           "ui:widget": "RadioWidget",

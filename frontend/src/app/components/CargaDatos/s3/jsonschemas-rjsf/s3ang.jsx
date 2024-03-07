@@ -98,7 +98,7 @@ let data = {
             "Indicar los datos de empleo, cargo o comisión conforme a los catálogos de cada sección.",
           required: [
             "entidadFederativa",
-            "nivelOdenGobierno",
+            "nivelOrdenGobierno",
             "ambitoPublico",
             "nombre",
             "siglas",
@@ -177,7 +177,7 @@ let data = {
                 { clave: "32", valor: "Zacatecas" },
               ],
             },
-            nivelOdenGobierno: {
+            nivelOrdenGobierno: {
               type: "object",
               properties: {
                 clave: {

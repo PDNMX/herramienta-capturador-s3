@@ -43,7 +43,7 @@ let data = {
       siglas: {
         "ui:placeholder": "Ejemplo: INAI",
       },
-      nivelOdenGobierno: {
+      nivelOrdenGobierno: {
         "ui:options": { label: false },
         clave: {
           "ui:widget": "RadioWidget",
@@ -123,10 +123,10 @@ let data = {
         "ui:placeholder": "Ejemplo: Sentencia Final",
       },
       //campo nuevo
-      urlNotificacion: {
+      urlResolucion: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
-      urlResolucion: {
+      urlResolucionFirme: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
     },

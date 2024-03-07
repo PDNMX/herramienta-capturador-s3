@@ -86,7 +86,7 @@ function MyForm(props) {
         sinSegundoApellido: true,
       },
       entePublico: {
-        nivelOdenGobierno: {
+        nivelOrdenGobierno: {
           clave: "FEDERAL",
         },
         entidadFederativa: {

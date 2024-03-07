@@ -1,10 +1,4 @@
 let data = {
-  definitions: {
-    constancias: {
-      titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-      url: { "ui:placeholder": "https://www.ejemplo.com/constancia.pdf" },
-    },
-  },
   expediente: {
     "ui:placeholder": "Ejemplo: 123456789",
   },
@@ -41,10 +35,6 @@ let data = {
     telefono: {
       "ui:placeholder": "Ejemplo: 5500000000",
       "ui:enableMarkdownInDescription": true,
-    },
-    objetoSocial: {
-      "ui:placeholder":
-        "Ejemplo: Adquisición y enajenación de bienes inmuebles de cualquier",
     },
     domicilio: {
       "ui:options": {
@@ -87,7 +77,7 @@ let data = {
       siglas: {
         "ui:placeholder": "Ejemplo: SHCP",
       },
-      nivelOdenGobierno: {
+      nivelOrdenGobierno: {
         "ui:options": { label: false },
         clave: {
           "ui:widget": "RadioWidget",
@@ -131,24 +121,24 @@ let data = {
         "ui:order": [
           "clave",
           "valor",
-          "nombreNormatividadInfringida",
-          "articuloNormatividadInfringida",
-          "fraccionNormatividadInfringida",
+          "nombreNormatividad",
+          "articuloNormatividad",
+          "fraccionNormatividad",
           "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
         },
-        nombreNormatividadInfringida: {
+        nombreNormatividad: {
           "ui:placeholder":
             "Ejemplo: Ley General de Responsabilidades Administrativas",
         },
-        articuloNormatividadInfringida: {
+        articuloNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
           },
         },
-        fraccionNormatividadInfringida: {
+        fraccionNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
@@ -161,11 +151,11 @@ let data = {
     resolucion: {
       documentoResolucion: {
         "ui:placeholder": "Ejemplo: Sentencia Final",
-      },
-      urlNotificacion: {
+      }, 
+      urlResolucion: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
-      urlResolucion: {
+      urlResolucionFirme: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
     },

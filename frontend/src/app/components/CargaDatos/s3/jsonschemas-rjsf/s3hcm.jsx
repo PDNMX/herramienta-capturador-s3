@@ -368,7 +368,7 @@ let data = {
             "Indicar (si aplica) los datos del ente público donde se cometió el hecho de corrupción.",
           required: [
             "entidadFederativa",
-            "nivelOdenGobierno",
+            "nivelOrdenGobierno",
             "ambitoPublico",
             "nombre",
             "siglas",
@@ -380,7 +380,7 @@ let data = {
                 "Seleccionar la entidad federativa en la cual se localiza el ente público donde se cometió el hecho de corrupción.",
               $ref: "#/definitions/entidad",
             },
-            nivelOdenGobierno: {
+            nivelOrdenGobierno: {
               type: "object",
               properties: {
                 clave: {
