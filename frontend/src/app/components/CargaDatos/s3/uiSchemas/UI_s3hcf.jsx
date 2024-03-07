@@ -78,10 +78,10 @@ let data = {
     },
     entePublico: {
       nombre: {
-        "ui:placeholder": "Ejemplo: Secretaría de Hacienda y Crédito Público",
+        "ui:placeholder": "Ejemplo: Instituto Nacional de Transparencia, Acceso a la Informacion y Proteccion de Datos Personales",
       },
       siglas: {
-        "ui:placeholder": "Ejemplo: SHCP",
+        "ui:placeholder": "Ejemplo: INAI",
       },
       nivelOdenGobierno: {
         "ui:options": { label: false },
@@ -102,18 +102,6 @@ let data = {
         },
       },
     },
-    empleoCargoComision: {
-      "ui:options": { label: false },
-      nombre: {
-        "ui:options": { label: false },
-        clave: {},
-        valor: { "ui:placeholder": "..." },
-      },
-      nivel: { "ui:placeholder": "Ejemplo: KA4" },
-      areaAdscripcion: {
-        "ui:placeholder": "Ejemplo: Departamento de Recursos Humanos",
-      },
-    },
     origenInvestigacion: {
       clave: {
         "ui:widget": "RadioWidget",
@@ -125,27 +113,28 @@ let data = {
     },
     faltaCometida: {
       items: {
+        "ui:options": { label: false },
         "ui:order": [
           "clave",
           "valor",
-          "nombreNormatividadInfringida",
-          "articuloNormatividadInfringida",
-          "fraccionNormatividadInfringida",
+          "nombreNormatividad",
+          "articuloNormatividad",
+          "fraccionNormatividad",
           "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
         },
-        nombreNormatividadInfringida: {
+        nombreNormatividad: {
           "ui:placeholder":
-            "Ejemplo: Ley General de Responsabilidades Administrativas",
+            "Ejemplo: Código Penal Federal.",
         },
-        articuloNormatividadInfringida: {
+        articuloNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10, Artículo 20, ...",
           },
         },
-        fraccionNormatividadInfringida: {
+        fraccionNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 10, Fracción 20, ...",
           },
@@ -197,12 +186,6 @@ let data = {
               meses: { "ui:placeholder": "Ejemplo: 10 meses" },
               dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
           prision: {
             plazo: {
@@ -227,12 +210,6 @@ let data = {
               moneda: {
                 "ui:widget": "RadioWidget",
                 "ui:options": { inline: true },
-              },
-            },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
               },
             },
           },

@@ -502,17 +502,11 @@ let data = {
           type: "array",
           title: "5. TIPO DE DELITO COMETIDO POR LA PERSONA MORAL",
           description:
-            "En esta sección se señalarán los datos relativos al delito cometido por la persona moral",
+            "En esta sección se señalarán los datos relativos al delito cometido por la persona moral.",
           items: {
             type: "object",
             required: ["clave", "nombreNormatividad", "articuloNormatividad"],
             properties: {
-              clave: {
-                title: "Delito por hechos de corrupción",
-                type: "string",
-                description:
-                  "Escribir el nombre del delito por hecho de corrupción cometido por parte de la persona moral sancionada.",
-              },
               nombreNormatividad: {
                 type: "string",
                 title: "Ley o normatividad infringida",
@@ -685,7 +679,7 @@ let data = {
                             properties: {
                               plazo: {
                                 type: "object",
-                                title: "Plazo de la sanción",
+                                title: "Plazo de la inhabilitación",
                                 description:
                                   "Colocar el plazo de pago de la inhabilitación de la persona moral, empezando por año (s), mes (es) y día (s).",
                                 required: ["año", "mes", "dia"],
@@ -712,7 +706,7 @@ let data = {
                             },
                           },
                         },
-                        required: ["descripcion", "inhabilitacion"],
+                        required: ["inhabilitacion"],
                       },
                       {
                         properties: {
@@ -753,6 +747,8 @@ let data = {
                               cobrado: {
                                 type: "object",
                                 title: "Indemnización efectivamente cobrada",
+                                description:
+                                  "Indicar el monto efectivamente cobrado: monto y moneda.",
                                 required: [
                                   "monto",
                                   "moneda",
@@ -764,9 +760,8 @@ let data = {
                                     type: "number",
                                     title: "Monto",
                                     description:
-                                      "Indicar el monto efectivamente cobrado: monto y moneda.",
+                                      "Indicar el monto efectivamente cobrado",
                                   },
-                                  //Esta descripción no está en el formato de descripciones
                                   moneda: {
                                     title: "Moneda",
                                     description:
@@ -793,7 +788,7 @@ let data = {
                             },
                           },
                         },
-                        required: ["descripcion", "indemnizacion"],
+                        required: ["indemnizacion"],
                       },
                       {
                         properties: {
@@ -805,12 +800,7 @@ let data = {
                             title: "SANCIÓN ECONÓMICA",
                             description:
                               "Llenar este apartado en caso de que la persona moral sea acreedora a una sanción económica.",
-                            required: [
-                              "monto",
-                              "moneda",
-                              "plazo",
-                              "cobrado",
-                            ],
+                            required: ["monto", "moneda", "plazo", "cobrado"],
                             properties: {
                               monto: {
                                 type: "number",
@@ -839,7 +829,9 @@ let data = {
                               cobrado: {
                                 type: "object",
                                 title:
-                                  "Indicar el monto efectivamente cobrado: monto y moneda",
+                                  "Sanción Económica efectivamente cobrada",
+                                description:
+                                  "Indicar el monto efectivamente cobrado: monto y moneda.",
                                 required: [
                                   "monto",
                                   "moneda",
@@ -851,7 +843,7 @@ let data = {
                                     type: "number",
                                     title: "Monto",
                                     description:
-                                      "Colocar el monto total correspondiente a la sanción económica cobrada.",
+                                      "Indicar el monto efectivamente cobrado.",
                                   },
                                   moneda: {
                                     title: "Moneda",
@@ -879,7 +871,7 @@ let data = {
                             },
                           },
                         },
-                        required: ["descripcion", "sancionEconomica"],
+                        required: ["sancionEconomica"],
                       },
                       {
                         properties: {
@@ -891,10 +883,7 @@ let data = {
                             title: "SUSPENSIÓN DE ACTIVIDADES",
                             description:
                               "Este campo se deberá llenar si en la resolución se sancionó con la suspensión de actividades.",
-                            required: [
-                              "fechaInicial",
-                              "fechaFinal",
-                            ],
+                            required: ["fechaInicial", "fechaFinal"],
                             properties: {
                               fechaInicial: {
                                 title: "Fecha inicial",
@@ -947,7 +936,8 @@ let data = {
                           otro: {
                             type: "object",
                             title: "OTRO",
-                            description: "Llenar este apartado en caso de que el particular sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
+                            description:
+                              "Llenar este apartado en caso de que el particular sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
                             required: ["nombre"],
                             properties: {
                               nombre: {

@@ -71,53 +71,6 @@ let data = {
         { clave: "32", valor: "Zacatecas" },
       ],
     },
-    constancias: {
-      type: "object",
-      properties: {
-        sinConstancia: {
-          type: "boolean",
-          default: false,
-          title: "No existe constancia",
-        },
-      },
-      dependencies: {
-        sinConstancia: {
-          oneOf: [
-            {
-              properties: {
-                sinConstancia: { const: false },
-                titulo: {
-                  type: "string",
-                  title: "Título de la constancia.",
-                  description:
-                    "Proporcionar el nombre del título de la constancia de la inhabilitación.",
-                },
-                fecha: {
-                  type: "string",
-                  format: "date",
-                  title: "Fecha de la expedición.",
-                  description:
-                    "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
-                },
-                url: {
-                  type: "string",
-                  title: "URL de la constancia de inhabilitación",
-                  description:
-                    "Colocar el enlace o link del documento digital de la constancia.",
-                },
-              },
-              required: ["sinConstancia", "titulo", "fecha", "url"],
-            },
-            {
-              properties: {
-                sinConstaancia: { const: true },
-              },
-              required: ["sinConstancia"],
-            },
-          ],
-        },
-      },
-    },
   },
   type: "object",
   required: ["expediente", "hechosFisica"],
@@ -147,7 +100,7 @@ let data = {
       properties: {
         nombres: {
           type: "string",
-          title: "Nombre(s)",
+          title: "Nombre (s)",
           description:
             "Escribir el o los nombres, sin abreviaturas, sin acentos, ni signos especiales.",
         },
@@ -206,13 +159,6 @@ let data = {
           description:
             "Proporcionar el número telefónico de la persona física sancionada.",
         },
-        objetoSocial: {
-          type: "string",
-          title: "Objeto social de la actividad",
-          //pendiente validar informacion de la descriocipcion de este campo
-          description:
-            "Describir la o las actividades principales que lleva a cabo la persona física.",
-        },
         domicilio: {
           type: "object",
           title: "Domicilio",
@@ -231,9 +177,9 @@ let data = {
                     tipoDomicilio: { const: false },
                     domicilioMexico: {
                       type: "object",
-                      title: "Domicilio",
+                      title: "Domicilio en la república mexicana",
                       description:
-                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal, país.",
+                        "Indicar los siguientes datos: tipo de vialidad, nombre de la vialidad, número exterior, número interior (si aplica), colonia o localidad, municipio, código postal, y entidad federativa.",
                       properties: {
                         //falta hacer las descripciones para cada uno de los campos de Domicilio Mexico
                         vialidad: {
@@ -277,11 +223,11 @@ let data = {
                         municipio: {
                           type: "string",
                           title: "Municipio",
-                          description: "Nombre del municipio/alcaldia.",
+                          description: "Nombre del Municipio/Alcaldía.",
                         },
                         codigoPostal: {
                           type: "integer",
-                          title: "Codigo Postal",
+                          title: "Código Postal",
                           description: "Escribir el número código postal.",
                         },
                         entidadFederativa: {
@@ -301,7 +247,7 @@ let data = {
                       type: "object",
                       title: "Domicilio Extranjero",
                       description:
-                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal, país.",
+                        "Indicar los siguientes datos: ciudad, provincia, calle, número exterior, número interior (si aplica), código postal y país.",
                       properties: {
                         //Faltan las descripciones para los campos de Domicilio Extranjero
                         ciudadLocalidad: {
@@ -336,9 +282,9 @@ let data = {
                         },
                         codigoPostal: {
                           type: "integer",
-                          title: "Codigo Postal",
+                          title: "Código Postal",
                           description:
-                            "Escribir el codigo postal del domicilio extranjero.",
+                            "Escribir el código postal del domicilio extranjero.",
                         },
                         pais: {
                           type: "string",
@@ -359,12 +305,12 @@ let data = {
           title:
             "2. DATOS DEL ENTE PÚBLICO EN DONDE SE COMETIÓ EL DELITO POR HECHO DE CORRUPCIÓN",
           description:
-            "Indicar (si aplica) los datos del ente público donde se cometió la falta administrativa.",
+            "Indicar (si aplica) los datos del ente público donde se cometió el hecho de corrupción",
           properties: {
             entidadFederativa: {
               title: "Entidad federativa",
               description:
-                "Seleccionar la entidad federativa en la cual se localiza el ente público donde se cometió la falta administrativa.",
+                "Seleccionar la entidad federativa en la cual se localiza el ente público donde se cometió el hecho de corrupción.",
               $ref: "#/definitions/entidad",
             },
             nivelOdenGobierno: {
@@ -373,12 +319,12 @@ let data = {
                 clave: {
                   title: "Nivel/Orden de Gobierno",
                   description:
-                    "Seleccionar el nivel u orden de gobierno al que pertenece el ente público donde se cometió la falta administrativa: Federal, Estatal, Municipal/Alcaldía, otro (especificar).",
+                    "Seleccionar el nivel u orden de gobierno al que pertenece el ente público donde se cometió el hecho de corrupción: Federal, Estatal, Municipal/Alcaldía, otro (especificar).",
                   enum: ["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA", "OTRO"],
                   enumNames: [
                     "Federal",
                     "Estatal",
-                    "Municipal y/o Alcadía",
+                    "Municipal/Alcadía",
                     "Otro",
                   ],
                 },
@@ -428,26 +374,25 @@ let data = {
               type: "string",
               title: "Nombre del ente público",
               description:
-                "Escribir el nombre completo del ente público sin abreviaturas, sin acentos, ni signos especiales.",
+                "Indicar el nombre completo del ente público sin abreviaturas, sin acentos, ni signos especiales.",
             },
             siglas: {
               type: "string",
               title: "Siglas del ente público",
-              description: "Escribir (si aplica) las siglas del ente público.",
+              description: "Indicar (si aplica) las siglas del ente público.",
             },
           },
+          required: ["ambitoPublico", "nombre", "siglas"],
         },
         origenInvestigacion: {
           type: "object",
           title: "3. ORIGEN DEL PROCEDIMIENTO",
           description:
-            "Señalar el motivo que dio origen a la investigación por la realización de actos vinculados con faltas administrativas graves por parte de la persona física. ",
+            "Seleccionar conforme al catálogo el motivo que dio origen al procedimiento:",
           required: ["clave"],
           properties: {
             clave: {
-              title: "Origen de la sanción",
-              description:
-                "Seleccionar conforme al catálogo el origen de la falta administrativa:",
+              title: "Origen del procedimiento",
               enum: ["DENUNCIA_CIUDADANA", "DENUNCIA_SP", "OFICIO", "OTRO"],
               enumNames: [
                 "Denuncia ciudadana",
@@ -487,52 +432,40 @@ let data = {
         faltaCometida: {
           type: "array",
           title: "4. TIPO DE DELITO POR HECHOS DE CORRUPCIÓN",
+          description:
+            "En esta sección se señalarán los datos relativos al delito cometido por la persona física.",
           items: {
             type: "object",
-            title: "Falta cometida",
             required: [
-              "clave",
-              "nombreNormatividadInfringida",
-              "articuloNormatividadInfringida",
-              "fraccionNormatividadInfringida",
+              "nombreNormatividad",
+              "articuloNormatividad",
+              "fraccionNormatividad",
             ],
             properties: {
-              clave: {
-                title: "",
+              nombreNormatividad: {
                 type: "string",
+                title: "Normatividad infringida",
                 description:
-                  "Especificar nombre del delito por hecho de corrupción cometido por parte de la persona física sancionada.",
+                  "Escribir el nombre de la normatividad infringida.",
               },
-              nombreNormatividadInfringida: {
-                type: "string",
-                title: "Ley y/o normatividad infringida",
-                description:
-                  "Escribir el nombre de la ley o normatividad infringida por la persona moral.",
-              },
-              articuloNormatividadInfringida: {
+              articuloNormatividad: {
                 type: "array",
-                title: "Artículo(s) de la normatividad infringida",
+                title: "Artículo (s) de la normatividad infringida",
                 items: {
-                  title: "Artículo",
+                  title: "Artículo (s)",
                   type: "string",
-                  description:
-                    "Escribir el artículo(s) infringido de la normatividad infringida.",
+                  description: "Escribir el (los) artículo (s) infringido (s).",
                 },
               },
-              fraccionNormatividadInfringida: {
+              fraccionNormatividad: {
                 type: "array",
-                title: "Fracción(es) de la normatividad infringida",
+                title: "Fracción (es) de la normatividad infringida",
                 items: {
-                  title: "Fracción",
+                  title: "Fracción (es)",
                   type: "string",
                   description:
-                    "Escribir la fracción(es) infringida de la normatividad infringida.",
+                    "En su caso, escribir la (s) fracción (es) infringida (s).",
                 },
-              },
-              descripcionHechos: {
-                title: "Descripción breve de los hechos",
-                type: "string",
-                description: "Señalar una descripción breve de los hechos. ",
               },
             },
           },
@@ -541,7 +474,8 @@ let data = {
           type: "object",
           title:
             "5. RESOLUCIÓN FIRME POR LA COMISIÓN DE DELITOS POR HECHOS DE CORRUPCIÓN",
-          description: "En esta sección se señalarán los datos relativos a la resolución firme.",
+          description:
+            "En esta sección se señalarán los datos relativos a la resolución firme.",
           required: [
             "documentoResolucion",
             "fechaResolucion",
@@ -552,23 +486,23 @@ let data = {
           properties: {
             documentoResolucion: {
               type: "string",
-              title: "Titulo del documento",
+              title: "Título del documento",
               description:
-                "Escribir el nombre del documento de la resolución que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme.",
+                "Escribir el nombre del documento de la resolución que resuelve el procedimiento.",
             },
             fechaResolucion: {
               type: "string",
               format: "date",
               title: "Fecha de resolución",
               description:
-                "Colocar la fecha en la que se emite la resolución firme en formato dd-mm-aaaa.",
+                "Colocar la fecha en la que se emite la resolución en formato DD-MM-AAAA.",
             },
             fechaNotificacion: {
               type: "string",
               format: "date",
               title: "Fecha de notificación",
               description:
-                "Indicar la fecha en que se notifica la resolución firme en formato dd-mm-aaaa.",
+                "Indicar la fecha en que se notifica la resolución en formato DD-MM-AAAA.",
             },
             urlNotificacion: {
               type: "string",
@@ -579,16 +513,16 @@ let data = {
             fechaResolucionFirme: {
               type: "string",
               format: "date",
-              title: "Fecha de resolución firme",
+              title: "Fecha de la resolución firme",
               description:
-                "Indicar la fecha de notificación de la resolución firme a la persona física sancionada, en formato dd-mm-aaaa.",
+                "Colocar la fecha en que quedó firme la resolución en formato DD-MM-AAAA.",
             },
             fechaNotificacionFirme: {
               type: "string",
               format: "date",
-              title: "Fecha de notificación firme",
+              title: "Fecha de notificación de la resolución firme",
               description:
-                "Indicar la fecha de notificación de la resolución firme a la persona física sancionada, en formato dd-mm-aaaa..",
+                "Indicar la fecha de notificación de la resolución firme a la persona física sancionada, en formato DD-MM-AAAA.",
             },
             urlResolucion: {
               type: "string",
@@ -601,8 +535,9 @@ let data = {
         tipoSancion: {
           type: "object",
           title: "6. TIPO DE SANCIÓN APLICADA A LA PERSONA FÍSICA",
-          description: "Indicar el tipo de sanción impuesta",
-          required: ["ordenJurisdiccional", "autoridadSancionadora", "sancion"],
+          description:
+            "En esta sección se indicará el tipo de sanción y/o sanciones impuestas a la persona física.",
+          required: ["ordenJurisdiccional", "autoridadJurisdiccional", "autoridadInvestigadora", "sancion"],
           properties: {
             ordenJurisdiccional: {
               title: "Orden jurisdiccional de la sanción.",
@@ -612,7 +547,7 @@ let data = {
             },
             autoridadJurisdiccional: {
               type: "string",
-              title: "Nombre de la autoridad sancionadora",
+              title: "Autoridad jurisdiccional",
               description:
                 "Indicar el nombre de la autoridad facultada para aplicar la sanción.",
             },
@@ -624,8 +559,9 @@ let data = {
             },
             sancion: {
               type: "array",
-              title: "Tipo de sancion",
-              description: "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron impuestas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
+              title: "Tipo de sanción",
+              description:
+                "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron impuestas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
               items: {
                 type: "object",
                 required: ["clave"],
@@ -659,16 +595,16 @@ let data = {
                           inhabilitacion: {
                             type: "object",
                             title:
-                              "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
+                              "INHABILITACIÓN",
                             description:
-                              "Esta sección deberá llenarse en caso de que el servidor público sea sancionado con una inhabilitación.",
-                            required: ["plazo", "constancia"],
+                              "Este campo se deberá llenar si en la resolución se sancionó con una inhabilitación.",
+                            required: ["plazo"],
                             properties: {
                               plazo: {
                                 type: "object",
-                                title: "Plazo de la inhabilitación del empleo",
+                                title: "Plazo de la inhabilitación",
                                 description:
-                                  "Colocar el plazo de la inhabilitación de la persona servidora pública, empezando por año(s), mes(es) y día(s).",
+                                  "Colocar el plazo de la inhabilitación de la persona física sancionada, empezando por año (s), mes (es) y día (s).",
                                 required: [
                                   "años",
                                   "meses",
@@ -677,34 +613,29 @@ let data = {
                                   "fechaFinal",
                                 ],
                                 properties: {
-                                  años: { title: "Año(s)", type: "string" },
-                                  meses: { title: "Mes(es)", type: "string" },
-                                  dias: { title: "Día(s)", type: "string" },
+                                  años: { title: "Año (s)", type: "string" },
+                                  meses: { title: "Mes (es)", type: "string" },
+                                  dias: { title: "Día (s)", type: "string" },
                                   fechaInicial: {
                                     type: "string",
                                     format: "date",
                                     title: "Fecha inicial",
                                     description:
-                                      "Indicar la fecha en la que inició la inhabilitación de la persona servidora pública en formato dd-mm-aaaa.",
+                                      "Indicar la fecha en la que inició la inhabilitación de la persona física en formato DD-MM-AAAA.",
                                   },
                                   fechaFinal: {
                                     type: "string",
                                     format: "date",
                                     title: "Fecha final",
                                     description:
-                                      "Indicar la fecha en la que se concluyó la inhabilitación de la persona servidora pública en formato dd-mm-aaaa.",
+                                      "Indicar la fecha en la que se concluyó la inhabilitación en formato DD-MM-AAAA.",
                                   },
                                 },
-                              },
-                              //PREGUNTAR A YURI SI USARA LA PARTE DE CONSTANCIA EN SANCION DE INHABILITACIONES
-                              constancia: {
-                                title: "Constancia de la inhabilitación",
-                                $ref: "#/definitions/constancias",
                               },
                             },
                           },
                         },
-                        required: [ "inhabilitacion"],
+                        required: ["inhabilitacion"],
                       },
                       {
                         properties: {
@@ -717,14 +648,14 @@ let data = {
                             properties: {
                               plazo: {
                                 type: "object",
-                                title: "Plazo de la sanción",
+                                title: "Plazo de la prisión",
                                 description:
-                                  "Especificar el tiempo por el que la persona servidora pública se le condenó a prisión en formato de dd-mm-aaaa.",
+                                  "Especificar el tiempo por el que la persona física se le condenó a prisión comenzando por año (s), mes (es) y día (s)",
                                 required: ["años", "meses", "dias"],
                                 properties: {
-                                  años: { title: "Año(s)", type: "string" },
-                                  meses: { title: "Mes(es)", type: "string" },
-                                  dias: { title: "Día(s)", type: "string" },
+                                  años: { title: "Año (s)", type: "string" },
+                                  meses: { title: "Mes (es)", type: "string" },
+                                  dias: { title: "Día (s)", type: "string" },
                                 },
                               },
                             },
@@ -741,7 +672,7 @@ let data = {
                             type: "object",
                             title: "SANCIÓN ECONÓMICA",
                             description:
-                              "Llenar este apartado en caso de que el servidor público sea acreedor a una sanción económica.",
+                              "Llenar este apartado en caso de que la persona física sea acreedora a una sanción económica.",
                             required: [
                               "sancionImpuesta",
                               "plazo",
@@ -751,7 +682,7 @@ let data = {
                             properties: {
                               sancionImpuesta: {
                                 type: "object",
-                                title: "Sanción econónomica impuesta",
+                                title: "",
                                 required: ["monto", "moneda"],
                                 properties: {
                                   monto: {
@@ -763,7 +694,7 @@ let data = {
                                   moneda: {
                                     title: "Moneda",
                                     description:
-                                      "Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
+                                      "Seleccionar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
                                     enum: ["MXN", "UMA"],
                                   },
                                 },
@@ -772,20 +703,19 @@ let data = {
                                 type: "object",
                                 title: "Plazo de la sanción económica",
                                 description:
-                                  "Señalar el plazo para dar cumplimiento a la sanción económica: años, meses y días.",
+                                  "Señalar el plazo para dar cumplimiento a la sanción económica empezando por año (s), mes (es) y día (s).",
                                 required: ["años", "meses", "dias"],
                                 properties: {
-                                  años: { title: "Año(s)", type: "string" },
-                                  meses: { title: "Mes(es)", type: "string" },
-                                  dias: { title: "Día(s)", type: "string" },
+                                  años: { title: "Año (s)", type: "string" },
+                                  meses: { title: "Mes (es)", type: "string" },
+                                  dias: { title: "Día (s)", type: "string" },
                                 },
                               },
                               cobrado: {
                                 type: "object",
                                 title:
                                   "Sanción económica efectivamente cobrada",
-                                description:
-                                  "Indicar el monto efectivamente cobrado: monto y moneda",
+                                  description: "Indicar el monto efectivamente cobrado: monto y moneda.",
                                 properties: {
                                   monto: {
                                     type: "number",
@@ -796,7 +726,7 @@ let data = {
                                   moneda: {
                                     title: "Moneda",
                                     description:
-                                      "Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
+                                      "Seleccionar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217.",
                                     enum: ["MXN", "UMA"],
                                   },
                                   fecha: {
@@ -804,15 +734,15 @@ let data = {
                                     format: "date",
                                     title: "Fecha de cobro de la sanción",
                                     description:
-                                      "Especificar la fecha en que se realizó el cobro de la sanción económica en formato dd-mm-aaaa.",
+                                      "Especificar la fecha en que se realizó el cobro de la sanción económica en formato DD-MM-AAAA.",
                                   },
                                   fechaPagoSancion: {
                                     type: "string",
                                     format: "date",
                                     title:
-                                      "Fecha en la que se realizo el pago total de la sanción",
+                                      "Fecha en la que se realizó el pago total de la sanción",
                                     description:
-                                      "En caso de que la sanción económica no se realice en una sola exhibición, especificar la fecha en que la persona servidora pública cubrió el pago total de la sanción económica en formato dd-mm-aaaa.",
+                                      "En caso de que la sanción económica no se realice en una sola exhibición, especificar la fecha en que la persona física cubrió el pago total de la sanción económica en formato DD-MM-AAAA.",
                                   },
                                 },
                               },
@@ -830,13 +760,13 @@ let data = {
                             type: "object",
                             title: "OTRO",
                             description:
-                              "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
+                              "Llenar este apartado en caso de que el particular sea acreedor a otra sanción prevista en las leyes locales de las entidades federativas.",
                             properties: {
                               nombre: {
-                                title: "Sanción",
+                                title: "Denominación de la sanción",
                                 type: "string",
                                 description:
-                                  "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
+                                  "Indicar la denominación de la sanción.",
                               },
                             },
                           },
