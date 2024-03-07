@@ -4,7 +4,9 @@ let data = {
   required: ["expediente", "grave"],
   properties: {
     expediente: {
-      type: "string",
+      type: "integer",
+      minimum: 2017,
+      examples: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
       title: "Expediente",
       description: "Registrar el número de expediente del procedimiento.",
     },
