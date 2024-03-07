@@ -1,7 +1,4 @@
 let data = {
-  expediente: {
-    "ui:placeholder": "Ejemplo: 2017",
-  },
   grave: {
     nombres: {
       "ui:placeholder": "Ejemplo: Juan",

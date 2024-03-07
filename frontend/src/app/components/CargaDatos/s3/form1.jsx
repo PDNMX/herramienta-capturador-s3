@@ -152,7 +152,7 @@ function MyForm(props) {
       observaciones:
         "Tambien se impondra sancion por molestar a una pequeña persona..",
     },
-    expediente: "1",
+    expediente: "2016-ABC123",
   };
 
   return (

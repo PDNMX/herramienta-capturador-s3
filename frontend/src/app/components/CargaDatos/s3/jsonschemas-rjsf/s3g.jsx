@@ -4,11 +4,11 @@ let data = {
   required: ["expediente", "grave"],
   properties: {
     expediente: {
-      type: "integer",
-      minimum: 2017,
-      examples: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
       title: "Expediente",
+      type: "string",
       description: "Registrar el número de expediente del procedimiento.",
+      pattern: "^(201[7-9]|20[2-9]\\d|2[1-9]\\d{2})(-.+)?$",
+      examples: ["2017","2020-ABC123","2023-A1b2C34"]
     },
     grave: {
       title: "1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA SANCIONADA",
