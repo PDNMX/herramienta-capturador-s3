@@ -1,5 +1,5 @@
 import {S3PConstants} from "../_constants/s3p.constants";
-import {S2Constants} from "../_constants/s2.constants";
+/* import {S2Constants} from "../_constants/s2.constants"; */
 
 export function S3P(state = [] ,action){
     switch (action.type){

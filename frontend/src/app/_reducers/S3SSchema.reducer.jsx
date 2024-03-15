@@ -1,5 +1,5 @@
 import {S3SConstants} from "../_constants/s3s.constants";
-import {S3PConstants} from "../_constants/s3p.constants";
+/* import {S3PConstants} from "../_constants/s3p.constants"; */
 
 export function S3S(state = [] ,action){
     switch (action.type){

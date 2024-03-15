@@ -1,4 +1,3 @@
-import React from "react";
 import { storeValidate } from "../store";
 import { Provider } from "react-redux";
 import { Router, Route } from "react-router-dom";
@@ -11,10 +10,7 @@ import { ConnectedMenuV } from "./Menu/MenuV";
 import { providerActions } from "../_actions/provider.action";
 import { LoginV } from "./Login/Login";
 import { S2Actions } from "../_actions/s2.action";
-/* import { clearErrorsValidation } from "../store/mutations";
-import { bitacoraActions } from "../_actions/bitacora.action"; */
-import { S3SActions } from "../_actions/s3s.action";
-//import { S3PActions } from "../_actions/s3p.action";
+
 import { ResetPasswordV } from "./Login/ResetPassword";
 
 const labelSesionExpirada =
@@ -131,6 +127,49 @@ export const App = () => (
                 return (
                   <ConnectedMenuV
                     propiedades={{ renderView: "createReg-form2" }}
+                  />
+                );
+              } else {
+                return <Redirect to="/ingresar" />;
+              }
+            }
+          } else {
+            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
+            return <Redirect to="/ingresar" />;
+          }
+        }}
+      />
+
+<Route
+        exact
+        path="/consulta/s3/faltas-administrativas/graves"
+        render={() => {
+          if (localStorage.token) {
+            if (
+              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
+              (new Date().getTime() + 1) / 1000
+            ) {
+              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
+              localStorage.clear();
+              return <Redirect to="/ingresar" />;
+            } else {
+              if (
+                localStorage.token &&
+                localStorage.rol == "2" &&
+                localStorage["faltas-administrativas-graves"] == "true"
+              ) {
+                storeValidate.dispatch(
+                  userActions.requesUserInSession(localStorage.token),
+                );
+                storeValidate.dispatch(S2Actions.setclearS2());
+                storeValidate.dispatch(userActions.requestPermisosSistema());
+                storeValidate.dispatch(S2Actions.requestListS2({}));
+                storeValidate.dispatch(alertActions.clear());
+                return (
+                  <ConnectedMenuV
+                    propiedades={{
+                      renderView: "admin.faltas-administrativas-graves",
+                    }}
                   />
                 );
               } else {
@@ -505,206 +544,6 @@ export const App = () => (
                 storeValidate.dispatch(alertActions.clear());
                 return (
                   <ConnectedMenuV propiedades={{ renderView: "createRegv2" }} />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-      <Route
-        exact
-        path="/captura/S3Sv2"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage.S3S == "true"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(
-                  catalogActions.requestCatalogoByType("genero"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestTipoFaltaCatalogo("tipoFalta"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestTipoSancionCatalogo("tipoSancion"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestMonedaCatalogo("moneda"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requesTipoDocumentoCatalogo("tipoDocumento"),
-                );
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createRegS3Sv2" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-      <Route
-        exact
-        path="/captura/S3Pv2"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage.S3P == "true"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                storeValidate.dispatch(
-                  catalogActions.requestTipoSancionCatalogo("tipoSancionS3P"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requesTipoPersonaCatalogo("tipoPersona"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestMonedaCatalogo("moneda"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestPaisCatalogo("pais"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestEstadoCatalogo("estado"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requestVialidadCatalogo("vialidad"),
-                );
-                storeValidate.dispatch(
-                  catalogActions.requesTipoDocumentoCatalogo("tipoDocumento"),
-                );
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createRegS3Pv2" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/consulta/S3Pv2"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage.S3S == "true"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(S3SActions.setclearS3S());
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(
-                  catalogActions.requestTipoSancionCatalogo("tipoSancion"),
-                );
-                S3SActions.setListS3S([]);
-                storeValidate.dispatch(S3SActions.requestListS3S({}));
-
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV propiedades={{ renderView: "S3PSchemav2" }} />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/consulta/S3Sv2"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage.S3S == "true"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(S3SActions.setclearS3S());
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(
-                  catalogActions.requestTipoSancionCatalogo("tipoSancion"),
-                );
-                S3SActions.setListS3S([]);
-                storeValidate.dispatch(S3SActions.requestListS3S({}));
-
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV propiedades={{ renderView: "S3SSchemav2" }} />
                 );
               } else {
                 return <Redirect to="/ingresar" />;

@@ -44,7 +44,7 @@ function MyForm(props) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
-  console.log(initialValues);
+  //console.log(initialValues);
 
   //const validate = makeValidate(schema);
   //const required = makeRequired(schema)
@@ -152,7 +152,7 @@ function MyForm(props) {
       observaciones:
         "Tambien se impondra sancion por molestar a una pequeña persona..",
     },
-    expediente: "2016-ABC123",
+    expediente: "2018",
   };
 
   return (
@@ -206,7 +206,7 @@ function MyForm(props) {
         <DialogActions>
           <Button
             disabled={!alert.status}
-            onClick={() => redirectToRoute("/consulta/S2v2")}
+            onClick={() => redirectToRoute("/consulta/s3/faltas-administrativas/graves")}
             color="primary"
             autoFocus>
             Aceptar

@@ -11,20 +11,11 @@ import { userActions } from '../_actions/user.action';
 import { providerConstants } from '../_constants/provider.constants';
 import { providerActions } from '../_actions/provider.action';
 
-import { catalogActions } from '../_actions/catalog.action';
+/* import { catalogActions } from '../_actions/catalog.action'; */
 import { S2Constants } from '../_constants/s2.constants';
 import { S2Actions } from '../_actions/s2.action';
-import { bitacoraActions } from '../_actions/bitacora.action';
-import { S3SConstants } from '../_constants/s3s.constants';
-import { S3SActions } from '../_actions/s3s.action';
-import { S3PConstants } from '../_constants/s3p.constants';
-import { S3PActions } from '../_actions/s3p.action';
 
 import jwt_decode from "jwt-decode";
-
-import _ from "underscore"
-
-import momento from 'moment-timezone';
 
 const url_oauth2 = import.meta.env.VITE_URL_OAUTH || process.env.VITE_URL_OAUTH;
 const url_api = import.meta.env.VITE_URL_API || process.env.VITE_URL_API;
@@ -387,6 +378,7 @@ export function* permisosSistemas() {
 		localStorage.setItem('S2', false);
 		localStorage.setItem('S3S', false);
 		localStorage.setItem('S3P', false);
+		localStorage.setItem('faltas-administrativas-graves', false);
 		let permisos = [];
 		permisos = status.data.sistemas;
 
@@ -397,6 +389,8 @@ export function* permisosSistemas() {
 				localStorage.setItem('S3S', true);
 			} else if (item == 'S3P') {
 				localStorage.setItem('S3P', true);
+			} else if (item == 'faltas-administrativas-graves') {
+				localStorage.setItem('faltas-administrativas-graves', true);
 			}
 		});
 	}
@@ -573,118 +567,6 @@ export function* editProvider() {
 	}
 }
 
-export function* creationS3PSchema() {
-	while (true) {
-		const { values } = yield take(S3PConstants.REQUEST_CREATION_S3P);
-		const token = localStorage.token;
-		let payload = jwt_decode(token);
-		yield put(userActions.setUserInSession(payload.idUser));
-		let usuario = payload.idUser;
-
-		delete values.__v;
-		if (values._id) {
-			//values['_id'] = values._id;
-			const { status } = yield axios.post(
-				url_api + `/updateS3Pv2`,
-				{ ...values, usuario: usuario },
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				}
-			);
-			if (status === 200) {
-				//all OK
-				yield put(alertActions.success('Registro actualizado con éxito'));
-			} else {
-				yield put(alertActions.error('Error al crear'));
-				//error in response
-			}
-		} else {
-			const { status, data } = yield axios.post(
-				url_api + `/insertS3Pv2`,
-				{ ...values, usuario: usuario },
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				}
-			);
-			if (status === 200) {
-				//all OK
-				yield put(alertActions.success('Registro creado con éxito'));
-			} else if (status === 401) {
-				yield put(alertActions.error(data.message));
-				//error in token
-			} else {
-				yield put(alertActions.error('Error al crear'));
-			}
-		}
-	}
-}
-
-export function* creationS3SSchema() {
-	while (true) {
-		const { values } = yield take(S3SConstants.REQUEST_CREATION_S3S);
-		const token = localStorage.token;
-		let payload = jwt_decode(token);
-		yield put(userActions.setUserInSession(payload.idUser));
-		let usuario = payload.idUser;
-
-		//let docSend = {};
-
-		if (values._id) {
-			//docSend['_id'] = values._id;
-			const { status } = yield axios.post(
-				url_api + `/updateS3Sv2`,
-				{ ...values, usuario: usuario },
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				}
-			);
-			if (status === 200) {
-				//all OK
-				yield put(alertActions.success('Registro actualizado con éxito'));
-			} else {
-				yield put(alertActions.error('Error al crear'));
-				//error in response
-			}
-		} else {
-			const { status, data } = yield axios.post(
-				url_api + `/insertS3Sv2`,
-				{ ...values, usuario: usuario },
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				}
-			);
-			if (status === 200) {
-				//all OK
-				yield put(alertActions.success('Registro creado con éxito'));
-			} else if (status === 401) {
-				yield put(alertActions.error(data.message));
-				//error in token
-			} else {
-				yield put(alertActions.error('Error al crear'));
-			}
-		}
-	}
-}
 
 export function* creationS2Schema() {
 	while (true) {
@@ -736,7 +618,7 @@ export function* creationS2Schema() {
 		let usuario = payload.idUser;
 		docSend['usuario'] = usuario;
 		docSend['observaciones'] = values.observaciones;
-		const { status, data } = yield axios.post(url_api + `/insertS2Schema`, docSend, {
+		const { status, data } = yield axios.post(url_api + `/insertS2v2`, docSend, {
 			headers: {
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
@@ -763,45 +645,6 @@ export function* creationS2v2() {
 		console.log("entra al creationS2v2");
 		let docSend = values;
 		const token = localStorage.token;
-
-		/* docSend['ejercicioFiscal'] = values.ejercicioFiscal;
-		if (values.ramo) {
-			let ramoObj = JSON.parse(values.ramo);
-			docSend['ramo'] = { clave: parseInt(ramoObj.clave), valor: ramoObj.valor };
-		}
-		if (values.rfc) {
-			docSend['rfc'] = values.rfc;
-		}
-		if (values.curp) {
-			docSend['curp'] = values.curp;
-		}
-		docSend['nombres'] = values.nombres;
-		docSend['primerApellido'] = values.primerApellido;
-		docSend['segundoApellido'] = values.segundoApellido;
-		if (values.genero) {
-			docSend['genero'] = JSON.parse(values.genero);
-		}
-		docSend['institucionDependencia'] = { nombre: values.idnombre, clave: values.idclave, siglas: values.idsiglas };
-		docSend['puesto'] = { nombre: values.puestoNombre, nivel: values.puestoNivel };
-		if (values.tipoArea) {
-			docSend['tipoArea'] = JSON.parse('[' + values.tipoArea + ']');
-		}
-		if (values.tipoProcedimiento) {
-			let ObjTipoProcedimiento = JSON.parse('[' + values.tipoProcedimiento + ']');
-			docSend['tipoProcedimiento'] = getArrayFormatTipoProcedimiento(ObjTipoProcedimiento);
-		}
-		if (values.nivelResponsabilidad) {
-			docSend['nivelResponsabilidad'] = JSON.parse('[' + values.nivelResponsabilidad + ']');
-		}
-
-		docSend['superiorInmediato'] = {
-			rfc: values.siRfc,
-			curp: values.siCurp,
-			nombres: values.sinombres,
-			primerApellido: values.siPrimerApellido,
-			segundoApellido: values.siSegundoApellido,
-			puesto: { nombre: values.siPuestoNombre, nivel: values.siPuestoNivel }
-		}; */
 
 		let payload = jwt_decode(token);
 		yield put(userActions.setUserInSession(payload.idUser));
@@ -866,344 +709,40 @@ export function* updateS2Schema() {
 	}
 }
 
-function getArrayFormatTipoProcedimiento(array) {
-	_.each(array, function(p) {
-		p.clave = parseInt(p.clave);
-	});
-	return array;
-}
-
 export function* getListSchemaS2() {
 	while (true) {
+		console.log("entraaa")
 		const { filters } = yield take(S2Constants.REQUEST_LIST_S2);
 		const token = localStorage.token;
 		let payload = jwt_decode(token);
-		filters['idUser'] = payload.idUser;
-		const respuestaArray = yield axios.post(url_api + `/lists2v2`, filters, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			},
-			validateStatus: () => true
-		});
+		// se cambio el idUser a usuario
+		filters['usuario'] = payload.idUser;
+		
+		try {
+			
+			let respuestaArray = yield axios.post(url_api + `/S3/SERVIDORES-FALTAS-GRAVES/list`, filters, {
+				headers: {
+					'Content-Type': 'application/json',
+					Accept: 'application/json',
+					Authorization: `Bearer ${token}`
+				},
+				validateStatus: () => true
+			});
 
-		yield put(S2Actions.setListS2(respuestaArray.data.results));
-		yield put(S2Actions.setpaginationS2(respuestaArray.data.pagination));
-	}
-}
-
-export function* getListSchemaS3S() {
-	while (true) {
-		const { filters } = yield take(S3SConstants.REQUEST_LIST_S3S);
-		const token = localStorage.token;
-		let payload = jwt_decode(token);
-		filters['idUser'] = payload.idUser;
-
-		const respuestaArray = yield axios.post(url_api + `/listS3Sv2`, filters, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			}
-		});
-
-		yield put(S3SActions.setListS3S(respuestaArray.data.results));
-		yield put(S3SActions.setpaginationS3S(respuestaArray.data.pagination));
-	}
-}
-
-export function* getListSchemaS3P() {
-	while (true) {
-		const { filters } = yield take(S3PConstants.REQUEST_LIST_S3P);
-		const token = localStorage.token;
-		let payload = jwt_decode(token);
-		filters['idUser'] = payload.idUser;
-
-		const respuestaArray = yield axios.post(url_api + `/listS3Pv2`, filters, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			}
-		});
-
-		/* const respuestaArrayTipoPersona = yield axios.post(url_api + `/getCatalogs`, {docType: "tipoPersona"}, {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-
-        let arrayFormatS3P = [] ;
-        for(let elementS3P of respuestaArray.data.results){
-            arrayFormatS3P.push(yield formatS3PField(elementS3P,respuestaArrayTipoPersona));
-        }
-                yield put (S3PActions.setListS3P(arrayFormatS3P));
-                */
-
-		yield put(S3PActions.setListS3P(respuestaArray.data.results));
-		yield put(S3PActions.setpaginationS3P(respuestaArray.data.pagination));
-	}
-}
-
-export function* fillUpdateRegS3P() {
-	while (true) {
-		const { id } = yield take(S3PConstants.FILL_REG_S3P_EDIT);
-		const token = localStorage.token;
-		let query = { query: { _id: id } };
-		let payload = jwt_decode(token);
-		query['idUser'] = payload.idUser;
-
-		const respuestaArray = yield axios.post(url_api + `/listSchemaS3P`, query, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			}
-		});
-
-		let registro = respuestaArray.data.results[0];
-		let entidadSelect;
-		for (let [ key, row ] of Object.entries(registro)) {
-			if (key === 'particularSancionado') {
-				if (row.tipoPersona) {
-					let tipoPersona = row.tipoPersona;
-
-					const respuestaArray = yield axios.post(
-						url_api + `/getCatalogs`,
-						{ docType: 'tipoPersona' },
-						{
-							headers: {
-								'Content-Type': 'application/json',
-								Accept: 'application/json',
-								Authorization: `Bearer ${token}`
-							}
-						}
-					);
-
-					for (let persona of respuestaArray.data.results) {
-						if (persona.clave === tipoPersona) {
-							row.tipoPersona = JSON.stringify({ clave: persona.clave, valor: persona.valor });
-						}
-					}
-				}
-
-				if (row.domicilioMexico) {
-					registro.domicilio = 'mex';
-					if (row.domicilioMexico.pais) {
-						row.domicilioMexico.pais = JSON.stringify(row.domicilioMexico.pais);
-					}
-					if (row.domicilioMexico.entidadFederativa) {
-						row.domicilioMexico.entidadFederativa = JSON.stringify(row.domicilioMexico.entidadFederativa);
-						entidadSelect = row.domicilioMexico.entidadFederativa;
-						const respuestaArrayMunicipio = yield axios.post(
-							url_api + `/getCatalogsMunicipiosPorEstado`,
-							{ idEstado: row.domicilioMexico.entidadFederativa },
-							{
-								headers: {
-									'Content-Type': 'application/json',
-									Accept: 'application/json',
-									Authorization: `Bearer ${token}`
-								}
-							}
-						);
-
-						if (Array.isArray(respuestaArrayMunicipio.data.results)) {
-							yield put(catalogActions.setMunicipioSucces(respuestaArrayMunicipio.data.results));
-						}
-					}
-					if (row.domicilioMexico.municipio) {
-						row.domicilioMexico.municipio = JSON.stringify(row.domicilioMexico.municipio);
-						const respuestaArrayLocalidad = yield axios.post(
-							url_api + `/getCatalogsLocalidadesPorEstado`,
-							{ idMunicipio: row.domicilioMexico.municipio, idEntidad: entidadSelect },
-							{
-								headers: {
-									'Content-Type': 'application/json',
-									Accept: 'application/json',
-									Authorization: `Bearer ${token}`
-								}
-							}
-						);
-
-						if (Array.isArray(respuestaArrayLocalidad.data.results)) {
-							yield put(catalogActions.setLocalidadSucces(respuestaArrayLocalidad.data.results));
-						}
-					}
-					if (row.domicilioMexico.localidad) {
-						row.domicilioMexico.localidad = JSON.stringify(row.domicilioMexico.localidad);
-					}
-					if (row.domicilioMexico.vialidad) {
-						row.domicilioMexico.descripcionVialidad = row.domicilioMexico.vialidad.valor;
-						row.domicilioMexico.vialidad = JSON.stringify({
-							clave: row.domicilioMexico.vialidad.clave,
-							valor: row.domicilioMexico.vialidad.clave
-						});
-					}
-				}
-				if (row.domicilioExtranjero) {
-					registro.domicilio = 'ext';
-
-					if (row.domicilioExtranjero.pais) {
-						row.domicilioExtranjero.pais = JSON.stringify(row.domicilioExtranjero.pais);
-					}
-				}
-			} else if (key === 'multa') {
-				if (row.moneda) {
-					row.moneda = JSON.stringify(row.moneda);
-				}
-			} else if (key === 'resolucion') {
-				if (row.fechaNotificacion) {
-					let fecha = new Date(row.fechaNotificacion + 'T00:00:00.000');
-					row.fechaNotificacion = momento(fecha).tz('America/Mexico_City');
-				}
-			} else if (key === 'inhabilitacion') {
-				if (row.fechaInicial) {
-					let fecha = new Date(row.fechaInicial + 'T00:00:00.000');
-					row.fechaInicial = momento(fecha).tz('America/Mexico_City');
-				}
-				if (row.fechaFinal) {
-					let fecha = new Date(row.fechaFinal + 'T00:00:00.000');
-					row.fechaFinal = momento(fecha).tz('America/Mexico_City');
-				}
-			}
-		}
-		yield put(S3PActions.setListS3P([ registro ]));
-	}
-}
-
-export function* fillUpdateRegS3S() {
-	while (true) {
-		const { id } = yield take(S3SConstants.FILL_REG_S3S_EDIT);
-		const token = localStorage.token;
-		let query = { query: { _id: id } };
-		let payload = jwt_decode(token);
-		query['idUser'] = payload.idUser;
-
-		const respuestaArray = yield axios.post(url_api + `/listSchemaS3S`, query, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			}
-		});
-
-		let registro = respuestaArray.data.results[0];
-		let newRow = {};
-
-		for (let [ key, row ] of Object.entries(registro)) {
-			if (key === 'expediente') {
-				newRow[key] = row;
-			} else if (key === 'institucionDependencia') {
-				if (row.nombre) {
-					newRow['idnombre'] = row.nombre;
-				}
-				if (row.clave) {
-					newRow['idclave'] = row.clave;
-				}
-				if (row.siglas) {
-					newRow['idsiglas'] = row.siglas;
-				}
-			} else if (key === 'servidorPublicoSancionado') {
-				if (row.rfc) {
-					newRow['SPrfc'] = row.rfc;
-				}
-				if (row.curp) {
-					newRow['SPcurp'] = row.curp;
-				}
-				if (row.nombres) {
-					newRow['SPSnombres'] = row.nombres;
-				}
-				if (row.primerApellido) {
-					newRow['SPSprimerApellido'] = row.primerApellido;
-				}
-				if (row.segundoApellido) {
-					newRow['SPSsegundoApellido'] = row.segundoApellido;
-				}
-				if (row.genero) {
-					newRow['SPSgenero'] = JSON.stringify({
-						clave: row.genero.clave.toString(),
-						valor: row.genero.valor
-					});
-				}
-				if (row.puesto) {
-					newRow['SPSpuesto'] = row.puesto;
-				}
-				if (row.nivel) {
-					newRow['SPSnivel'] = row.nivel;
-				}
-			} else if (key === 'autoridadSancionadora') {
-				newRow[key] = row;
-			} else if (key === 'tipoFalta') {
-				if (row.descripcion) {
-					newRow['tpfdescripcion'] = row.descripcion;
-				}
-				if (row.clave && row.valor) {
-					newRow['tipoFalta'] = JSON.stringify({ clave: row.clave, valor: row.valor });
-				}
-			} else if (key === 'tipoSancion') {
-				let arraySanciones = [];
-				for (let objTipoSancion of row) {
-					// let obj=objTipoSancion;
-					// if(objTipoSancion.clave && objTipoSancion.valor){
-					//     obj["tipoSancion"] = JSON.stringify({clave:objTipoSancion.clave ,valor : objTipoSancion.valor});
-					// }
-					// if(objTipoSancion.descripcion){obj["descripcion"] = objTipoSancion.descripcion;}
-					arraySanciones.push(objTipoSancion);
-				}
-				newRow['tipoSancionArray'] = arraySanciones;
-			} else if (key === 'causaMotivoHechos') {
-				newRow[key] = row;
-			} else if (key === 'resolucion') {
-				if (row.url) {
-					newRow['resolucionURL'] = row.url;
-				}
-				if (row.fechaResolucion) {
-					let fecha = new Date(row.fechaResolucion + 'T00:00:00.000');
-					newRow['resolucionFecha'] = momento(fecha).tz('America/Mexico_City');
-				}
-			} else if (key === 'multa') {
-				let objMulta = {};
-				if (row.moneda) {
-					objMulta['moneda'] = JSON.stringify({
-						clave: row.moneda.clave.toString().toUpperCase(),
-						valor: row.moneda.valor.toUpperCase()
-					});
-				}
-				if (row.monto) {
-					objMulta['monto'] = row.monto;
-				}
-				newRow['multa'] = objMulta;
-			} else if (key === 'inhabilitacion') {
-				if (row.plazo) {
-					newRow['inhabilitacionPlazo'] = row.plazo;
-				}
-				if (row.fechaInicial) {
-					let fecha = new Date(row.fechaInicial + 'T00:00:00.000');
-					newRow['inhabilitacionFechaInicial'] = momento(fecha).tz('America/Mexico_City');
-				}
-				if (row.fechaFinal) {
-					let fecha = new Date(row.fechaFinal + 'T00:00:00.000');
-					newRow['inhabilitacionFechaFinal'] = momento(fecha).tz('America/Mexico_City');
-				}
-			} else if (key === 'observaciones') {
-				newRow[key] = row;
-			} else if (key === 'documentos') {
-				let arrayDocumentos = [];
-				for (let objDocumentos of row) {
-					arrayDocumentos.push(objDocumentos);
-				}
-
-				newRow['documents'] = arrayDocumentos;
+			if (respuestaArray.data.Status === 200) {
+				yield put(S2Actions.setListS2(respuestaArray.data.results));
+				yield put(S2Actions.setpaginationS2(respuestaArray.data.pagination));
 			} else {
-				newRow[key] = row;
+				//error in response
+				console.log("entra acá")
+				yield put(alertActions.error(respuestaArray.data.message));
 			}
+		} catch (error) {
+			yield put(alertActions.error('Error al listar la información'));
 		}
-		yield put(S3SActions.setListS3S([ newRow ]));
 	}
 }
+
 
 export function* fillUpdateRegS2() {
 	while (true) {
@@ -1279,135 +818,6 @@ export function* fillUpdateRegS2() {
 			}
 		}
 		yield put(S2Actions.setListS2([ newRow ]));
-	}
-}
-
-export function* deleteSchemaS2() {
-	while (true) {
-		const { id } = yield take(S2Constants.DELETE_REQUESTS2);
-		const token = localStorage.token;
-		if (token) {
-			let request = { _id: id };
-			let payload = jwt_decode(token);
-			yield put(userActions.setUserInSession(payload.idUser));
-			request['usuario'] = payload.idUser;
-			try {
-				const { status, data } = yield axios.delete(url_api + `/deleteRecordS2`, {
-					data: { request },
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				});
-				if (status === 200) {
-					yield put(S2Actions.deleteRecordDo(id));
-					yield put(alertActions.success(data.messageFront));
-				} else if (status === 401) {
-					yield put(alertActions.error(data.message));
-					//error in token
-				} else {
-					//error in response
-					yield put(alertActions.error('El Registro NO fue eliminado'));
-				}
-			} catch (e) {
-				yield put(alertActions.error('El Registro NO fue eliminado'));
-			}
-		}
-	}
-}
-
-export function* deleteSchemaS3S() {
-	while (true) {
-		const { id } = yield take(S3SConstants.DELETE_REQUESTS3S);
-		const token = localStorage.token;
-		if (token) {
-			let request = { _id: id };
-			let payload = jwt_decode(token);
-			yield put(userActions.setUserInSession(payload.idUser));
-			request['usuario'] = payload.idUser;
-			try {
-				const { status, data } = yield axios.delete(url_api + `/deleteRecordS3S`, {
-					data: { request },
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				});
-				if (status === 200) {
-					yield put(S2Actions.deleteRecordDo(id));
-					yield put(alertActions.success(data.messageFront));
-				} else if (status === 401) {
-					yield put(alertActions.error(data.message));
-					//error in token
-				} else {
-					//error in response
-					yield put(alertActions.error('El Registro NO fue eliminado'));
-				}
-			} catch (e) {
-				yield put(alertActions.error('El Registro NO fue eliminado'));
-			}
-		}
-	}
-}
-
-export function* deleteSchemaS3P() {
-	while (true) {
-		const { id } = yield take(S3PConstants.DELETE_REQUESTS3P);
-		const token = localStorage.token;
-		if (token) {
-			let request = { _id: id };
-			let payload = jwt_decode(token);
-			yield put(userActions.setUserInSession(payload.idUser));
-			request['usuario'] = payload.idUser;
-			try {
-				const { status, data } = yield axios.delete(url_api + `/deleteRecordS3P`, {
-					data: { request },
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						Authorization: `Bearer ${token}`
-					},
-					validateStatus: () => true
-				});
-				if (status === 200) {
-					yield put(S2Actions.deleteRecordDo(id));
-					yield put(alertActions.success(data.messageFront));
-				} else if (status === 401) {
-					yield put(alertActions.error(data.message));
-					//error in token
-				} else {
-					//error in response
-					yield put(alertActions.error('El Registro NO fue eliminado'));
-				}
-			} catch (e) {
-				yield put(alertActions.error('El Registro NO fue eliminado'));
-			}
-		}
-	}
-}
-
-export function* consultBitacora() {
-	while (true) {
-		const { usuarioJson } = yield take(mutations.REQUEST_CONSULT_BITACORA);
-		const token = localStorage.token;
-		let payload = jwt_decode(token);
-		yield put(userActions.setUserInSession(payload.idUser));
-		//usuarioJson["usuario"]=payload.idUser;
-		const respuestaArray = yield axios.post(url_api + `/getBitacora`, usuarioJson, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			},
-			validateStatus: () => true
-		});
-		yield put(bitacoraActions.setBitacoraAll(respuestaArray.data.results));
-		yield put(alertActions.success('Consulta realizada con éxito'));
-		yield put(alertActions.clear());
 	}
 }
 

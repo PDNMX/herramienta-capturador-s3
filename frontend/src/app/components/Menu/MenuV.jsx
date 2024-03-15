@@ -35,7 +35,7 @@ import { ConnectedCreateRegv2 } from "../CargaDatos/createRegS2-v2";
 import { ConnectedCreateRegS3Sv2 } from "../CargaDatos/createRegS3S-v2";
 import { ConnectedCreateRegS3Pv2 } from "../CargaDatos/createRegS3P-v2";
 
-/* S3 - 11 Forms */
+/* S3 - 11 Forms CAPTURA */
 import { CreateRegForm1 } from "../CargaDatos/s3/form1";
 import { CreateRegForm2 } from "../CargaDatos/s3/form2";
 import { CreateRegForm3 } from "../CargaDatos/s3/form3";
@@ -47,6 +47,9 @@ import { CreateRegForm8 } from "../CargaDatos/s3/form8";
 import { CreateRegForm9 } from "../CargaDatos/s3/form9";
 import { CreateRegForm10 } from "../CargaDatos/s3/form10";
 import { CreateRegForm11 } from "../CargaDatos/s3/form11";
+
+/* S3 - 11 ADMIN DATA */
+import { ListForm1 } from "../../components/AdminDatos/faltas-administrativas-graves";
 
 //import { useLocation } from "react-router-dom";
 import { userActions } from "../../_actions/user.action";
@@ -70,7 +73,8 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
     vigencia: state.vigencia,
     permisos: state.permisos,
   }));
-  console.log(permisos);
+  // falta iterar los permisos
+  //console.log(permisos);
 
   //MSubmenus
   //const [submenuAdmonDatosS2, setsubmenuAdmonDatosS2] = useState(false);
@@ -147,7 +151,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Button disabled>
-            <img src={logoS3} alt="logo-s3"/>
+            <img src={logoS3} alt="logo-s3" height={35}/>
           </Button>
 
           <Typography component="div" variant="h6" color="#fff" noWrap>
@@ -224,7 +228,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consulta/s3/faltas-administrativas/graves")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -811,6 +815,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
           {/* Faltas Administrativas de Servidores Públicos */}
           {vistaRender === "createReg-form1" && <CreateRegForm1 />}
+          {vistaRender === "admin.faltas-administrativas-graves" && <ListForm1 />}
           {vistaRender === "createReg-form2" && <CreateRegForm2 />}
           {/* Actos de Particulares vinculados con Faltas Graves */}
           {vistaRender === "createReg-form3" && <CreateRegForm3 />}

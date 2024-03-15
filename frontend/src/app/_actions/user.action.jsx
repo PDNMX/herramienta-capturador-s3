@@ -1,6 +1,6 @@
 import { userConstants } from '../_constants/user.constants';
-import {providerConstants} from "../_constants/provider.constants";
-import {bitacoraConstants} from "../_constants/bitacora.constants";
+/* import {providerConstants} from "../_constants/provider.constants";
+import {bitacoraConstants} from "../_constants/bitacora.constants"; */
 export const userActions = {
     requestPerPage,
     setPerPageSucces,
