@@ -1,5 +1,5 @@
 /* FALTAS ADMINISTRATIVAS DE SERVIDORES PUBLICOS - GRAVES */
-const { S3sfg } = require("./modelSFG");
+const { S3sfg, S3sfgMeta } = require("./modelSFG");
 const _ = require("lodash");
 const moment = require("moment-timezone");
 const { User } = require("../../usuario/models/User");
@@ -23,14 +23,18 @@ module.exports = {
       let s3sfg = new S3sfg(newdocument);
       let result = await s3sfg.save();
       //// se declara el objeto de respuesta
+      //reestructurar el objeto de respuesta para generar metadata y actualizar el registro de falta grave
+  /* 
+   */
+
       let objResponse = {};
       objResponse["results"] = result;
       //// A su vez insertamos el proovedor de datos asociado con el usuario
       let datausuario = await User.findById(usuario);
       //console.log('datausuario:', datausuario);
       //let proveedor = await proveedorRegistros.findOne({usuario: datausuario._id});
-      console.log("datausuario.proveedorDatos:", datausuario.proveedorDatos);
-      console.log("result._id:", result._id);
+      /* console.log("datausuario.proveedorDatos:", datausuario.proveedorDatos);
+      console.log("result._id:", result._id); */
       let sistema = "S3sfg";
       const proveedorRegistros1 = new proveedorRegistros({
         proveedorId: datausuario.proveedorDatos,
@@ -143,8 +147,8 @@ module.exports = {
     try {
       console.log("update_S3sfg");
       console.log(req.body.usuario);
-      const id = req.body.usuario;
 
+      const id = req.body._id;
       //const id = req.body._id;
       //console.log(id);
       // Se eliminan los campos innecesarios de la solicitud

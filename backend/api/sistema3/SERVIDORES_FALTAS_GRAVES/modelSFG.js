@@ -7,9 +7,14 @@ const s3sfgSchema = new mongoose.Schema({
 
 }, { "strict": false });
 
-s3sfgSchema.plugin(mongoosePaginate);
+const s3sfgSchemaMeta = new mongoose.Schema({
+     metadata: mongoose.Mixed,
+     data: mongoose.Mixed
+}, { "strict": false });
+
+
+s3sfgSchemaMeta.plugin(mongoosePaginate);
 const s3sfgConnection = mongoose.connection.useDb("administracionUsuarios");
 const S3sfg = mongoose.connection.useDb('S3').model("servidores_faltas_graves", s3sfgSchema, "servidores_faltas_graves");
-//const s3ag = mongoose.model("s3ag", s3agSchema, "s3ag");
-
-module.exports = {s3sfgConnection, S3sfg}; 
+const S3sfgMeta = mongoose.connection.useDb('S3').model("servidores_faltas_graves_meta", s3sfgSchemaMeta, "servidores_faltas_graves_meta");
+module.exports = {s3sfgConnection, S3sfg, S3sfgMeta}; 
