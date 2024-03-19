@@ -642,7 +642,6 @@ export function* creationS2Schema() {
 export function* creationS2v2() {
 	while (true) {
 		const { values } = yield take(S2Constants.REQUEST_CREATION_S2v2);
-		console.log("entra al creationS2v2");
 		let docSend = values;
 		const token = localStorage.token;
 
@@ -651,8 +650,6 @@ export function* creationS2v2() {
 		let usuario = payload.idUser;
 		docSend['usuario'] = usuario;
 		//docSend['observaciones'] = values.observaciones;
-		console.log("docSENDD");
-		console.log(docSend);
 		const { status, data } = yield axios.post(url_api + `/S3/SERVIDORES-FALTAS-GRAVES/insert`, docSend, {
 			headers: {
 				'Content-Type': 'application/json',
@@ -663,8 +660,7 @@ export function* creationS2v2() {
 		});
 		if (status === 200) {
 			//all OK
-			yield put(alertActions.success('Registro creado con éxito '));
-			console.log("paso el registro")
+			yield put(alertActions.success('Registro creado con éxito'));
 		} else if (status === 401) {
 			yield put(alertActions.error(data.message));
 			//error in token
@@ -686,7 +682,7 @@ export function* updateS2Schema() {
 		yield put(userActions.setUserInSession(payload.idUser));
 		let usuario = payload.idUser;
 		const { status, data } = yield axios.put(
-			url_api + `/updateS2v2`,
+			url_api + `/S3/SERVIDORES-FALTAS-GRAVES/update`,
 			{ ...values, usuario: usuario },
 			{
 				headers: {
@@ -711,7 +707,7 @@ export function* updateS2Schema() {
 
 export function* getListSchemaS2() {
 	while (true) {
-		console.log("entraaa")
+		//console.log("entraaa")
 		const { filters } = yield take(S2Constants.REQUEST_LIST_S2);
 		const token = localStorage.token;
 		let payload = jwt_decode(token);
@@ -719,8 +715,7 @@ export function* getListSchemaS2() {
 		filters['usuario'] = payload.idUser;
 		
 		try {
-			
-			let respuestaArray = yield axios.post(url_api + `/S3/SERVIDORES-FALTAS-GRAVES/list`, filters, {
+			let respuesta = yield axios.post(url_api + `/S3/SERVIDORES-FALTAS-GRAVES/list`, filters, {
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
@@ -729,13 +724,13 @@ export function* getListSchemaS2() {
 				validateStatus: () => true
 			});
 
-			if (respuestaArray.data.Status === 200) {
-				yield put(S2Actions.setListS2(respuestaArray.data.results));
-				yield put(S2Actions.setpaginationS2(respuestaArray.data.pagination));
+			if (respuesta.status === 200) {
+				yield put(S2Actions.setListS2(respuesta.data.results));
+				console.log(respuesta.data.results)
+				yield put(S2Actions.setpaginationS2(respuesta.data.pagination));
 			} else {
 				//error in response
-				console.log("entra acá")
-				yield put(alertActions.error(respuestaArray.data.message));
+				yield put(alertActions.error(respuesta.data.message));
 			}
 		} catch (error) {
 			yield put(alertActions.error('Error al listar la información'));
@@ -752,71 +747,10 @@ export function* fillUpdateRegS2() {
 		let payload = jwt_decode(token);
 		query['idUser'] = payload.idUser;
 
-		const respuestaArray = yield axios.post(url_api + `/listS2v2`, query, {
-			headers: {
-				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
-			}
-		});
-
-		let registro = respuestaArray.data.results[0];
+		
 
 		let newRow = {};
-		for (let [ key, row ] of Object.entries(registro)) {
-			if (key === 'genero' || key === 'ramo') {
-				newRow[key] = JSON.stringify({ clave: row.clave.toString(), valor: row.valor });
-			} else if (key === 'tipoArea' || key === 'nivelResponsabilidad' || key === 'tipoProcedimiento') {
-				let newArray = [];
-				for (let item of row) {
-					newArray.push(JSON.stringify({ clave: item.clave.toString(), valor: item.valor }));
-				}
-				newRow[key] = newArray;
-			} else if (key === 'superiorInmediato') {
-				if (row.nombres) {
-					newRow['sinombres'] = row.nombres;
-				}
-				if (row.rfc) {
-					newRow['siRfc'] = row.rfc;
-				}
-				if (row.curp) {
-					newRow['siCurp'] = row.curp;
-				}
-				if (row.primerApellido) {
-					newRow['siPrimerApellido'] = row.primerApellido;
-				}
-				if (row.segundoApellido) {
-					newRow['siSegundoApellido'] = row.segundoApellido;
-				}
-				if (row.puesto) {
-					if (row.puesto.nombre) {
-						newRow['siPuestoNombre'] = row.puesto.nombre;
-					}
-					if (row.puesto.nivel) {
-						newRow['siPuestoNivel'] = row.puesto.nivel;
-					}
-				}
-			} else if (key === 'puesto') {
-				if (row.nombre) {
-					newRow['puestoNombre'] = row.nombre;
-				}
-				if (row.nivel) {
-					newRow['puestoNivel'] = row.nivel;
-				}
-			} else if (key === 'institucionDependencia') {
-				if (row.nombre) {
-					newRow['idnombre'] = row.nombre;
-				}
-				if (row.siglas) {
-					newRow['idsiglas'] = row.siglas;
-				}
-				if (row.clave) {
-					newRow['idclave'] = row.clave;
-				}
-			} else {
-				newRow[key] = row;
-			}
-		}
+		
 		yield put(S2Actions.setListS2([ newRow ]));
 	}
 }

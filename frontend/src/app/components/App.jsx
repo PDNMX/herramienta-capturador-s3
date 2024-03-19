@@ -140,7 +140,7 @@ export const App = () => (
         }}
       />
 
-<Route
+      <Route
         exact
         path="/consulta/s3/faltas-administrativas/graves"
         render={() => {
@@ -164,12 +164,52 @@ export const App = () => (
                 storeValidate.dispatch(S2Actions.setclearS2());
                 storeValidate.dispatch(userActions.requestPermisosSistema());
                 storeValidate.dispatch(S2Actions.requestListS2({}));
-                storeValidate.dispatch(alertActions.clear());
+                //storeValidate.dispatch(alertActions.clear());
                 return (
                   <ConnectedMenuV
                     propiedades={{
-                      renderView: "admin.faltas-administrativas-graves",
+                      renderView: "consultar.faltas-administrativas-graves",
                     }}
+                  />
+                );
+              } else {
+                return <Redirect to="/ingresar" />;
+              }
+            }
+          } else {
+            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
+            return <Redirect to="/ingresar" />;
+          }
+        }}
+      />
+
+<Route
+        exact
+        path="/editar/s3/faltas-administrativas/graves/:id"
+        render={({ match }) => {
+          if (localStorage.token) {
+            if (
+              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
+              (new Date().getTime() + 1) / 1000
+            ) {
+              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
+              localStorage.clear();
+              return <Redirect to="/ingresar" />;
+            } else {
+              if (
+                localStorage.token &&
+                localStorage.rol == "2" &&
+                localStorage.S2 == "true"
+              ) {
+                storeValidate.dispatch(
+                  userActions.requesUserInSession(localStorage.token),
+                );
+                storeValidate.dispatch(userActions.requestPermisosSistema());
+                //storeValidate.dispatch(S2Actions.fillRegEdit(match.params.id));
+                return (
+                  <ConnectedMenuV
+                    propiedades={{ renderView: "editar.faltas-administrativas-graves" }}
+                    match={match}
                   />
                 );
               } else {

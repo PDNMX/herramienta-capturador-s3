@@ -44,6 +44,7 @@ export const ListForm1 = () => {
     alerta: state.alert,
     paginationSuper: state.pagination,
   }));
+  //console.log(S2List)
   const dispatch = useDispatch();
   const [query, setQuery] = React.useState({});
   const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
@@ -303,7 +304,7 @@ export const ListForm1 = () => {
                     <TableCell
                       align="left"
                       className={classes.tableHeaderColumn}>
-                      <b>Ejercicio fiscal</b>
+                      <b>Identificador</b>
                     </TableCell>
                     <TableCell
                       align="left"
@@ -316,11 +317,6 @@ export const ListForm1 = () => {
                       <b>Institución</b>
                     </TableCell>
                     <TableCell
-                      align="left"
-                      className={classes.tableHeaderColumn}>
-                      <b>Puesto</b>
-                    </TableCell>
-                    <TableCell
                       align="center"
                       className={classes.tableHeaderColumn}>
                       <b>Acciones</b>
@@ -331,28 +327,22 @@ export const ListForm1 = () => {
                   {S2List.map((schema) => (
                     <TableRow key={schema._id}>
                       <TableCell style={{ width: "15%" }} align="left">
-                        {schema.ejercicio}
+                        {schema._id}
                       </TableCell>
                       <TableCell style={{ width: "25%" }} align="left">
-                        {schema.nombres && schema.nombres + " "}
-                        {schema.primerApellido && schema.primerApellido + " "}
-                        {schema.segundoApellido &&
-                        schema.segundoApellido.sinSegundoApellido === true
+                        {schema.grave.nombres && schema.grave.nombres + " "}
+                        {schema.grave.primerApellido && schema.grave.primerApellido + " "}
+                        {schema.grave.segundoApellido &&
+                        schema.grave.segundoApellido.sinSegundoApellido == true
                           ? ""
-                          : schema.segundoApellido.valor}
+                          : schema.grave.segundoApellido.valor}
                         {/* {schema.segundoApellido && schema.segundoApellido} */}
                       </TableCell>
-                      {schema.entePublico && (
+                      {schema.grave.entePublico && (
                         <TableCell style={{ width: "25%" }} align="left">
-                          {schema.entePublico.nombre}
+                          { schema.grave.entePublico.siglas && schema.grave.entePublico.siglas }
                         </TableCell>
                       )}
-                      {schema.empleoCargoComision && (
-                        <TableCell style={{ width: "20%" }} align="left">
-                          {schema.empleoCargoComision.nombre}
-                        </TableCell>
-                      )}
-
                       <TableCell style={{ width: "15%" }} align="center">
                         <Tooltip title="Más información" placement="top">
                           <IconButton
@@ -365,7 +355,7 @@ export const ListForm1 = () => {
                         </Tooltip>
                         <Tooltip title="Editar registro" placement="top">
                           <IconButton
-                            onClick={() => redirectToRoute(`/editar/S2v2/${schema._id}`) }
+                            onClick={() => redirectToRoute(`/editar/s3/faltas-administrativas/graves/${schema._id}`) }
                             style={{ color: "#ffe01b" }}>
                             <EditOutlinedIcon />
                           </IconButton>

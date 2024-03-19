@@ -31,32 +31,32 @@ import { ConnectedChangePassword } from "../Usuarios/changePassword";
 import { ListUser } from "../Usuarios/listUser";
 import { ListProvider } from "../Proveedores/ListProvider";
 
-import { ConnectedCreateRegv2 } from "../CargaDatos/createRegS2-v2";
-import { ConnectedCreateRegS3Sv2 } from "../CargaDatos/createRegS3S-v2";
-import { ConnectedCreateRegS3Pv2 } from "../CargaDatos/createRegS3P-v2";
+import { ConnectedCreateRegv2 } from "../CapturarS3/createRegS2-v2";
+import { ConnectedCreateRegS3Sv2 } from "../CapturarS3/createRegS3S-v2";
+import { ConnectedCreateRegS3Pv2 } from "../CapturarS3/createRegS3P-v2";
 
 /* S3 - 11 Forms CAPTURA */
-import { CreateRegForm1 } from "../CargaDatos/s3/form1";
-import { CreateRegForm2 } from "../CargaDatos/s3/form2";
-import { CreateRegForm3 } from "../CargaDatos/s3/form3";
-import { CreateRegForm4 } from "../CargaDatos/s3/form4";
-import { CreateRegForm5 } from "../CargaDatos/s3/form5";
-import { CreateRegForm6 } from "../CargaDatos/s3/form6";
-import { CreateRegForm7 } from "../CargaDatos/s3/form7";
-import { CreateRegForm8 } from "../CargaDatos/s3/form8";
-import { CreateRegForm9 } from "../CargaDatos/s3/form9";
-import { CreateRegForm10 } from "../CargaDatos/s3/form10";
-import { CreateRegForm11 } from "../CargaDatos/s3/form11";
+import { CreateRegForm1 } from "../CapturarS3/s3/form1";
+import { CreateRegForm2 } from "../CapturarS3/s3/form2";
+import { CreateRegForm3 } from "../CapturarS3/s3/form3";
+import { CreateRegForm4 } from "../CapturarS3/s3/form4";
+import { CreateRegForm5 } from "../CapturarS3/s3/form5";
+import { CreateRegForm6 } from "../CapturarS3/s3/form6";
+import { CreateRegForm7 } from "../CapturarS3/s3/form7";
+import { CreateRegForm8 } from "../CapturarS3/s3/form8";
+import { CreateRegForm9 } from "../CapturarS3/s3/form9";
+import { CreateRegForm10 } from "../CapturarS3/s3/form10";
+import { CreateRegForm11 } from "../CapturarS3/s3/form11";
 
 /* S3 - 11 ADMIN DATA */
-import { ListForm1 } from "../../components/AdminDatos/faltas-administrativas-graves";
+import { ListForm1 } from "../ConsultarS3/faltas-administrativas-graves";
 
 //import { useLocation } from "react-router-dom";
 import { userActions } from "../../_actions/user.action";
 
-import { ListS2Schemav2 } from "../CargaDatos/listSchemaS2-v2";
-import { ListS3SSchemav2 } from "../CargaDatos/listSchemaS3S-v2";
-import { ListS3PSchemav2 } from "../CargaDatos/listSchemaS3P-v2";
+import { ListS2Schemav2 } from "../CapturarS3/listSchemaS2-v2";
+import { ListS3SSchemav2 } from "../CapturarS3/listSchemaS3S-v2";
+import { ListS3PSchemav2 } from "../CapturarS3/listSchemaS3P-v2";
 
 import { Inicio } from "../Inicio";
 
@@ -815,7 +815,11 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
           {/* Faltas Administrativas de Servidores Públicos */}
           {vistaRender === "createReg-form1" && <CreateRegForm1 />}
-          {vistaRender === "admin.faltas-administrativas-graves" && <ListForm1 />}
+          {vistaRender === "consultar.faltas-administrativas-graves" && <ListForm1 />}
+          {vistaRender === "editar.faltas-administrativas-graves" && (
+            <CreateRegForm1 match={match} />
+          )}
+
           {vistaRender === "createReg-form2" && <CreateRegForm2 />}
           {/* Actos de Particulares vinculados con Faltas Graves */}
           {vistaRender === "createReg-form3" && <CreateRegForm3 />}
