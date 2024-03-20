@@ -13,8 +13,8 @@ const s3sfgSchemaMeta = new mongoose.Schema({
 }, { "strict": false });
 
 
-s3sfgSchemaMeta.plugin(mongoosePaginate);
+s3sfgSchema.plugin(mongoosePaginate);
 const s3sfgConnection = mongoose.connection.useDb("administracionUsuarios");
 const S3sfg = mongoose.connection.useDb('S3').model("servidores_faltas_graves", s3sfgSchema, "servidores_faltas_graves");
-const S3sfgMeta = mongoose.connection.useDb('S3').model("servidores_faltas_graves_meta", s3sfgSchemaMeta, "servidores_faltas_graves_meta");
+const S3sfgMeta = mongoose.connection.useDb('S3').model("servidores_faltas_graves", s3sfgSchemaMeta, "servidores_faltas_graves");
 module.exports = {s3sfgConnection, S3sfg, S3sfgMeta}; 

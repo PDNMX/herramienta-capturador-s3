@@ -68,7 +68,7 @@ const s3agSchema = new mongoose.Schema({
 
 s3agSchema.plugin(mongoosePaginate);
 const s3agConnection = mongoose.connection.useDb("administracionUsuarios");
-const S3ag = mongoose.connection.useDb("S3").model("s3ag", s3agSchema, "s3ag");
+const S3ag = mongoose.connection.useDb("S3").model("abstenciones_graves", s3agSchema, "abstenciones_graves");
 //const s3ag = mongoose.model("s3ag", s3agSchema, "s3ag");
 
 module.exports = { s3agConnection, S3ag };
