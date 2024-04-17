@@ -198,8 +198,8 @@ export const App = () => (
             } else {
               if (
                 localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage.S2 == "true"
+                localStorage.rol == "2" /* &&
+                localStorage.S2 == "true" */
               ) {
                 storeValidate.dispatch(
                   userActions.requesUserInSession(localStorage.token),

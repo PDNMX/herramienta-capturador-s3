@@ -292,7 +292,7 @@ export const ListForm1 = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title="faltas-administrativas-graves"
+            title="Faltas administrativas graves"
             subheader="Información Registrada"
           />
           <Divider />
