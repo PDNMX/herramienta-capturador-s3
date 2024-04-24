@@ -34,8 +34,11 @@ const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
             localStorage.rol == "2" /* && localStorage.S2=="true" */
           ) {
             storeValidate.dispatch(userActions.requestPermisosSistema());
+            storeValidate.dispatch(S2Actions.requestListS2({}));
             storeValidate.dispatch(alertActions.clear());
-            return <Component propiedades={{ renderView, match: props.match }} />;
+            return (
+              <Component propiedades={{ renderView, match: props.match }} />
+            );
           } else {
             return <Redirect to="/ingresar" />;
           }
@@ -83,73 +86,72 @@ export const App = () => (
         exact
         path="/captura/s3/faltas-administrativas/no-graves"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form2"
       />
       <PrivateRoute
         exact
         path="/captura/s3/actos-particulares/personas-fisicas"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form3"
       />
       <PrivateRoute
         exact
         path="/captura/s3/actos-particulares/personas-morales"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form4"
       />
       <PrivateRoute
         exact
         path="/captura/s3/inhabilitaciones/personas-fisicas"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form5"
       />
       <PrivateRoute
         exact
         path="/captura/s3/inhabilitaciones/personas-morales"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form6"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/servidores-publicos"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form7"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/personas-fisicas"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form8"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/personas-morales"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form9"
       />
       <PrivateRoute
         exact
         path="/captura/s3/abstenciones/graves"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form10"
       />
       <PrivateRoute
         exact
         path="/captura/s3/abstenciones/no-graves"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="createReg-form11"
       />
       {/* ----------- RUTAS DE CAPTURA - FIN ----------- */}
 
       {/* ----------- RUTAS DE CONSULTA - INICIO ----------- */}
-      <Route exact path="/consulta/s3/faltas-administrativas/graves" />
       <PrivateRoute
         exact
-        path="/consulta/S2v2"
+        path="/consulta/s3/faltas-administrativas/graves"
         component={ConnectedMenuV}
-        renderView="S2Schemav2"
+        renderView="consultar.faltas-administrativas-graves"
       />
-
+      
       <Route
         exact
         path="/editar/s3/faltas-administrativas/graves/:id"
@@ -190,6 +192,13 @@ export const App = () => (
             return <Redirect to="/ingresar" />;
           }
         }}
+      />
+
+      <PrivateRoute
+        exact
+        path="/consulta/S2v2"
+        component={ConnectedMenuV}
+        renderView="S2Schemav2"
       />
 
       <Route
