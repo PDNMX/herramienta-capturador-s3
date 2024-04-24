@@ -48,6 +48,9 @@ import { CreateRegForm9 } from "../CapturarS3/s3/form9";
 import { CreateRegForm10 } from "../CapturarS3/s3/form10";
 import { CreateRegForm11 } from "../CapturarS3/s3/form11";
 
+import esquemaDinamico from "../CapturarS3/s3/jsonschemas-rjsf/s3ng";
+import uiDinamico from "../CapturarS3/s3/uiSchemas/UI_s3g"
+
 /* S3 - 11 ADMIN DATA */
 import { ListForm1 } from "../ConsultarS3/faltas-administrativas-graves";
 
@@ -814,10 +817,10 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {/* ----------- NUEVAS VERSIONES - s3: 11 Formatos ----------- */}
 
           {/* Faltas Administrativas de Servidores Públicos */}
-          {vistaRender === "createReg-form1" && <CreateRegForm1 />}
+          {vistaRender === "createReg-form1" && <CreateRegForm1  schema={esquemaDinamico} uiSchema={uiDinamico}/>}
           {vistaRender === "consultar.faltas-administrativas-graves" && <ListForm1 />}
           {vistaRender === "editar.faltas-administrativas-graves" && (
-            <CreateRegForm1 match={match} />
+            <CreateRegForm1 match={match} schema={esquemaDinamico} uiSchema={uiDinamico} />
           )}
 
           {vistaRender === "createReg-form2" && <CreateRegForm2 />}

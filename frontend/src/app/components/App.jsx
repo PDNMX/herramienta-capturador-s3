@@ -1,8 +1,7 @@
 import { storeValidate } from "../store";
 import { Provider } from "react-redux";
-import { Router, Route } from "react-router-dom";
+import { Router, Route, Redirect } from "react-router-dom";
 import { history } from "../store/history";
-import { Redirect } from "react-router";
 import { userActions } from "../_actions/user.action";
 import { catalogActions } from "../_actions/catalog.action";
 import { alertActions } from "../_actions/alert.actions";
@@ -16,6 +15,38 @@ import { ResetPasswordV } from "./Login/ResetPassword";
 const labelSesionExpirada =
   "La sesión ha expirado, favor de iniciar sesión de nuevo";
 const labelNoSeHaIniciado = "No se ha iniciado sesión";
+
+const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
+  <Route
+    {...rest}
+    render={(props) => {
+      if (localStorage.token) {
+        if (
+          JSON.parse(window.atob(localStorage.token.split(".")[1])) <
+          (new Date().getTime() + 1) / 1000
+        ) {
+          storeValidate.dispatch(alertActions.error(labelSesionExpirada));
+          localStorage.clear();
+          return <Redirect to="/ingresar" />;
+        } else {
+          if (
+            localStorage.token &&
+            localStorage.rol == "2" /* && localStorage.S2=="true" */
+          ) {
+            storeValidate.dispatch(userActions.requestPermisosSistema());
+            storeValidate.dispatch(alertActions.clear());
+            return <Component propiedades={{ renderView, match: props.match }} />;
+          } else {
+            return <Redirect to="/ingresar" />;
+          }
+        }
+      } else {
+        storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
+        return <Redirect to="/ingresar" />;
+      }
+    }}
+  />
+);
 
 export const App = () => (
   <Router history={history}>
@@ -35,155 +66,91 @@ export const App = () => (
       />
       {/* ----------- NUEVAS VERSIONES - INICIO ----------- */}
       {/* ----------- NUEVAS VERSIONES - s3: 11 Formatos ----------- */}
-      <Route
+      <PrivateRoute
         exact
         path="/inicio"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV propiedades={{ renderView: "inicio" }} />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
+        component={ConnectedMenuV}
+        renderView="inicio"
       />
-      <Route
+      {/* ----------- RUTAS DE CAPTURA - INICIO ----------- */}
+      <PrivateRoute
         exact
         path="/captura/s3/faltas-administrativas/graves"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form1" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
       />
-
-      <Route
+      <PrivateRoute
         exact
         path="/captura/s3/faltas-administrativas/no-graves"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form2" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/actos-particulares/personas-fisicas"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/actos-particulares/personas-morales"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/inhabilitaciones/personas-fisicas"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/inhabilitaciones/personas-morales"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/hechos-corrupcion/servidores-publicos"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/hechos-corrupcion/personas-fisicas"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/hechos-corrupcion/personas-morales"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/abstenciones/graves"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      <PrivateRoute
+        exact
+        path="/captura/s3/abstenciones/no-graves"
+        component={ConnectedMenuV}
+        renderView="createReg-form1"
+      />
+      {/* ----------- RUTAS DE CAPTURA - FIN ----------- */}
+
+      {/* ----------- RUTAS DE CONSULTA - INICIO ----------- */}
+      <Route exact path="/consulta/s3/faltas-administrativas/graves" />
+      <PrivateRoute
+        exact
+        path="/consulta/S2v2"
+        component={ConnectedMenuV}
+        renderView="S2Schemav2"
       />
 
       <Route
-        exact
-        path="/consulta/s3/faltas-administrativas/graves"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage["faltas-administrativas-graves"] == "true"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(S2Actions.setclearS2());
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(S2Actions.requestListS2({}));
-                //storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{
-                      renderView: "consultar.faltas-administrativas-graves",
-                    }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-<Route
         exact
         path="/editar/s3/faltas-administrativas/graves/:id"
         render={({ match }) => {
@@ -208,323 +175,10 @@ export const App = () => (
                 //storeValidate.dispatch(S2Actions.fillRegEdit(match.params.id));
                 return (
                   <ConnectedMenuV
-                    propiedades={{ renderView: "editar.faltas-administrativas-graves" }}
+                    propiedades={{
+                      renderView: "editar.faltas-administrativas-graves",
+                    }}
                     match={match}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/actos-particulares/personas-fisicas"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form3" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/actos-particulares/personas-morales"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form4" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/inhabilitaciones/personas-fisicas"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form5" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/inhabilitaciones/personas-morales"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form6" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/hechos-corrupcion/servidores-publicos"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form7" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/hechos-corrupcion/personas-fisicas"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form8" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/hechos-corrupcion/personas-morales"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form9" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/abstenciones/graves"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form10" }}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/captura/s3/abstenciones/no-graves"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* && localStorage.S2=="true" */
-              ) {
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV
-                    propiedades={{ renderView: "createReg-form11" }}
                   />
                 );
               } else {
@@ -584,45 +238,6 @@ export const App = () => (
                 storeValidate.dispatch(alertActions.clear());
                 return (
                   <ConnectedMenuV propiedades={{ renderView: "createRegv2" }} />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
-      />
-
-      <Route
-        exact
-        path="/consulta/S2v2"
-        render={() => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" &&
-                localStorage.S2 == "true"
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(S2Actions.setclearS2());
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                storeValidate.dispatch(S2Actions.requestListS2({}));
-                storeValidate.dispatch(alertActions.clear());
-                return (
-                  <ConnectedMenuV propiedades={{ renderView: "S2Schemav2" }} />
                 );
               } else {
                 return <Redirect to="/ingresar" />;

@@ -27,19 +27,21 @@ import Form from "@rjsf/mui";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import spanishLocalizer from "ajv-i18n/localize/es";
 
-const CreateReg = ({ id, alert, catalogos, registry }) => {
+const CreateReg = ({ id, alert, catalogos, registry, schema, uiSchema }) => {
   return (
     <MyForm
       initialValues={registry}
       catalogos={catalogos}
       alerta={alert}
       id={id}
+      schema={schema} // Pasando el schema como prop
+      uiSchema={uiSchema} // Pasando uiSchema como prop
     />
   );
 };
 
 function MyForm(props) {
-  const { initialValues, alerta, id } = props;
+  const { initialValues, alerta, id, schema, uiSchema } = props;
   const alert = alerta;
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -64,8 +66,8 @@ function MyForm(props) {
     setOpen(true);
   };
 
-  const schema = esquemaS3g;
-  const uiSchema = uiS3g;
+  //const schema = esquemaS3g;
+  //const uiSchema = uiS3g;
   const customFormats = formats;
 
   const validator = customizeValidator({ customFormats }, spanishLocalizer);
@@ -177,7 +179,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={dataEjemplo}
+                formData={initialValues}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}
