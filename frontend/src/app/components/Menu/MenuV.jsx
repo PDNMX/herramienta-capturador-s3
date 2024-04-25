@@ -31,35 +31,50 @@ import { ConnectedChangePassword } from "../Usuarios/changePassword";
 import { ListUser } from "../Usuarios/listUser";
 import { ListProvider } from "../Proveedores/ListProvider";
 
-import { ConnectedCreateRegv2 } from "../CapturarS3/createRegS2-v2";
-import { ConnectedCreateRegS3Sv2 } from "../CapturarS3/createRegS3S-v2";
-import { ConnectedCreateRegS3Pv2 } from "../CapturarS3/createRegS3P-v2";
+/* S3 */
+import { CreateEditForm } from "../CapturarS3/s3/CreateEditForm";
 
-/* S3 - 11 Forms CAPTURA */
-import { CreateRegForm1 } from "../CapturarS3/s3/form1";
-import { CreateRegForm2 } from "../CapturarS3/s3/form2";
-import { CreateRegForm3 } from "../CapturarS3/s3/form3";
-import { CreateRegForm4 } from "../CapturarS3/s3/form4";
-import { CreateRegForm5 } from "../CapturarS3/s3/form5";
-import { CreateRegForm6 } from "../CapturarS3/s3/form6";
-import { CreateRegForm7 } from "../CapturarS3/s3/form7";
-import { CreateRegForm8 } from "../CapturarS3/s3/form8";
-import { CreateRegForm9 } from "../CapturarS3/s3/form9";
-import { CreateRegForm10 } from "../CapturarS3/s3/form10";
-import { CreateRegForm11 } from "../CapturarS3/s3/form11";
+/* S3 Schemas */
+import schemaFaltasAdministrativasGraves from "../CapturarS3/s3/jsonschemas-rjsf/faltas-administrativas.graves"
+import schemaFaltasAdministrativasNoGraves from "../CapturarS3/s3/jsonschemas-rjsf/faltas-administrativas.no-graves"
+import schemaActosParticularesPersonasFisicas from "../CapturarS3/s3/jsonschemas-rjsf/actos-particulares.personas-fisicas"
+import schemaActosParticularesPersonasMorales from "../CapturarS3/s3/jsonschemas-rjsf/actos-particulares.personas-morales"
+import schemaInhabilitacionesPersonasFisicas from "../CapturarS3/s3/jsonschemas-rjsf/inhabilitaciones.personas-fisicas"
+import schemaInhabilitacionesPersonasMorales from "../CapturarS3/s3/jsonschemas-rjsf/inhabilitaciones.personas-morales"
+import schemaHechoscorrupcionServidoresPublicos from "../CapturarS3/s3/jsonschemas-rjsf/hechos-corrupcion.servidores-publicos"
+import schemaHechoscorrupcionPersonasFisicas from "../CapturarS3/s3/jsonschemas-rjsf/hechos-corrupcion.personas-fisicas"
+import schemaHechoscorrupcionPersonasMorales from "../CapturarS3/s3/jsonschemas-rjsf/hechos-corrupcion.personas-morales"
+import schemaAbstencionesGraves from "../CapturarS3/s3/jsonschemas-rjsf/abstenciones.graves"
+import schemaAbstencionesNoGraves from "../CapturarS3/s3/jsonschemas-rjsf/abstenciones.no-graves"
 
-import esquemaDinamico from "../CapturarS3/s3/jsonschemas-rjsf/s3ng";
-import uiDinamico from "../CapturarS3/s3/uiSchemas/UI_s3g"
+/* S3 UI */ 
+import uiFaltasAdministrativasGraves from "../CapturarS3/s3/uiSchemas/faltas-administrativas.graves"
+import uiFaltasAdministrativasNoGraves from "../CapturarS3/s3/uiSchemas/faltas-administrativas.no-graves"
+import uiActosParticularesPersonasFisicas from "../CapturarS3/s3/uiSchemas/actos-particulares.personas-fisicas"
+import uiActosParticularesPersonasMorales from "../CapturarS3/s3/uiSchemas/actos-particulares.personas-morales"
+import uiInhabilitacionesPersonasFisicas from "../CapturarS3/s3/uiSchemas/inhabilitaciones.personas-fisicas"
+import uiInhabilitacionesPersonasMorales from "../CapturarS3/s3/uiSchemas/inhabilitaciones.personas-morales"
+import uiHechoscorrupcionServidoresPublicos from "../CapturarS3/s3/uiSchemas/hechos-corrupcion.servidores-publicos"
+import uiHechoscorrupcionPersonasFisicas from "../CapturarS3/s3/uiSchemas/hechos-corrupcion.personas-fisicas"
+import uiHechoscorrupcionPersonasMorales from "../CapturarS3/s3/uiSchemas/hechos-corrupcion.personas-morales"
+import uiAbstencionesGraves from "../CapturarS3/s3/uiSchemas/abstenciones.graves"
+import uiAbstencionesNoGraves from "../CapturarS3/s3/uiSchemas/abstenciones.no-graves"
 
-/* S3 - 11 ADMIN DATA */
-import { ListForm1 } from "../ConsultarS3/faltas-administrativas-graves";
+/* S3 - 11 CONSULTAR REGISTROS */
+import { ListForm1 } from "../ConsultarS3/faltas-administrativas.graves";
+import { ListForm2 } from "../ConsultarS3/faltas-administrativas.no-graves";
+import { ListForm3 } from "../ConsultarS3/actos-particulares.personas-fisicas";
+import { ListForm4 } from "../ConsultarS3/actos-particulares.personas-morales";
+import { ListForm5 } from "../ConsultarS3/inhabilitaciones.personas-fisicas";
+import { ListForm6 } from "../ConsultarS3/inhabilitaciones.personas-morales";
+import { ListForm7 } from "../ConsultarS3/hechos-corrupcion.servidores-publicos";
+import { ListForm8 } from "../ConsultarS3/hechos-corrupcion.personas-fisicas";
+import { ListForm9 } from "../ConsultarS3/hechos-corrupcion.personas-morales";
+import { ListForm10 } from "../ConsultarS3/abstenciones.graves";
+import { ListForm11 } from "../ConsultarS3/abstenciones.no-graves";
 
 //import { useLocation } from "react-router-dom";
 import { userActions } from "../../_actions/user.action";
-
-import { ListS2Schemav2 } from "../CapturarS3/listSchemaS2-v2";
-import { ListS3SSchemav2 } from "../CapturarS3/listSchemaS3S-v2";
-import { ListS3PSchemav2 } from "../CapturarS3/listSchemaS3P-v2";
 
 import { Inicio } from "../Inicio";
 
@@ -231,7 +246,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("/consulta/s3/faltas-administrativas/graves")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/faltas-administrativas/graves")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -265,7 +280,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/faltas-administrativas/no-graves")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -315,7 +330,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/actos-particulares/personas-fisicas")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -355,7 +370,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/actos-particulares/personas-morales")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -405,7 +420,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/inhabilitaciones/personas-fisicas")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -445,7 +460,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/inhabilitaciones/personas-morales")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -495,7 +510,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/hechos-corrupcion/servidores-publicos")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -529,7 +544,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/hechos-corrupcion/personas-fisicas")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -563,7 +578,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/hechos-corrupcion/personas-morales")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -609,7 +624,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                       <ListItemText secondary="Capturar Información" />
                     </ListItemButton>
                   </ListItem>
-                  <ListItem onClick={() => redirectToRoute("#")} disablePadding>
+                  <ListItem onClick={() => redirectToRoute("/consultar/s3/abstenciones/graves")} disablePadding>
                     <ListItemButton sx={{ pl: 3.5 }}>
                       <ListItemIcon>
                         <CircleIcon sx={{ maxHeight: "8px" }} />
@@ -657,54 +672,6 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
               </List>
             </>
           )}
-
-          {/* {rol == 2 && (
-            <ListItem onClick={(e) => menuDatos2(e)} key={"m3"} disablePadding>
-              <ListItemButton sx={{ p: 2 }}>
-                <ListItemIcon>
-                  <KeyboardIcon className={classes.itemThree} />
-                </ListItemIcon>
-                <ListItemText primary="Capturar Información" />
-                {checkedDatos2 ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-            </ListItem>
-          )}
-          {permisos.map(
-            (item) =>
-              item === "S3S" && (
-                <Collapse in={checkedDatosS3S} key="S3S">
-                  <ListItem
-                    onClick={() => redirectToRoute("#")}
-                    key={"m3s3sv2"}
-                    disablePadding>
-                    <ListItemButton sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Sistema 3: Servidores Públicos" />
-                    </ListItemButton>
-                  </ListItem>
-                </Collapse>
-              ),
-          )}
-          {permisos.map(
-            (item) =>
-              item === "S3P" && (
-                <Collapse in={checkedDatosS3P} key="S3P">
-                  <ListItem
-                    onClick={() => redirectToRoute("/captura/S3Pv2")}
-                    key={"m3s3pv2"}
-                    disablePadding>
-                    <ListItemButton sx={{ pl: 3.5 }}>
-                      <ListItemIcon>
-                        <CircleIcon sx={{ maxHeight: "8px" }} />
-                      </ListItemIcon>
-                      <ListItemText secondary="Sistema 3: Particulares" />
-                    </ListItemButton>
-                  </ListItem>
-                </Collapse>
-              ),
-          )} */}
 
           {/* ADMINiSTRACIÓN */}
           {rol == 1 && (
@@ -817,41 +784,43 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {/* ----------- NUEVAS VERSIONES - s3: 11 Formatos ----------- */}
 
           {/* Faltas Administrativas de Servidores Públicos */}
-          {vistaRender === "createReg-form1" && <CreateRegForm1  schema={esquemaDinamico} uiSchema={uiDinamico}/>}
-          {vistaRender === "consultar.faltas-administrativas-graves" && <ListForm1 />}
+          {vistaRender === "capturar.faltas-administrativas.graves" && <CreateEditForm  schema={schemaFaltasAdministrativasGraves} uiSchema={uiFaltasAdministrativasGraves}/>}
+          {vistaRender === "consultar.faltas-administrativas.graves" && <ListForm1 />}
           {vistaRender === "editar.faltas-administrativas-graves" && (
-            <CreateRegForm1 match={match} schema={esquemaDinamico} uiSchema={uiDinamico} />
+            <CreateEditForm match={match} schema={schemaFaltasAdministrativasGraves} uiSchema={uiFaltasAdministrativasGraves} />
+          )}
+          {vistaRender === "capturar.faltas-administrativas.no-graves" && <CreateEditForm  schema={schemaFaltasAdministrativasNoGraves} uiSchema={uiFaltasAdministrativasNoGraves}/>}
+          {vistaRender === "consultar.faltas-administrativas.no-graves" && <ListForm2 />}
+          {vistaRender === "editar.faltas-administrativas.no-graves" && (
+            <CreateEditForm match={match} schema={schemaFaltasAdministrativasNoGraves} uiSchema={uiFaltasAdministrativasNoGraves} />
           )}
 
-          {vistaRender === "createReg-form2" && <CreateRegForm2 />}
           {/* Actos de Particulares vinculados con Faltas Graves */}
-          {vistaRender === "createReg-form3" && <CreateRegForm3 />}
-          {vistaRender === "createReg-form4" && <CreateRegForm4 />}
+          {vistaRender === "capturar.actos-particulares.personas-fisicas" && <CreateEditForm  schema={schemaActosParticularesPersonasFisicas} uiSchema={uiActosParticularesPersonasFisicas}/>}
+          {vistaRender === "consultar.actos-particulares.personas-fisicas" && <ListForm3 />}
+
+          {vistaRender === "capturar.actos-particulares.personas-morales" && <CreateEditForm  schema={schemaActosParticularesPersonasMorales} uiSchema={uiActosParticularesPersonasMorales}/>}
+          {vistaRender === "consultar.actos-particulares.personas-morales" && <ListForm4 />}
+         
           {/* Sanciones (Inhabilitaciones) por normas diversas a la LGRA */}
-          {vistaRender === "createReg-form5" && <CreateRegForm5 />}
-          {vistaRender === "createReg-form6" && <CreateRegForm6 />}
+          {vistaRender === "capturar.inhabilitaciones.personas-fisicas" && <CreateEditForm  schema={schemaInhabilitacionesPersonasFisicas} uiSchema={uiInhabilitacionesPersonasFisicas}/>}
+          {vistaRender === "consultar.inhabilitaciones.personas-fisicas" && <ListForm5 />}
+          {vistaRender === "capturar.inhabilitaciones.personas-morales" && <CreateEditForm  schema={schemaInhabilitacionesPersonasMorales} uiSchema={uiInhabilitacionesPersonasMorales}/>}
+          {vistaRender === "consultar.inhabilitaciones.personas-morales" && <ListForm6 />}
+          
           {/* Hechos de Corrupción */}
-          {vistaRender === "createReg-form7" && <CreateRegForm7 />}
-          {vistaRender === "createReg-form8" && <CreateRegForm8 />}
-          {vistaRender === "createReg-form9" && <CreateRegForm9 />}
+          {vistaRender === "capturar.hechos-corrupcion.servidores-publicos" && <CreateEditForm  schema={schemaHechoscorrupcionServidoresPublicos} uiSchema={uiHechoscorrupcionServidoresPublicos}/>}
+          {vistaRender === "consultar.hechos-corrupcion.servidores-publicos" && <ListForm7 />}
+          {vistaRender === "capturar.hechos-corrupcion.personas-fisicas" && <CreateEditForm  schema={schemaHechoscorrupcionPersonasFisicas} uiSchema={uiHechoscorrupcionPersonasFisicas}/>}
+          {vistaRender === "consultar.hechos-corrupcion.personas-fisicas" && <ListForm8 />}
+          {vistaRender === "capturar.hechos-corrupcion.personas-morales" && <CreateEditForm  schema={schemaHechoscorrupcionPersonasMorales} uiSchema={uiHechoscorrupcionPersonasMorales}/>}
+          {vistaRender === "consultar.hechos-corrupcion.personas-morales" && <ListForm9 />}
+          
           {/* Abstenciones */}
-          {vistaRender === "createReg-form10" && <CreateRegForm10 />}
-          {vistaRender === "createReg-form11" && <CreateRegForm11 />}
-
-          {vistaRender === "createRegv2" && <ConnectedCreateRegv2 />}
-          {vistaRender === "createRegS3Sv2" && <ConnectedCreateRegS3Sv2 />}
-          {vistaRender === "createRegS3Pv2" && <ConnectedCreateRegS3Pv2 />}
-
-          {vistaRender === "editRegS3Sv2" && (
-            <ConnectedCreateRegS3Sv2 match={match} />
-          )}
-          {vistaRender === "editRegS2v2" && (
-            <ConnectedCreateRegv2 match={match} />
-          )}
-
-          {vistaRender === "S2Schemav2" && <ListS2Schemav2 />}
-          {vistaRender === "S3SSchemav2" && <ListS3SSchemav2 />}
-          {vistaRender === "S3PSchemav2" && <ListS3PSchemav2 />}
+          {vistaRender === "capturar.abstenciones.graves" && <CreateEditForm  schema={schemaAbstencionesGraves} uiSchema={uiAbstencionesGraves}/>}
+          {vistaRender === "consultar.abstenciones.graves" && <ListForm10 />}
+          {vistaRender === "capturar.abstenciones.no-graves" && <CreateEditForm  schema={schemaAbstencionesNoGraves} uiSchema={uiAbstencionesNoGraves}/>}
+          {vistaRender === "consultar.abstenciones.no-graves" && <ListForm11 />}
 
           {/* ----------- NUEVAS VERSIONES - FIN ----------- */}
         </Grid>

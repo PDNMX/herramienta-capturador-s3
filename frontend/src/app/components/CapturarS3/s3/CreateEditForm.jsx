@@ -18,8 +18,8 @@ import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
-import esquemaS3ag from "./jsonschemas-rjsf/s3ag";
-import uiS3ag from "./uiSchemas/UI_s3ag";
+/* import esquemaS3g from "./jsonschemas-rjsf/s3g";
+import uiS3g from "./uiSchemas/UI_s3g"; */
 import formats from "../customFormats";
 
 //import validator from '@rjsf/validator-ajv8';
@@ -27,25 +27,26 @@ import Form from "@rjsf/mui";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import spanishLocalizer from "ajv-i18n/localize/es";
 
-const CreateReg = ({ id, alert, catalogos, registry }) => {
+const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema }) => {
   return (
     <MyForm
       initialValues={registry}
       catalogos={catalogos}
       alerta={alert}
       id={id}
+      schema={schema} // Pasando el schema como prop
+      uiSchema={uiSchema} // Pasando uiSchema como prop
     />
   );
 };
 
-
 function MyForm(props) {
-  const { initialValues, alerta, id } = props;
+  const { initialValues, alerta, id, schema, uiSchema } = props;
   const alert = alerta;
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
 
-  console.log(initialValues);
+  //console.log(initialValues);
 
   //const validate = makeValidate(schema);
   //const required = makeRequired(schema)
@@ -65,32 +66,108 @@ function MyForm(props) {
     setOpen(true);
   };
 
-  const schema = esquemaS3ag;
-  const uiSchema = uiS3ag;
+  //const schema = esquemaS3g;
+  //const uiSchema = uiS3g;
   const customFormats = formats;
 
   const validator = customizeValidator({ customFormats }, spanishLocalizer);
 
-  const handleChange = ({ formData}) => console.log(formData);
+  const handleChange = ({ formData }) => console.log(formData);
 
-  function transformErrors(errors) {
+  /* function transformErrors(errors) {
     return errors.map((error) => {
       if (error.property === '.procedimientos.tipoArea.areas') {
         error.message = 'Error en tipo Áreas';
       }
       return error;
     });
-  }
+  } */
+  const dataEjemplo = {
+    grave: {
+      segundoApellido: {
+        sinSegundoApellido: true,
+      },
+      entePublico: {
+        nivelOrdenGobierno: {
+          clave: "FEDERAL",
+        },
+        entidadFederativa: {
+          clave: "09",
+          valor: "Ciudad de México",
+        },
+        ambitoPublico: "ORGANO_AUTONOMO",
+        nombre: "Secretaria Ejecutiva del Sistema Nacional Anticorrupción",
+        siglas: "SESNA",
+      },
+      empleoCargoComision: {
+        nombre: {
+          clave: "ENLACE_U_HOMOLOGO",
+        },
+        denominacion:
+          "Enlace de Consulta de las Plataformas y Sistemas Digitales Anticorrupción",
+        areaAdscripcion: "Unidad de Plataforma Digital Nacional",
+      },
+      origenInvestigacion: {
+        clave: "DENUNCIA_SP",
+      },
+      faltaCometida: [
+        {
+          articuloNormatividad: ["10"],
+          fraccionNormatividad: ["20"],
+          articuloNormatividadInfringida: ["Articulo 21"],
+          fraccionNormatividadInfringida: ["Fracción 6"],
+          clave: "CONTRATACION_INDEBIDA",
+          normatividadInfringida:
+            "Ley General de Responsabilidades Administrativas",
+          descripcionHechos: "Lo contrato su tío el inombrable",
+          nombreNormatividad: "Ley General de Responsabilidades",
+        },
+      ],
+      resolucion: {
+        documentoResolucion: "Sentencia Final",
+        fechaResolucion: "2022-03-01",
+        fechaNotificacion: "2022-03-15",
+        urlResolucion: "https://www.google.com",
+        fechaResolucionFirme: "2022-04-01",
+        fechaNotificacionFirme: "2022-04-17",
+        urlResolucionFirme: "https://www.promodescuentos.com/12%0183?dxjk=0$",
+      },
+      tipoSancion: {
+        sancion: [
+          {
+            clave: "DESTITUCION",
+            destitucionEmpleo: {
+              fechaDestitucion: "2022-05-15",
+            },
+          },
+        ],
+        ordenJurisdiccional: "FEDERAL",
+        autoridadResolutora: "OIC de la SESNA",
+        autoridadInvestigadora: "Comite de ética",
+        autoridadSubstanciadora: "Su jefa directa",
+      },
+      nombres: "Alan",
+      primerApellido: "Rojas",
+      curp: "RXBA990410HDFJTL00",
+      rfc: "ROBA990410GQ8",
+      sexo: "HOMBRE",
+      observaciones:
+        "Tambien se impondra sancion por molestar a una pequeña persona..",
+    },
+    expediente: "2018",
+  };
 
   return (
     <Grid item xs={12}>
       <Card>
-        <CardHeader
-          title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS ABSTENCIONES REALIZADAS POR EL TRIBUNAL FEDERAL DE JUSTICIA ADMINISTRATIVA."
-        />
+        <CardHeader title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." />
         <Divider />
         <CardHeader
-          subheader={id != undefined ? "Edición" : "TODOS LOS CAMPOS SEÑALADOS CON UN ASTERISCO (*) SON DE CARÁCTER OBLIGATORIO."}
+          subheader={
+            id != undefined
+              ? "Edición"
+              : "TODOS LOS CAMPOS SEÑALADOS CON UN ASTERISCO (*) SON DE CARÁCTER OBLIGATORIO."
+          }
         />
         <CardContent>
           <Grid container>
@@ -108,7 +185,7 @@ function MyForm(props) {
                 liveValidate={false}
                 noHtml5Validate={true}
                 showErrorList={false}
-                transformErrors={transformErrors}
+                /* transformErrors={transformErrors} */
               />
             </Grid>
           </Grid>
@@ -131,7 +208,7 @@ function MyForm(props) {
         <DialogActions>
           <Button
             disabled={!alert.status}
-            onClick={() => redirectToRoute("/consulta/S2v2")}
+            onClick={() => redirectToRoute("/consulta/s3/faltas-administrativas/graves")}
             color="primary"
             autoFocus>
             Aceptar
@@ -163,7 +240,7 @@ function mapDispatchToProps() {
   return {};
 }
 
-export const CreateRegForm10 = connect(
+export const CreateEditForm = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateReg);
+)(CreateEdit);

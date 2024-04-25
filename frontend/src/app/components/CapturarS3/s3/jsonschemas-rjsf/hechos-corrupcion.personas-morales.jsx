@@ -1,5 +1,5 @@
 // HECHOS DE CORRUPCION - PERSONAS MORALES (9)
-let data = {
+let schema = {
   definitions: {
     entidad: {
       enumNames: [
@@ -969,4 +969,4 @@ let data = {
   },
 };
 
-export default data;
+export default schema;

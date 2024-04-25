@@ -80,76 +80,136 @@ export const App = () => (
         exact
         path="/captura/s3/faltas-administrativas/graves"
         component={ConnectedMenuV}
-        renderView="createReg-form1"
+        renderView="capturar.faltas-administrativas.graves"
       />
       <PrivateRoute
         exact
         path="/captura/s3/faltas-administrativas/no-graves"
         component={ConnectedMenuV}
-        renderView="createReg-form2"
+        renderView="capturar.faltas-administrativas.no-graves"
       />
       <PrivateRoute
         exact
         path="/captura/s3/actos-particulares/personas-fisicas"
         component={ConnectedMenuV}
-        renderView="createReg-form3"
+        renderView="capturar.actos-particulares.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/captura/s3/actos-particulares/personas-morales"
         component={ConnectedMenuV}
-        renderView="createReg-form4"
+        renderView="capturar.actos-particulares.personas-morales"
       />
       <PrivateRoute
         exact
         path="/captura/s3/inhabilitaciones/personas-fisicas"
         component={ConnectedMenuV}
-        renderView="createReg-form5"
+        renderView="capturar.inhabilitaciones.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/captura/s3/inhabilitaciones/personas-morales"
         component={ConnectedMenuV}
-        renderView="createReg-form6"
+        renderView="capturar.inhabilitaciones.personas-morales"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/servidores-publicos"
         component={ConnectedMenuV}
-        renderView="createReg-form7"
+        renderView="capturar.hechos-corrupcion.servidores-publicos"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/personas-fisicas"
         component={ConnectedMenuV}
-        renderView="createReg-form8"
+        renderView="capturar.hechos-corrupcion.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/personas-morales"
         component={ConnectedMenuV}
-        renderView="createReg-form9"
+        renderView="capturar.hechos-corrupcion.personas-morales"
       />
       <PrivateRoute
         exact
         path="/captura/s3/abstenciones/graves"
         component={ConnectedMenuV}
-        renderView="createReg-form10"
+        renderView="capturar.abstenciones.graves"
       />
       <PrivateRoute
         exact
         path="/captura/s3/abstenciones/no-graves"
         component={ConnectedMenuV}
-        renderView="createReg-form11"
+        renderView="capturar.abstenciones.no-graves"
       />
       {/* ----------- RUTAS DE CAPTURA - FIN ----------- */}
 
       {/* ----------- RUTAS DE CONSULTA - INICIO ----------- */}
       <PrivateRoute
         exact
-        path="/consulta/s3/faltas-administrativas/graves"
+        path="/consultar/s3/faltas-administrativas/graves"
         component={ConnectedMenuV}
-        renderView="consultar.faltas-administrativas-graves"
+        renderView="consultar.faltas-administrativas.graves"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/faltas-administrativas/no-graves"
+        component={ConnectedMenuV}
+        renderView="consultar.faltas-administrativas.no-graves"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/actos-particulares/personas-fisicas"
+        component={ConnectedMenuV}
+        renderView="consultar.actos-particulares.personas-fisicas"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/actos-particulares/personas-morales"
+        component={ConnectedMenuV}
+        renderView="consultar.actos-particulares.personas-morales"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/inhabilitaciones/personas-fisicas"
+        component={ConnectedMenuV}
+        renderView="consultar.inhabilitaciones.personas-fisicas"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/inhabilitaciones/personas-morales"
+        component={ConnectedMenuV}
+        renderView="consultar.inhabilitaciones.personas-morales"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/hechos-corrupcion/servidores-publicos"
+        component={ConnectedMenuV}
+        renderView="consultar.hechos-corrupcion.servidores-publicos"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/hechos-corrupcion/personas-fisicas"
+        component={ConnectedMenuV}
+        renderView="consultar.hechos-corrupcion.personas-fisicas"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/hechos-corrupcion/personas-morales"
+        component={ConnectedMenuV}
+        renderView="consultar.hechos-corrupcion.personas-morales"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/abstenciones/graves"
+        component={ConnectedMenuV}
+        renderView="consultar.abstenciones.graves"
+      />
+      <PrivateRoute
+        exact
+        path="/consultar/s3/abstenciones/no-graves"
+        component={ConnectedMenuV}
+        renderView="consultar.abstenciones.no-graves"
       />
       
       <Route

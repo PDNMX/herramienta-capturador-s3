@@ -22,12 +22,10 @@ import {
   Paper,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import makeStyles from "@mui/styles/makeStyles";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Alert } from "@mui/material";
-import createStyles from "@mui/styles/createStyles";
 import { alertActions } from "../../_actions/alert.actions";
 import { history } from "../../store/history";
 import { S2Actions } from "../../_actions/s2.action";
@@ -38,13 +36,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import Nota from "../Common/Nota";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
-export const ListForm1 = () => {
+export const ListForm10 = () => {
   const { S2List, alerta, paginationSuper } = useSelector((state) => ({
     S2List: state.S2,
     alerta: state.alert,
     paginationSuper: state.pagination,
   }));
-  //console.log(S2List)
   const dispatch = useDispatch();
   const [query, setQuery] = React.useState({});
   const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
@@ -53,13 +50,11 @@ export const ListForm1 = () => {
   const [maxWidth, _] = React.useState("md");
 
   const handleOpenModalUserInfo = (user) => {
-        
     //setSelectedRegistro(user);
     setSelectedRegistro(() => {
       setOpenModalUserInfo(true);
       return user;
     }); 
-    
   };
 
   const handleCloseModalUserInfo = () => {
@@ -105,55 +100,6 @@ export const ListForm1 = () => {
     history.push(path);
   };
 
-  const useStyles = makeStyles((theme) =>
-    createStyles({
-      actions: {
-        color: theme.palette.text.secondary,
-      },
-      title: {
-        flex: "0 0 auto",
-      },
-      fontblack: {
-        color: "#666666",
-      },
-      titlegridModal: {
-        color: "#666666",
-      },
-      body2: {
-        color: "#666666",
-      },
-      tableHead: {
-        backgroundColor: "#34b3eb",
-      },
-      tableHeaderColumn: {
-        color: "#ffff",
-      },
-      whiteStyle: {
-        color: "#ffff",
-      },
-      titulo: {
-        fontSize: 15,
-        fontWeight: "bold",
-        marginBottom: 10,
-        textDecoration: "underline",
-        textDecorationColor: "#34b3eb",
-        color: "#34b3eb",
-      },
-      toolBarModal: {
-        backgroundColor: "#34b3eb",
-      },
-      subtitulo: {
-        fontSize: 15,
-        fontWeight: "bold",
-        textDecoration: "underline",
-        textDecorationColor: "#585858",
-        color: "#585858",
-        paddingTop: "10px",
-      },
-    }),
-  );
-
-  const classes = useStyles();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -177,9 +123,7 @@ export const ListForm1 = () => {
         onClose={handleCloseModalUserInfo}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
-        <DialogTitle 
-          className={classes.toolBarModal} 
-          sx={{ m: 0, p: 2, color: '#fff' }}>
+        <DialogTitle>
             <b>Detalle del registro</b>
         </DialogTitle>
         <IconButton
@@ -193,21 +137,15 @@ export const ListForm1 = () => {
             top: 10,
             color: (theme) => theme.palette.grey[500],
           }}>
-          <CloseIcon className={classes.whiteStyle} />
+          <CloseIcon />
         </IconButton>
         
         <DialogContent dividers>
           <Grid container>
             <Grid item xs={12}>
-              <Typography className={classes.titulo} align={"center"}>
+              <Typography align={"center"}>
               1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA
               </Typography>
-            </Grid>
-            <Grid item md={6} xs={12}>
-              {/* <Typography
-                align="left">
-                <b>Identificador:</b> {selectedRegistro.identificador ? ( selectedRegistro.identificador ) : ( <Nota /> )}
-              </Typography> */}
             </Grid>
 
             <Grid item md={6} xs={12}>
@@ -231,13 +169,6 @@ export const ListForm1 = () => {
               </Typography>
             </Grid>
 
-            {/* <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Segundo Apellido:</b> {selectedRegistro.segundoApellido ? ( selectedRegistro.segundoApellido ) : ( <Nota /> )}
-              </Typography>
-            </Grid>  */}
-
             <Grid item md={6} xs={12}>
               <Typography
                 align="left">
@@ -257,38 +188,20 @@ export const ListForm1 = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <Typography className={classes.titulo} align={"center"}>
+              <Typography align={"center"}>
               2. DATOS DEL EMPLEO, CARGO O COMISIÓN
               </Typography>
             </Grid>
 
-            {/* <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Entidad Federativa:</b> {selectedRegistro.entePublico.entidadFederativa.valor ? ( selectedRegistro.entePublico.entidadFederativa.valor ) : ( <Nota /> )}
-              </Typography>
-            </Grid> */}
-
-            {/* <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Ámbito de Gobierno:</b> {selectedRegistro.entePublico.ambitoGobierno ? ( selectedRegistro.sexo ) : ( <Nota /> )}
-              </Typography>
-            </Grid> */}
-
             <Grid item md={6} xs={12}>
               <Typography
                 align="left">
-                {/* <b>Ámbito de Gobierno:</b> {selectedRegistro.entePublico.nombre ? ( selectedRegistro.nombre ) : ( <Nota /> )} */}
               </Typography>
             </Grid>
-            
-
           </Grid>
         </DialogContent>
       </Dialog>
 
-      {/* Tabla con lista de Registros del s2 */}
       <Grid item xs={12}>
         <Card>
           <CardHeader
@@ -299,54 +212,53 @@ export const ListForm1 = () => {
           <CardContent>
             <TableContainer component={Paper}>
               <Table aria-label="custom pagination table">
-                <TableHead className={classes.tableHead}>
+                <TableHead>
                   <TableRow>
                     <TableCell
                       align="left"
-                      className={classes.tableHeaderColumn}>
+                    >
                       <b>Identificador</b>
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.tableHeaderColumn}>
+                    >
                       <b>Servidor público</b>
                     </TableCell>
                     <TableCell
                       align="left"
-                      className={classes.tableHeaderColumn}>
+                    >
                       <b>Institución</b>
                     </TableCell>
                     <TableCell
                       align="center"
-                      className={classes.tableHeaderColumn}>
+                    >
                       <b>Acciones</b>
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {S2List.map((schema) => (
-                    <TableRow key={schema._id}>
+                  {S2List.map((registro) => (
+                    <TableRow key={registro._id}>
                       <TableCell style={{ width: "15%" }} align="left">
-                        {schema._id}
+                        {registro._id}
                       </TableCell>
                       <TableCell style={{ width: "25%" }} align="left">
-                        {schema.grave.nombres && schema.grave.nombres + " "}
-                        {schema.grave.primerApellido && schema.grave.primerApellido + " "}
-                        {schema.grave.segundoApellido &&
-                        schema.grave.segundoApellido.sinSegundoApellido == true
+                        {registro.grave.nombres && registro.grave.nombres + " "}
+                        {registro.grave.primerApellido && registro.grave.primerApellido + " "}
+                        {registro.grave.segundoApellido &&
+                        registro.grave.segundoApellido.sinSegundoApellido == true
                           ? ""
-                          : schema.grave.segundoApellido.valor}
-                        {/* {schema.segundoApellido && schema.segundoApellido} */}
+                          : registro.grave.segundoApellido.valor}
                       </TableCell>
-                      {schema.grave.entePublico && (
+                      {registro.grave.entePublico && (
                         <TableCell style={{ width: "25%" }} align="left">
-                          { schema.grave.entePublico.siglas && schema.grave.entePublico.siglas }
+                          { registro.grave.entePublico.siglas && registro.grave.entePublico.siglas }
                         </TableCell>
                       )}
                       <TableCell style={{ width: "15%" }} align="center">
                         <Tooltip title="Más información" placement="top">
                           <IconButton
-                            onClick={() => handleOpenModalUserInfo(schema)}
+                            onClick={() => handleOpenModalUserInfo(registro)}
                             style={{ color: "#34b3eb" }}
                             aria-label="expand row"
                             size="small">
@@ -355,7 +267,7 @@ export const ListForm1 = () => {
                         </Tooltip>
                         <Tooltip title="Editar registro" placement="top">
                           <IconButton
-                            onClick={() => redirectToRoute(`/editar/s3/faltas-administrativas/graves/${schema._id}`) }
+                            onClick={() => redirectToRoute(`/editar/s3/faltas-administrativas/graves/${registro._id}`) }
                             style={{ color: "#ffe01b" }}>
                             <EditOutlinedIcon />
                           </IconButton>
@@ -384,12 +296,12 @@ export const ListForm1 = () => {
                           count={paginationSuper.totalRows}
                           rowsPerPage={paginationSuper.pageSize}
                           page={paginationSuper.page - 1}
-                          SelectProps={{
+                          /* SelectProps={{
                             inputProps: {
                               "aria-label": "Registros por página",
                             },
                             native: true,
-                          }}
+                          }} */
                           onPageChange={handleChangePage}
                           onRowsPerPageChange={handleChangeRowsPerPage}
                           ActionsComponent={TablePaginationActions}
