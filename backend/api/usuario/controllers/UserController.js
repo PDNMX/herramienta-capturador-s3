@@ -4,7 +4,17 @@ const crypto = require("crypto");
 const nodemailer = require('nodemailer');
 const generator = require('generate-password');
 require('dotenv').config();
+//valiudaciones
+const { userSchemaJSON } = require("../models/ajvUserSchema"); // Asegúrate de importar el esquema correcto
+const Ajv = require("ajv");
+const ajv = new Ajv();
+const validate = ajv.compile(userSchemaJSON);
 
+const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,})$/;
+
+function validateEmail(email) {
+  return emailRegex.test(email);
+}
 const transporter = nodemailer.createTransport({
     host: process.env.HOST_EMAIL,
     port: process.env.PORT_EMAIL,
@@ -39,27 +49,40 @@ module.exports = {
     createUser: async (req, res) => {
         try {
             const { body } = req;
-            const correoExiste = await User.findOne({ correoElectronico: body.correoElectronico });
-            const usuarioExiste = await User.findOne({ usuario: body.usuario });
-
-            if (correoExiste || usuarioExiste) {
-                return res.status(500).json({ message: 'El correo electrónico y/o nombre de usuario ya existe. Por favor, ingresa otro.', status: 500 });
+        
+            // Valida los datos del cuerpo de la solicitud con el esquema AJV
+            const isValid = validate(body);
+            if (!isValid) {
+              const errors = validate.errors.map(error => ({
+                field: error.dataPath,
+                message: error.message,
+              }));
+              //console.log("Hola desde el controlador con datos invalidos");
+              return res.status(400).json({ errors });
             }
+                // Validacion si existe el correo que se intenta registrar 
+                const correoExiste = await User.findOne({ correoElectronico: body.correoElectronico });
+                const usuarioExiste = await User.findOne({ usuario: body.usuario });
 
-            // Genera la contraseña
-            let pass = generatepassword();
+                if (correoExiste || usuarioExiste) {
+                    return res.status(500).json({ message: 'El correo electrónico y/o nombre de usuario ya existe. Por favor, ingresa otro.', status: 500 });
+                }
 
-            // Cifra la contraseña
-            let passHash = encryptPassword(pass);
+                //creacion del registro que se insertara en usuario
+                
+                // Genera la contraseña
+                let pass = generatepassword();
+                // Cifra la contraseña
+                let passHash = encryptPassword(pass);
+                let fecha = moment().tz("America/Mexico_City").format('YYYY-MM-DD'); 
+                let fechaActual = moment();
+                let newBody = { ...body, contrasena: passHash, fechaAlta: fecha, vigenciaContrasena: fechaActual.add(3, 'months').format().toString(), estatus: true, rol:"2" };
+                newBody["fechaActualizacion"] = fecha;
+                // se inserta el usuario en la base de datos
+                const nuevoUsuario = new User(newBody);
+                await nuevoUsuario.save();
 
-            // Crea el nuevo usuario con la contraseña cifrada
-            let fechaActual = moment();
-            let contrasenaNueva = true;
-            let newBody = { ...body, contrasena: passHash, fechaAlta: fechaActual.format(), vigenciaContrasena: fechaActual.add(3, 'months').format().toString(), estatus: true, rol:"2", contrasenaNueva: contrasenaNueva };
-            const nuevoUsuario = new User(newBody);
-            await nuevoUsuario.save();
-
-            // Envía el correo electrónico con la contraseña generada
+                // Envía el correo electrónico con la contraseña generada
             let mailOptions = {
                 from: process.env.EMAIL,
                 to: newBody.correoElectronico,
@@ -82,40 +105,51 @@ module.exports = {
               });
               
             return res.status(200).json(newBody);
-        } catch (error) {
-            console.error('Error al crear usuario:', error);
-            return res.status(500).json({ message: 'Error al crear usuario.', error: error.message });
-        }
+                //console.log("Hola desde el controlador con datos validos");
+                //return res.status(200).json({message:"todo ok"});
+          } catch (error) {
+            console.error("Error al crear usuario:", error);
+            return res.status(500).json({ message: "Error al crear usuario.", error: error.message });
+          }
     },
-
     editUser: async (req, res) => {
         try {
-            const { body } = req;
-
-            // Verificar si el usuario que se está intentando actualizar existe en la base de datos
-            const usuarioExistente = await User.findById(body._id);
-            if (!usuarioExistente) {
-                return res.status(404).json({ message: 'El usuario no existe.', status: 404 });
-            }
-
-            // Verificar si el correo electrónico o el nombre de usuario ya están asociados a otro usuario diferente
-            const correoExiste = await User.findOne({ correoElectronico: body.correoElectronico, _id: { $ne: body._id } });
-            const usuarioExiste = await User.findOne({ usuario: body.usuario, _id: { $ne: body._id } });
-            if (correoExiste || usuarioExiste) {
-                return res.status(500).json({ message: 'El correo electrónico y/o nombre de usuario ya existe. Por favor, ingresa otro.', status: 500 });
-            }
-
-            // Actualizar los campos del usuario con los nuevos valores proporcionados en la solicitud
-            const fechaActual = moment();
-            const updatedUser = await User.findByIdAndUpdate(body._id, { ...body, fechaModificacion: fechaActual.format() }, { new: true });
-
-            // Devolver la información del usuario actualizado como respuesta
-            return res.status(200).json(updatedUser);
+          const { body } = req;
+      
+          // Valida los datos del cuerpo de la solicitud con el esquema AJV
+          const isValid = validate(body);
+          if (!isValid) {
+            const errors = validate.errors.map(error => ({
+              field: error.dataPath,
+              message: error.message,
+            }));
+            return res.status(400).json({ errors });
+          }
+      
+          // Verificar si el usuario que se está intentando actualizar existe en la base de datos
+          const usuarioExistente = await User.findById(body._id);
+          if (!usuarioExistente) {
+            return res.status(404).json({ message: 'El usuario no existe.', status: 404 });
+          }
+      
+          // Verificar si el correo electrónico o el nombre de usuario ya están asociados a otro usuario diferente
+          const correoExiste = await User.findOne({ correoElectronico: body.correoElectronico, _id: { $ne: body._id } });
+          const usuarioExiste = await User.findOne({ usuario: body.usuario, _id: { $ne: body._id } });
+          if (correoExiste || usuarioExiste) {
+            return res.status(500).json({ message: 'El correo electrónico y/o nombre de usuario ya existe. Por favor, ingresa otro.', status: 500 });
+          }
+      
+          // Actualizar los campos del usuario con los nuevos valores proporcionados en la solicitud
+          const fechaActual = moment();
+          const updatedUser = await User.findByIdAndUpdate(body._id, { ...body, fechaModificacion: fechaActual.format() }, { new: true });
+      
+          // Devolver la información del usuario actualizado como respuesta
+          return res.status(200).json(updatedUser);
         } catch (error) {
-            console.error('Error al editar usuario:', error);
-            return res.status(500).json({ message: 'Error al editar usuario.', error: error.message });
+          console.error('Error al editar usuario:', error);
+          return res.status(500).json({ message: 'Error al editar usuario.', error: error.message });
         }
-    },
+      },
     getUsers: async (req, res) => {
         try {
             // Obtener parámetros de consulta
@@ -215,13 +249,14 @@ module.exports = {
     },
     resetpassword: async (req, res) => {
         try {
-            console.log('hola desde resetpassword');
+            //console.log('hola desde resetpassword');
             const { correo } = req.body;
             console.log(correo);
-            if (!correo) {
-                return res.status(400).json({ message: 'Correo electrónico requerido.', Status: 500 });
-            }
 
+            // **Validar correo electrónico antes de continuar**
+            if (!validateEmail(correo)) {
+                return res.status(400).json({ message: 'Correo electrónico inválido.', Status: 500 });
+            }
 
             // Verificar si el usuario está dado de baja
             const usuarioDadoDeBaja = await User.findOne({ correoElectronico: correo, estatus: false });

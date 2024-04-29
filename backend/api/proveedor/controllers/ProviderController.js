@@ -1,140 +1,104 @@
 const { Provider } = require("../models/Provider");
 const { User } = require("../../usuario/models/User");
 const _ = require("lodash");
-const Ajv = require("ajv");
-const addFormats = require("ajv-formats");
-const {
-  providerSchemaJSON,
-} = require("../../common/middlewares/ajvSchemas/ajvProviderSchema");
+//const { providerSchemaJSON } = require("../models/ajvProviderSchema");
 const moment = require("moment");
 const { format } = require("path");
 
-// Función para validar un objeto contra el esquema
-function validate(data) {
-  const valid = validateProvider(data);
-  if (!valid) {
-    console.log(validateProvider.errors);
-  }
-  return valid;
-}
+const { providerSchemaJSON } = require("../models/ajvProviderSchema");
+const Ajv = require('ajv');
+
 module.exports = {
   createProvider: async (req, res) => {
     try {
-      // Crear un nuevo objeto AJV
-      //const ajv = new Ajv({ allErrors: true,formats: {date: true, time: true }});
+      console.log(typeof(req.body));
+      console.log(req.body);
+      
+     /*  if (req.body.usuario)
+          delete req.body.usuario; */
       const ajv = new Ajv();
-      addFormats(ajv);
-      // Agregar el plugin de formatos al objeto AJV
       const validate = ajv.compile(providerSchemaJSON);
-      let fecha = moment().tz("America/Mexico_City").format();
-      req.body["fechaAlta"] = fecha;
-      req.body["fechaActualizacion"] = fecha;
-      req.body["estatus"] = true;
-      //let nombreDependencia = req.body.dependencia;
       let dataToValidate = req.body;
-      let resultadoValidar = validate(dataToValidate);
-      resultadoValidar = true;
-      if (resultadoValidar === false) {
-        console.log("datos no validos para crear el proveedor");
-        console.log(validate.errors);
-        return res.status(400).json({
-          message: "Error al validar el proveedor.",
-          error: validate.errors,
-        });
-      } else {
-        console.log("El proveedor es valido");
+      const isValid = validate(dataToValidate);
+      if (isValid) {
+        let fecha = moment().tz("America/Mexico_City").format('YYYY-MM-DD'); 
+        dataToValidate["fechaAlta"] = fecha;
+        dataToValidate["fechaActualizacion"] = fecha;
+        dataToValidate["estatus"] = true;
+  
         let existeProveedor = await Provider.findOne({
           dependencia: dataToValidate.dependencia,
         }).exec();
+        
         if (existeProveedor) {
-          return res
-            .status(400)
-            .json({ message: "Ya existe un proveedor con ese nombre." });
+          return res.status(400).json({ message: "Ya existe un proveedor con ese nombre." });
         } else {
-          const nuevoProovedor = new Provider(dataToValidate);
-          let responce = await nuevoProovedor.save();
-          res.status(200).json(responce);
+          const nuevoProveedor = new Provider(dataToValidate);
+          let responce = await nuevoProveedor.save();
+          // Devolver solo la información necesaria, por ejemplo, el ID del nuevo proveedor
+          //return res.status(200).json({ message: "Proveedor creado exitosamente.", newProviderId: responce._id });
+          return res.status(200).json({responce});
         }
+      } else {
+        console.log("Los datos no cumplen con el esquema. Errores:");
+        console.log(validate.errors);
+        return res.status(400).json({ message: "Los datos no cumplen con el esquema.", errors: validate.errors });
       }
-      /*  res
-        .status(200)
-        .json({
-          message: "Proveedor creado correctamente.",
-          data: dataToValidate,
-        }); */
     } catch (error) {
       console.error("Error al crear proveedor:", error);
-      return res
-        .status(500)
-        .json({ message: "Error al crear proveedor.", error: error.message });
+      return res.status(500).json({ message: "Error al crear proveedor.", error: error.message });
     }
-  },
+  },  
   editProvider: async (req, res) => {
-   try {
-    
-    // Crear un nuevo objeto AJV
-      //const ajv = new Ajv({ allErrors: true,formats: {date: true, time: true }});
+    try {
       const ajv = new Ajv();
-      addFormats(ajv);
-      // Agregar el plugin de formatos al objeto AJV
       const validate = ajv.compile(providerSchemaJSON);
-      dataToValidate = req.body;
+      let dataToValidate = _.omit(req.body, ['_id']); // Eliminar la propiedad _id antes de validar
+      //let dataToValidate = req.body;
+  
+      const isValid = validate(dataToValidate);
+      if (!isValid) {
+        console.log("Los datos no son válidos para actualizar el proveedor. Errores:");
+        console.log(validate.errors);
+        return res.status(400).json({ message: "Error al validar el proveedor.", errors: validate.errors });
+      }
+  
       let fecha = moment().tz("America/Mexico_City").format();
       dataToValidate["fechaActualizacion"] = fecha;
-      let resultadoValidar = validate(dataToValidate);
-      resultadoValidar = true;
-      if (resultadoValidar === false) {
-        console.log("datos no validos para crear el proveedor");
-        console.log(validate.errors);
-        return res.status(400).json({
-          message: "Error al validar el proveedor.",
-          error: validate.errors,
-        });
-      } else {
-        let dataToValidate = req.body;
-        const nuevoProovedor = new Provider(req.body);
-        let responce;
-        if(req.body.estatus == false){
-          User.updateMany({ proveedorDatos: req.body._id }, { estatus: false }).exec();
-        }
-        let id = req.body._id.toString();
-        let sistemasproveedor = req.body.sistemas;
-        let usuarios = await User.find({ proveedorDatos: id });
-        let nuevoSistemas = [];
-        usuarios.map(async row => {
-          if (sistemasproveedor.length < row.sistemas.length) {
-            nuevoSistemas = [];
-            row.sistemas.map(sistemasusuario => {
-              sistemasproveedor.map(sistema => {
-                if (sistema == sistemasusuario) {
-                  nuevoSistemas.push(sistema);
-                }
-              });
-            });
-            await User.updateOne({ _id: row._id }, { sistemas: nuevoSistemas });
-          } else if ((sistemasproveedor.length == 2 || sistemasproveedor.length == 1) && (row.sistemas.length == 1 || row.sistemas.length == 2)) {
-            nuevoSistemas = [];
-            row.sistemas.map(sistemasusuario => {
-              sistemasproveedor.map(sistema => {
-                if (sistema == sistemasusuario) {
-                  nuevoSistemas.push(sistema);
-                }
-              });
-            });
-            await User.updateOne({ _id: row._id }, { sistemas: nuevoSistemas });
-          }
-        });
-
-        responce = await Provider.findByIdAndUpdate(req.body._id, nuevoProovedor).exec();
-        res.status(200).json(responce);
-        /* const nuevoProovedor = new Provider(dataToValidate);
-        let responce = await nuevoProovedor.save(); */
-        
+  
+      let updatedProvider;
+      if (req.body.estatus === false) {
+        await User.updateMany({ proveedorDatos: req.body._id }, { estatus: false }).exec();
       }
-   } catch (error) {
-    res.status(500).json({ message: "Error al editar proveedor.", error: error.message });
-   }
-  },
+  
+      let id = req.body._id.toString();
+      let sistemasProveedor = req.body.sistemas;
+  
+      // Consultar los usuarios relacionados con este proveedor
+      let usuarios = await User.find({ proveedorDatos: id });
+  
+      usuarios.forEach(async (row) => {
+        let nuevoSistemas = [];
+        if (sistemasProveedor.length < row.sistemas.length ||
+            (sistemasProveedor.length <= 2 && row.sistemas.length <= 2)) {
+          row.sistemas.forEach((sistemaUsuario) => {
+            sistemasProveedor.forEach((sistema) => {
+              if (sistema === sistemaUsuario) {
+                nuevoSistemas.push(sistema);
+              }
+            });
+          });
+          await User.updateOne({ _id: row._id }, { sistemas: nuevoSistemas });
+        }
+      });
+  
+      updatedProvider = await Provider.findByIdAndUpdate(req.body._id, dataToValidate, { new: true }).exec();
+      res.status(200).json(updatedProvider);
+    } catch (error) {
+      console.error("Error al editar proveedor:", error);
+      return res.status(500).json({ message: "Error al editar proveedor.", error: error.message });
+    }
+  },  
   getProviders: async (req, res) => {
     try {
       let sortObj = req.body.sort === undefined ? {} : req.body.sort;

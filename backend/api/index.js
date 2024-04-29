@@ -1,14 +1,14 @@
 const Express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 const app = Express();
 const cors = require("cors");
 const morgan = require("morgan");
 
 const { port } = require("./config");
 
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT;
 const USERMONGO = process.env.USERMONGO;
 const PASSWORDMONGO = process.env.PASSWORDMONGO;
 const HOSTMONGO = process.env.HOSTMONGO;
@@ -45,6 +45,7 @@ app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 // Middleware that parses the body payloads as JSON to be consumed next set
 // of middlewares and controllers.
 app.use(Express.json());
+0app.use(Express.urlencoded({ extended: true }));
 
 const start = async () => {
   try {
