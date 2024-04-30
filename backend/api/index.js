@@ -45,7 +45,7 @@ app.use(cors(), bodyParser.urlencoded({ extended: true }), bodyParser.json());
 // Middleware that parses the body payloads as JSON to be consumed next set
 // of middlewares and controllers.
 app.use(Express.json());
-0app.use(Express.urlencoded({ extended: true }));
+app.use(Express.urlencoded({ extended: true }));
 
 const start = async () => {
   try {
@@ -78,7 +78,7 @@ const start = async () => {
     app.use("/S3/HECHOS-CORRUPCION-PERSONAS-FISICAS/", HCPFRoutes);
     app.use("/S3/HECHOS-CORRUPCION-PERSONAS-MORALES/", HCPMRoutes);
     app.use("/S3/HECHOS-CORRUPCION-SERVIDORES-PUBLICOS/", HCSPRoutes);
-
+    
     app.listen(PORT, () => console.log("Server Listening on PORT:", PORT));
   } catch (error) {
     console.error(error);

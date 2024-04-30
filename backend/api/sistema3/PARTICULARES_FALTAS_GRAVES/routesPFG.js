@@ -4,10 +4,12 @@ const controllerPFG = require("./controllerPFG");
 // Middleware Imports
 const isAuthenticatedMiddleware = require("./../../common/middlewares/IsAuthenticatedMiddleware");
 const SchemaValidationMiddleware = require("../../common/middlewares/SchemaValidationMiddleware");
+const pruebaValidaciones = require("./pruebaValidaciones");
 
 router.get('/hola', (_, res) => {
     res.status(200).send('Hello from PFG!, el backend de S3 está funcionando correctamente desde insomnia 123!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 });
+router.post('/pruebaValidaciones',  pruebaValidaciones.validar);
 
 router.post('/insert', [isAuthenticatedMiddleware.check], controllerPFG.create);
 router.post('/getAll', [isAuthenticatedMiddleware.check], controllerPFG.getAll);
