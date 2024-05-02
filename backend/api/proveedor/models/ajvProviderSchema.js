@@ -28,7 +28,12 @@ const providerSchemaJSON = {
       estatus: { type: "boolean" },
       sistemas: {
           type: "array",
-          items: { type: "string" },
+          items: { type: "object"
+          /* properties:{
+            label: { type: "string" },
+            value: { type: "string" },
+          } */
+        },
       },
   },
   required: ["dependencia", "sistemas", "estatus"],
