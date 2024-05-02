@@ -32,33 +32,33 @@ import { ListUser } from "../Usuarios/listUser";
 import { ListProvider } from "../Proveedores/ListProvider";
 
 /* S3 */
-import { CreateEditForm } from "../CapturarS3/s3/CreateEditForm";
+import { CreateEditForm } from "../CapturarEditarS3/CreateEditForm";
 
 /* S3 Schemas */
-import schemaFaltasAdministrativasGraves from "../CapturarS3/s3/jsonschemas-rjsf/faltas-administrativas.graves"
-import schemaFaltasAdministrativasNoGraves from "../CapturarS3/s3/jsonschemas-rjsf/faltas-administrativas.no-graves"
-import schemaActosParticularesPersonasFisicas from "../CapturarS3/s3/jsonschemas-rjsf/actos-particulares.personas-fisicas"
-import schemaActosParticularesPersonasMorales from "../CapturarS3/s3/jsonschemas-rjsf/actos-particulares.personas-morales"
-import schemaInhabilitacionesPersonasFisicas from "../CapturarS3/s3/jsonschemas-rjsf/inhabilitaciones.personas-fisicas"
-import schemaInhabilitacionesPersonasMorales from "../CapturarS3/s3/jsonschemas-rjsf/inhabilitaciones.personas-morales"
-import schemaHechoscorrupcionServidoresPublicos from "../CapturarS3/s3/jsonschemas-rjsf/hechos-corrupcion.servidores-publicos"
-import schemaHechoscorrupcionPersonasFisicas from "../CapturarS3/s3/jsonschemas-rjsf/hechos-corrupcion.personas-fisicas"
-import schemaHechoscorrupcionPersonasMorales from "../CapturarS3/s3/jsonschemas-rjsf/hechos-corrupcion.personas-morales"
-import schemaAbstencionesGraves from "../CapturarS3/s3/jsonschemas-rjsf/abstenciones.graves"
-import schemaAbstencionesNoGraves from "../CapturarS3/s3/jsonschemas-rjsf/abstenciones.no-graves"
+import schemaFaltasAdministrativasGraves from "../CapturarEditarS3/jsonschemas-rjsf/faltas-administrativas.graves"
+import schemaFaltasAdministrativasNoGraves from "../CapturarEditarS3/jsonschemas-rjsf/faltas-administrativas.no-graves"
+import schemaActosParticularesPersonasFisicas from "../CapturarEditarS3/jsonschemas-rjsf/actos-particulares.personas-fisicas"
+import schemaActosParticularesPersonasMorales from "../CapturarEditarS3/jsonschemas-rjsf/actos-particulares.personas-morales"
+import schemaInhabilitacionesPersonasFisicas from "../CapturarEditarS3/jsonschemas-rjsf/inhabilitaciones.personas-fisicas"
+import schemaInhabilitacionesPersonasMorales from "../CapturarEditarS3/jsonschemas-rjsf/inhabilitaciones.personas-morales"
+import schemaHechoscorrupcionServidoresPublicos from "../CapturarEditarS3/jsonschemas-rjsf/hechos-corrupcion.servidores-publicos"
+import schemaHechoscorrupcionPersonasFisicas from "../CapturarEditarS3/jsonschemas-rjsf/hechos-corrupcion.personas-fisicas"
+import schemaHechoscorrupcionPersonasMorales from "../CapturarEditarS3/jsonschemas-rjsf/hechos-corrupcion.personas-morales"
+import schemaAbstencionesGraves from "../CapturarEditarS3/jsonschemas-rjsf/abstenciones.graves"
+import schemaAbstencionesNoGraves from "../CapturarEditarS3/jsonschemas-rjsf/abstenciones.no-graves"
 
 /* S3 UI */ 
-import uiFaltasAdministrativasGraves from "../CapturarS3/s3/uiSchemas/faltas-administrativas.graves"
-import uiFaltasAdministrativasNoGraves from "../CapturarS3/s3/uiSchemas/faltas-administrativas.no-graves"
-import uiActosParticularesPersonasFisicas from "../CapturarS3/s3/uiSchemas/actos-particulares.personas-fisicas"
-import uiActosParticularesPersonasMorales from "../CapturarS3/s3/uiSchemas/actos-particulares.personas-morales"
-import uiInhabilitacionesPersonasFisicas from "../CapturarS3/s3/uiSchemas/inhabilitaciones.personas-fisicas"
-import uiInhabilitacionesPersonasMorales from "../CapturarS3/s3/uiSchemas/inhabilitaciones.personas-morales"
-import uiHechoscorrupcionServidoresPublicos from "../CapturarS3/s3/uiSchemas/hechos-corrupcion.servidores-publicos"
-import uiHechoscorrupcionPersonasFisicas from "../CapturarS3/s3/uiSchemas/hechos-corrupcion.personas-fisicas"
-import uiHechoscorrupcionPersonasMorales from "../CapturarS3/s3/uiSchemas/hechos-corrupcion.personas-morales"
-import uiAbstencionesGraves from "../CapturarS3/s3/uiSchemas/abstenciones.graves"
-import uiAbstencionesNoGraves from "../CapturarS3/s3/uiSchemas/abstenciones.no-graves"
+import uiFaltasAdministrativasGraves from "../CapturarEditarS3/uiSchemas/faltas-administrativas.graves"
+import uiFaltasAdministrativasNoGraves from "../CapturarEditarS3/uiSchemas/faltas-administrativas.no-graves"
+import uiActosParticularesPersonasFisicas from "../CapturarEditarS3/uiSchemas/actos-particulares.personas-fisicas"
+import uiActosParticularesPersonasMorales from "../CapturarEditarS3/uiSchemas/actos-particulares.personas-morales"
+import uiInhabilitacionesPersonasFisicas from "../CapturarEditarS3/uiSchemas/inhabilitaciones.personas-fisicas"
+import uiInhabilitacionesPersonasMorales from "../CapturarEditarS3/uiSchemas/inhabilitaciones.personas-morales"
+import uiHechoscorrupcionServidoresPublicos from "../CapturarEditarS3/uiSchemas/hechos-corrupcion.servidores-publicos"
+import uiHechoscorrupcionPersonasFisicas from "../CapturarEditarS3/uiSchemas/hechos-corrupcion.personas-fisicas"
+import uiHechoscorrupcionPersonasMorales from "../CapturarEditarS3/uiSchemas/hechos-corrupcion.personas-morales"
+import uiAbstencionesGraves from "../CapturarEditarS3/uiSchemas/abstenciones.graves"
+import uiAbstencionesNoGraves from "../CapturarEditarS3/uiSchemas/abstenciones.no-graves"
 
 /* S3 - 11 CONSULTAR REGISTROS */
 import { ListForm1 } from "../ConsultarS3/faltas-administrativas.graves";

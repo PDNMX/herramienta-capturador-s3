@@ -1,16 +1,16 @@
 import React from "react";
 
 import { Grid } from "@mui/material";
-import { S2Actions } from "../../../_actions/s2.action";
+import { S2Actions } from "../../_actions/s2.action";
 import Typography from "@mui/material/Typography";
 import { connect } from "react-redux";
-import { history } from "../../../store/history";
+import { history } from "../../store/history";
 import { useDispatch } from "react-redux";
 
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import { alertActions } from "../../../_actions/alert.actions";
+import { alertActions } from "../../_actions/alert.actions";
 
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -20,7 +20,7 @@ import Button from "@mui/material/Button";
 
 /* import esquemaS3g from "./jsonschemas-rjsf/s3g";
 import uiS3g from "./uiSchemas/UI_s3g"; */
-import formats from "../customFormats";
+import formats from "./customFormats";
 
 //import validator from '@rjsf/validator-ajv8';
 import Form from "@rjsf/mui";
