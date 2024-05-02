@@ -160,15 +160,16 @@ function MyForm(props) {
   return (
     <Grid item xs={12}>
       <Card>
-        <CardHeader title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." />
-        <Divider />
+        {/* <CardHeader title="FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." />
+        <Divider /> */}
         <CardHeader
-          subheader={
+          title={
             id != undefined
               ? "Edición"
-              : "TODOS LOS CAMPOS SEÑALADOS CON UN ASTERISCO (*) SON DE CARÁCTER OBLIGATORIO."
+              : "Nuevo registro"
           }
         />
+        <Divider />
         <CardContent>
           <Grid container>
             <Grid item xs={12}>
@@ -179,7 +180,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={initialValues}
+                formData={dataEjemplo}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}
@@ -208,7 +209,7 @@ function MyForm(props) {
         <DialogActions>
           <Button
             disabled={!alert.status}
-            onClick={() => redirectToRoute("/consulta/s3/faltas-administrativas/graves")}
+            onClick={() => redirectToRoute("/consultar/s3/faltas-administrativas/graves")}
             color="primary"
             autoFocus>
             Aceptar
