@@ -6,7 +6,6 @@ import rootReducer from "../_reducers";
 
 const sagaMiddleware = createSagaMiddleware();
 
-
 export const storeValidate = createStore(
     rootReducer,
     applyMiddleware(

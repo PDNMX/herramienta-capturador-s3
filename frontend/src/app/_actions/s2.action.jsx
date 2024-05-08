@@ -49,7 +49,7 @@ function setclearS2(){
 }
 
 /* v2 */
-function requestCreationS2v2(values) {
-    return { type: S2Constants.REQUEST_CREATION_S2v2, values };
+function requestCreationS2v2(values, tipoFormulario) {
+    return { type: S2Constants.REQUEST_CREATION_S2v2, values, tipoFormulario };
 }
 

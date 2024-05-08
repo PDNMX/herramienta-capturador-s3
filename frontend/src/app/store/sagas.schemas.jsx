@@ -22,6 +22,20 @@ const url_api = import.meta.env.VITE_URL_API || process.env.VITE_URL_API;
 const client_id = import.meta.env.VITE_CLIENT_ID || process.env.VITE_CLIENT_ID;
 const client_secret = import.meta.env.VITE_CLIENT_SECRET || process.env.VITE_CLIENT_SECRET;
 
+const endpointsCaptura = {
+	"capturar.abstenciones.graves": url_api + `/S3/ABSTENCIONES-GRAVES/insert`,
+	"capturar.abstenciones.no-graves": url_api + `/S3/ABSTENCIONES-NO-GRAVES/insert`,
+	"capturar.actos-particulares.personas-fisicas": url_api + `/S3/PARTICULARES-PERSONAS-FISICAS-FALTAS-GRAVES/insert`,
+	"capturar.actos-particulares.personas-morales": url_api + `/S3/PARTICULARES-PERSONAS-MORALES-FALTAS-GRAVES/insert`,
+	"capturar.faltas-administrativas.graves": url_api + `/S3/SERVIDORES-FALTAS-GRAVES/insert`,
+	"capturar.faltas-administrativas.no-graves": url_api + `/S3/SERVIDORES-NO-GRAVES/insert`,
+	"capturar.hechos-corrupcion.personas-fisicas": url_api + `/S3/HECHOS-CORRUPCION-PERSONAS-FISICAS/insert`,
+	"capturar.hechos-corrupcion.personas-morales": url_api + `/S3/HECHOS-CORRUPCION-PERSONAS-MORALES/insert`,
+	"capturar.hechos-corrupcion.servidores-publicos": url_api + `/S3/HECHOS-CORRUPCION-SERVIDORES-PUBLICOS/insert`,
+	"capturar.inhabilitaciones.personas-fisicas": url_api + `/S3/INHABILITACIONES-PERSONAS-FISICAS/insert`,
+	"capturar.inhabilitaciones.personas-morales": url_api + `/S3/INHABILITACIONES-PERSONAS-MORALES/insert`
+}
+
 export function* validationErrors() {
 	while (true) {
 		const { schema, systemId } = yield take(mutations.REQUEST_VALIDATION_ERRORS);
@@ -641,20 +655,21 @@ export function* creationS2Schema() {
 /* v2 INiCIO */
 export function* creationS2v2() {
 	while (true) {
-		const { values } = yield take(S2Constants.REQUEST_CREATION_S2v2);
+		const { values, tipoFormulario } = yield take(S2Constants.REQUEST_CREATION_S2v2);
 		let docSend = values;
 		const token = localStorage.token;
 
+		let endpoint = endpointsCaptura[tipoFormulario];
+		console.log(`entra al saga: ${tipoFormulario} - ${endpoint}` )
 		let payload = jwt_decode(token);
 		yield put(userActions.setUserInSession(payload.idUser));
 		let usuario = payload.idUser;
 		docSend['usuario'] = usuario;
-		//docSend['observaciones'] = values.observaciones;
-		const { status, data } = yield axios.post(url_api + `/S3/SERVIDORES-FALTAS-GRAVES/insert`, docSend, {
+		const { status, data } = yield axios.post(endpoint, docSend, {
 			headers: {
 				'Content-Type': 'application/json',
-				Accept: 'application/json',
-				Authorization: `Bearer ${token}`
+				'Accept': 'application/json',
+				'Authorization' : `Bearer ${token}`
 			},
 			validateStatus: () => true
 		});

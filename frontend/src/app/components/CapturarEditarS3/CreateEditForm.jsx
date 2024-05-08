@@ -27,7 +27,7 @@ import Form from "@rjsf/mui";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import spanishLocalizer from "ajv-i18n/localize/es";
 
-const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema }) => {
+const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema, tipoForm }) => {
   return (
     <MyForm
       initialValues={registry}
@@ -36,12 +36,13 @@ const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema }) => {
       id={id}
       schema={schema} // Pasando el schema como prop
       uiSchema={uiSchema} // Pasando uiSchema como prop
+      tipoForm={tipoForm}
     />
   );
 };
 
 function MyForm(props) {
-  const { initialValues, alerta, id, schema, uiSchema } = props;
+  const { initialValues, alerta, id, schema, uiSchema, tipoForm } = props;
   const alert = alerta;
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
@@ -61,7 +62,7 @@ function MyForm(props) {
     if (id != undefined) {
       dispatch(S2Actions.requestEditDo({ ...formData, _id: id }));
     } else {
-      dispatch(S2Actions.requestCreationS2v2(formData));
+      dispatch(S2Actions.requestCreationS2v2(formData, tipoForm));
     }
     setOpen(true);
   };
