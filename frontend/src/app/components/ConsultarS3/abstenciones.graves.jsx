@@ -36,6 +36,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import Nota from "../Common/Nota";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
+const tipoFormulario = "consultar.abstenciones.graves";
+
 export const ListForm10 = () => {
   const { S2List, alerta, paginationSuper } = useSelector((state) => ({
     S2List: state.S2,
@@ -71,7 +73,7 @@ export const ListForm10 = () => {
         query: query,
         page: newPage + 1,
         pageSize: paginationSuper.pageSize,
-      }),
+      }, tipoFormulario),
     );
   };
 
@@ -83,7 +85,7 @@ export const ListForm10 = () => {
           query: query,
           page: 1,
           pageSize: parseInt(event.target.value, 10),
-        }),
+        }, tipoFormulario),
       );
     } else {
       dispatch(
@@ -91,7 +93,7 @@ export const ListForm10 = () => {
           query: query,
           page: 1,
           pageSize: parseInt(event.target.value, 10),
-        }),
+        }, tipoFormulario),
       );
     }
   };
@@ -205,7 +207,7 @@ export const ListForm10 = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title="Faltas administrativas graves"
+            title={tipoFormulario.substring(tipoFormulario.indexOf('.') + 1)}
             subheader="Información Registrada"
           />
           <Divider />
