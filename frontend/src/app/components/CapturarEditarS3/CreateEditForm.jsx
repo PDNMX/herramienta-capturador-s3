@@ -1,28 +1,23 @@
 import React from "react";
 
-import { Grid } from "@mui/material";
 import { S2Actions } from "../../_actions/s2.action";
-import Typography from "@mui/material/Typography";
 import { connect } from "react-redux";
 import { history } from "../../store/history";
 import { useDispatch } from "react-redux";
+import { alertActions } from "../../_actions/alert.actions";
 
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import { alertActions } from "../../_actions/alert.actions";
-
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 
-/* import esquemaS3g from "./jsonschemas-rjsf/s3g";
-import uiS3g from "./uiSchemas/UI_s3g"; */
 import formats from "./customFormats";
-
-//import validator from '@rjsf/validator-ajv8';
 import Form from "@rjsf/mui";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import spanishLocalizer from "ajv-i18n/localize/es";
@@ -70,7 +65,6 @@ function MyForm(props) {
   //const schema = esquemaS3g;
   //const uiSchema = uiS3g;
   const customFormats = formats;
-
   const validator = customizeValidator({ customFormats }, spanishLocalizer);
 
   const handleChange = ({ formData }) => console.log(formData);
@@ -181,7 +175,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={dataEjemplo}
+                formData={initialValues}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}
