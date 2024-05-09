@@ -784,42 +784,42 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {/* ----------- NUEVAS VERSIONES - s3: 11 Formatos ----------- */}
 
           {/* Faltas Administrativas de Servidores Públicos */}
-          {vistaRender === "capturar.faltas-administrativas.graves" && <CreateEditForm tipoForm={vistaRender}  schema={schemaFaltasAdministrativasGraves} uiSchema={uiFaltasAdministrativasGraves}/>}
+          {vistaRender === "capturar.faltas-administrativas.graves" && <CreateEditForm tipoForm={vistaRender} schema={schemaFaltasAdministrativasGraves} uiSchema={uiFaltasAdministrativasGraves}/>}
           {vistaRender === "consultar.faltas-administrativas.graves" && <ListForm1 />}
           {vistaRender === "editar.faltas-administrativas-graves" && (
             <CreateEditForm match={match} schema={schemaFaltasAdministrativasGraves} uiSchema={uiFaltasAdministrativasGraves} />
           )}
-          {vistaRender === "capturar.faltas-administrativas.no-graves" && <CreateEditForm tipoForm={vistaRender}  schema={schemaFaltasAdministrativasNoGraves} uiSchema={uiFaltasAdministrativasNoGraves}/>}
+          {vistaRender === "capturar.faltas-administrativas.no-graves" && <CreateEditForm tipoForm={vistaRender} schema={schemaFaltasAdministrativasNoGraves} uiSchema={uiFaltasAdministrativasNoGraves}/>}
           {vistaRender === "consultar.faltas-administrativas.no-graves" && <ListForm2 />}
           {vistaRender === "editar.faltas-administrativas.no-graves" && (
             <CreateEditForm match={match} schema={schemaFaltasAdministrativasNoGraves} uiSchema={uiFaltasAdministrativasNoGraves} />
           )}
 
           {/* Actos de Particulares vinculados con Faltas Graves */}
-          {vistaRender === "capturar.actos-particulares.personas-fisicas" && <CreateEditForm tipoForm={vistaRender}  schema={schemaActosParticularesPersonasFisicas} uiSchema={uiActosParticularesPersonasFisicas}/>}
+          {vistaRender === "capturar.actos-particulares.personas-fisicas" && <CreateEditForm tipoForm={vistaRender} schema={schemaActosParticularesPersonasFisicas} uiSchema={uiActosParticularesPersonasFisicas}/>}
           {vistaRender === "consultar.actos-particulares.personas-fisicas" && <ListForm3 />}
 
-          {vistaRender === "capturar.actos-particulares.personas-morales" && <CreateEditForm tipoForm={vistaRender}  schema={schemaActosParticularesPersonasMorales} uiSchema={uiActosParticularesPersonasMorales}/>}
+          {vistaRender === "capturar.actos-particulares.personas-morales" && <CreateEditForm tipoForm={vistaRender} schema={schemaActosParticularesPersonasMorales} uiSchema={uiActosParticularesPersonasMorales}/>}
           {vistaRender === "consultar.actos-particulares.personas-morales" && <ListForm4 />}
          
           {/* Sanciones (Inhabilitaciones) por normas diversas a la LGRA */}
-          {vistaRender === "capturar.inhabilitaciones.personas-fisicas" && <CreateEditForm tipoForm={vistaRender}  schema={schemaInhabilitacionesPersonasFisicas} uiSchema={uiInhabilitacionesPersonasFisicas}/>}
+          {vistaRender === "capturar.inhabilitaciones.personas-fisicas" && <CreateEditForm tipoForm={vistaRender} schema={schemaInhabilitacionesPersonasFisicas} uiSchema={uiInhabilitacionesPersonasFisicas}/>}
           {vistaRender === "consultar.inhabilitaciones.personas-fisicas" && <ListForm5 />}
-          {vistaRender === "capturar.inhabilitaciones.personas-morales" && <CreateEditForm tipoForm={vistaRender}  schema={schemaInhabilitacionesPersonasMorales} uiSchema={uiInhabilitacionesPersonasMorales}/>}
+          {vistaRender === "capturar.inhabilitaciones.personas-morales" && <CreateEditForm tipoForm={vistaRender} schema={schemaInhabilitacionesPersonasMorales} uiSchema={uiInhabilitacionesPersonasMorales}/>}
           {vistaRender === "consultar.inhabilitaciones.personas-morales" && <ListForm6 />}
           
           {/* Hechos de Corrupción */}
-          {vistaRender === "capturar.hechos-corrupcion.servidores-publicos" && <CreateEditForm tipoForm={vistaRender}  schema={schemaHechoscorrupcionServidoresPublicos} uiSchema={uiHechoscorrupcionServidoresPublicos}/>}
+          {vistaRender === "capturar.hechos-corrupcion.servidores-publicos" && <CreateEditForm tipoForm={vistaRender} schema={schemaHechoscorrupcionServidoresPublicos} uiSchema={uiHechoscorrupcionServidoresPublicos}/>}
           {vistaRender === "consultar.hechos-corrupcion.servidores-publicos" && <ListForm7 />}
-          {vistaRender === "capturar.hechos-corrupcion.personas-fisicas" && <CreateEditForm tipoForm={vistaRender}  schema={schemaHechoscorrupcionPersonasFisicas} uiSchema={uiHechoscorrupcionPersonasFisicas}/>}
+          {vistaRender === "capturar.hechos-corrupcion.personas-fisicas" && <CreateEditForm tipoForm={vistaRender} schema={schemaHechoscorrupcionPersonasFisicas} uiSchema={uiHechoscorrupcionPersonasFisicas}/>}
           {vistaRender === "consultar.hechos-corrupcion.personas-fisicas" && <ListForm8 />}
-          {vistaRender === "capturar.hechos-corrupcion.personas-morales" && <CreateEditForm tipoForm={vistaRender}  schema={schemaHechoscorrupcionPersonasMorales} uiSchema={uiHechoscorrupcionPersonasMorales}/>}
+          {vistaRender === "capturar.hechos-corrupcion.personas-morales" && <CreateEditForm tipoForm={vistaRender} schema={schemaHechoscorrupcionPersonasMorales} uiSchema={uiHechoscorrupcionPersonasMorales}/>}
           {vistaRender === "consultar.hechos-corrupcion.personas-morales" && <ListForm9 />}
           
           {/* Abstenciones */}
-          {vistaRender === "capturar.abstenciones.graves" && <CreateEditForm tipoForm={vistaRender}  schema={schemaAbstencionesGraves} uiSchema={uiAbstencionesGraves}/>}
+          {vistaRender === "capturar.abstenciones.graves" && <CreateEditForm tipoForm={vistaRender} schema={schemaAbstencionesGraves} uiSchema={uiAbstencionesGraves}/>}
           {vistaRender === "consultar.abstenciones.graves" && <ListForm10 />}
-          {vistaRender === "capturar.abstenciones.no-graves" && <CreateEditForm tipoForm={vistaRender}  schema={schemaAbstencionesNoGraves} uiSchema={uiAbstencionesNoGraves}/>}
+          {vistaRender === "capturar.abstenciones.no-graves" && <CreateEditForm tipoForm={vistaRender} schema={schemaAbstencionesNoGraves} uiSchema={uiAbstencionesNoGraves}/>}
           {vistaRender === "consultar.abstenciones.no-graves" && <ListForm11 />}
 
           {/* ----------- NUEVAS VERSIONES - FIN ----------- */}

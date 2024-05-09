@@ -28,8 +28,8 @@ function deleteRecordDo(id){
     return {type: S2Constants.DELETE_OPERATIONS2, id }
 }
 
-function requestListS2(filters) {
-    return { type: S2Constants.REQUEST_LIST_S2, filters };
+function requestListS2(filters, tipoFormulario) {
+    return { type: S2Constants.REQUEST_LIST_S2, filters, tipoFormulario };
 }
 
 function setListS2(list) {

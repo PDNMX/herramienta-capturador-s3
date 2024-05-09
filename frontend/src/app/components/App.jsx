@@ -12,8 +12,7 @@ import { S2Actions } from "../_actions/s2.action";
 
 import { ResetPasswordV } from "./Login/ResetPassword";
 
-const labelSesionExpirada =
-  "La sesión ha expirado, favor de iniciar sesión de nuevo";
+const labelSesionExpirada = "La sesión ha expirado, favor de iniciar sesión de nuevo";
 const labelNoSeHaIniciado = "No se ha iniciado sesión";
 
 const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
@@ -34,7 +33,14 @@ const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
             localStorage.rol == "2" /* && localStorage.S2=="true" */
           ) {
             storeValidate.dispatch(userActions.requestPermisosSistema());
-            storeValidate.dispatch(S2Actions.requestListS2({}));
+
+            // valida si es del tipo consulta, y hace el request para listar
+            const tipoView = renderView.split(".");
+            if (tipoView[0] === "consultar") {
+                //console.log(tipoView[0]);
+                storeValidate.dispatch(S2Actions.requestListS2({}, renderView ));
+            }
+            
             storeValidate.dispatch(alertActions.clear());
             return (
               <Component propiedades={{ renderView, match: props.match }} />
