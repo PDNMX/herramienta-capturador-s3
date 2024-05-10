@@ -11,7 +11,6 @@ import {
   TableHead,
   Grid,
   IconButton,
-  Typography,
   Snackbar,
   Divider,
   Tooltip,
@@ -22,7 +21,9 @@ import {
   Paper,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import Button from '@mui/material/Button';
 import Dialog from "@mui/material/Dialog";
+import DialogActions from '@mui/material/DialogActions';
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Alert } from "@mui/material";
@@ -33,8 +34,9 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
-import Nota from "../Common/Nota";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
+
+import ReactJson from 'react-json-view'
 
 const tipoFormulario = "consultar.faltas-administrativas.graves";
 
@@ -59,7 +61,7 @@ export const ListForm1 = () => {
     }); 
   };
 
-  const handleCloseModalUserInfo = () => {
+  const handleCloseModal = () => {
     setOpenModalUserInfo(false);
   };
 
@@ -117,97 +119,78 @@ export const ListForm1 = () => {
         </Alert>
       </Snackbar>
 
-    {/* Modal para ver registro */}
+      {/* Modal para ver registro */}
       <Dialog
         fullWidth={true}
         maxWidth={maxWidth}
         fullScreen={fullScreen}
-        onClose={handleCloseModalUserInfo}
+        onClose={handleCloseModal}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
         <DialogTitle>
-            <b>Detalle del registro</b>
+          <b>Detalle del registro</b>
         </DialogTitle>
         <IconButton
           edge="end"
           color="inherit"
-          onClick={handleCloseModalUserInfo}
+          onClick={handleCloseModal}
           aria-label="close"
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 20,
             top: 10,
             color: (theme) => theme.palette.grey[500],
           }}>
           <CloseIcon />
         </IconButton>
-        
+
         <DialogContent dividers>
           <Grid container>
             <Grid item xs={12}>
-              <Typography align={"center"}>
-              1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Fecha de Captura:</b> {selectedRegistro.fechaCaptura ? ( selectedRegistro.fechaCaptura ) : ( <Nota /> )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Ejercicio:</b> {selectedRegistro.ejercicio ? ( selectedRegistro.ejercicio ) : ( <Nota /> )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Primer Apellido:</b> {selectedRegistro.primerApellido ? ( selectedRegistro.primerApellido ) : ( <Nota /> )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>CURP:</b> {selectedRegistro.curp ? ( selectedRegistro.curp ) : ( <Nota /> )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-                <b>Sexo:</b> {selectedRegistro.sexo ? ( selectedRegistro.sexo ) : ( <Nota /> )}
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Divider sx={{m: 3}}/>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography align={"center"}>
-              2. DATOS DEL EMPLEO, CARGO O COMISIÓN
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography
-                align="left">
-              </Typography>
+              <ReactJson
+                style={{ padding: "0.8rem" }}
+                name={false}
+                src={selectedRegistro}
+                theme="harmonic"
+                iconStyle="triangle"
+                enableEdit={false}
+                enableAdd={false}
+                enableDelete={false}
+                enableClipboard={false}
+                displayDataTypes={false}
+                displayObjectSize={false}
+                indentWidth={6}
+                collapsed={false}
+                collapseStringsAfterLength={false}
+              />
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() =>
+              redirectToRoute(
+                `/editar/s3/faltas-administrativas/graves/${selectedRegistro._id}`,
+              )
+            }>
+            Editar
+          </Button>
+          <Button
+            onClick={handleCloseModal}
+            variant="contained"
+            color="primary"
+          >
+            Cerrar
+          </Button>
+        </DialogActions>
       </Dialog>
 
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title={tipoFormulario.substring(tipoFormulario.indexOf('.') + 1)}
+            title={tipoFormulario.substring(tipoFormulario.indexOf(".") + 1)}
             subheader="Información Registrada"
           />
           <Divider />
@@ -216,24 +199,16 @@ export const ListForm1 = () => {
               <Table aria-label="custom pagination table">
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      align="left"
-                    >
+                    <TableCell align="left">
                       <b>Identificador</b>
                     </TableCell>
-                    <TableCell
-                      align="left"
-                    >
+                    <TableCell align="left">
                       <b>Servidor público</b>
                     </TableCell>
-                    <TableCell
-                      align="left"
-                    >
+                    <TableCell align="left">
                       <b>Institución</b>
                     </TableCell>
-                    <TableCell
-                      align="center"
-                    >
+                    <TableCell align="center">
                       <b>Acciones</b>
                     </TableCell>
                   </TableRow>
@@ -246,15 +221,18 @@ export const ListForm1 = () => {
                       </TableCell>
                       <TableCell style={{ width: "25%" }} align="left">
                         {registro.grave.nombres && registro.grave.nombres + " "}
-                        {registro.grave.primerApellido && registro.grave.primerApellido + " "}
+                        {registro.grave.primerApellido &&
+                          registro.grave.primerApellido + " "}
                         {registro.grave.segundoApellido &&
-                        registro.grave.segundoApellido.sinSegundoApellido == true
+                        registro.grave.segundoApellido.sinSegundoApellido ==
+                          true
                           ? ""
                           : registro.grave.segundoApellido.valor}
                       </TableCell>
                       {registro.grave.entePublico && (
                         <TableCell style={{ width: "25%" }} align="left">
-                          { registro.grave.entePublico.siglas && registro.grave.entePublico.siglas }
+                          {registro.grave.entePublico.siglas &&
+                            registro.grave.entePublico.siglas}
                         </TableCell>
                       )}
                       <TableCell style={{ width: "15%" }} align="center">
@@ -269,7 +247,11 @@ export const ListForm1 = () => {
                         </Tooltip>
                         <Tooltip title="Editar registro" placement="top">
                           <IconButton
-                            onClick={() => redirectToRoute(`/editar/s3/faltas-administrativas/graves/${registro._id}`) }
+                            onClick={() =>
+                              redirectToRoute(
+                                `/editar/s3/faltas-administrativas/graves/${registro._id}`,
+                              )
+                            }
                             style={{ color: "#ffe01b" }}>
                             <EditOutlinedIcon />
                           </IconButton>
