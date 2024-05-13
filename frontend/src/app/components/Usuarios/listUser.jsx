@@ -195,7 +195,7 @@ export const ListUser = () => {
             aria-label="close"
             size="large"
             sx={{
-              position: 'absolute',
+              position: "absolute",
               right: 20,
               top: 8,
               color: (theme) => theme.palette.grey[500],
@@ -206,14 +206,10 @@ export const ListUser = () => {
         <DialogContent dividers>
           <Grid container item md={12} lg={12}>
             <Grid item md={3} sm={12}>
-              <Typography            
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Fecha alta</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {new Date(selectedUser.fechaAlta).toLocaleDateString(
                   "es-ES",
                   optionsDate,
@@ -221,76 +217,52 @@ export const ListUser = () => {
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Nombre</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.nombre}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Apellido uno</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.apellidoUno ? selectedUser.apellidoUno : <Nota />}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Apellido dos</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.apellidoDos ? selectedUser.apellidoDos : <Nota />}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Usuario</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.usuario}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Estatus</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.estatus.toString() == "true"
                   ? "Vigente"
                   : "No vigente"}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Vigencia de contraseña</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {new Date(selectedUser.vigenciaContrasena).toLocaleDateString(
                   "es-ES",
                   optionsDate,
@@ -298,63 +270,43 @@ export const ListUser = () => {
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Cargo</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.cargo}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Correo electrónico</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.correoElectronico}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Teléfono</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.telefono}
               </Typography>
             </Grid>
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Extensión</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {selectedUser.extension ? selectedUser.extension : <Nota />}
               </Typography>
             </Grid>
 
             <Grid item md={3} sm={12}>
-              <Typography
-                align="left"
-                variant="subtitle2">
+              <Typography align="left" variant="subtitle2">
                 <b>Proveedor</b>
               </Typography>
-              <Typography
-                align="left"
-                variant="body2">
+              <Typography align="left" variant="body2">
                 {renderSelect(selectedUser)}
               </Typography>
             </Grid>
@@ -460,45 +412,34 @@ export const ListUser = () => {
       {/* Tabla de Usuarios */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title="Lista de Usuarios" subheader="Información Registrada"/>
+          <CardHeader
+            title="Lista de Usuarios"
+            subheader="Información Registrada"
+          />
           <Divider />
           <CardContent>
-            
-              {users.length === 0 ? (
-                <Typography variant="h4" align="left" mb={2}>
-                  No hay registros aún. Agrega un registro para comenzar.
-                </Typography>
-              ): (<TableContainer component={Paper}>
+            {users.length === 0 ? (
+              <Typography variant="h4" align="left" mb={2}>
+                No hay registros aún. Agrega un registro para comenzar.
+              </Typography>
+            ) : (
+              <TableContainer component={Paper}>
                 <Table aria-label="custom pagination table">
                   <TableHead>
                     <TableRow>
-                      <TableCell
-                        align="left"
-                        style={{ width: "20%" }}
-                        >
+                      <TableCell align="left" style={{ width: "20%" }}>
                         <b>Nombre completo</b>
                       </TableCell>
-                      <TableCell
-                        align="left"
-                        style={{ width: "20%" }}
-                      >
+                      <TableCell align="left" style={{ width: "20%" }}>
                         <b>Usuario</b>
                       </TableCell>
-                      <TableCell
-                        align="left"
-                      >
+                      <TableCell align="left">
                         <b>Correo</b>
                       </TableCell>
-                      <TableCell
-                        align="left"
-                        style={{ width: "20%" }}
-                      >
+                      <TableCell align="left" style={{ width: "20%" }}>
                         <b>Proveedor</b>
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        style={{ width: "20%" }}
-                      >
+                      <TableCell align="center" style={{ width: "20%" }}>
                         <b>Acciones</b>
                       </TableCell>
                     </TableRow>
@@ -516,46 +457,51 @@ export const ListUser = () => {
                             {user.nombre + " " + user.apellidoUno}
                             {user.apellidoDos ? " " + user.apellidoDos : ""}
                           </TableCell>
-                          <TableCell align="left">
-                            {user.usuario}
-                          </TableCell>
+                          <TableCell align="left">{user.usuario}</TableCell>
                           <TableCell align="left">
                             {user.correoElectronico}
                           </TableCell>
                           <TableCell align="left">
                             {renderSelect(user)}
                           </TableCell>
-                          <TableCell
-                            style={{ width: 430 }}
-                            align="center">
-                            
-                              <Tooltip title="Más información" placement="top">
-                                <IconButton
+                          <TableCell style={{ width: 430 }} align="center">
+                            <Tooltip title="Más información" placement="top">
+                              <IconButton
                                 onClick={() => handleOpenModalUserInfo(user)}
-                                  style={{ color: "#34b3eb" }}
-                                  aria-label="expand row"
-                                  size="small">
-                                  <VisibilityIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip title="Editar usuario" placement="top">
-                                <IconButton
-                                onClick={() => redirectToRoute(`/usuario/editar/${user._id}`) }
+                                style={{ color: "#34b3eb" }}
+                                aria-label="expand row"
+                                size="small">
+                                <VisibilityIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Editar usuario" placement="top">
+                              <IconButton
+                                onClick={() =>
+                                  redirectToRoute(`/usuario/editar/${user._id}`)
+                                }
                                 style={{ color: "#ffe01b" }}>
-                                  <EditOutlinedIcon />
-                                </IconButton>
-                              </Tooltip>
-                              <Tooltip
-                                title="Reestablecer contraseña"
-                                placement="top">
-                                <IconButton
-                                  onClick={() => handleOpenModalUserPassword( user._id, user.nombre, user.apellidoUno, user.apellidoDos, user.correoElectronico, ) }
-                                  style={{ color: "#67BFB7" }}
-                                  aria-label="expand row"
-                                  size="small">
-                                  <EnhancedEncryptionIcon />
-                                </IconButton>
-                              </Tooltip>
+                                <EditOutlinedIcon />
+                              </IconButton>
+                            </Tooltip>
+                            <Tooltip
+                              title="Reestablecer contraseña"
+                              placement="top">
+                              <IconButton
+                                onClick={() =>
+                                  handleOpenModalUserPassword(
+                                    user._id,
+                                    user.nombre,
+                                    user.apellidoUno,
+                                    user.apellidoDos,
+                                    user.correoElectronico,
+                                  )
+                                }
+                                style={{ color: "#67BFB7" }}
+                                aria-label="expand row"
+                                size="small">
+                                <EnhancedEncryptionIcon />
+                              </IconButton>
+                            </Tooltip>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -588,9 +534,8 @@ export const ListUser = () => {
                     </TableRow>
                   </TableFooter>
                 </Table>
-                </TableContainer>
-              )}
-            
+              </TableContainer>
+            )}
           </CardContent>
           <Divider />
           <CardActions>

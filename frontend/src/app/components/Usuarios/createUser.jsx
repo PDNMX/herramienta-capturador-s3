@@ -235,7 +235,8 @@ function MyForm(props) {
                                 label="Nombre de usuario"
                                 name="usuario"
                                 required={true}
-                                InputProps={{ readOnly: true }}
+                                disabled
+                                /* InputProps={{ readOnly: true }} */
                               />
                             ) : (
                               <TextField
@@ -245,7 +246,7 @@ function MyForm(props) {
                               />
                             )}
                           </Grid>
-                          {id != null && (
+                          {/* {id != null && (
                             <Grid item xs={12} md={6}>
                               <Switches
                                 label="Estatus"
@@ -254,7 +255,7 @@ function MyForm(props) {
                                 data={estatus}
                               />
                             </Grid>
-                          )}
+                          )} */}
                           <Grid item xs={12} md={12}>
                             <Select
                               name="proveedorDatos"
