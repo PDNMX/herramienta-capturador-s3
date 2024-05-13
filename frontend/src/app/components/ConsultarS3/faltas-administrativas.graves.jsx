@@ -1,29 +1,30 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Table,
-  TableBody,
-  TableContainer,
-  TableRow,
-  TableCell,
-  TablePagination,
-  TableFooter,
-  TableHead,
-  Grid,
-  IconButton,
-  Snackbar,
-  Divider,
-  Tooltip,
-  useTheme,
+  Button,
   Card,
   CardContent,
   CardHeader,
+  Divider,
+  Grid,
+  IconButton,
   Paper,
+  Snackbar,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Tooltip,
+  Typography,
+  useTheme,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import Button from '@mui/material/Button';
 import Dialog from "@mui/material/Dialog";
-import DialogActions from '@mui/material/DialogActions';
+import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Alert } from "@mui/material";
@@ -36,7 +37,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
-import ReactJson from 'react-json-view'
+import ReactJson from "react-json-view";
 
 const tipoFormulario = "consultar.faltas-administrativas.graves";
 
@@ -58,7 +59,7 @@ export const ListForm1 = () => {
     setSelectedRegistro(() => {
       setOpenModalUserInfo(true);
       return user;
-    }); 
+    });
   };
 
   const handleCloseModal = () => {
@@ -71,11 +72,14 @@ export const ListForm1 = () => {
 
   const handleChangePage = (_, newPage) => {
     dispatch(
-      S2Actions.requestListS2({
-        query: query,
-        page: newPage + 1,
-        pageSize: paginationSuper.pageSize,
-      }, tipoFormulario),
+      S2Actions.requestListS2(
+        {
+          query: query,
+          page: newPage + 1,
+          pageSize: paginationSuper.pageSize,
+        },
+        tipoFormulario,
+      ),
     );
   };
 
@@ -83,19 +87,25 @@ export const ListForm1 = () => {
     const newSize = parseInt(event.target.value, 10);
     if (paginationSuper.page * newSize > paginationSuper.totalRows) {
       dispatch(
-        S2Actions.requestListS2({
-          query: query,
-          page: 1,
-          pageSize: parseInt(event.target.value, 10),
-        }, tipoFormulario),
+        S2Actions.requestListS2(
+          {
+            query: query,
+            page: 1,
+            pageSize: parseInt(event.target.value, 10),
+          },
+          tipoFormulario,
+        ),
       );
     } else {
       dispatch(
-        S2Actions.requestListS2({
-          query: query,
-          page: 1,
-          pageSize: parseInt(event.target.value, 10),
-        }, tipoFormulario),
+        S2Actions.requestListS2(
+          {
+            query: query,
+            page: 1,
+            pageSize: parseInt(event.target.value, 10),
+          },
+          tipoFormulario,
+        ),
       );
     }
   };
@@ -180,8 +190,7 @@ export const ListForm1 = () => {
           <Button
             onClick={handleCloseModal}
             variant="contained"
-            color="primary"
-          >
+            color="primary">
             Cerrar
           </Button>
         </DialogActions>
@@ -195,106 +204,125 @@ export const ListForm1 = () => {
           />
           <Divider />
           <CardContent>
-            <TableContainer component={Paper}>
-              <Table aria-label="custom pagination table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="left">
-                      <b>Identificador</b>
-                    </TableCell>
-                    <TableCell align="left">
-                      <b>Servidor público</b>
-                    </TableCell>
-                    <TableCell align="left">
-                      <b>Institución</b>
-                    </TableCell>
-                    <TableCell align="center">
-                      <b>Acciones</b>
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {S2List.map((registro) => (
-                    <TableRow key={registro._id}>
-                      <TableCell style={{ width: "15%" }} align="left">
-                        {registro._id}
+            {S2List.length === 0 ? ( // Check if S2List is empty
+              <>
+                <Typography variant="h4" align="left" mb={2}>
+                  No hay registros aún. Agrega un registro para comenzar.
+                </Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    redirectToRoute(
+                      "/captura/s3/faltas-administrativas/graves",
+                    )
+                  }>
+                  Capturar Información
+                </Button>
+              </>
+            ) : (
+              <TableContainer component={Paper}>
+                <Table aria-label="custom pagination table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="left">
+                        <b>Identificador</b>
                       </TableCell>
-                      <TableCell style={{ width: "25%" }} align="left">
-                        {registro.grave.nombres && registro.grave.nombres + " "}
-                        {registro.grave.primerApellido &&
-                          registro.grave.primerApellido + " "}
-                        {registro.grave.segundoApellido &&
-                        registro.grave.segundoApellido.sinSegundoApellido ==
-                          true
-                          ? ""
-                          : registro.grave.segundoApellido.valor}
+                      <TableCell align="left">
+                        <b>Servidor público</b>
                       </TableCell>
-                      {registro.grave.entePublico && (
-                        <TableCell style={{ width: "25%" }} align="left">
-                          {registro.grave.entePublico.siglas &&
-                            registro.grave.entePublico.siglas}
-                        </TableCell>
-                      )}
-                      <TableCell style={{ width: "15%" }} align="center">
-                        <Tooltip title="Más información" placement="top">
-                          <IconButton
-                            onClick={() => handleOpenModalUserInfo(registro)}
-                            style={{ color: "#34b3eb" }}
-                            aria-label="expand row"
-                            size="small">
-                            <VisibilityIcon />
-                          </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Editar registro" placement="top">
-                          <IconButton
-                            onClick={() =>
-                              redirectToRoute(
-                                `/editar/s3/faltas-administrativas/graves/${registro._id}`,
-                              )
-                            }
-                            style={{ color: "#ffe01b" }}>
-                            <EditOutlinedIcon />
-                          </IconButton>
-                        </Tooltip>
+                      <TableCell align="left">
+                        <b>Institución</b>
+                      </TableCell>
+                      <TableCell align="center">
+                        <b>Acciones</b>
                       </TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
+                  </TableHead>
+                  <TableBody>
+                    {S2List.map((registro) => (
+                      <TableRow key={registro._id}>
+                        <TableCell style={{ width: "15%" }} align="left">
+                          {registro._id}
+                        </TableCell>
+                        <TableCell style={{ width: "25%" }} align="left">
+                          {registro.grave.nombres &&
+                            registro.grave.nombres + " "}
+                          {registro.grave.primerApellido &&
+                            registro.grave.primerApellido + " "}
+                          {registro.grave.segundoApellido &&
+                          registro.grave.segundoApellido.sinSegundoApellido ==
+                            true
+                            ? ""
+                            : registro.grave.segundoApellido.valor}
+                        </TableCell>
+                        {registro.grave.entePublico && (
+                          <TableCell style={{ width: "25%" }} align="left">
+                            {registro.grave.entePublico.siglas &&
+                              registro.grave.entePublico.siglas}
+                          </TableCell>
+                        )}
+                        <TableCell style={{ width: "15%" }} align="center">
+                          <Tooltip title="Más información" placement="top">
+                            <IconButton
+                              onClick={() => handleOpenModalUserInfo(registro)}
+                              style={{ color: "#34b3eb" }}
+                              aria-label="expand row"
+                              size="small">
+                              <VisibilityIcon />
+                            </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Editar registro" placement="top">
+                            <IconButton
+                              onClick={() =>
+                                redirectToRoute(
+                                  `/editar/s3/faltas-administrativas/graves/${registro._id}`,
+                                )
+                              }
+                              style={{ color: "#ffe01b" }}>
+                              <EditOutlinedIcon />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
 
-                <TableFooter>
-                  <TableRow>
-                    {paginationSuper.pageSize != undefined &&
-                      paginationSuper.page != undefined && (
-                        <TablePagination
-                          rowsPerPageOptions={[
-                            3,
-                            5,
-                            10,
-                            25,
-                            {
-                              label: "Todos",
-                              value: paginationSuper.totalRows,
-                            },
-                          ]}
-                          colSpan={6}
-                          count={paginationSuper.totalRows}
-                          rowsPerPage={paginationSuper.pageSize}
-                          page={paginationSuper.page - 1}
-                          /* SelectProps={{
+                  <TableFooter>
+                    <TableRow>
+                      {paginationSuper.pageSize != undefined &&
+                        paginationSuper.page != undefined && (
+                          <TablePagination
+                            rowsPerPageOptions={[
+                              3,
+                              5,
+                              10,
+                              25,
+                              {
+                                label: "Todos",
+                                value: paginationSuper.totalRows,
+                              },
+                            ]}
+                            colSpan={6}
+                            count={paginationSuper.totalRows}
+                            rowsPerPage={paginationSuper.pageSize}
+                            page={paginationSuper.page - 1}
+                            /* SelectProps={{
                             inputProps: {
                               "aria-label": "Registros por página",
                             },
                             native: true,
                           }} */
-                          onPageChange={handleChangePage}
-                          onRowsPerPageChange={handleChangeRowsPerPage}
-                          ActionsComponent={TablePaginationActions}
-                        />
-                      )}
-                  </TableRow>
-                </TableFooter>
-              </Table>
-            </TableContainer>
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            ActionsComponent={TablePaginationActions}
+                          />
+                        )}
+                    </TableRow>
+                  </TableFooter>
+                </Table>
+              </TableContainer>
+            )}
           </CardContent>
         </Card>
       </Grid>

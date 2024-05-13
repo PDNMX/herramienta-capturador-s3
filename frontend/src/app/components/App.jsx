@@ -43,7 +43,12 @@ const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
             
             storeValidate.dispatch(alertActions.clear());
             return (
-              <Component propiedades={{ renderView, match: props.match }} />
+              <Component 
+                propiedades={{ 
+                  renderView, 
+                  match: tipoView[0] === "editar" ? props.match : undefined 
+                }} 
+              />
             );
           } else {
             return <Redirect to="/ingresar" />;
