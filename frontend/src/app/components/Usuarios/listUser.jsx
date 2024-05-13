@@ -460,11 +460,15 @@ export const ListUser = () => {
       {/* Tabla de Usuarios */}
       <Grid item xs={12}>
         <Card>
-          <CardHeader title="Lista de Usuarios" />
+          <CardHeader title="Lista de Usuarios" subheader="Información Registrada"/>
           <Divider />
           <CardContent>
-            <TableContainer component={Paper}>
-              {users.length > 0 && (
+            
+              {users.length === 0 ? (
+                <Typography variant="h4" align="left" mb={2}>
+                  No hay registros aún. Agrega un registro para comenzar.
+                </Typography>
+              ): (<TableContainer component={Paper}>
                 <Table aria-label="custom pagination table">
                   <TableHead>
                     <TableRow>
@@ -584,8 +588,9 @@ export const ListUser = () => {
                     </TableRow>
                   </TableFooter>
                 </Table>
+                </TableContainer>
               )}
-            </TableContainer>
+            
           </CardContent>
           <Divider />
           <CardActions>
