@@ -94,24 +94,24 @@ let data = {
         "ui:order": [
           "clave",
           "valor",
-          "nombreNormatividadInfringida",
-          "articuloNormatividadInfringida",
-          "fraccionNormatividadInfringida",
+          "nombreNormatividad",
+          "articuloNormatividad",
+          "fraccionNormatividad",
           "descripcionHechos",
         ],
         valor: {
           "ui:placeholder": "...",
         },
-        nombreNormatividadInfringida: {
+        nombreNormatividad: {
           "ui:placeholder":
             "Ejemplo: Ley General de Responsabilidades Administrativas o Ley General de Responsabilidades Administrativas del estado de Guanajuato.",
         },
-        articuloNormatividadInfringida: {
+        articuloNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Artículo 10",
           },
         },
-        fraccionNormatividadInfringida: {
+        fraccionNormatividad: {
           items: {
             "ui:placeholder": "Ejemplo: Fracción 3",
           },
@@ -127,10 +127,10 @@ let data = {
         "ui:placeholder": "Ejemplo: Sentencia Final",
       },
       //campo nuevo
-      urlNotificacion: {
+      urlResolucion: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
-      url: {
+      urlResolucionFirme: {
         "ui:placeholder": "https://www.ejemplo.com/resolucion.pdf",
       },
     },
@@ -159,19 +159,10 @@ let data = {
           valor: {
             "ui:placeholder": "...",
           },
-          descripcion: {
-            "ui:placeholder": "Ejemplo: Sancion impuesta por ...",
-          },
           amonestacionPublicaPrivada: {
             tipoAmonestacion: {
               "ui:widget": "RadioWidget",
               "ui:options": { inline: true },
-            },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
             },
           },
           suspensionEmpleo: {
@@ -180,39 +171,17 @@ let data = {
               meses: { "ui:placeholder": "Ejemplo: 10 meses" },
               dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
-          destituciónEmpleoCargoComision: {
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
-          },
+          destitucionEmpleo: {},
           inhabilitacion: {
             plazo: {
               años: { "ui:placeholder": "Ejemplo: 2 años" },
               meses: { "ui:placeholder": "Ejemplo: 10 meses" },
               dias: { "ui:placeholder": "Ejemplo: 24 días" },
             },
-            constancia: {
-              titulo: { "ui:placeholder": "Ejemplo: Constancia de Sanción" },
-              url: {
-                "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-              },
-            },
           },
           otro: {
             nombre: { "ui:placeholder": "..." },
-            urlDocumento: {
-              "ui:placeholder": "https://www.ejemplo.com/constancia.pdf",
-            },
           },
         },
       },

@@ -1,54 +1,5 @@
 // FALTAS ADMINISTRATIVAS DE SERVIDORES PUBLICOS - NO GRAVES (2)
 let schema = {
-  definitions: {
-    constancias: {
-      type: "object",
-      properties: {
-        sinConstancia: {
-          type: "boolean",
-          default: false,
-          title: "No existe constancia",
-        },
-      },
-      dependencies: {
-        sinConstancia: {
-          oneOf: [
-            {
-              properties: {
-                sinConstancia: { const: false },
-                titulo: {
-                  type: "string",
-                  title: "Título de la constancia.",
-                  description:
-                    "Proporcionar el nombre del título de la constancia de la inhabilitación.",
-                },
-                fecha: {
-                  type: "string",
-                  format: "date",
-                  title: "Fecha de la expedición.",
-                  description:
-                    "Indicar la fecha de expedición de la constancia de la persona física en formato dd-mm-aaaa.",
-                },
-                url: {
-                  type: "string",
-                  title: "URL de la constancia de inhabilitación",
-                  description:
-                    "Colocar el enlace o link del documento digital de la constancia.",
-                },
-              },
-              required: ["sinConstancia", "titulo", "fecha", "url"],
-            },
-            {
-              properties: {
-                sinConstaancia: { const: true },
-              },
-              required: ["sinConstancia"],
-            },
-          ],
-        },
-      },
-    },
-  },
   type: "object",
   required: ["expediente", "noGrave"],
   properties: {
@@ -303,10 +254,11 @@ let schema = {
         },
         empleoCargoComision: {
           type: "object",
-          required: ["clave", "nivel", "areaAdscripcion"],
+          required: ["nombre", "denominacion", "areaAdscripcion"],
           properties: {
             nombre: {
               type: "object",
+              required: ["clave"],
               properties: {
                 clave: {
                   title: "Nivel jerárquico del empleo, cargo o comisión",
@@ -495,14 +447,14 @@ let schema = {
                   "Otro",
                 ],
               },
-              nombreNormatividadInfringida: {
+              nombreNormatividad: {
                 type: "string",
                 //Preguntar a Yuri si queda con este titulo o con el nombre que esta en el formulario de faltas graves (1)
                 title: "Ley y/o normatividad infringida.",
                 description:
                   "Escribir el nombre de la ley o normatividad infringida por la persona servidora pública.",
               },
-              articuloNormatividadInfringida: {
+              articuloNormatividad: {
                 type: "array",
                 title: "Artículo(s) de la normatividad infringida",
                 items: {
@@ -512,7 +464,7 @@ let schema = {
                     "Escribir el artículo(s) infringido de la normatividad infringida.",
                 },
               },
-              fraccionNormatividadInfringida: {
+              fraccionNormatividad: {
                 type: "array",
                 title: "Fracción(es) de la normatividad infringida",
                 items: {
@@ -522,7 +474,6 @@ let schema = {
                     "Escribir la fracción(es) infringida de la normatividad infringida.",
                 },
               },
-              //agregar este campo en el documento de descripciones
               descripcionHechos: {
                 type: "string",
                 title: "Descripción breve de los hechos",
@@ -599,8 +550,7 @@ let schema = {
               description:
                 "Indicar la fecha en que se notifica la resolución firme al servidor público sancionado formato dd-mm-aaaa.",
             },
-            //falta agregar este campo en el documento de descripciones
-            urlNotificacion: {
+            urlResolucion: {
               type: "string",
               title: "URL del documento en formato digital",
               description:
@@ -613,7 +563,6 @@ let schema = {
               description:
                 "Colocar la fecha en que quedó firme la resolución de la persona servidora pública en formato dd-mm-aaaa.",
             },
-            //nuevo campo fecha de notificcación
             fechaNotificacionResolucion: {
               type: "string",
               format: "date",
@@ -621,7 +570,7 @@ let schema = {
               description:
                 "Indicar la fecha en que el servidor público sancionado quedó notificado de que la sanción ha quedado firme, en formato dd-mm-aaaa. ",
             },
-            url: {
+            urlResolucionFirme: {
               type: "string",
               title: "URL del documento en formato digital",
               description:
@@ -662,6 +611,7 @@ let schema = {
             sancion: {
               type: "array",
               title: "Tipo de sancion",
+              description: "En esta sección se podrá elegir una o varias sanciones conforme al catálogo y que fueron dictaminadas en la resolución definitiva. Se podrán elegir de las siguientes opciones:",
               items: {
                 type: "object",
                 title: "Tipo de sanción",
@@ -761,14 +711,14 @@ let schema = {
                             },
                           },
                         },
-                        required: ["suspensionEmpleoCargoComisión"],
+                        required: ["suspensionEmpleo"],
                       },
                       {
                         properties: {
                           clave: {
                             enum: ["DESTITUCION"],
                           },
-                          destituciónEmpleoCargoComision: {
+                          destitucionEmpleo: {
                             type: "object",
                             title: "DESTITUCIÓN DEL EMPLEO CARGO O COMISIÓN",
                             description:
@@ -785,7 +735,7 @@ let schema = {
                             },
                           },
                         },
-                        required: ["destituciónEmpleoCargoComision"],
+                        required: ["suspensionEmpleo"],
                       },
                       {
                         properties: {
@@ -798,7 +748,7 @@ let schema = {
                               "INHABILITACIÓN TEMPORAL PARA DESEMPEÑAR EMPLEOS CARGOS O COMISIONES EN EL SERVICIO PÚBLICO Y PARA PARTICIPAR EN ADQUISICIONES Y ARRENDAMIENTOS DE SERVICIOS U OBRAS PÚBLICAS",
                             description:
                               "Esta sección deberá llenarse en caso de que la persona servidora pública haya sido sancionada con una inhabilitación. ",
-                            required: ["plazo", "constancia"],
+                            required: ["plazo"],
                             properties: {
                               plazo: {
                                 type: "object",
@@ -832,15 +782,10 @@ let schema = {
                                   },
                                 },
                               },
-                              //falta agregar las descripciones de las costancias o en su caso indicar si llevara constancia o no
-                              constancia: {
-                                title: "Constancia de la inhabilitación",
-                                $ref: "#/definitions/constancias",
-                              },
                             },
                           },
                         },
-                        required: ["descripcion", "inhabilitacion"],
+                        required: ["inhabilitacion"],
                       },
                       {
                         properties: {
@@ -850,21 +795,15 @@ let schema = {
                           otro: {
                             type: "object",
                             title: "OTRO",
-                            description: 
+                            description:
                               "Llenar este apartado en caso de que el servidor público sea acreedor a otra sanción prevista en las leyes locales anticorrupción de las entidades federativas.",
-                            required: ["denominacion", "descripcion"],
+                            required: ["nombre"],
                             properties: {
-                              denominacion: {
-                                title: "Denominación de la sanción",
+                              nombre: {
+                                title: "Sanción",
                                 type: "string",
                                 description:
-                                  "Indicar el nombre de la sanción impuesta.",
-                              },
-                              descripcion: {
-                                type: "string",
-                                title: "Descripción breve de los hechos",
-                                description:
-                                  "Indicar una descripción breve de los hechos que motivaron la sanción.",
+                                  "Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales.",
                               },
                             },
                           },
