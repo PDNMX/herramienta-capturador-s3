@@ -68,7 +68,7 @@ export const ListUser = () => {
 
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [usuarioId, setUsuarioId] = React.useState("");
+  /* const [usuarioId, setUsuarioId] = React.useState(""); */
   const [nombreUsuario, setNombreUsuario] = React.useState("");
   const [pagination, setPagination] = React.useState({ page: 0, pageSize: 10 });
   const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
@@ -185,7 +185,6 @@ export const ListUser = () => {
     <>
       {/* Modal Detalle de Usuario */}
       <Dialog
-        fullWidth={true}
         maxWidth={"md"}
         onClose={handleCloseModalUserInfo}
         aria-labelledby="customized-dialog-title"
@@ -332,7 +331,7 @@ export const ListUser = () => {
       </Dialog>
 
       {/* Tabla de Usuarios */}
-      <Grid item mb={1} xs={12}>
+      <Grid item xs={12}>
         <Card>
           <CardHeader
             title="Lista de Usuarios"

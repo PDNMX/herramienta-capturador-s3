@@ -24,7 +24,6 @@ import {
   CardContent,
   Divider,
 } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { providerActions } from "../../_actions/provider.action";
 import Dialog from "@mui/material/Dialog";
@@ -39,7 +38,6 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import createStyles from "@mui/styles/createStyles";
 import withStyles from "@mui/styles/withStyles";
 import { alertActions } from "../../_actions/alert.actions";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
@@ -94,7 +92,6 @@ export const ListProvider = () => {
     hour: "numeric",
     minute: "numeric",
   };
-  const [maxWidth, setMaxWidth] = React.useState("md");
 
   const handleOpenModalProviderInfo = (provider) => {
     setOpenModalProviderInfo(true);
@@ -152,28 +149,9 @@ export const ListProvider = () => {
     handleClose();
   };
 
-  const StyledTableCell = withStyles({
-    root: {
-      color: "#666666",
-    },
-  })(TableCell);
-
   const redirectToRoute = (path) => {
     history.push(path);
   };
-
-  const StyledTableRow = withStyles((theme) =>
-    createStyles({
-      root: {
-        "&:nth-of-type(odd)": {
-          backgroundColor: theme.palette.action.hover,
-        },
-      },
-    }),
-  )(TableRow);
-
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <>
@@ -190,9 +168,7 @@ export const ListProvider = () => {
       </Grid>
 
       <Dialog
-        fullWidth={true}
-        maxWidth={maxWidth}
-        fullScreen={fullScreen}
+        maxWidth={"md"}
         onClose={handleCloseModalProviderInfo}
         aria-labelledby="customized-dialog-title"
         open={openModalProviderInfo}>
