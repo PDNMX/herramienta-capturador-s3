@@ -1,3 +1,4 @@
+import React from "react";
 import { Form } from "react-final-form";
 import { TextField, makeValidate, Select, Switches, Checkboxes } from "mui-rff";
 import { Grid, Button, Tooltip } from "@mui/material";
@@ -33,9 +34,12 @@ function MyForm(props) {
   const alert = alerta;
   const dispatch = useDispatch();
 
+  const [openModal, setOpenModal] = React.useState(false);
+
   // yes, this can even be async!
   async function onSubmit(values) {
-    alert.status = false;
+    //alert.status = false;
+    setOpenModal(true);
     if (id != undefined) {
       /*let arrsistemas: string[] = [];
 
@@ -48,6 +52,7 @@ function MyForm(props) {
     } else {
       dispatch(requestCreationUser(values));
     }
+    setOpenModal(true);
   }
   const schema = Yup.object().shape({
     nombre: Yup.string()
@@ -114,6 +119,7 @@ function MyForm(props) {
   const { alerta2 } = useSelector((state) => ({
     alerta2: state.alert,
   }));
+  //console.log(alerta2);
 
   /* const handleCloseSnackbar = () => {
         dispatch(alertActions.clear());
@@ -153,8 +159,6 @@ function MyForm(props) {
       }
     }
   }
-
-  const estatus = [{ label: "Vigente", value: true }];
 
   return (
     <div>
@@ -274,11 +278,11 @@ function MyForm(props) {
                                 sistemasData = sistemasDisponibles;
                               }}
                             </OnChange>
-                          </Grid>
+                          </Grid>ñ
                           <Grid item xs={12} md={12}>
                             <Checkboxes
                               name="sistemas"
-                              label="Selecciona los formatos aplicables"
+                              label="Selecciona los formatos correspondientes al proveedor"
                               required={true}
                               data={sistemasData}
                               multiple={true}></Checkboxes>
@@ -329,7 +333,7 @@ function MyForm(props) {
       </Grid>
       <Dialog
         disableEscapeKeyDown
-        open={alerta2.status}
+        open={openModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{"Resultado"}</DialogTitle>

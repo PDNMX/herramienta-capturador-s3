@@ -37,19 +37,27 @@ import CloseIcon from "@mui/icons-material/Close";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
 const listaFormatos = {
-  "faltas-administrativas-graves": "Faltas Administrativas de Servidores Públicos: GRAVES",
-  "faltas-administrativas-no-graves": "Faltas Administrativas de Servidores Públicos: NO GRAVES",
-  "actos-de-particulares-personas-fisicas": "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
-  "actos-de-particulares-personas-morales": "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
-  "inhabilitaciones-personas-fisicas": "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
-  "inhabilitaciones-personas-morales": "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
-  "hechos-de-corrupcion-servidores-publicos": "Hechos de Corrupción: SERVIDORES PÚBLICOS",
-  "hechos-de-corrupcion-personas-fisicas": "Hechos de Corrupción: PERSONAS FÍSICAS",
-  "hechos-de-corrupcion-personas-morales": "Hechos de Corrupción: PERSONAS MORALES",
+  "faltas-administrativas-graves":
+    "Faltas Administrativas de Servidores Públicos: GRAVES",
+  "faltas-administrativas-no-graves":
+    "Faltas Administrativas de Servidores Públicos: NO GRAVES",
+  "actos-de-particulares-personas-fisicas":
+    "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
+  "actos-de-particulares-personas-morales":
+    "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
+  "inhabilitaciones-personas-fisicas":
+    "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
+  "inhabilitaciones-personas-morales":
+    "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
+  "hechos-de-corrupcion-servidores-publicos":
+    "Hechos de Corrupción: SERVIDORES PÚBLICOS",
+  "hechos-de-corrupcion-personas-fisicas":
+    "Hechos de Corrupción: PERSONAS FÍSICAS",
+  "hechos-de-corrupcion-personas-morales":
+    "Hechos de Corrupción: PERSONAS MORALES",
   "abstenciones-graves": "Abstenciones: GRAVES",
-  "abstenciones-no-graves": "Abstenciones: NO GRAVES"
-}
-
+  "abstenciones-no-graves": "Abstenciones: NO GRAVES",
+};
 
 export const ListUser = () => {
   const { users, alerta, providerSelect } = useSelector((state) => ({
@@ -205,9 +213,8 @@ export const ListUser = () => {
           <Grid container>
             <Grid item mb={1} md={12} xs={12}>
               <Typography align="left" variant="body">
-                <b>Fecha alta: </b> {new Date(selectedUser.fechaAlta).toLocaleDateString(
-                  "es-MX"                
-                )}
+                <b>Fecha alta: </b>{" "}
+                {new Date(selectedUser.fechaAlta).toLocaleDateString("es-MX")}
               </Typography>
             </Grid>
             <Grid item mb={1} md={4} xs={12}>
@@ -226,21 +233,26 @@ export const ListUser = () => {
               </Typography>
             </Grid>
 
-
             <Grid item mb={1} md={4} xs={12}>
               <Typography align="left" variant="body">
-                <b>Usuario: </b>{selectedUser.usuario}
+                <b>Usuario: </b>
+                {selectedUser.usuario}
               </Typography>
             </Grid>
             <Grid item mb={1} md={4} xs={12}>
               <Typography align="left" variant="body">
-                <b>Estatus:</b> {selectedUser.estatus.toString() == "true" ? "Vigente" : "No vigente"}
+                <b>Estatus:</b>{" "}
+                {selectedUser.estatus.toString() == "true"
+                  ? "Vigente"
+                  : "No vigente"}
               </Typography>
-
             </Grid>
             <Grid item mb={1} md={4} xs={12}>
               <Typography align="left" variant="body">
-                <b>Vigencia de contraseña:</b> {new Date(selectedUser.vigenciaContrasena).toLocaleDateString( "es-MX" )}
+                <b>Vigencia de contraseña:</b>{" "}
+                {new Date(selectedUser.vigenciaContrasena).toLocaleDateString(
+                  "es-MX",
+                )}
               </Typography>
             </Grid>
 
@@ -273,13 +285,13 @@ export const ListUser = () => {
             </Grid>
             <Grid item mb={1} md={12} xs={12}>
               <Typography>
-              <b>Formatos disponibles:</b>
+                <b>Formatos disponibles:</b>
+              </Typography>
               <ul>
                 {selectedUser.sistemas.map((item, index) => (
                   <li key={index}>{listaFormatos[item] || item}</li> // Muestra el título o el valor original si no hay título
                 ))}
               </ul>
-              </Typography>
             </Grid>
           </Grid>
         </DialogContent>
@@ -301,7 +313,11 @@ export const ListUser = () => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            variant="contained"
+            onClick={handleClose}
+            color="primary"
+            autoFocus>
             Cancelar
           </Button>
           <Button
@@ -309,7 +325,7 @@ export const ListUser = () => {
               confirmActionPassword(usuarioCorreo);
             }}
             color="primary"
-            autoFocus>
+            variant="contained">
             Aceptar
           </Button>
         </DialogActions>
