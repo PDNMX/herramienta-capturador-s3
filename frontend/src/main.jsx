@@ -8,7 +8,16 @@ const theme = createTheme({
       primary: {
           main: '#9085DA'
       }
-  }
+  },
+  components: {
+    MuiSelect: {
+      styleOverrides: {
+        select: {
+          whiteSpace: 'normal', // Aplica el estilo al elemento select
+        },
+      },
+    },
+  },
 }, esES);
 
 ReactDOM.render(
