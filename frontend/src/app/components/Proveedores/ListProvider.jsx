@@ -41,9 +41,30 @@ import withStyles from "@mui/styles/withStyles";
 import { alertActions } from "../../_actions/alert.actions";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
-import CheckIcon from "@mui/icons-material/Check";
-import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
+
+const listaFormatos = {
+  "faltas-administrativas-graves":
+    "Faltas Administrativas de Servidores Públicos: GRAVES",
+  "faltas-administrativas-no-graves":
+    "Faltas Administrativas de Servidores Públicos: NO GRAVES",
+  "actos-de-particulares-personas-fisicas":
+    "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
+  "actos-de-particulares-personas-morales":
+    "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
+  "inhabilitaciones-personas-fisicas":
+    "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
+  "inhabilitaciones-personas-morales":
+    "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
+  "hechos-de-corrupcion-servidores-publicos":
+    "Hechos de Corrupción: SERVIDORES PÚBLICOS",
+  "hechos-de-corrupcion-personas-fisicas":
+    "Hechos de Corrupción: PERSONAS FÍSICAS",
+  "hechos-de-corrupcion-personas-morales":
+    "Hechos de Corrupción: PERSONAS MORALES",
+  "abstenciones-graves": "Abstenciones: GRAVES",
+  "abstenciones-no-graves": "Abstenciones: NO GRAVES",
+};
 
 export const ListProvider = () => {
   const { providers, alerta, providerSelect } = useSelector((state) => ({
@@ -156,7 +177,7 @@ export const ListProvider = () => {
 
   return (
     <>
-      <Grid item xs={12}>
+      <Grid item mb={1} xs={12}>
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={alerta.status}
@@ -196,111 +217,36 @@ export const ListProvider = () => {
         </Toolbar>
         <DialogContent dividers>
           <Grid container item md={12} lg={12}>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Proveedor</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedProvider.dependencia}
+            <Grid item mb={1} md={6} sm={12}>
+              <Typography align="left" variant="body">
+                <b>Proveedor:</b> {selectedProvider.dependencia}
               </Typography>
             </Grid>
 
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Estatus</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedProvider.estatus ? "Vigente" : "No vigente"}
+            <Grid item mb={1} md={6} sm={12}>
+              <Typography align="left" variant="body">
+                <b>Estatus:</b> {selectedProvider.estatus ? "Vigente" : "No vigente"}
               </Typography>
             </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Fecha alta</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {new Date(selectedProvider.fechaAlta).toLocaleDateString(
-                  "es-ES",
-                  optionsDate,
-                )}
+            <Grid item mb={1} md={6} sm={12}>
+              <Typography align="left" variant="body">
+                <b>Fecha alta:</b> {new Date(selectedProvider.fechaAlta).toLocaleDateString( "es-MX", )}
               </Typography>
             </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Fecha actualización</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedProvider.fechaActualizacion != null
-                  ? new Date(
-                      selectedProvider.fechaActualizacion,
-                    ).toLocaleDateString("es-ES", optionsDate)
-                  : ""}
+            <Grid item mb={1} md={6} sm={12}>
+              <Typography align="left" variant="body">
+                <b>Fecha actualización:</b> {selectedProvider.fechaActualizacion != null ? new Date( selectedProvider.fechaActualizacion, ).toLocaleDateString("es-MX") : ""}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography align={"center"}>Permisos</Typography>
-            </Grid>
-            <Grid item md={12} sm={12}>
-              <TableContainer component={Paper}>
-                {" "}
-                <Table aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>
-                        <b>Sistema</b>
-                      </StyledTableCell>
-                      <StyledTableCell align="center">
-                        <b>Permiso</b>
-                      </StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <StyledTableRow key={"S2"}>
-                      <StyledTableCell component="th" scope="row">
-                        {
-                          "Sistema de los Servidores que Intervienen en Procedimientos de Contratación"
-                        }
-                      </StyledTableCell>
-                      <StyledTableCell align="center">
-                        {selectedProvider.sistemas.find(
-                          (element) => element === "S2",
-                        ) ? (
-                          <CheckIcon style={{ color: "#34b3eb" }} />
-                        ) : (
-                          <NotInterestedIcon style={{ color: "red" }} />
-                        )}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                    <StyledTableRow key={"S3S"}>
-                      <StyledTableCell component="th" scope="row">
-                        {"Sistema de los Servidores Públicos Sancionados"}
-                      </StyledTableCell>
-                      <StyledTableCell align="center">
-                        {selectedProvider.sistemas.find(
-                          (element) => element === "S3S",
-                        ) ? (
-                          <CheckIcon style={{ color: "#34b3eb" }} />
-                        ) : (
-                          <NotInterestedIcon style={{ color: "red" }} />
-                        )}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                    <StyledTableRow key={"S3P"}>
-                      <StyledTableCell component="th" scope="row">
-                        {"Sistema de los Particulares Sancionados"}
-                      </StyledTableCell>
-                      <StyledTableCell align="center">
-                        {selectedProvider.sistemas.find(
-                          (element) => element === "S3P",
-                        ) ? (
-                          <CheckIcon style={{ color: "#34b3eb" }} />
-                        ) : (
-                          <NotInterestedIcon style={{ color: "red" }} />
-                        )}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
+            <Grid item mb={1} md={12} sm={12}>
+              <Typography>
+                <b>Formatos disponibles:</b>
+              </Typography>
+              <ul>
+                {selectedProvider.sistemas.map((item, index) => (
+                  <li key={index}>{listaFormatos[item.label] || item.label}</li> // Muestra el título o el valor original si no hay título
+                ))}
+              </ul>
             </Grid>
           </Grid>
         </DialogContent>
