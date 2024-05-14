@@ -2,26 +2,25 @@ import React from "react";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Table,
-  TableBody,
-  TableContainer,
-  TableRow,
-  TableCell,
-  TablePagination,
-  TableFooter,
-  Tooltip,
   Button,
-  TableHead,
-  Grid,
-  IconButton,
-  Typography,
-  Toolbar,
-  useTheme,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
-  CardActions,
   Divider,
+  Grid,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TablePagination,
+  TableRow,
+  Toolbar,
+  Tooltip,
+  Typography,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { userActions } from "../../_actions/user.action";
@@ -35,11 +34,22 @@ import { history } from "../../store/history";
 import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
 import { requestResetPassword } from "../../store/mutations";
 import CloseIcon from "@mui/icons-material/Close";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Nota from "../Common/Nota";
-import CheckIcon from "@mui/icons-material/Check";
-import NotInterestedIcon from "@mui/icons-material/NotInterested";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
+
+const listaFormatos = {
+  "faltas-administrativas-graves": "Faltas Administrativas de Servidores Públicos: GRAVES",
+  "faltas-administrativas-no-graves": "Faltas Administrativas de Servidores Públicos: NO GRAVES",
+  "actos-de-particulares-personas-fisicas": "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
+  "actos-de-particulares-personas-morales": "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
+  "inhabilitaciones-personas-fisicas": "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
+  "inhabilitaciones-personas-morales": "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
+  "hechos-de-corrupcion-servidores-publicos": "Hechos de Corrupción: SERVIDORES PÚBLICOS",
+  "hechos-de-corrupcion-personas-fisicas": "Hechos de Corrupción: PERSONAS FÍSICAS",
+  "hechos-de-corrupcion-personas-morales": "Hechos de Corrupción: PERSONAS MORALES",
+  "abstenciones-graves": "Abstenciones: GRAVES",
+  "abstenciones-no-graves": "Abstenciones: NO GRAVES"
+}
+
 
 export const ListUser = () => {
   const { users, alerta, providerSelect } = useSelector((state) => ({
@@ -72,14 +82,6 @@ export const ListUser = () => {
 
   const [openPassword, setOpenPassword] = React.useState(false);
   const [usuarioCorreo, setUsuarioCorreo] = React.useState("");
-  const [maxWidth, setMaxWidth] = React.useState("md");
-  const optionsDate = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-  };
 
   const renderSelect = (user) => {
     let c1 = false;
@@ -171,16 +173,12 @@ export const ListUser = () => {
     setUsuarioCorreo(correoElectronico);
   };
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("lg"));
-
   return (
     <>
       {/* Modal Detalle de Usuario */}
       <Dialog
         fullWidth={true}
-        maxWidth={maxWidth}
-        fullScreen={fullScreen}
+        maxWidth={"md"}
         onClose={handleCloseModalUserInfo}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
@@ -204,176 +202,84 @@ export const ListUser = () => {
           </IconButton>
         </Toolbar>
         <DialogContent dividers>
-          <Grid container item md={12} lg={12}>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Fecha alta</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {new Date(selectedUser.fechaAlta).toLocaleDateString(
-                  "es-ES",
-                  optionsDate,
+          <Grid container>
+            <Grid item mb={1} md={12} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Fecha alta: </b> {new Date(selectedUser.fechaAlta).toLocaleDateString(
+                  "es-MX"                
                 )}
               </Typography>
             </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Nombre</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.nombre}
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Nombre:</b> {selectedUser.nombre}
               </Typography>
             </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Apellido uno</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.apellidoUno ? selectedUser.apellidoUno : <Nota />}
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Primer Apellido:</b> {selectedUser.apellidoUno}
               </Typography>
             </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Apellido dos</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.apellidoDos ? selectedUser.apellidoDos : <Nota />}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Usuario</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.usuario}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Estatus</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.estatus.toString() == "true"
-                  ? "Vigente"
-                  : "No vigente"}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Vigencia de contraseña</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {new Date(selectedUser.vigenciaContrasena).toLocaleDateString(
-                  "es-ES",
-                  optionsDate,
-                )}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Cargo</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.cargo}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Correo electrónico</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.correoElectronico}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Teléfono</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.telefono}
-              </Typography>
-            </Grid>
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Extensión</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {selectedUser.extension ? selectedUser.extension : <Nota />}
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Segundo Apellido:</b> {selectedUser.apellidoDos}
               </Typography>
             </Grid>
 
-            <Grid item md={3} sm={12}>
-              <Typography align="left" variant="subtitle2">
-                <b>Proveedor</b>
-              </Typography>
-              <Typography align="left" variant="body2">
-                {renderSelect(selectedUser)}
+
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Usuario: </b>{selectedUser.usuario}
               </Typography>
             </Grid>
-            <Grid item xs={12}>
-              <Typography align={"center"}>Permisos</Typography>
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Estatus:</b> {selectedUser.estatus.toString() == "true" ? "Vigente" : "No vigente"}
+              </Typography>
+
             </Grid>
-            <Grid item md={12} sm={12}>
-              <TableContainer component={Paper}>
-                <Table aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <b>Sistema</b>
-                      </TableCell>
-                      <TableCell align="center">
-                        <b>Permiso</b>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow key={"S2"}>
-                      <TableCell component="th" scope="row">
-                        {
-                          "Sistema de los Servidores que Intervienen en Procedimientos de Contratación"
-                        }
-                      </TableCell>
-                      <TableCell align="center">
-                        {selectedUser.sistemas.find(
-                          (element) => element === "S2",
-                        ) ? (
-                          <CheckIcon style={{ color: "#34b3eb" }} />
-                        ) : (
-                          <NotInterestedIcon style={{ color: "red" }} />
-                        )}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow key={"S3S"}>
-                      <TableCell component="th" scope="row">
-                        {"Sistema de los Servidores Públicos Sancionados"}
-                      </TableCell>
-                      <TableCell align="center">
-                        {selectedUser.sistemas.find(
-                          (element) => element === "S3S",
-                        ) ? (
-                          <CheckIcon style={{ color: "#34b3eb" }} />
-                        ) : (
-                          <NotInterestedIcon style={{ color: "red" }} />
-                        )}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow key={"S3P"}>
-                      <TableCell component="th" scope="row">
-                        {"Sistema de los Particulares Sancionados"}
-                      </TableCell>
-                      <TableCell align="center">
-                        {selectedUser.sistemas.find(
-                          (element) => element === "S3P",
-                        ) ? (
-                          <CheckIcon style={{ color: "#34b3eb" }} />
-                        ) : (
-                          <NotInterestedIcon style={{ color: "red" }} />
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Vigencia de contraseña:</b> {new Date(selectedUser.vigenciaContrasena).toLocaleDateString( "es-MX" )}
+              </Typography>
+            </Grid>
+
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Cargo:</b> {selectedUser.cargo}
+              </Typography>
+            </Grid>
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Teléfono:</b> {selectedUser.telefono}
+              </Typography>
+            </Grid>
+            <Grid item mb={1} md={4} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Extensión:</b> {selectedUser.extension}
+              </Typography>
+            </Grid>
+
+            <Grid item mb={1} md={12} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Correo electrónico:</b> {selectedUser.correoElectronico}
+              </Typography>
+            </Grid>
+
+            <Grid item mb={1} md={12} xs={12}>
+              <Typography align="left" variant="body">
+                <b>Proveedor:</b> {renderSelect(selectedUser)}
+              </Typography>
+            </Grid>
+            <Grid item mb={1} md={12} xs={12}>
+              <Typography>
+              <b>Formatos disponibles:</b>
+              <ul>
+                {selectedUser.sistemas.map((item, index) => (
+                  <li key={index}>{listaFormatos[item] || item}</li> // Muestra el título o el valor original si no hay título
+                ))}
+              </ul>
+              </Typography>
             </Grid>
           </Grid>
         </DialogContent>
@@ -410,7 +316,7 @@ export const ListUser = () => {
       </Dialog>
 
       {/* Tabla de Usuarios */}
-      <Grid item xs={12}>
+      <Grid item mb={1} xs={12}>
         <Card>
           <CardHeader
             title="Lista de Usuarios"
@@ -544,7 +450,7 @@ export const ListUser = () => {
               direction="row"
               justifyContent="flex-start"
               alignItems="center">
-              <Grid item sx={{ margin: 2 }}>
+              <Grid item mb={1} sx={{ margin: 2 }}>
                 <Button
                   onClick={() => redirectToRoute(`/usuario/crear`)}
                   variant="contained">

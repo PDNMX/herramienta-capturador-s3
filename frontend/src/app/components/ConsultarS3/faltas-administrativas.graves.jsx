@@ -114,9 +114,6 @@ export const ListForm1 = () => {
     history.push(path);
   };
 
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
   return (
     <>
       <Snackbar
@@ -132,8 +129,7 @@ export const ListForm1 = () => {
       {/* Modal para ver registro */}
       <Dialog
         fullWidth={true}
-        maxWidth={maxWidth}
-        fullScreen={fullScreen}
+        maxWidth={"md"}
         onClose={handleCloseModal}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
