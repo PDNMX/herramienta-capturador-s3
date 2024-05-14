@@ -22,6 +22,9 @@ const url_api = import.meta.env.VITE_URL_API || process.env.VITE_URL_API;
 const client_id = import.meta.env.VITE_CLIENT_ID || process.env.VITE_CLIENT_ID;
 const client_secret = import.meta.env.VITE_CLIENT_SECRET || process.env.VITE_CLIENT_SECRET;
 
+// rutas con los endpoints para consultar los registros
+import endpointsConsulta from "../components/RutasConsultaAPI";
+
 const endpointsCaptura = {
 	"capturar.abstenciones.graves": url_api + `/S3/ABSTENCIONES-GRAVES/insert`,
 	"capturar.abstenciones.no-graves": url_api + `/S3/ABSTENCIONES-NO-GRAVES/insert`,
@@ -36,19 +39,6 @@ const endpointsCaptura = {
 	"capturar.inhabilitaciones.personas-morales": url_api + `/S3/INHABILITACIONES-PERSONAS-MORALES/insert`
 }
 
-const endpointsConsulta = {
-	"consultar.abstenciones.graves": url_api + `/S3/ABSTENCIONES-GRAVES/list`,
-	"consultar.abstenciones.no-graves": url_api + `/S3/ABSTENCIONES-NO-GRAVES/list`,
-	"consultar.actos-particulares.personas-fisicas": url_api + `/S3/PARTICULARES-PERSONAS-FISICAS-FALTAS-GRAVES/list`,
-	"consultar.actos-particulares.personas-morales": url_api + `/S3/PARTICULARES-PERSONAS-MORALES-FALTAS-GRAVES/list`,
-	"consultar.faltas-administrativas.graves": url_api + `/S3/SERVIDORES-FALTAS-GRAVES/list`,
-	"consultar.faltas-administrativas.no-graves": url_api + `/S3/SERVIDORES-NO-GRAVES/list`,
-	"consultar.hechos-corrupcion.personas-fisicas": url_api + `/S3/HECHOS-CORRUPCION-PERSONAS-FISICAS/list`,
-	"consultar.hechos-corrupcion.personas-morales": url_api + `/S3/HECHOS-CORRUPCION-PERSONAS-MORALES/list`,
-	"consultar.hechos-corrupcion.servidores-publicos": url_api + `/S3/HECHOS-CORRUPCION-SERVIDORES-PUBLICOS/list`,
-	"consultar.inhabilitaciones.personas-fisicas": url_api + `/S3/INHABILITACIONES-PERSONAS-FISICAS/list`,
-	"consultar.inhabilitaciones.personas-morales": url_api + `/S3/INHABILITACIONES-PERSONAS-MORALES/list`
-}
 
 export function* validationErrors() {
 	while (true) {
@@ -743,7 +733,7 @@ export function* getListSchemaS2() {
 		// se cambio el idUser a usuario
 		filters['usuario'] = payload.idUser;
 		let endpoint = endpointsConsulta[tipoFormulario];
-		console.log(endpoint)
+		//console.log(endpoint)
 		
 		try {
 			let respuesta = yield axios.post(endpoint, filters, {
@@ -757,7 +747,7 @@ export function* getListSchemaS2() {
 
 			if (respuesta.status === 200) {
 				yield put(S2Actions.setListS2(respuesta.data.results));
-				console.log(respuesta.data.results)
+				//console.log(respuesta.data.results)
 				yield put(S2Actions.setpaginationS2(respuesta.data.pagination));
 			} else {
 				//error in response

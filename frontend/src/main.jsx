@@ -29,6 +29,9 @@ const theme = createTheme({
           '& tbody .MuiTableRow-root:hover': {
             backgroundColor: '#9085da5e', // Color de resaltado al pasar el cursor
           },
+          '& tfoot p': {
+            fontWeight: 'bold', // Color de resaltado al pasar el cursor
+          },
         },
       },
     }

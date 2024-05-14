@@ -22,6 +22,8 @@ import Form from "@rjsf/mui";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import spanishLocalizer from "ajv-i18n/localize/es";
 
+import endpointsConsulta from "../RutasConsultaAPI";
+
 const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema, tipoForm }) => {
   return (
     <MyForm
@@ -37,15 +39,12 @@ const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema, tipoForm
 };
 
 function MyForm(props) {
-  const { initialValues, alerta, id, schema, uiSchema, tipoForm } = props;
-  const alert = alerta;
-  const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
-
-  //console.log(initialValues);
-
-  //const validate = makeValidate(schema);
-  //const required = makeRequired(schema)
+  let { initialValues, alerta, id, schema, uiSchema, tipoForm } = props;
+  let alert = alerta;
+  let dispatch = useDispatch();
+  let [open, setOpen] = React.useState(false);
+  tipoForm = tipoForm.substring(tipoForm.indexOf(".") + 1);
+  //console.log(endpointsConsulta[`consultar.${tipoForm}`])
 
   const redirectToRoute = (path) => {
     history.push(path);
@@ -62,8 +61,6 @@ function MyForm(props) {
     setOpen(true);
   };
 
-  //const schema = esquemaS3g;
-  //const uiSchema = uiS3g;
   const customFormats = formats;
   const validator = customizeValidator({ customFormats }, spanishLocalizer);
 
@@ -204,7 +201,7 @@ function MyForm(props) {
         <DialogActions>
           <Button
             disabled={!alert.status}
-            onClick={() => redirectToRoute("/consultar/s3/faltas-administrativas/graves")}
+            onClick={() => redirectToRoute(endpointsConsulta[`consultar.${tipoForm}`])}
             color="primary"
             autoFocus>
             Aceptar
