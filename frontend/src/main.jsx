@@ -17,6 +17,21 @@ const theme = createTheme({
         },
       },
     },
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          '& tbody .MuiTableRow-root': {
+            backgroundColor: 'transparent', // Fondo transparente para las filas impares
+          },
+          '& tbody .MuiTableRow-root:nth-of-type(odd)': {
+            backgroundColor: '#f5f5f5', // Fondo gris claro para las filas pares
+          },
+          '& tbody .MuiTableRow-root:hover': {
+            backgroundColor: '#9085da5e', // Color de resaltado al pasar el cursor
+          },
+        },
+      },
+    }
   },
 }, esES);
 
