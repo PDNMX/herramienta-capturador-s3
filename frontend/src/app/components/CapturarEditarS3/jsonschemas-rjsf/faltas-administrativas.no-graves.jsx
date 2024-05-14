@@ -89,11 +89,11 @@ let schema = {
         },
         sexo: {
           type: "string",
-          enum: ["FEMENINO", "MASCULINO"],
-          enumNames: ["Femenino", "Masculino"],
+          enum: ["MUJER", "HOMBRE"],
+          enumNames: ["Mujer", "Hombre"],
           title: "Sexo",
           description:
-            "Seleccionar la opción que corresponda: femenino/masculino.",
+            "Seleccionar la opción que corresponda:",
         },
         entePublico: {
           type: "object",
@@ -413,9 +413,9 @@ let schema = {
             title: "Falta cometida",
             required: [
               "clave",
-              "nombreNormatividadInfringida",
-              "articuloNormatividadInfringida",
-              "fraccionNormatividadInfringida",
+              "nombreNormatividad",
+              "articuloNormatividad",
+              "fraccionNormatividad",
             ],
             properties: {
               clave: {
@@ -563,7 +563,7 @@ let schema = {
               description:
                 "Colocar la fecha en que quedó firme la resolución de la persona servidora pública en formato dd-mm-aaaa.",
             },
-            fechaNotificacionResolucion: {
+            fechaNotificacionFirme: {
               type: "string",
               format: "date",
               title: "Fecha de notificación de la resolución firme",
@@ -723,9 +723,9 @@ let schema = {
                             title: "DESTITUCIÓN DEL EMPLEO CARGO O COMISIÓN",
                             description:
                               "Este apartado se deberá llenar si en la resolución definitiva se impuso la destitución del empleo, cargo o comisión a la persona servidora pública.",
-                            required: ["destituciónEmpleoCargoComision"],
+                            required: ["fechaDestitucion"],
                             properties: {
-                              fechaDestitución: {
+                              fechaDestitucion: {
                                 title: "Fecha de destitución",
                                 type: "string",
                                 format: "date",
@@ -735,7 +735,7 @@ let schema = {
                             },
                           },
                         },
-                        required: ["suspensionEmpleo"],
+                        required: ["destitucionEmpleo"],
                       },
                       {
                         properties: {
