@@ -261,20 +261,20 @@ export const ListForm2 = () => {
                           {registro._id}
                         </TableCell>
                         <TableCell style={{ width: "25%" }} align="left">
-                          {registro.grave.nombres &&
-                            registro.grave.nombres + " "}
-                          {registro.grave.primerApellido &&
-                            registro.grave.primerApellido + " "}
-                          {registro.grave.segundoApellido &&
-                          registro.grave.segundoApellido.sinSegundoApellido ==
+                          {registro.noGrave.nombres &&
+                            registro.noGrave.nombres + " "}
+                          {registro.noGrave.primerApellido &&
+                            registro.noGrave.primerApellido + " "}
+                          {registro.noGrave.segundoApellido &&
+                          registro.noGrave.segundoApellido.sinSegundoApellido ==
                             true
                             ? ""
-                            : registro.grave.segundoApellido.valor}
+                            : registro.noGrave.segundoApellido.valor}
                         </TableCell>
-                        {registro.grave.entePublico && (
+                        {registro.noGrave.entePublico && (
                           <TableCell style={{ width: "25%" }} align="left">
-                            {registro.grave.entePublico.siglas &&
-                              registro.grave.entePublico.siglas}
+                            {registro.noGrave.entePublico.siglas &&
+                              registro.noGrave.entePublico.siglas}
                           </TableCell>
                         )}
                         <TableCell style={{ width: "15%" }} align="center">

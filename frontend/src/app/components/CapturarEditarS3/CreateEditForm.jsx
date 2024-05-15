@@ -22,7 +22,8 @@ import Form from "@rjsf/mui";
 import { customizeValidator } from "@rjsf/validator-ajv8";
 import spanishLocalizer from "ajv-i18n/localize/es";
 
-import endpointsConsulta from "../RutasConsultaAPI";
+import rutasRedirect from "../RutasRedirect";
+/* import data from "./customFormats"; */
 
 const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema, tipoForm }) => {
   return (
@@ -39,12 +40,11 @@ const CreateEdit = ({ id, alert, catalogos, registry, schema, uiSchema, tipoForm
 };
 
 function MyForm(props) {
-  let { initialValues, alerta, id, schema, uiSchema, tipoForm } = props;
-  let alert = alerta;
-  let dispatch = useDispatch();
-  let [open, setOpen] = React.useState(false);
-  tipoForm = tipoForm.substring(tipoForm.indexOf(".") + 1);
-  //console.log(endpointsConsulta[`consultar.${tipoForm}`])
+  const { initialValues, alerta, id, schema, uiSchema, tipoForm } = props;
+  const alert = alerta;
+  const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  console.log(rutasRedirect[tipoForm])
 
   const redirectToRoute = (path) => {
     history.push(path);
@@ -75,79 +75,73 @@ function MyForm(props) {
     });
   } */
   const dataEjemplo = {
-    grave: {
-      segundoApellido: {
-        sinSegundoApellido: true,
+    "noGrave": {
+      "segundoApellido": {
+        "sinSegundoApellido": true
       },
-      entePublico: {
-        nivelOrdenGobierno: {
-          clave: "FEDERAL",
+      "entePublico": {
+        "nivelOrdenGobierno": {
+          "clave": "FEDERAL"
         },
-        entidadFederativa: {
-          clave: "09",
-          valor: "Ciudad de México",
+        "entidadFederativa": {
+          "clave": "09",
+          "valor": "Ciudad de México"
         },
-        ambitoPublico: "ORGANO_AUTONOMO",
-        nombre: "Secretaria Ejecutiva del Sistema Nacional Anticorrupción",
-        siglas: "SESNA",
+        "ambitoPublico": "ORGANO_AUTONOMO",
+        "nombre": "Secretaria Ejecutiva del Sistema Nacional Anticorrupción",
+        "siglas": "SESNA"
       },
-      empleoCargoComision: {
-        nombre: {
-          clave: "ENLACE_U_HOMOLOGO",
+      "empleoCargoComision": {
+        "nombre": {
+          "clave": "ENLACE_U_HOMOLOGO"
         },
-        denominacion:
-          "Enlace de Consulta de las Plataformas y Sistemas Digitales Anticorrupción",
-        areaAdscripcion: "Unidad de Plataforma Digital Nacional",
+        "denominacion": "Enlace de Consulta de las Plataformas y Sistemas Digitales Anticorrupción",
+        "areaAdscripcion": "Unidad de Plataforma Digital Nacional"
       },
-      origenInvestigacion: {
-        clave: "DENUNCIA_SP",
+      "origenInvestigacion": {
+        "clave": "DENUNCIA_SP"
       },
-      faltaCometida: [
+      "faltaCometida": [
         {
-          articuloNormatividad: ["10"],
-          fraccionNormatividad: ["20"],
-          articuloNormatividadInfringida: ["Articulo 21"],
-          fraccionNormatividadInfringida: ["Fracción 6"],
-          clave: "CONTRATACION_INDEBIDA",
-          normatividadInfringida:
-            "Ley General de Responsabilidades Administrativas",
-          descripcionHechos: "Lo contrato su tío el inombrable",
-          nombreNormatividad: "Ley General de Responsabilidades",
-        },
+          "articuloNormatividad": ["Articulo 21"],
+          "fraccionNormatividad": ["Fracción 6"],
+          "clave": "DENUNCIE",
+          "nombreNormatividad": "Ley General de Responsabilidades Administrativas",
+          "descripcionHechos": "Lo contrato su tío el inombrable"
+        }
       ],
-      resolucion: {
-        documentoResolucion: "Sentencia Final",
-        fechaResolucion: "2022-03-01",
-        fechaNotificacion: "2022-03-15",
-        urlResolucion: "https://www.google.com",
-        fechaResolucionFirme: "2022-04-01",
-        fechaNotificacionFirme: "2022-04-17",
-        urlResolucionFirme: "https://www.promodescuentos.com/12%0183?dxjk=0$",
+      "resolucion": {
+        "documentoResolucion": "Sentencia Final",
+        "fechaResolucion": "2022-03-01",
+        "fechaNotificacion": "2022-03-15",
+        "urlResolucion": "https://www.google.com",
+        "fechaResolucionFirme": "2022-04-01",
+        "fechaNotificacionFirme": "2022-04-17",
+        "urlResolucionFirme": "https://www.promodescuentos.com/12%0183?dxjk=0$"
       },
-      tipoSancion: {
-        sancion: [
+      "tipoSancion": {
+        "sancion": [
           {
-            clave: "DESTITUCION",
-            destitucionEmpleo: {
-              fechaDestitucion: "2022-05-15",
+            "destitucionEmpleo": {
+              "fechaDestitucion": "2022-05-15"
             },
-          },
+            "clave": "DESTITUCION"
+          }
         ],
-        ordenJurisdiccional: "FEDERAL",
-        autoridadResolutora: "OIC de la SESNA",
-        autoridadInvestigadora: "Comite de ética",
-        autoridadSubstanciadora: "Su jefa directa",
+        "ordenJurisdiccional": "FEDERAL",
+        "autoridadResolutora": "OIC de la SESNA",
+        "autoridadInvestigadora": "Comite de ética",
+        "autoridadSubstanciadora": "Su jefa directa"
       },
-      nombres: "Alan",
-      primerApellido: "Rojas",
-      curp: "RXBA990410HDFJTL00",
-      rfc: "ROBA990410GQ8",
-      sexo: "HOMBRE",
-      observaciones:
-        "Tambien se impondra sancion por molestar a una pequeña persona..",
+      "nombres": "Andres",
+      "primerApellido": "Franco",
+      "curp": "RXBA990410HDFJTL00",
+      "rfc": "ROBA990410GQ8",
+      "sexo": "HOMBRE",
+      "observaciones": "Tambien se impondra sancion por molestar a una pequeña persona."
     },
-    expediente: "2018",
-  };
+    "expediente": "2018"
+  }
 
   return (
     <Grid item xs={12}>
@@ -172,7 +166,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={initialValues}
+                formData={dataEjemplo}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}
@@ -200,8 +194,9 @@ function MyForm(props) {
         </DialogContent>
         <DialogActions>
           <Button
+            variant="contained"
             disabled={!alert.status}
-            onClick={() => redirectToRoute(endpointsConsulta[`consultar.${tipoForm}`])}
+            onClick={() => redirectToRoute(rutasRedirect[tipoForm])}
             color="primary"
             autoFocus>
             Aceptar
