@@ -39,6 +39,7 @@ const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
             if (tipoView[0] === "consultar") {
                 //console.log(tipoView[0]);
                 storeValidate.dispatch(S2Actions.requestListS2({}, renderView ));
+                storeValidate.dispatch(S2Actions.setclearS2());
             }
             
             storeValidate.dispatch(alertActions.clear());
