@@ -270,20 +270,20 @@ export const ListForm7 = () => {
                           {registro._id}
                         </TableCell>
                         <TableCell style={{ width: "25%" }} align="left">
-                          {registro.grave.nombres &&
-                            registro.grave.nombres + " "}
-                          {registro.grave.primerApellido &&
-                            registro.grave.primerApellido + " "}
-                          {registro.grave.segundoApellido &&
-                          registro.grave.segundoApellido.sinSegundoApellido ==
+                          {registro.hechosServidores.nombres &&
+                            registro.hechosServidores.nombres + " "}
+                          {registro.hechosServidores.primerApellido &&
+                            registro.hechosServidores.primerApellido + " "}
+                          {registro.hechosServidores.segundoApellido &&
+                          registro.hechosServidores.segundoApellido.sinSegundoApellido ==
                             true
                             ? ""
-                            : registro.grave.segundoApellido.valor}
+                            : registro.hechosServidores.segundoApellido.valor}
                         </TableCell>
-                        {registro.grave.entePublico && (
+                        {registro.hechosServidores.entePublico && (
                           <TableCell style={{ width: "25%" }} align="left">
-                            {registro.grave.entePublico.siglas &&
-                              registro.grave.entePublico.siglas}
+                            {registro.hechosServidores.entePublico.siglas &&
+                              registro.hechosServidores.entePublico.siglas}
                           </TableCell>
                         )}
                         <TableCell style={{ width: "15%" }} align="center">
@@ -300,7 +300,7 @@ export const ListForm7 = () => {
                             <IconButton
                               onClick={() =>
                                 redirectToRoute(
-                                  `/editar/s3/faltas-administrativas/graves/${registro._id}`,
+                                  `/editar/s3/hechos-corrupcion/servidores-publicos/${registro._id}`,
                                 )
                               }
                               style={{ color: "#ffe01b" }}>

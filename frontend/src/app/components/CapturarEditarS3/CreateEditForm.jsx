@@ -75,73 +75,68 @@ function MyForm(props) {
     });
   } */
   const dataEjemplo = {
-    "noGrave": {
-      "segundoApellido": {
-        "sinSegundoApellido": true
-      },
-      "entePublico": {
-        "nivelOrdenGobierno": {
-          "clave": "FEDERAL"
+    "absNoGrave": {
+        "segundoApellido": {
+            "sinSegundoApellido": false,
+            "valor": "gomez"
         },
-        "entidadFederativa": {
-          "clave": "09",
-          "valor": "Ciudad de México"
-        },
-        "ambitoPublico": "ORGANO_AUTONOMO",
-        "nombre": "Secretaria Ejecutiva del Sistema Nacional Anticorrupción",
-        "siglas": "SESNA"
-      },
-      "empleoCargoComision": {
-        "nombre": {
-          "clave": "ENLACE_U_HOMOLOGO"
-        },
-        "denominacion": "Enlace de Consulta de las Plataformas y Sistemas Digitales Anticorrupción",
-        "areaAdscripcion": "Unidad de Plataforma Digital Nacional"
-      },
-      "origenInvestigacion": {
-        "clave": "DENUNCIA_SP"
-      },
-      "faltaCometida": [
-        {
-          "articuloNormatividad": ["Articulo 21"],
-          "fraccionNormatividad": ["Fracción 6"],
-          "clave": "DENUNCIE",
-          "nombreNormatividad": "Ley General de Responsabilidades Administrativas",
-          "descripcionHechos": "Lo contrato su tío el inombrable"
-        }
-      ],
-      "resolucion": {
-        "documentoResolucion": "Sentencia Final",
-        "fechaResolucion": "2022-03-01",
-        "fechaNotificacion": "2022-03-15",
-        "urlResolucion": "https://www.google.com",
-        "fechaResolucionFirme": "2022-04-01",
-        "fechaNotificacionFirme": "2022-04-17",
-        "urlResolucionFirme": "https://www.promodescuentos.com/12%0183?dxjk=0$"
-      },
-      "tipoSancion": {
-        "sancion": [
-          {
-            "destitucionEmpleo": {
-              "fechaDestitucion": "2022-05-15"
+        "entePublico": {
+            "nivelOrdenGobierno": {
+                "clave": "FEDERAL"
             },
-            "clave": "DESTITUCION"
-          }
+            "entidadFederativa": {
+                "clave": "09",
+                "valor": "Ciudad de México"
+            },
+            "ambitoPublico": "LEGISLATIVO",
+            "nombre": "instrituto nacional de transparencia",
+            "siglas": "*inai"
+        },
+        "empleoCargoComision": {
+            "nombre": {
+                "clave": "DIRECCION_DE_AREA_U_HOMOLOGO"
+            },
+            "nivel": "departamento de sistemas de intomacón",
+            "areaAdscripcion": "subdirección de adquisicioness"
+        },
+        "origenInvestigacion": {
+            "clave": "AUDITORIA_OIC"
+        },
+        "faltaCometida": [
+            {
+                "articuloNormatividad": [
+                    "45"
+                ],
+                "fraccionNormatividad": [
+                    "76"
+                ],
+                "clave": "ATENDER",
+                "descripcionHechos": "peculado",
+                "nombreNormatividad": "aaaaa"
+            }
         ],
-        "ordenJurisdiccional": "FEDERAL",
-        "autoridadResolutora": "OIC de la SESNA",
-        "autoridadInvestigadora": "Comite de ética",
-        "autoridadSubstanciadora": "Su jefa directa"
-      },
-      "nombres": "Andres",
-      "primerApellido": "Franco",
-      "curp": "RXBA990410HDFJTL00",
-      "rfc": "ROBA990410GQ8",
-      "sexo": "HOMBRE",
-      "observaciones": "Tambien se impondra sancion por molestar a una pequeña persona."
+        "resolucion": {
+            "documentoResolucion": "sentencia final",
+            "fechaResolucion": "2020-05-06",
+            "fechaNotificacion": "2020-08-08",
+            "url": "www.sjadashjk.com",
+            "descripcionAbstención": "sin pruebas suficientes"
+        },
+        "tipoSancion": {
+            "autoridadResolutora": "secretaria de la función pública",
+            "autoridadInvestigadora": "secretaria de la función pública",
+            "autoridadSubstanciadora": "secretaria de la función pública"
+        },
+        "nombres": "Juan",
+        "primerApellido": "rodriguez",
+        "curp": "perg850101hdf",
+        "rfc": "perg850101hdf",
+        "sexo": "HOMBRE",
+        "observaciones": "fyi...."
     },
-    "expediente": "2018"
-  }
+    "expediente": "3"
+}
+
 
   return (
     <Grid item xs={12}>

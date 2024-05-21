@@ -71,7 +71,7 @@ let schema = {
         "sexo",
         "entePublico",
         "empleoCargoComision",
-        "origenTipo",
+        "origenInvestigacion",
         "resolucion",
         "tipoSancion",
       ],

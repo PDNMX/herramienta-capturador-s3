@@ -525,7 +525,6 @@ let schema = {
             "documentoResolucion",
             "fechaResolucion",
             "fechaNotificacion",
-            "fechaResolucionFirme",
             "url",
           ],
           properties: {

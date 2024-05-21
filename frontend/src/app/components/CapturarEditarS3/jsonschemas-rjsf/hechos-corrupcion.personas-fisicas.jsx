@@ -93,7 +93,7 @@ let schema = {
         "curp",
         "domicilio",
         "entePublico",
-        "origenTipo",
+        "origenInvestigacion",
         "resolucion",
         "tipoSancion",
       ],
@@ -421,7 +421,7 @@ let schema = {
                 {
                   properties: {
                     clave: {
-                      enum: ["DENUNCIA_CIUDADADA", "DENUNCIA_SP", "OFICIO"],
+                      enum: ["DENUNCIA_CIUDADANA", "DENUNCIA_SP", "OFICIO", "OTRO"],
                     },
                   },
                 },
@@ -481,7 +481,6 @@ let schema = {
             "fechaResolucion",
             "fechaNotificacion",
             "fechaResolucionFirme",
-            "url",
           ],
           properties: {
             documentoResolucion: {
