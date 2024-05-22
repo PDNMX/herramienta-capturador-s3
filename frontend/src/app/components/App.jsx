@@ -12,7 +12,8 @@ import { S2Actions } from "../_actions/s2.action";
 
 import { ResetPasswordV } from "./Login/ResetPassword";
 
-const labelSesionExpirada = "La sesión ha expirado, favor de iniciar sesión de nuevo";
+const labelSesionExpirada =
+  "La sesión ha expirado, favor de iniciar sesión de nuevo";
 const labelNoSeHaIniciado = "No se ha iniciado sesión";
 
 const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
@@ -37,18 +38,19 @@ const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
             // valida si es del tipo consulta, y hace el request para listar
             const tipoView = renderView.split(".");
             if (tipoView[0] === "consultar") {
-                //console.log(tipoView[0]);
-                storeValidate.dispatch(S2Actions.requestListS2({}, renderView ));
-                storeValidate.dispatch(S2Actions.setclearS2());
+              //console.log(tipoView[0]);
+              storeValidate.dispatch(S2Actions.requestListS2({}, renderView));
+              storeValidate.dispatch(S2Actions.setclearS2());
             }
-            
+
             storeValidate.dispatch(alertActions.clear());
             return (
-              <Component 
-                propiedades={{ 
-                  renderView, 
-                  match: tipoView[0] === "editar" ? props.match : undefined 
-                }} 
+              <Component
+                {...props}
+                propiedades={{
+                  renderView,
+                  match: tipoView[0] === "editar" ? props.match : undefined,
+                }}
               />
             );
           } else {
@@ -223,49 +225,77 @@ export const App = () => (
         component={ConnectedMenuV}
         renderView="consultar.abstenciones.no-graves"
       />
-      
-      <Route
+
+      <PrivateRoute
         exact
         path="/editar/s3/faltas-administrativas/graves/:id"
-        render={({ match }) => {
-          if (localStorage.token) {
-            if (
-              JSON.parse(window.atob(localStorage.token.split(".")[1])) <
-              (new Date().getTime() + 1) / 1000
-            ) {
-              storeValidate.dispatch(alertActions.error(labelSesionExpirada));
-              localStorage.clear();
-              return <Redirect to="/ingresar" />;
-            } else {
-              if (
-                localStorage.token &&
-                localStorage.rol == "2" /* &&
-                localStorage.S2 == "true" */
-              ) {
-                storeValidate.dispatch(
-                  userActions.requesUserInSession(localStorage.token),
-                );
-                storeValidate.dispatch(userActions.requestPermisosSistema());
-                //storeValidate.dispatch(S2Actions.fillRegEdit(match.params.id));
-                return (
-                  <ConnectedMenuV
-                    propiedades={{
-                      renderView: "editar.faltas-administrativas-graves",
-                    }}
-                    match={match}
-                  />
-                );
-              } else {
-                return <Redirect to="/ingresar" />;
-              }
-            }
-          } else {
-            storeValidate.dispatch(alertActions.error(labelNoSeHaIniciado));
-            return <Redirect to="/ingresar" />;
-          }
-        }}
+        component={ConnectedMenuV}
+        renderView="editar.faltas-administrativas.graves"
       />
 
+      <PrivateRoute
+        exact
+        path="/editar/s3/faltas-administrativas/no-graves/:id"
+        component={ConnectedMenuV}
+        renderView="editar.faltas-administrativas.no-graves"
+      />
+
+      <PrivateRoute
+        exact
+        path="/editar/s3/actos-particulares/personas-fisicas/:id"
+        component={ConnectedMenuV}
+        renderView="editar.actos-particulares.personas-fisicas"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/actos-particulares/personas-morales/:id"
+        component={ConnectedMenuV}
+        renderView="editar.actos-particulares.personas-morales"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/inhabilitaciones/personas-fisicas/:id"
+        component={ConnectedMenuV}
+        renderView="editar.inhabilitaciones.personas-fisicas"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/inhabilitaciones/personas-morales/:id"
+        component={ConnectedMenuV}
+        renderView="editar.inhabilitaciones.personas-morales"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/hechos-corrupcion/servidores-publicos/:id"
+        component={ConnectedMenuV}
+        renderView="editar.hechos-corrupcion.servidores-publicos"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/hechos-corrupcion/personas-fisicas/:id"
+        component={ConnectedMenuV}
+        renderView="editar.hechos-corrupcion.personas-fisicas"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/hechos-corrupcion/personas-morales/:id"
+        component={ConnectedMenuV}
+        renderView="editar.hechos-corrupcion.personas-morales"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/abstenciones/graves/:id"
+        component={ConnectedMenuV}
+        renderView="editar.abstenciones.graves"
+      />
+      <PrivateRoute
+        exact
+        path="/editar/s3/abstenciones/no-graves/:id"
+        component={ConnectedMenuV}
+        renderView="editar.abstenciones.no-graves"
+      />
+
+      {/* Temporales s2 v2 */}
       <PrivateRoute
         exact
         path="/consulta/S2v2"

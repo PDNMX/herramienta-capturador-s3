@@ -291,7 +291,7 @@ export const ListForm2 = () => {
                             <IconButton
                               onClick={() =>
                                 redirectToRoute(
-                                  `/editar/s3/faltas-administrativas/graves/${registro._id}`,
+                                  `/editar/s3/faltas-administrativas/no-graves/${registro._id}`,
                                 )
                               }
                               style={{ color: "#ffe01b" }}>
