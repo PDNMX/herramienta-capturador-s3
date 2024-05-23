@@ -144,7 +144,8 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
 
   // Función para determinar si un elemento está activo
   const isItemActive = (route) => {
-    return location.pathname === route;
+    return location.pathname.includes(route);
+    //return location.pathname === route;
   };
 
   return (
@@ -212,7 +213,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/faltas-administrativas/graves",
+                          "/s3/faltas-administrativas/graves",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -228,7 +229,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/faltas-administrativas/no-graves",
+                          "/s3/faltas-administrativas/no-graves",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -259,7 +260,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/actos-particulares/personas-fisicas",
+                          "/s3/actos-particulares/personas-fisicas",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -277,7 +278,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/actos-particulares/personas-morales",
+                          "/s3/actos-particulares/personas-morales",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -305,7 +306,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/inhabilitaciones/personas-fisicas",
+                          "/s3/inhabilitaciones/personas-fisicas",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -321,7 +322,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/inhabilitaciones/personas-morales",
+                          "/s3/inhabilitaciones/personas-morales",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -352,7 +353,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/hechos-corrupcion/servidores-publicos",
+                          "/s3/hechos-corrupcion/servidores-publicos",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -368,7 +369,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/hechos-corrupcion/personas-fisicas",
+                          "/s3/hechos-corrupcion/personas-fisicas",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -384,7 +385,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/hechos-corrupcion/personas-morales",
+                          "/s3/hechos-corrupcion/personas-morales",
                         )}
                         onClick={() =>
                           redirectToRoute(
@@ -412,7 +413,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/abstenciones/graves",
+                          "/s3/abstenciones/graves",
                         )}
                         onClick={() =>
                           redirectToRoute("/consultar/s3/abstenciones/graves")
@@ -426,7 +427,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
-                          "/consultar/s3/abstenciones/no-graves",
+                          "/s3/abstenciones/no-graves",
                         )}
                         onClick={() =>
                           redirectToRoute(

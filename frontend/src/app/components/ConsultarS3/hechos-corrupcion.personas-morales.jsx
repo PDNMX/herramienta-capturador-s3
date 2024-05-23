@@ -238,7 +238,7 @@ export const ListForm9 = () => {
                   color="primary"
                   onClick={() =>
                     redirectToRoute(
-                      "captura/s3/hechos-corrupcion/personas-morales",
+                      "/captura/s3/hechos-corrupcion/personas-morales",
                     )
                   }>
                   Capturar Información
