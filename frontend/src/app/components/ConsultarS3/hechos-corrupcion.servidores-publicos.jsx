@@ -223,7 +223,7 @@ export const ListForm7 = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title={tipoFormulario.substring(tipoFormulario.indexOf(".") + 1)}
+            title={'FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE HECHOS DE CORRUPCIÓN.'}
             subheader="Información Registrada"
           />
           <Divider />

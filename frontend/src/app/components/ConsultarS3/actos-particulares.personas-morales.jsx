@@ -32,7 +32,6 @@ import { history } from "../../store/history";
 import { S2Actions } from "../../_actions/s2.action";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 import Nota from "../Common/Nota";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
@@ -223,7 +222,7 @@ export const ListForm4 = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title={tipoFormulario.substring(tipoFormulario.indexOf(".") + 1)}
+            title={'FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A LOS PARTICULARES (PERSONAS MORALES) VINCULADOS CON FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS.'}
             subheader="Información Registrada"
           />
           <Divider />
