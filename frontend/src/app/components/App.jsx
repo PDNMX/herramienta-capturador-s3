@@ -16,7 +16,7 @@ const labelSesionExpirada =
   "La sesión ha expirado, favor de iniciar sesión de nuevo";
 const labelNoSeHaIniciado = "No se ha iniciado sesión";
 
-const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
+const PrivateRoute = ({ renderView, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
@@ -45,7 +45,7 @@ const PrivateRoute = ({ component: Component, renderView, ...rest }) => (
 
             storeValidate.dispatch(alertActions.clear());
             return (
-              <Component
+              <ConnectedMenuV
                 {...props}
                 propiedades={{
                   renderView,
@@ -86,74 +86,74 @@ export const App = () => (
       <PrivateRoute
         exact
         path="/inicio"
-        component={ConnectedMenuV}
+        
         renderView="inicio"
       />
       {/* ----------- RUTAS DE CAPTURA - INICIO ----------- */}
       <PrivateRoute
         exact
         path="/captura/s3/faltas-administrativas/graves"
-        component={ConnectedMenuV}
+        
         renderView="capturar.faltas-administrativas.graves"
       />
       <PrivateRoute
         exact
         path="/captura/s3/faltas-administrativas/no-graves"
-        component={ConnectedMenuV}
+        
         renderView="capturar.faltas-administrativas.no-graves"
       />
       <PrivateRoute
         exact
         path="/captura/s3/actos-particulares/personas-fisicas"
-        component={ConnectedMenuV}
+        
         renderView="capturar.actos-particulares.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/captura/s3/actos-particulares/personas-morales"
-        component={ConnectedMenuV}
+        
         renderView="capturar.actos-particulares.personas-morales"
       />
       <PrivateRoute
         exact
         path="/captura/s3/inhabilitaciones/personas-fisicas"
-        component={ConnectedMenuV}
+        
         renderView="capturar.inhabilitaciones.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/captura/s3/inhabilitaciones/personas-morales"
-        component={ConnectedMenuV}
+        
         renderView="capturar.inhabilitaciones.personas-morales"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/servidores-publicos"
-        component={ConnectedMenuV}
+        
         renderView="capturar.hechos-corrupcion.servidores-publicos"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/personas-fisicas"
-        component={ConnectedMenuV}
+        
         renderView="capturar.hechos-corrupcion.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/captura/s3/hechos-corrupcion/personas-morales"
-        component={ConnectedMenuV}
+        
         renderView="capturar.hechos-corrupcion.personas-morales"
       />
       <PrivateRoute
         exact
         path="/captura/s3/abstenciones/graves"
-        component={ConnectedMenuV}
+        
         renderView="capturar.abstenciones.graves"
       />
       <PrivateRoute
         exact
         path="/captura/s3/abstenciones/no-graves"
-        component={ConnectedMenuV}
+        
         renderView="capturar.abstenciones.no-graves"
       />
       {/* ----------- RUTAS DE CAPTURA - FIN ----------- */}
@@ -162,136 +162,136 @@ export const App = () => (
       <PrivateRoute
         exact
         path="/consultar/s3/faltas-administrativas/graves"
-        component={ConnectedMenuV}
+        
         renderView="consultar.faltas-administrativas.graves"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/faltas-administrativas/no-graves"
-        component={ConnectedMenuV}
+        
         renderView="consultar.faltas-administrativas.no-graves"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/actos-particulares/personas-fisicas"
-        component={ConnectedMenuV}
+        
         renderView="consultar.actos-particulares.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/actos-particulares/personas-morales"
-        component={ConnectedMenuV}
+        
         renderView="consultar.actos-particulares.personas-morales"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/inhabilitaciones/personas-fisicas"
-        component={ConnectedMenuV}
+        
         renderView="consultar.inhabilitaciones.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/inhabilitaciones/personas-morales"
-        component={ConnectedMenuV}
+        
         renderView="consultar.inhabilitaciones.personas-morales"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/hechos-corrupcion/servidores-publicos"
-        component={ConnectedMenuV}
+        
         renderView="consultar.hechos-corrupcion.servidores-publicos"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/hechos-corrupcion/personas-fisicas"
-        component={ConnectedMenuV}
+        
         renderView="consultar.hechos-corrupcion.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/hechos-corrupcion/personas-morales"
-        component={ConnectedMenuV}
+        
         renderView="consultar.hechos-corrupcion.personas-morales"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/abstenciones/graves"
-        component={ConnectedMenuV}
+        
         renderView="consultar.abstenciones.graves"
       />
       <PrivateRoute
         exact
         path="/consultar/s3/abstenciones/no-graves"
-        component={ConnectedMenuV}
+        
         renderView="consultar.abstenciones.no-graves"
       />
 
       <PrivateRoute
         exact
         path="/editar/s3/faltas-administrativas/graves/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.faltas-administrativas.graves"
       />
 
       <PrivateRoute
         exact
         path="/editar/s3/faltas-administrativas/no-graves/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.faltas-administrativas.no-graves"
       />
 
       <PrivateRoute
         exact
         path="/editar/s3/actos-particulares/personas-fisicas/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.actos-particulares.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/editar/s3/actos-particulares/personas-morales/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.actos-particulares.personas-morales"
       />
       <PrivateRoute
         exact
         path="/editar/s3/inhabilitaciones/personas-fisicas/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.inhabilitaciones.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/editar/s3/inhabilitaciones/personas-morales/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.inhabilitaciones.personas-morales"
       />
       <PrivateRoute
         exact
         path="/editar/s3/hechos-corrupcion/servidores-publicos/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.hechos-corrupcion.servidores-publicos"
       />
       <PrivateRoute
         exact
         path="/editar/s3/hechos-corrupcion/personas-fisicas/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.hechos-corrupcion.personas-fisicas"
       />
       <PrivateRoute
         exact
         path="/editar/s3/hechos-corrupcion/personas-morales/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.hechos-corrupcion.personas-morales"
       />
       <PrivateRoute
         exact
         path="/editar/s3/abstenciones/graves/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.abstenciones.graves"
       />
       <PrivateRoute
         exact
         path="/editar/s3/abstenciones/no-graves/:id"
-        component={ConnectedMenuV}
+        
         renderView="editar.abstenciones.no-graves"
       />
 
@@ -299,7 +299,7 @@ export const App = () => (
       <PrivateRoute
         exact
         path="/consulta/S2v2"
-        component={ConnectedMenuV}
+        
         renderView="S2Schemav2"
       />
 
