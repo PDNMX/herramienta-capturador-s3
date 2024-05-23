@@ -153,17 +153,15 @@ export const ListProvider = () => {
 
   return (
     <>
-      <Grid item mb={1} xs={12}>
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          open={alerta.status}
-          autoHideDuration={3000}
-          onClose={handleCloseSnackbar}>
-          <Alert onClose={handleCloseSnackbar} severity={alerta.type}>
-            {alerta.message}
-          </Alert>
-        </Snackbar>
-      </Grid>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={alerta.status}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity={alerta.type}>
+          {alerta.message}
+        </Alert>
+      </Snackbar>
 
       <Dialog
         maxWidth={"md"}
@@ -257,10 +255,14 @@ export const ListProvider = () => {
       </Dialog>
       <Grid item xs={12}>
         <Card>
-          <CardHeader title="Lista de Proveedores" />
+          <CardHeader title="Lista de Proveedores" subheader="Información Registrada"/>
           <Divider />
           <CardContent>
-            <TableContainer component={Paper}>
+          {providers.length === 0 ? (
+              <Typography variant="h4" align="left" mb={2}>
+                No hay registros aún. Agrega un registro para comenzar.
+              </Typography>
+            ) : (<TableContainer component={Paper}>
               {providers.length > 0 && (
                 <Table>
                   <TableHead>
@@ -375,7 +377,8 @@ export const ListProvider = () => {
                   </TableFooter>
                 </Table>
               )}
-            </TableContainer>
+            </TableContainer>)}
+            
           </CardContent>
           <Divider />
           <CardActions>
