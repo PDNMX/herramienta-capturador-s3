@@ -51,8 +51,8 @@ function Proveedor(props) {
             "Faltas Administrativas de Servidores Públicos: NO GRAVES",
             "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
             "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
-            "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
-            "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
+            /* "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
+            "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES", */
             "Hechos de Corrupción: SERVIDORES PÚBLICOS",
             "Hechos de Corrupción: PERSONAS FÍSICAS",
             "Hechos de Corrupción: PERSONAS MORALES",
@@ -78,7 +78,7 @@ function Proveedor(props) {
                 "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
               value: "actos-particulares.personas-morales",
             },
-            {
+            /* {
               label:
                 "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
               value: "inhabilitaciones.personas-fisicas",
@@ -87,7 +87,7 @@ function Proveedor(props) {
               label:
                 "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
               value: "inhabilitaciones.personas-morales",
-            },
+            }, */
             {
               label: "Hechos de Corrupción: SERVIDORES PÚBLICOS",
               value: "hechos-corrupcion.servidores-publicos",
