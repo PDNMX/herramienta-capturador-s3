@@ -35,33 +35,31 @@ import { Alert } from "@mui/material";
 import { history } from "../../store/history";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 //import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import withStyles from "@mui/styles/withStyles";
 import { alertActions } from "../../_actions/alert.actions";
 import CloseIcon from "@mui/icons-material/Close";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
 const listaFormatos = {
-  "faltas-administrativas-graves":
+  "faltas-administrativas.graves":
     "Faltas Administrativas de Servidores Públicos: GRAVES",
-  "faltas-administrativas-no-graves":
+  "faltas-administrativas.no-graves":
     "Faltas Administrativas de Servidores Públicos: NO GRAVES",
-  "actos-de-particulares-personas-fisicas":
+  "actos-particulares.personas-fisicas":
     "Actos de Particulares vinculados con Faltas Graves: PERSONAS FÍSICAS",
-  "actos-de-particulares-personas-morales":
+  "actos-particulares.personas-morales":
     "Actos de Particulares vinculados con Faltas Graves: PERSONAS MORALES",
-  "inhabilitaciones-personas-fisicas":
+  "inhabilitaciones.personas-fisicas":
     "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS FÍSICAS",
-  "inhabilitaciones-personas-morales":
+  "inhabilitaciones.personas-morales":
     "Sanciones (Inhabilitaciones) por normas diversas a la LGRA: PERSONAS MORALES",
-  "hechos-de-corrupcion-servidores-publicos":
+  "hechos-corrupcion.servidores-publicos":
     "Hechos de Corrupción: SERVIDORES PÚBLICOS",
-  "hechos-de-corrupcion-personas-fisicas":
+  "hechos-corrupcion.personas-fisicas":
     "Hechos de Corrupción: PERSONAS FÍSICAS",
-  "hechos-de-corrupcion-personas-morales":
+  "hechos-corrupcion.personas-morales":
     "Hechos de Corrupción: PERSONAS MORALES",
-  "abstenciones-graves": "Abstenciones: GRAVES",
-  "abstenciones-no-graves": "Abstenciones: NO GRAVES",
+  "abstenciones.graves": "Abstenciones: GRAVES",
+  "abstenciones.no-graves": "Abstenciones: NO GRAVES",
 };
 
 export const ListProvider = () => {

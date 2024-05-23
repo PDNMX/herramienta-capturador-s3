@@ -34,7 +34,29 @@ const theme = createTheme({
           },
         },
       },
-    }
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          "&": {
+            borderRadius: "4px", // Color de fondo seleccionado
+          },
+          "&.Mui-selected": {
+            backgroundColor: "#9085da5e", // Color de fondo seleccionado
+            fontWeight: 'bold'
+          },
+          "&.Mui-selected span": {
+            fontWeight: 'bold'
+          },
+          "&.Mui-selected:hover": {
+            backgroundColor: "#9085da5e", // Color de fondo seleccionado en hover
+          },
+          "&:hover": {
+            backgroundColor: "#9085da5e", // Color de fondo seleccionado en hover
+          },
+        },
+      },
+    },
   },
 }, esES);
 

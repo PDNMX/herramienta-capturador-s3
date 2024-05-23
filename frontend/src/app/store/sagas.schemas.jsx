@@ -396,7 +396,7 @@ export function* permisosSistemas() {
 		localStorage.setItem('S2', false);
 		localStorage.setItem('S3S', false);
 		localStorage.setItem('S3P', false);
-		localStorage.setItem('faltas-administrativas-graves', false);
+		localStorage.setItem('faltas-administrativas.graves', false);
 		let permisos = [];
 		permisos = status.data.sistemas;
 
@@ -407,8 +407,8 @@ export function* permisosSistemas() {
 				localStorage.setItem('S3S', true);
 			} else if (item == 'S3P') {
 				localStorage.setItem('S3P', true);
-			} else if (item == 'faltas-administrativas-graves') {
-				localStorage.setItem('faltas-administrativas-graves', true);
+			} else if (item == 'faltas-administrativas.graves') {
+				localStorage.setItem('faltas-administrativas.graves', true);
 			}
 		});
 	}
