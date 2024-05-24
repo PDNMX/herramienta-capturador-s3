@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
+  DialogActions,
   Divider,
   Grid,
   IconButton,
@@ -20,7 +22,6 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  CardActions,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
@@ -33,7 +34,7 @@ import { S2Actions } from "../../_actions/s2.action";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 import CloseIcon from "@mui/icons-material/Close";
-import Nota from "../Common/Nota";
+import ReactJson from "react-json-view";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
 const tipoFormulario = "consultar.hechos-corrupcion.personas-fisicas";
@@ -52,13 +53,13 @@ export const ListForm8 = () => {
   const handleOpenModalUserInfo = (user) => {
     //setSelectedRegistro(user);
     setSelectedRegistro(() => {
-      setOpenModalUserInfo(true);
+      handleCloseModal(true);
       return user;
     });
   };
 
-  const handleCloseModalUserInfo = () => {
-    setOpenModalUserInfo(false);
+  const handleCloseModal = () => {
+    handleCloseModal(false);
   };
 
   const handleCloseSnackbar = () => {
@@ -125,7 +126,7 @@ export const ListForm8 = () => {
       <Dialog
         fullWidth={true}
         maxWidth={"md"}
-        onClose={handleCloseModalUserInfo}
+        onClose={handleCloseModal}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
         <DialogTitle>
@@ -134,7 +135,7 @@ export const ListForm8 = () => {
         <IconButton
           edge="end"
           color="inherit"
-          onClick={handleCloseModalUserInfo}
+          onClick={handleCloseModal}
           aria-label="close"
           sx={{
             position: "absolute",
@@ -148,73 +149,45 @@ export const ListForm8 = () => {
         <DialogContent dividers>
           <Grid container>
             <Grid item xs={12}>
-              <Typography align={"center"}>
-                1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Fecha de Captura:</b>{" "}
-                {selectedRegistro.fechaCaptura ? (
-                  selectedRegistro.fechaCaptura
-                ) : (
-                  <Nota />
-                )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Ejercicio:</b>{" "}
-                {selectedRegistro.ejercicio ? (
-                  selectedRegistro.ejercicio
-                ) : (
-                  <Nota />
-                )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Primer Apellido:</b>{" "}
-                {selectedRegistro.primerApellido ? (
-                  selectedRegistro.primerApellido
-                ) : (
-                  <Nota />
-                )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>CURP:</b>{" "}
-                {selectedRegistro.curp ? selectedRegistro.curp : <Nota />}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Sexo:</b>{" "}
-                {selectedRegistro.sexo ? selectedRegistro.sexo : <Nota />}
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Divider sx={{ m: 3 }} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography align={"center"}>
-                2. DATOS DEL EMPLEO, CARGO O COMISIÓN
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left"></Typography>
+              <ReactJson
+                style={{ padding: "0.8rem" }}
+                name={false}
+                src={selectedRegistro}
+                theme="harmonic"
+                iconStyle="triangle"
+                enableEdit={false}
+                enableAdd={false}
+                enableDelete={false}
+                enableClipboard={false}
+                displayDataTypes={false}
+                displayObjectSize={false}
+                indentWidth={6}
+                collapsed={false}
+                collapseStringsAfterLength={false}
+              />
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions>
+          <Button
+            sx={{ m: 1 }}
+              variant="contained"
+            color="primary"
+            onClick={() =>
+              redirectToRoute(
+                `/editar/s3/hechos-corrupcion/personas-fisicas/${selectedRegistro._id}`,
+              )
+            }>
+            Editar
+          </Button>
+          <Button
+            onClick={handleCloseModal}
+            sx={{ m: 1 }}
+              variant="contained"
+            color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
       </Dialog>
 
       <Grid item xs={12}>
@@ -259,20 +232,20 @@ export const ListForm8 = () => {
                           {registro._id}
                         </TableCell>
                         <TableCell style={{ width: "25%" }} align="left">
-                          {registro.grave.nombres &&
-                            registro.grave.nombres + " "}
-                          {registro.grave.primerApellido &&
-                            registro.grave.primerApellido + " "}
-                          {registro.grave.segundoApellido &&
-                          registro.grave.segundoApellido.sinSegundoApellido ==
+                          {registro.hechosFisica.nombres &&
+                            registro.hechosFisica.nombres + " "}
+                          {registro.hechosFisica.primerApellido &&
+                            registro.hechosFisica.primerApellido + " "}
+                          {registro.hechosFisica.segundoApellido &&
+                          registro.hechosFisica.segundoApellido.sinSegundoApellido ==
                             true
                             ? ""
-                            : registro.grave.segundoApellido.valor}
+                            : registro.hechosFisica.segundoApellido.valor}
                         </TableCell>
-                        {registro.grave.entePublico && (
+                        {registro.hechosFisica.entePublico && (
                           <TableCell style={{ width: "25%" }} align="left">
-                            {registro.grave.entePublico.siglas &&
-                              registro.grave.entePublico.siglas}
+                            {registro.hechosFisica.entePublico.siglas &&
+                              registro.hechosFisica.entePublico.siglas}
                           </TableCell>
                         )}
                         <TableCell style={{ width: "15%" }} align="center">
@@ -289,7 +262,7 @@ export const ListForm8 = () => {
                             <IconButton
                               onClick={() =>
                                 redirectToRoute(
-                                  `/editar/s3/faltas-administrativas/graves/${registro._id}`,
+                                  `/editar/s3/hechos-corrupcion/personas-fisicas/${registro._id}`,
                                 )
                               }
                               style={{ color: "#ffe01b" }}>
