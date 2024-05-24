@@ -228,7 +228,7 @@ export const ListForm10 = () => {
             {S2List.length === 0 ? ( // Check if S2List is empty
               <>
                 <Typography variant="h4" align="center">
-                  No hay registros aún. Agrega un registro para comenzar.
+                  No hay registros aún. Captura un registro para comenzar.
                 </Typography>
               </>
             ) : (
