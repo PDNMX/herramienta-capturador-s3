@@ -172,7 +172,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={dataEjemplo}
+                formData={initialValues}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}

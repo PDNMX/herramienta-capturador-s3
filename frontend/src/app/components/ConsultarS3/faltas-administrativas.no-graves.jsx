@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
+  DialogActions,
   Divider,
   Grid,
   IconButton,
@@ -20,7 +22,6 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  CardActions
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
@@ -33,9 +34,9 @@ import { S2Actions } from "../../_actions/s2.action";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 import CloseIcon from "@mui/icons-material/Close";
-import Nota from "../Common/Nota";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
+import ReactJson from "react-json-view";
 const tipoFormulario = "consultar.faltas-administrativas.no-graves";
 
 export const ListForm2 = () => {
@@ -54,10 +55,10 @@ export const ListForm2 = () => {
     setSelectedRegistro(() => {
       setOpenModalUserInfo(true);
       return user;
-    }); 
+    });
   };
 
-  const handleCloseModalUserInfo = () => {
+  const handleCloseModal = () => {
     setOpenModalUserInfo(false);
   };
 
@@ -67,11 +68,14 @@ export const ListForm2 = () => {
 
   const handleChangePage = (_, newPage) => {
     dispatch(
-      S2Actions.requestListS2({
-        query: query,
-        page: newPage + 1,
-        pageSize: paginationSuper.pageSize,
-      }, tipoFormulario),
+      S2Actions.requestListS2(
+        {
+          query: query,
+          page: newPage + 1,
+          pageSize: paginationSuper.pageSize,
+        },
+        tipoFormulario,
+      ),
     );
   };
 
@@ -79,19 +83,25 @@ export const ListForm2 = () => {
     const newSize = parseInt(event.target.value, 10);
     if (paginationSuper.page * newSize > paginationSuper.totalRows) {
       dispatch(
-        S2Actions.requestListS2({
-          query: query,
-          page: 1,
-          pageSize: parseInt(event.target.value, 10),
-        }, tipoFormulario),
+        S2Actions.requestListS2(
+          {
+            query: query,
+            page: 1,
+            pageSize: parseInt(event.target.value, 10),
+          },
+          tipoFormulario,
+        ),
       );
     } else {
       dispatch(
-        S2Actions.requestListS2({
-          query: query,
-          page: 1,
-          pageSize: parseInt(event.target.value, 10),
-        }, tipoFormulario),
+        S2Actions.requestListS2(
+          {
+            query: query,
+            page: 1,
+            pageSize: parseInt(event.target.value, 10),
+          },
+          tipoFormulario,
+        ),
       );
     }
   };
@@ -116,7 +126,7 @@ export const ListForm2 = () => {
       <Dialog
         fullWidth={true}
         maxWidth={"md"}
-        onClose={handleCloseModalUserInfo}
+        onClose={handleCloseModal}
         aria-labelledby="customized-dialog-title"
         open={openModalUserInfo}>
         <DialogTitle>
@@ -125,7 +135,7 @@ export const ListForm2 = () => {
         <IconButton
           edge="end"
           color="inherit"
-          onClick={handleCloseModalUserInfo}
+          onClick={handleCloseModal}
           aria-label="close"
           sx={{
             position: "absolute",
@@ -139,89 +149,63 @@ export const ListForm2 = () => {
         <DialogContent dividers>
           <Grid container>
             <Grid item xs={12}>
-              <Typography align={"center"}>
-                1. DATOS GENERALES DE LA PERSONA SERVIDORA PÚBLICA
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Fecha de Captura:</b>{" "}
-                {selectedRegistro.fechaCaptura ? (
-                  selectedRegistro.fechaCaptura
-                ) : (
-                  <Nota />
-                )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Ejercicio:</b>{" "}
-                {selectedRegistro.ejercicio ? (
-                  selectedRegistro.ejercicio
-                ) : (
-                  <Nota />
-                )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Primer Apellido:</b>{" "}
-                {selectedRegistro.primerApellido ? (
-                  selectedRegistro.primerApellido
-                ) : (
-                  <Nota />
-                )}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>CURP:</b>{" "}
-                {selectedRegistro.curp ? selectedRegistro.curp : <Nota />}
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left">
-                <b>Sexo:</b>{" "}
-                {selectedRegistro.sexo ? selectedRegistro.sexo : <Nota />}
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Divider sx={{ m: 3 }} />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Typography align={"center"}>
-                2. DATOS DEL EMPLEO, CARGO O COMISIÓN
-              </Typography>
-            </Grid>
-
-            <Grid item md={6} xs={12}>
-              <Typography align="left"></Typography>
+              <ReactJson
+                style={{ padding: "0.8rem" }}
+                name={false}
+                src={selectedRegistro}
+                theme="harmonic"
+                iconStyle="triangle"
+                enableEdit={false}
+                enableAdd={false}
+                enableDelete={false}
+                enableClipboard={false}
+                displayDataTypes={false}
+                displayObjectSize={false}
+                indentWidth={6}
+                collapsed={false}
+                collapseStringsAfterLength={false}
+              />
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions>
+          <Button
+            sx={{ m: 1 }}
+              variant="contained"
+            color="primary"
+            onClick={() =>
+              redirectToRoute(
+                `/editar/s3/faltas-administrativas/no-graves/${selectedRegistro._id}`,
+              )
+            }>
+            Editar
+          </Button>
+          <Button
+            onClick={handleCloseModal}
+            sx={{ m: 1 }}
+              variant="contained"
+            color="primary">
+            Cerrar
+          </Button>
+        </DialogActions>
       </Dialog>
 
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title={'FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A LAS PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS NO GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS.'}
+            title={
+              "FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A LAS PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS NO GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS."
+            }
             subheader="Información Registrada"
           />
           <Divider />
-          <CardContent sx={{m:1}}>
+          <CardContent sx={{ m: 1 }}>
             {S2List.length === 0 ? ( // Check if S2List is empty
-            <>
-              <Typography variant="h4" align="center">
-                No hay registros aún. Captura un registro para comenzar.
-              </Typography>
-            </>
+              <>
+                <Typography variant="h4" align="center">
+                  No hay registros aún. Captura un registro para comenzar.
+                </Typography>
+              </>
             ) : (
               <TableContainer component={Paper}>
                 <Table aria-label="custom pagination table">
@@ -333,9 +317,7 @@ export const ListForm2 = () => {
               variant="contained"
               color="primary"
               onClick={() =>
-                redirectToRoute(
-                  "/captura/s3/faltas-administrativas/no-graves",
-                )
+                redirectToRoute("/captura/s3/faltas-administrativas/no-graves")
               }>
               Capturar Información
             </Button>
