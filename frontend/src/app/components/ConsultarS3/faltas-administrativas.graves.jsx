@@ -20,7 +20,7 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  useTheme,
+  CardActions,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
@@ -33,7 +33,6 @@ import { history } from "../../store/history";
 import { S2Actions } from "../../_actions/s2.action";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
 import CloseIcon from "@mui/icons-material/Close";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
@@ -51,8 +50,6 @@ export const ListForm1 = () => {
   const [query, setQuery] = React.useState({});
   const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
   const [selectedRegistro, setSelectedRegistro] = React.useState({});
-
-  const [maxWidth, _] = React.useState("md");
 
   const handleOpenModalUserInfo = (user) => {
     //setSelectedRegistro(user);
@@ -174,7 +171,8 @@ export const ListForm1 = () => {
         </DialogContent>
         <DialogActions>
           <Button
-            variant="contained"
+            sx={{ m: 1 }}
+              variant="contained"
             color="primary"
             onClick={() =>
               redirectToRoute(
@@ -185,7 +183,8 @@ export const ListForm1 = () => {
           </Button>
           <Button
             onClick={handleCloseModal}
-            variant="contained"
+            sx={{ m: 1 }}
+              variant="contained"
             color="primary">
             Cerrar
           </Button>
@@ -195,26 +194,18 @@ export const ListForm1 = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title={'FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS.'}
+            title={
+              "FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS."
+            }
             subheader="Información Registrada"
           />
           <Divider />
-          <CardContent>
+          <CardContent sx={{ m: 1 }}>
             {S2List.length === 0 ? ( // Check if S2List is empty
               <>
-                <Typography variant="h4" align="left" mb={2}>
+                <Typography variant="h4" align="center">
                   No hay registros aún. Agrega un registro para comenzar.
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() =>
-                    redirectToRoute(
-                      "/captura/s3/faltas-administrativas/graves",
-                    )
-                  }>
-                  Capturar Información
-                </Button>
               </>
             ) : (
               <TableContainer component={Paper}>
@@ -303,12 +294,6 @@ export const ListForm1 = () => {
                             count={paginationSuper.totalRows}
                             rowsPerPage={paginationSuper.pageSize}
                             page={paginationSuper.page - 1}
-                            /* SelectProps={{
-                            inputProps: {
-                              "aria-label": "Registros por página",
-                            },
-                            native: true,
-                          }} */
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                             ActionsComponent={TablePaginationActions}
@@ -320,6 +305,18 @@ export const ListForm1 = () => {
               </TableContainer>
             )}
           </CardContent>
+          <Divider />
+          <CardActions>
+            <Button
+              sx={{ m: 1 }}
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                redirectToRoute("/captura/s3/faltas-administrativas/graves")
+              }>
+              Capturar Información
+            </Button>
+          </CardActions>
         </Card>
       </Grid>
     </>

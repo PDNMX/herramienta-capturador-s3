@@ -20,7 +20,7 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  useTheme,
+  CardActions
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
@@ -48,8 +48,6 @@ export const ListForm4 = () => {
   const [query, setQuery] = React.useState({});
   const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
   const [selectedRegistro, setSelectedRegistro] = React.useState({});
-
-  const [maxWidth, _] = React.useState("md");
 
   const handleOpenModalUserInfo = (user) => {
     //setSelectedRegistro(user);
@@ -226,22 +224,13 @@ export const ListForm4 = () => {
             subheader="Información Registrada"
           />
           <Divider />
-          <CardContent>
+          <CardContent sx={{m:1}}>
             {S2List.length === 0 ? ( // Check if S2List is empty
               <>
-                <Typography variant="h4" align="left" mb={2}>
+                <Typography variant="h4" align="center">
                   No hay registros aún. Agrega un registro para comenzar.
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() =>
-                    redirectToRoute(
-                      "/captura/s3/actos-particulares/personas-morales",
-                    )
-                  }>
-                  Capturar Información
-                </Button>
+                
               </>
             ) : (
               <TableContainer component={Paper}>
@@ -347,6 +336,20 @@ export const ListForm4 = () => {
               </TableContainer>
             )}
           </CardContent>
+          <Divider />
+          <CardActions>
+          <Button
+                  sx={{ m: 1 }}
+              variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    redirectToRoute(
+                      "/captura/s3/actos-particulares/personas-morales",
+                    )
+                  }>
+                  Capturar Información
+                </Button>
+          </CardActions>
         </Card>
       </Grid>
     </>

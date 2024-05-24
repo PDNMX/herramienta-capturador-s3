@@ -75,67 +75,78 @@ function MyForm(props) {
     });
   } */
   const dataEjemplo = {
-    "absNoGrave": {
+    "grave": {
         "segundoApellido": {
             "sinSegundoApellido": false,
-            "valor": "gomez"
+            "valor": "Gomez"
         },
         "entePublico": {
             "nivelOrdenGobierno": {
-                "clave": "FEDERAL"
+                "clave": "ESTATAL"
             },
             "entidadFederativa": {
-                "clave": "09",
-                "valor": "Ciudad de México"
+                "clave": "16",
+                "valor": "Michoacán de Ocampo"
             },
-            "ambitoPublico": "LEGISLATIVO",
-            "nombre": "instrituto nacional de transparencia",
-            "siglas": "*inai"
+            "ambitoPublico": "EJECUTIVO",
+            "nombre": "nnnnnnnn",
+            "siglas": "hhhhhhhhhhhhh"
         },
         "empleoCargoComision": {
             "nombre": {
-                "clave": "DIRECCION_DE_AREA_U_HOMOLOGO"
+                "clave": "JEFATURA_DE_DEPARTAMENTO_U_HOMOLOGO"
             },
-            "nivel": "departamento de sistemas de intomacón",
-            "areaAdscripcion": "subdirección de adquisicioness"
+            "denominacion": "hhh",
+            "areaAdscripcion": "mn,"
         },
         "origenInvestigacion": {
-            "clave": "AUDITORIA_OIC"
+            "clave": "AUDITORIA_SUPERIOR"
         },
         "faltaCometida": [
             {
                 "articuloNormatividad": [
-                    "45"
+                    "njjk"
                 ],
                 "fraccionNormatividad": [
-                    "76"
+                    "knmjkl"
                 ],
-                "clave": "ATENDER",
-                "descripcionHechos": "peculado",
-                "nombreNormatividad": "aaaaa"
+                "clave": "UTILIZACION_INF",
+                "nombreNormatividad": "hhjjo",
+                "descripcionHechos": "lsnddsla"
             }
         ],
         "resolucion": {
-            "documentoResolucion": "sentencia final",
-            "fechaResolucion": "2020-05-06",
-            "fechaNotificacion": "2020-08-08",
-            "url": "www.sjadashjk.com",
-            "descripcionAbstención": "sin pruebas suficientes"
+            "documentoResolucion": "ljjjknk",
+            "fechaResolucion": "0004-05-07",
+            "fechaNotificacion": "0006-05-05",
+            "urlResolucionFirme": "kkmlmlj",
+            "fechaResolucionFirme": "0005-05-05",
+            "fechaNotificacionFirme": "0004-04-04"
         },
         "tipoSancion": {
-            "autoridadResolutora": "secretaria de la función pública",
-            "autoridadInvestigadora": "secretaria de la función pública",
-            "autoridadSubstanciadora": "secretaria de la función pública"
+            "sancion": [
+                {
+                    "clave": "DESTITUCION",
+                    "destitucionEmpleo": {
+                        "fechaDestitucion": "0004-08-08"
+                    }
+                }
+            ],
+            "ordenJurisdiccional": "FEDERAL",
+            "autoridadResolutora": "mmkmklññññ",
+            "autoridadInvestigadora": "asasasas",
+            "autoridadSubstanciadora": "kkjjlbbb"
         },
-        "nombres": "Juan",
-        "primerApellido": "rodriguez",
-        "curp": "perg850101hdf",
-        "rfc": "perg850101hdf",
+        "nombres": "Luan",
+        "primerApellido": "Rodriguez",
+        "curp": "PERG324324dlfsdflk",
+        "rfc": "lmkllljjl09",
         "sexo": "HOMBRE",
-        "observaciones": "fyi...."
+        "observaciones": "pruebaj"
     },
-    "expediente": "3"
+    "expediente": "2017"
 }
+
 
 
   return (
@@ -161,7 +172,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={initialValues}
+                formData={dataEjemplo}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}

@@ -20,7 +20,7 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  useTheme,
+  CardActions,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Dialog from "@mui/material/Dialog";
@@ -48,8 +48,6 @@ export const ListForm8 = () => {
   const [query, setQuery] = React.useState({});
   const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
   const [selectedRegistro, setSelectedRegistro] = React.useState({});
-
-  const [maxWidth, _] = React.useState("md");
 
   const handleOpenModalUserInfo = (user) => {
     //setSelectedRegistro(user);
@@ -222,26 +220,18 @@ export const ListForm8 = () => {
       <Grid item xs={12}>
         <Card>
           <CardHeader
-            title={'FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES IMPUESTAS A PARTICULARES (PERSONAS FÍSICAS) POR LA COMISIÓN DE HECHOS DE CORRUPCIÓN.'}
+            title={
+              "FORMATO QUE INDICA LOS DATOS QUE SE INSCRIBIRÁN EN EL SISTEMA NACIONAL DE SERVIDORES PÚBLICOS Y PARTICULARES SANCIONADOS DE LA PLATAFORMA DIGITAL NACIONAL RELACIONADOS CON LAS SANCIONES IMPUESTAS A PARTICULARES (PERSONAS FÍSICAS) POR LA COMISIÓN DE HECHOS DE CORRUPCIÓN."
+            }
             subheader="Información Registrada"
           />
           <Divider />
-          <CardContent>
+          <CardContent sx={{ m: 1 }}>
             {S2List.length === 0 ? ( // Check if S2List is empty
               <>
-                <Typography variant="h4" align="left" mb={2}>
+                <Typography variant="h4" align="center">
                   No hay registros aún. Agrega un registro para comenzar.
                 </Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() =>
-                    redirectToRoute(
-                      "/captura/s3/hechos-corrupcion/personas-fisicas",
-                    )
-                  }>
-                  Capturar Información
-                </Button>
               </>
             ) : (
               <TableContainer component={Paper}>
@@ -347,6 +337,20 @@ export const ListForm8 = () => {
               </TableContainer>
             )}
           </CardContent>
+          <Divider />
+          <CardActions>
+            <Button
+              sx={{ m: 1 }}
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                redirectToRoute(
+                  "/captura/s3/hechos-corrupcion/personas-fisicas",
+                )
+              }>
+              Capturar Información
+            </Button>
+          </CardActions>
         </Card>
       </Grid>
     </>

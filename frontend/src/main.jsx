@@ -40,6 +40,7 @@ const theme = createTheme({
         root: {
           "&": {
             borderRadius: "4px", // Color de fondo seleccionado
+            marginTop: "0.15rem"
           },
           "&.Mui-selected": {
             backgroundColor: "#9085da5e", // Color de fondo seleccionado
