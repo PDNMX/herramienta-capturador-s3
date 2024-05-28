@@ -76,7 +76,7 @@ module.exports = {
                 let passHash = encryptPassword(pass);
                 let fecha = moment().tz("America/Mexico_City").format('YYYY-MM-DD'); 
                 let fechaActual = moment();
-                let newBody = { ...body, contrasena: passHash, fechaAlta: fecha, vigenciaContrasena: fechaActual.add(3, 'months').format().toString(), estatus: true, rol:"2" };
+                let newBody = { ...body, contrasena: passHash, fechaAlta: fecha, vigenciaContrasena: fechaActual.add(3, 'months').format().toString(), estatus: true, rol:"2", contrasenaNueva:true };
                 newBody["fechaActualizacion"] = fecha;
                 // se inserta el usuario en la base de datos
                 const nuevoUsuario = new User(newBody);
@@ -323,5 +323,37 @@ module.exports = {
           } catch (e) {
             console.log(e);
           }
-    },                                
+    },                  
+    changepasswordAdmin: async (req, res) => {
+      console.log('hola desde changepasswordAdmin');
+      
+      let usuario = req.body.usuario;
+      const usuarioExiste = await User.findOne({ usuario: usuario });
+
+      if (usuarioExiste) {
+        const cambioPass = await User.findOneAndUpdate({ usuario: usuario }, { contrasena: encryptPassword(req.body.contrasena), contrasenaNueva: false });
+        return res.status(200).json({ message: '¡Se ha actualizado tu contraseña!.', Status: 200 });
+        }
+      else{
+      return res.status(500).json({ message: 'El nombre de administrador no existe. Por favor, ingresa otro.', status: 500 });
+      }
+    }, 
+    /* addAdmin: async (req, res) => {
+      console.log('hola desde addAdmin');
+      const usuario = req.body.usuario;
+      const usuarioExiste = await User.findOne({ usuario: usuario });
+    
+      if (usuarioExiste) {
+        return res.status(500).json({ message: 'El nombre de administrador ya existe. Por favor, ingresa otro.', status: 500 });
+      } else {
+        const fecha = moment().tz("America/Mexico_City").format('YYYY-MM-DD');
+        let dataUser = req.body;
+        dataUser.fechaAlta = fecha;
+        dataUser.fechaActualizacion = fecha;
+        console.log(dataUser);
+        const nuevoUsuario = new User(dataUser);
+        await nuevoUsuario.save();
+        return res.status(200).json({ message: '¡Se ha agregado un administrador!', Status: 200 });
+      }
+    }, */
 };

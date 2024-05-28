@@ -68,7 +68,8 @@ router.post('/validationpassword', [isAuthenticatedMiddleware.check,],  UserCont
 router.post('/resetpassword', UserController.resetpassword);
 
 router.post('/changepassword', UserController.changepassword);
-
+router.post('/changePasswordAdmin', [isAuthenticatedMiddleware.check,], UserController.changepasswordAdmin);
+//router.post('/addAdmin', [isAuthenticatedMiddleware.check,], UserController.addAdmin); 
 module.exports = router;
 
 //********************************************************** termian crear usuario ****************************************************/
