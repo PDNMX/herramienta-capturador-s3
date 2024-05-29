@@ -29,13 +29,6 @@ const ChangePassword = ({ id, user, alert }) => {
   return <MyForm initialValues={user} id={id} alerta={alert} />;
 };
 
-
-/* const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`; */
-
 function MyForm(props) {
   const { initialValues, id } = props;
 

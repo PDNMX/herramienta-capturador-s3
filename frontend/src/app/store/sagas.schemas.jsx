@@ -831,9 +831,10 @@ export function* changePassword() {
 			if (status.data.Status === 200) {
 				yield put(alertActions.success(status.data.message));
 				closeSession();
-				setTimeout(function() {
+				history.push('/ingresar');
+				/* setTimeout(function() {
 					history.push('/ingresar');
-				}, 3000);
+				}, 3000); */
 			} else {
 				//error in response
 				yield put(alertActions.error(status.data.message));
