@@ -47,19 +47,19 @@ export const ListForm9 = () => {
   }));
   const dispatch = useDispatch();
   const [query, setQuery] = React.useState({});
-  const [openModalUserInfo, setOpenModalUserInfo] = React.useState(false);
+  const [openModalInfo, setOpenModalInfo] = React.useState(false);
   const [selectedRegistro, setSelectedRegistro] = React.useState({});
 
-  const handleOpenModalUserInfo = (user) => {
+  const handleOpenModalInfo = (user) => {
     //setSelectedRegistro(user);
     setSelectedRegistro(() => {
-      setOpenModalUserInfo(true);
+      setOpenModalInfo(true);
       return user;
     });
   };
 
   const handleCloseModal = () => {
-    setOpenModalUserInfo(false);
+    setOpenModalInfo(false);
   };
 
   const handleCloseSnackbar = () => {
@@ -128,7 +128,7 @@ export const ListForm9 = () => {
         maxWidth={"md"}
         onClose={handleCloseModal}
         aria-labelledby="customized-dialog-title"
-        open={openModalUserInfo}>
+        open={openModalInfo}>
         <DialogTitle>
           <b>Detalle del registro</b>
         </DialogTitle>
@@ -251,7 +251,7 @@ export const ListForm9 = () => {
                         <TableCell style={{ width: "15%" }} align="center">
                           <Tooltip title="Más información" placement="top">
                             <IconButton
-                              onClick={() => handleOpenModalUserInfo(registro)}
+                              onClick={() => handleOpenModalInfo(registro)}
                               style={{ color: "#34b3eb" }}
                               aria-label="expand row"
                               size="small">
