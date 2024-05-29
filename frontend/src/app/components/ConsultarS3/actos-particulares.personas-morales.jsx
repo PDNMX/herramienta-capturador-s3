@@ -231,15 +231,7 @@ export const ListForm4 = () => {
                           {registro._id}
                         </TableCell>
                         <TableCell style={{ width: "25%" }} align="left">
-                          {registro.graveMorales.nombres &&
-                            registro.graveMorales.nombres + " "}
-                          {registro.graveMorales.primerApellido &&
-                            registro.graveMorales.primerApellido + " "}
-                          {registro.graveMorales.segundoApellido &&
-                          registro.graveMorales.segundoApellido.sinSegundoApellido ==
-                            true
-                            ? ""
-                            : registro.graveMorales.segundoApellido.valor}
+                          {registro.graveMorales.razonSocial}
                         </TableCell>
                         {registro.graveMorales.entePublico && (
                           <TableCell style={{ width: "25%" }} align="left">
