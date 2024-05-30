@@ -568,6 +568,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {vistaRender === "editar.faltas-administrativas.graves" && (
             <CreateEditForm
               match={match}
+              tipoForm={vistaRender}
               schema={schemaFaltasAdministrativasGraves}
               uiSchema={uiFaltasAdministrativasGraves}
             />
@@ -585,6 +586,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
           {vistaRender === "editar.faltas-administrativas.no-graves" && (
             <CreateEditForm
               match={match}
+              tipoForm={vistaRender}
               schema={schemaFaltasAdministrativasNoGraves}
               uiSchema={uiFaltasAdministrativasNoGraves}
             />

@@ -44,7 +44,6 @@ function MyForm(props) {
   const alert = alerta;
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  console.log(rutasRedirect[tipoForm])
 
   const redirectToRoute = (path) => {
     history.push(path);
@@ -146,9 +145,8 @@ function MyForm(props) {
     },
     "expediente": "2017"
 }
-
-
-
+  // Obtiene el identificador para 
+  let tipoFormulario = tipoForm.split('.').slice(1).join('.');
   return (
     <Grid item xs={12}>
       <Card>
@@ -172,7 +170,7 @@ function MyForm(props) {
                 onSubmit={onSubmit}
                 /* onError={log("errors")} */
                 uiSchema={uiSchema}
-                formData={initialValues}
+                formData={dataEjemplo}
                 omitExtraData={false}
                 liveOmit={true}
                 liveValidate={false}
@@ -202,7 +200,7 @@ function MyForm(props) {
           <Button
             variant="contained"
             disabled={!alert.status}
-            onClick={() => redirectToRoute(rutasRedirect[tipoForm])}
+            onClick={() => redirectToRoute(rutasRedirect[tipoFormulario])}
             color="primary"
             autoFocus>
             Aceptar
