@@ -103,7 +103,7 @@ module.exports = {
                       <h2>!Hola, ${newBody.nombre}!</h2> 
                       <h2>Se ha creado su usuario en la Herramienta de Captura de Información del Sistema Nacional de Servidores Públicos y Particulares Sancionados.</h2>
                 
-                      <p>Contraseña temporal (un solo uso): </p>
+                      <p>Tu contraseña temporal (de un solo uso) es: </p>
                       <h3><code>${pass}</code></h3>
                       <p>Ingrese y cámbiela de inmediato en la sección correspondiente.<br>Si requiere asistencia, contáctese con el área de soporte técnico.</p>
                     </td>
@@ -329,7 +329,6 @@ module.exports = {
                 <table class="card" role="presentation">
                   <tr>
                     <td>
-                      <h1>Restablecimiento de contraseña</h1>
                       <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en la Herramienta de Captura de Información del Sistema Nacional de Servidores Públicos y Particulares Sancionados.</p>
                 
                       <p>Tu nueva contraseña temporal (de un solo uso) es:</p>

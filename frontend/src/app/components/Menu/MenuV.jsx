@@ -20,6 +20,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import MenuItem from "@mui/material/MenuItem";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import Tooltip from '@mui/material/Tooltip';
 import { ConnectedCreateProvider } from "../Proveedores/CreateProvider";
 import { history } from "../../store/history";
 import Collapse from "@mui/material/Collapse";
@@ -210,6 +211,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   subheader="Faltas Administrativas de Servidores Públicos"
                   sx={{ padding: "0.6rem" }}>
                   {permisos.includes("faltas-administrativas.graves") && (
+                    <Tooltip title="SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -224,8 +226,10 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Graves" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   {permisos.includes("faltas-administrativas.no-graves") && (
+                    <Tooltip title="SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A LAS PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE FALTAS ADMINISTRATIVAS NO GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -240,6 +244,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="No Graves" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   <Divider/>
                 </List>
@@ -257,6 +262,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   {permisos.includes(
                     "actos-particulares.personas-fisicas",
                   ) && (
+                    <Tooltip title="SANCIONES FIRMES IMPUESTAS A LOS PARTICULARES (PERSONAS FÍSICAS) POR ACTOS VINCULADOS CON FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -271,10 +277,12 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Personas Físicas" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   {permisos.includes(
                     "actos-particulares.personas-morales",
                   ) && (
+                    <Tooltip title="SANCIONES QUE SE ENCUENTREN FIRMES IMPUESTAS A LOS PARTICULARES (PERSONAS MORALES) VINCULADOS CON FALTAS ADMINISTRATIVAS GRAVES EN TÉRMINOS DE LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -289,6 +297,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Personas Morales" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   <Divider/>
                 </List>
@@ -303,6 +312,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   subheader="Sanciones (Inhabilitaciones) por normas diversas a la LGRA"
                   sx={{ padding: "0.6rem" }}>
                   {permisos.includes("inhabilitaciones.personas-fisicas") && (
+                    <Tooltip title="SANCIONES FIRMES IMPUESTAS A LOS PARTICULARES (PERSONAS FÍSICAS) QUE SE ENCUENTREN INHABILITADOS PARA CELEBRAR CONTRATOS CON LOS ENTES PÚBLICOS DERIVADO DE PROCEDIMIENTOS ADMINISTRATIVOS DIVERSOS A LOS PREVISTOS EN LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -317,8 +327,10 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Personas Físicas" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   {permisos.includes("inhabilitaciones.personas-morales") && (
+                    <Tooltip title="SANCIONES FIRMES IMPUESTAS A LOS PARTICULARES (PERSONAS MORALES) QUE SE ENCUENTREN INHABILITADOS PARA CELEBRAR CONTRATOS CON LOS ENTES PÚBLICOS DERIVADO DE PROCEDIMIENTOS ADMINISTRATIVOS DIVERSOS A LOS PREVISTOS EN LA LEY GENERAL DE RESPONSABILIDADES ADMINISTRATIVAS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -333,6 +345,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Personas Morales" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   <Divider/>
                 </List>
@@ -350,6 +363,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   {permisos.includes(
                     "hechos-corrupcion.servidores-publicos",
                   ) && (
+                    <Tooltip title="SANCIONES IMPUESTAS A PERSONAS SERVIDORAS PÚBLICAS POR LA COMISIÓN DE HECHOS DE CORRUPCIÓN." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -364,8 +378,10 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Servidores Públicos" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   {permisos.includes("hechos-corrupcion.personas-fisicas") && (
+                    <Tooltip title="SANCIONES IMPUESTAS A PARTICULARES (PERSONAS FÍSICAS) POR LA COMISIÓN DE HECHOS DE CORRUPCIÓN." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -380,8 +396,10 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Personas Físicas" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   {permisos.includes("hechos-corrupcion.personas-morales") && (
+                    <Tooltip title="SANCIONES IMPUESTAS A PARTICULARES (PERSONAS MORALES) POR LA COMISIÓN DE HECHOS DE CORRUPCIÓN." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -396,6 +414,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Personas Morales" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   <Divider/>
                 </List>
@@ -410,6 +429,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                   subheader="Abstenciones"
                   sx={{ padding: "0.6rem" }}>
                   {permisos.includes("abstenciones.graves") && (
+                    <Tooltip title="ABTENCIONES REALIZADAS POR EL TRIBUNAL FEDERAL DE JUSTICIA ADMINISRATIVA." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -422,8 +442,10 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="Graves" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                   {permisos.includes("abstenciones.no-graves") && (
+                    <Tooltip title="ABTENCIONES REALIZADAS POR LOS ÓRGANOS INTERNOS DE CONTROL DE LOS ENTES PÚBLICOS." placement="right" arrow>
                     <ListItem disablePadding>
                       <ListItemButton
                         selected={isItemActive(
@@ -438,6 +460,7 @@ const MenuV = ({ vistaRender, match, closeSession }) => {
                         <ListItemText primary="No Graves" />
                       </ListItemButton>
                     </ListItem>
+                    </Tooltip>
                   )}
                 </List>
               )}
