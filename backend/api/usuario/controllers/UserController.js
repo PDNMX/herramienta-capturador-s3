@@ -86,8 +86,37 @@ module.exports = {
             let mailOptions = {
                 from: process.env.EMAIL,
                 to: newBody.correoElectronico,
-                subject: 'Bienvenido a la plataforma de administración de usuarios',
-                text: `Hola ${newBody.nombre}, tu usuario ha sido creado con éxito. Tu contraseña temporal es: ${pass}. Por favor ingresa a la plataforma y cambia tu contraseña.`
+                subject: 'Acceso a la Herramienta de Captura de Información del Sistema Nacional de Servidores Públicos y Particulares Sancionados',
+                html: `<!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <style>
+                    html { font-size: 16px; /* Establece el tamaño de fuente base en 16px (1rem) */ } body { font-family: Roboto, Helvetica, Arial, sans-serif; color: #666666; background-color: #f7fafc; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; } .card { max-width: 37.5rem; /* 600px / 16px = 37.5rem */ margin: 0 auto; background-color: #fff; border: 0.0625rem solid #e2e8f0; /* 1px / 16px = 0.0625rem */ border-radius: 0.375rem; /* 6px / 16px = 0.375rem */ padding: 1.25rem; /* 20px / 16px = 1.25rem */ border-bottom: 0.25rem solid #9085DA; /* 4px / 16px = 0.25rem */ } h1 { font-size: 1.5rem; /* 24px / 16px = 1.5rem */ font-weight: 700; } h3 { font-size: 1.25rem; /* 20px / 16px = 1.25rem */ font-weight: 500; } p { font-size: 1rem; /* 16px / 16px = 1rem */ } .w-24 { width: 6rem; /* 96px / 16px = 6rem */} .w-40 { width: 10rem; /* 160px / 16px = 10rem */ padding: 1.25rem;} .text-muted { color: #718096; } @media screen and (max-width: 37.5rem) { /* 600px / 16px = 37.5rem */ .card { padding: 0.625rem; /* 10px / 16px = 0.625rem */ } }
+                  </style>
+                </head>
+                <body>
+                <table class="card" role="presentation">        
+                  <tr>
+                    <td>
+                      <h2>!Hola, ${newBody.nombre}!</h2> 
+                      <h2>Se ha creado su usuario en la Herramienta de Captura de Información del Sistema Nacional de Servidores Públicos y Particulares Sancionados.</h2>
+                
+                      <p>Contraseña temporal (un solo uso): </p>
+                      <h3><code>${pass}</code></h3>
+                      <p>Ingrese y cámbiela de inmediato en la sección correspondiente.<br>Si requiere asistencia, contáctese con el área de soporte técnico.</p>
+                    </td>
+                  </tr>
+                </table>
+                <br>
+                <div class="text-muted text-center">
+                  <a href="https://plataformadigitalnacional.org/">Plataforma Digital Nacional</a>
+                </div>
+                
+                </body>
+                </html>
+                `
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
@@ -285,8 +314,39 @@ module.exports = {
             const message = {
                 from: process.env.EMAIL,
                 to: correo,
-                subject: 'Sistema de Captura de Información - PDN',
-                html: `<html><p>Buen día, anexamos tu contraseña para acceder al Sistema de Captura de Información:</p><br><p>Contraseña: <code>${nuevaContraseña}</code><br><br></html>`
+                subject: 'Restablecimiento de contraseña',
+                html: `<!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1">
+                  <style>
+                    html { font-size: 16px; /* Establece el tamaño de fuente base en 16px (1rem) */ } body { font-family: Roboto, Helvetica, Arial, sans-serif; color: #666666; background-color: #f7fafc; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; } .card { max-width: 37.5rem; /* 600px / 16px = 37.5rem */ margin: 0 auto; background-color: #fff; border: 0.0625rem solid #e2e8f0; /* 1px / 16px = 0.0625rem */ border-radius: 0.375rem; /* 6px / 16px = 0.375rem */ padding: 1.25rem; /* 20px / 16px = 1.25rem */ border-bottom: 0.25rem solid #9085DA; /* 4px / 16px = 0.25rem */ } h1 { font-size: 1.5rem; /* 24px / 16px = 1.5rem */ font-weight: 700; } h3 { font-size: 1.25rem; /* 20px / 16px = 1.25rem */ font-weight: 500; } p { font-size: 1rem; /* 16px / 16px = 1rem */ } .w-24 { width: 6rem; /* 96px / 16px = 6rem */} .w-40 { width: 10rem; /* 160px / 16px = 10rem */ padding: 1.25rem;} .text-muted { color: #718096; } @media screen and (max-width: 37.5rem) { /* 600px / 16px = 37.5rem */ .card { padding: 0.625rem; /* 10px / 16px = 0.625rem */ } }
+                  </style>
+                </head>
+                <body>
+                
+                <table class="card" role="presentation">
+                  <tr>
+                    <td>
+                      <h1>Restablecimiento de contraseña</h1>
+                      <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en la Herramienta de Captura de Información del Sistema Nacional de Servidores Públicos y Particulares Sancionados.</p>
+                
+                      <p>Tu nueva contraseña temporal (de un solo uso) es:</p>
+                      <h3><code>${nuevaContraseña}</code></h3>
+                
+                      <p>Por favor, ingresa a tu cuenta y cambia esta contraseña inmediatamente.</p>
+                    </td>
+                  </tr>
+                </table>
+                <br>
+                <div class="text-muted text-center">
+                  <a href="https://plataformadigitalnacional.org/">Plataforma Digital Nacional</a>
+                </div>
+                
+                </body>
+                </html>
+                `
             };
 
             transporter.sendMail(message, async (err, info) => {

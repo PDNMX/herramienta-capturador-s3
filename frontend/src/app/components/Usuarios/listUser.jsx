@@ -2,6 +2,7 @@ import React from "react";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Alert,
   Button,
   Card,
   CardActions,
@@ -21,9 +22,10 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Snackbar
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { userActions } from "../../_actions/user.action";
+//import { userActions } from "../../_actions/user.action";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -33,6 +35,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { history } from "../../store/history";
 import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
 import { requestResetPassword } from "../../store/mutations";
+import { alertActions } from "../../_actions/alert.actions";
 import CloseIcon from "@mui/icons-material/Close";
 import TablePaginationActions from "../Common/TablePaginationActionsProps";
 
@@ -142,28 +145,13 @@ export const ListUser = () => {
     //dispatch(userActions.requestPerPage({pageSize: parseInt(event.target.value, 10) }));
   };
 
-  const confirmAction = (id) => {
-    dispatch(userActions.deleteUser(id));
-    const initialRange = pagination.page * pagination.pageSize;
-    const endRange =
-      pagination.page * pagination.pageSize + pagination.pageSize;
-    const totalUsers = users.length - 1;
-    if (totalUsers <= initialRange) {
-      setPagination({
-        page: pagination.page - 1,
-        pageSize: pagination.pageSize,
-      });
-    }
-    handleClose();
-  };
-
   const confirmActionPassword = (correoElectronico) => {
-    alerta.estatus = false;
     const data = [];
     data["correo"] = correoElectronico;
     data["sistema"] = true;
     dispatch(requestResetPassword(data));
     handleClose();
+    //setOpen(true);
   };
   const redirectToRoute = (path) => {
     history.push(path);
@@ -181,8 +169,21 @@ export const ListUser = () => {
     setUsuarioCorreo(correoElectronico);
   };
 
+  const handleCloseSnackbar = () => {
+    dispatch(alertActions.clear());
+  };
+
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={alerta.status}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity={alerta.type}>
+          {alerta.message}
+        </Alert>
+      </Snackbar>
       {/* Modal Detalle de Usuario */}
       <Dialog
         maxWidth={"md"}
