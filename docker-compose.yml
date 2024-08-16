@@ -1,77 +1,58 @@
 version: "3"
-
 services:
-  mongo:
-    image: mongo:5
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${DB_ROOT_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${DB_NAME}
-      ADMIN_USER: ${ADMIN_USER}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      CLIENT_ID: ${CLIENT_ID}
-      CLIENT_SECRET: ${CLIENT_SECRET}
+
+  app:
+    build: 
+      context: ./
     volumes:
-      - mongo:/data/db
-      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - ./migrations:/directus/migrations
+    command: >
+        sh -c "node cli.js bootstrap &&
+              node cli.js schema apply --yes /directus/migrations/colecciones.yaml &&
+              pm2-runtime start ecosystem.config.cjs"
+    restart: always
+    ports:
+      - 8055:8055
+    depends_on:
+      - db
+    environment:
+      KEY: ${DIRECTUS_KEY}
+      SECRET: ${DIRECTUS_SECRET}
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
+      PUBLIC_URL: ${PUBLIC_URL}
+      DB_CLIENT: "postgres"
+      DB_HOST: "db"
+      DB_PORT: "5432"
+      DB_DATABASE: "directus"
+      DB_USER: ${DATABASE_USERNAME}
+      DB_PASSWORD: ${DATABASE_PASSWORD}
+      DB_VERSION: "14"
+      WEBSOCKETS_ENABLED: 0
+      TELEMETRY: 0
+      GRAPHQL_INTROSPECTION: 0
+      CACHE_ENABLED: 0
+      WEBSOCKETS_GRAPHQL_ENABLED: 0
+      CORS_CREDENTIALS: 1
+      CORS_ENABLED: 1
+      EMAIL_FROM: ${EMAIL_FROM}
+      EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
+      EMAIL_SMTP_HOST: ${SMTP_HOST}
+      EMAIL_SMTP_PORT: ${SMTP_PORT}
+      EMAIL_SMTP_USER: ${SMTP_USER}
+      EMAIL_SMTP_PASSWORD: ${SMTP_PASSWORD}
+
+  db:
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: "directus"
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres:/var/lib/postgresql/data
     #ports:
-    #  - 27017:27017
-
-  oauth2:
-    restart: always
-    build:
-      context: ./backend/oauth20/
-      dockerfile: Dockerfile
-    environment:
-      EXT: 86400
-      RTEXT: 87000
-      SEED: ${JWT_SEED}
-      USERMONGO: ${DB_ROOT_USER}
-      PASSWORDMONGO: ${DB_ROOT_PASSWORD}
-      HOSTMONGO: mongo
-      DATABASE: ${DB_NAME}
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    ports:
-      - ${PORT_OAUTH}:3005
-
-  backend:
-    restart: always
-    build:
-      context: ./backend/api/
-      dockerfile: Dockerfile
-    environment:
-      USERMONGO: ${DB_ROOT_USER}
-      PASSWORDMONGO: ${DB_ROOT_PASSWORD}
-      HOSTMONGO: mongo
-      DATABASE: ${DB_NAME}
-      SEED: ${JWT_SEED}
-      EMAIL: ${EMAIL}
-      PASS_EMAIL: ${PASS_EMAIL}
-      HOST_EMAIL: ${HOST_EMAIL}
-      PORT_EMAIL: ${PORT_EMAIL}
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    ports:
-      - ${PORT_BACKEND}:3004
-
-  frontend:
-    restart: always
-    build:
-      context: ./frontend/
-      dockerfile: Dockerfile
-      args:
-        VITE_URL_API: ${URL_BACKEND}
-        VITE_URL_OAUTH: ${URL_OAUTH}
-        VITE_CLIENT_ID: ${CLIENT_ID}
-        VITE_CLIENT_SECRET: ${CLIENT_SECRET}
-    ports:
-      - ${PORT_FRONTEND}:5000
-
+      #- 5432:5432
+      
 volumes:
-  mongo: {}
+  postgres: {}
