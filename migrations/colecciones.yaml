@@ -207,7 +207,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 11
+      sort: 12
       sort_field: null
       translations: null
       unarchive_value: null
@@ -351,7 +351,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: null
+      sort: 16
       sort_field: null
       translations: null
       unarchive_value: null
@@ -576,30 +576,6 @@ collections:
       versioning: false
     schema:
       name: faltas_graves_personas_fisicas
-  - collection: faltas_graves_personas_fisicas_prueba
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: null
-      archive_value: null
-      collapse: open
-      collection: faltas_graves_personas_fisicas_prueba
-      color: null
-      display_template: null
-      group: null
-      hidden: true
-      icon: import_export
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
-      sort: 6
-      sort_field: null
-      translations: null
-      unarchive_value: null
-      versioning: false
-    schema:
-      name: faltas_graves_personas_fisicas_prueba
   - collection: faltas_graves_personas_morales
     meta:
       accountability: all
@@ -792,6 +768,30 @@ collections:
       versioning: false
     schema:
       name: resolucion
+  - collection: resolucion_no_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: resolucion_no_graves
+      color: null
+      display_template: null
+      group: Faltas_de_Servidores_Publicos
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 8
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: resolucion_no_graves
   - collection: sancion_economica
     meta:
       accountability: all
@@ -857,7 +857,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 10
+      sort: 11
       sort_field: null
       translations: null
       unarchive_value: null
@@ -881,7 +881,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 8
+      sort: 9
       sort_field: null
       translations: null
       unarchive_value: null
@@ -905,7 +905,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 9
+      sort: 10
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1218,7 +1218,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Se deberá escribir el o los nombres, sin abreviaturas, sin acentos, ni
+        signos especiales.
       options: null
       readonly: false
       required: true
@@ -1499,11 +1501,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Se deberá escribir el o los nombres sin abreviaturas, sin acentos, ni
+        signos especiales
       options:
-        placeholder: >-
-          Se deberá escribir el o los nombres sin abreviaturas, sin acentos, ni
-          signos especiales.
+        placeholder: null
       readonly: false
       required: true
       sort: 2
@@ -1511,8 +1513,11 @@ fields:
       translations:
         - language: es-MX
           translation: Nombre (s)
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - nombres:
+              _regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
+      validation_message: Ingresa la información correcta.
       width: full
     schema:
       name: nombres
@@ -1542,11 +1547,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Se deberá escribir el primer apellido sin abreviaturas, sin acentos, ni
+        signos especiales
       options:
-        placeholder: >-
-          Se deberá escribir el primer apellido sin abreviaturas, sin acentos,
-          ni signos especiales.
+        placeholder: null
       readonly: false
       required: true
       sort: 3
@@ -1554,8 +1559,11 @@ fields:
       translations:
         - language: es-MX
           translation: Primer apellido
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - primerApellido:
+              _regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
+      validation_message: La información ingresada es incorrecta.
       width: full
     schema:
       name: primerApellido
@@ -1586,12 +1594,12 @@ fields:
       hidden: false
       interface: input
       note: >-
-        En caso de tener sólo un apellido, deberá colocarse en el espacio del
-        primer apellido y dejar el espacio del segundo apellido en blanco.
+        Se deberá escribir el segundo apellido, sin abreviaturas, sin acentos,
+        ni signos especiales. En caso de tener sólo un apellido, deberá
+        colocarse en el espacio del primer apellido y dejar el espacio del
+        segundo apellido en blanco
       options:
-        placeholder: >-
-          Se deberá escribir el segundo apellido, sin abreviaturas, sin acentos,
-          ni signos especiales. 
+        placeholder: null
       readonly: false
       required: false
       sort: 4
@@ -1599,8 +1607,11 @@ fields:
       translations:
         - language: es-MX
           translation: Segundo apellido
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - segundoApellido:
+              _regex: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/
+      validation_message: La información ingresada es incorrecta.
       width: full
     schema:
       name: segundoApellido
@@ -1636,7 +1647,7 @@ fields:
         con ese dato, podrá consultarlo en la siguiente página:
         https://www.gob.mx/curp/
       options:
-        placeholder: AAAA010101AAAA0AAA
+        placeholder: null
       readonly: false
       required: true
       sort: 5
@@ -1677,9 +1688,9 @@ fields:
       interface: input
       note: >-
         Escribir los primeros diez caracteres básicos y los tres
-        correspondientes a la homoclave.
+        correspondientes a la homoclave
       options:
-        placeholder: AAAA010101AAA
+        placeholder: null
       readonly: false
       required: true
       sort: 6
@@ -1721,7 +1732,7 @@ fields:
       note: null
       options:
         choices:
-          - text: Domicilio en México
+          - text: Domicilio en la república mexicana
             value: DOMICILIO_MEXICO
           - text: Domicilio en el Extranjero
             value: DOMICILIO_EXTRANJERO
@@ -1773,7 +1784,11 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Indicar los datos de tipo de vialidad, nombre de la vialidad, número
+        exterior, número interior (si aplica), colonia o localidad, municipio,
+        código postal y entidad federativa del domicilio que se señale en el
+        procedimiento administrativo
       options:
         enableSelect: false
       readonly: false
@@ -1783,7 +1798,7 @@ fields:
         - m2o
       translations:
         - language: es-MX
-          translation: Domicilio en méxico
+          translation: Domicilio en la república mexicana
       validation: null
       validation_message: null
       width: full
@@ -1825,7 +1840,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        En su caso, indicar los datos de ciudad, provincia, calle, número
+        exterior, número interior (si aplica), código postal y país del
+        domicilio que se señale en el procedimiento administrativo.
       options:
         enableSelect: false
       readonly: false
@@ -1905,7 +1923,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Se deberá proporcionar la denominación o razón social de la institución
+        tal y como se encuentra registrada en la escritura pública
       options: null
       readonly: false
       required: true
@@ -1945,7 +1965,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los primeros nueve caracteres básicos y los tres
+        correspondientes a la homoclave
       options: null
       readonly: false
       required: true
@@ -1954,7 +1976,10 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation: null
+      validation:
+        _and:
+          - rfc:
+              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
       validation_message: 'Formato de RFC invalido '
       width: full
     schema:
@@ -1985,7 +2010,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Referir la actividad o actividades que desarrolla la persona moral
       options: null
       readonly: false
       required: false
@@ -2081,7 +2106,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Indicar los siguientes datos: tipo de vialidad, nombre de la vialidad,
+        número exterior, número interior (si aplica), colonia o localidad,
+        municipio, código postal y entidad federativa
       options:
         enableSelect: false
         template: '{{nombreVialidad}}'
@@ -2135,7 +2163,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        En su caso, Indicar los siguientes datos: ciudad, provincia, calle,
+        número exterior, número interior (si aplica), código postal y país
       options:
         enableSelect: false
         template: '{{pais}}'
@@ -2216,7 +2246,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los primeros diez caracteres básicos y los tres
+        correspondientes a la homoclave
       options: null
       readonly: false
       required: true
@@ -2336,7 +2368,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los dieciocho caracteres alfanuméricos como aparece en el
+        documento que emite la Secretaría de Gobernación. En caso de no contar
+        con ese dato, podrá consultarlo en la siguiente página:
+        https://www.gob.mx/curp/
       options: null
       readonly: false
       required: false
@@ -2376,7 +2412,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir el o los nombres, así como los apellidos, sin abreviaturas, sin
+        acentos ni signos especiales. En caso de tener un sólo apellido, deberá
+        colocarse en el espacio del primer apellido y dejar el espacio del
+        segundo apellido en blanco
       options: null
       readonly: false
       required: true
@@ -2462,7 +2502,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Fecha destitución
+          translation: Fecha de la destitución (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: full
@@ -2572,7 +2612,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Especificar la fecha a partir de la cual se disuelve la sociedad
       options: null
       readonly: false
       required: true
@@ -2648,7 +2688,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el nombre de la localidad del domicilio extranjero
       options: null
       readonly: false
       required: false
@@ -2688,7 +2728,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el nombre del estado/provincia del domicilio extranjero
       options: null
       readonly: false
       required: false
@@ -2728,7 +2768,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el nombre de la calle del domicilio extranjero
       options: null
       readonly: false
       required: false
@@ -2768,7 +2808,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el numero exterior del domicilio extranjero.
       options: null
       readonly: false
       required: false
@@ -2808,7 +2848,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el numero interior del domicilio extranjero
       options: null
       readonly: false
       required: false
@@ -2848,7 +2888,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Nombre del país especificado en estándar ISO3166
       options: null
       readonly: false
       required: false
@@ -2888,7 +2928,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el codigo postal del domicilio extranjero
       options: null
       readonly: false
       required: false
@@ -2966,15 +3006,30 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Colocar el tipo de la vialidad correspondiente con base al catálogo de
+        vialidades del marco Geoestadístico Nacional.
+        https:/www.inegi.org.mx/temas/mg/#Documentacion
       options:
         choices:
-          - text: Privada
-            value: PRIVADA
+          - text: Avenida
+            value: AVENIDA
           - text: Calle
             value: CALLE
+          - text: Boulevard
+            value: BOULEVARD
+          - text: Viaducto
+            value: VIADUCTO
+          - text: Calzada
+            value: CALZADA
+          - text: Privada
+            value: PRIVADA
           - text: Callejón
             value: CALLEJON
+          - text: Prolongación
+            value: PROLONGACION
+          - text: Cerrada
+            value: CERRADA
       readonly: false
       required: false
       sort: 2
@@ -3013,7 +3068,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el nombre completo de la calle, boulevard, avenida, etc
       options: null
       readonly: false
       required: false
@@ -3053,7 +3108,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el número exterior
       options: null
       readonly: false
       required: false
@@ -3093,7 +3148,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el número interior
       options: null
       readonly: false
       required: false
@@ -3133,7 +3188,9 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Seleccionar la entidad federativa que corresponda al domicilio completo
+        previamente documentado
       options:
         enableCreate: false
         template: '{{valor}}'
@@ -3176,7 +3233,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el número código postal
       options: null
       readonly: false
       required: false
@@ -3216,7 +3273,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Escribir el nombre completo de la colonia
       options: null
       readonly: false
       required: false
@@ -3256,7 +3313,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Nombre del municipio/alcaldia
       options: null
       readonly: false
       required: false
@@ -3334,7 +3391,9 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Seleccionar el nivel u orden de gobierno al que pertenece el ente
+        público donde se cometió la falta administrativa
       options:
         choices:
           - text: 'Federal '
@@ -3381,7 +3440,9 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Seleccionar el ámbito público del ente público donde se cometió la falta
+        administrativa
       options:
         choices:
           - text: Ejecutivo
@@ -3430,7 +3491,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Indicar el nombre completo del ente público sin abreviaturas, sin
+        acentos, ni signos especiales
       options: null
       readonly: false
       required: false
@@ -3470,7 +3533,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Indicar las siglas del ente público
       options: null
       readonly: false
       required: false
@@ -3510,7 +3573,9 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Seleccionar la entidad federativa donde se ubique el ente público donde
+        se cometió la falta administrativa
       options:
         enableCreate: false
         template: '{{valor}}'
@@ -3591,7 +3656,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Indicar el monto efectivamente cobrado
       options:
         min: 0
       readonly: false
@@ -3601,7 +3666,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: monto
       table: efectivamente_cobrado
@@ -3630,12 +3695,18 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Colocar el tipo de moneda en formato de tres letras, establecidos en el
+        ISO 4217
       options:
         allowOther: true
         choices:
           - text: Peso mexicano
             value: MXN
+          - text: Dólar estadounidense
+            value: USD
+          - text: Euro
+            value: EUR
       readonly: false
       required: false
       sort: 3
@@ -3643,7 +3714,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: moneda
       table: efectivamente_cobrado
@@ -3672,7 +3743,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Especificar la fecha en que se realizó el cobro de la sanción económica
       options: null
       readonly: false
       required: false
@@ -3683,7 +3754,7 @@ fields:
           translation: Fecha de cobro de la sanción (DD-MM-AAAA)
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
       name: fechaCobro
       table: efectivamente_cobrado
@@ -3712,7 +3783,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        Especificar la fecha en que se cubrió el pago total de la sanción
+        económica
       options: null
       readonly: false
       required: false
@@ -3723,7 +3796,7 @@ fields:
           translation: Fecha en que se realizó el pago total de la sanción (DD-MM-AAAA)
       validation: null
       validation_message: null
-      width: full
+      width: half
     schema:
       name: fechaPagoTotal
       table: efectivamente_cobrado
@@ -3790,7 +3863,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Colocar el monto total de la indemnización efectivamente cobrada
       options:
         min: 0
       readonly: false
@@ -3800,7 +3873,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: monto
       table: efectivamente_cobrado_indemnizacion
@@ -3829,12 +3902,18 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Colocar el tipo de moneda en formato de tres letras, establecidos en el
+        ISO 4217
       options:
         allowOther: true
         choices:
           - text: Peso mexicano
             value: MXN
+          - text: Dólar estadounidense
+            value: USD
+          - text: Euro
+            value: EUR
       readonly: false
       required: false
       sort: 3
@@ -3842,7 +3921,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: moneda
       table: efectivamente_cobrado_indemnizacion
@@ -3871,7 +3950,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Especificar la fecha en que se realizó el cobro de la indemnización
       options: null
       readonly: false
       required: false
@@ -3911,7 +3990,10 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        En caso de que el pago de la indemnización no se realice en una sola
+        exhibición, especificar la fecha en que se cubrió el pago total de la
+        indemnización
       options: null
       readonly: false
       required: false
@@ -5271,7 +5353,7 @@ fields:
       interface: select-dropdown
       note: >-
         En caso de seleccionar la opción "OTRO", se deberá especificar el el
-        tipo de falta cometida.
+        tipo de falta cometida
       options:
         choices:
           - text: Soborno
@@ -5383,7 +5465,7 @@ fields:
       interface: input
       note: >-
         Escribir el nombre de la normatividad infringida por la persona física,
-        sin abreviaturas, sin acentos, ni signos especiales.
+        sin abreviaturas, sin acentos, ni signos especiales
       options:
         placeholder: null
       readonly: false
@@ -5429,7 +5511,7 @@ fields:
         placeholder: >-
           Redactar una descripción breve de los hechos, sin incluir información
           reservada o confidencial, de conformidad con la normatividad en
-          materia de transparencia y protección de datos personales.
+          materia de transparencia y protección de datos personales
       readonly: false
       required: true
       sort: 6
@@ -5812,7 +5894,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en la que se registra la información
       options: null
       readonly: false
       required: true
@@ -5820,7 +5902,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Fecha (DD-MM-AAAA)
+          translation: Fecha  (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: half
@@ -5852,7 +5934,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Registrar el número de expediente en el que recae la resolución
       options:
         placeholder: Registrar el número de expediente en el que recae la resolución.
       readonly: false
@@ -5934,7 +6016,10 @@ fields:
       group: null
       hidden: false
       interface: input-multiline
-      note: null
+      note: >-
+        En este espacio se podrán realizar las aclaraciones u observaciones que
+        se consideren pertinentes respecto de alguno o algunos de los apartados
+        del Formato.
       options:
         placeholder: >-
           En este espacio se podrán realizar las aclaraciones u observaciones
@@ -6093,9 +6178,12 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        Elegir una o varias sanciones, según corresponda, conforme al catálogo y
+        que fueron dictaminadas en la resolución definitiva
       options:
         enableSelect: false
+        limit: -1
         template: '{{clave}}'
       readonly: false
       required: true
@@ -6499,7 +6587,9 @@ fields:
       required: true
       sort: 10
       special: null
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Fecha (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: half
@@ -6645,50 +6735,6 @@ fields:
       foreign_key_table: empleo_cargo_comision
       foreign_key_column: id
   - collection: faltas_administrativas_no_graves
-    field: resolucion
-    type: integer
-    meta:
-      collection: faltas_administrativas_no_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: resolucion
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-      readonly: false
-      required: true
-      sort: 16
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: >-
-            Resolución sancionatoria de la falta cometida por la persona
-            servidora pública
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: resolucion
-      table: faltas_administrativas_no_graves
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: resolucion
-      foreign_key_column: id
-  - collection: faltas_administrativas_no_graves
     field: observaciones
     type: text
     meta:
@@ -6810,7 +6856,9 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        Elegir una o varias sanciones conforme al catálogo y que fueron
+        dictaminadas en la resolución definitiva
       options:
         enableSelect: false
       readonly: false
@@ -6955,6 +7003,49 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: faltas_administrativas_no_graves
+    field: resolucion
+    type: integer
+    meta:
+      collection: faltas_administrativas_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: resolucion
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+        template: '{{tituloResolucion}}'
+      readonly: false
+      required: false
+      sort: 16
+      special:
+        - m2o
+      translations:
+        - language: es-MX
+          translation: Resolución
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: resolucion
+      table: faltas_administrativas_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: resolucion_no_graves
+      foreign_key_column: id
   - collection: faltas_graves_personas_fisicas
     field: id
     type: uuid
@@ -7166,7 +7257,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en la que se registra la información
       options: null
       readonly: false
       required: true
@@ -7174,7 +7265,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Fecha (DD-MM-AAAA)
+          translation: Fecha
       validation: null
       validation_message: null
       width: half
@@ -7206,16 +7297,16 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Registrar el número de expediente en el que recae la resolución
       options:
-        placeholder: Registrar el número de expediente del procedimiento
+        placeholder: null
       readonly: false
       required: true
       sort: 11
       special: null
       translations: null
       validation: null
-      validation_message: null
+      validation_message: El expediente es requerido
       width: half
     schema:
       name: expediente
@@ -7345,7 +7436,7 @@ fields:
         - m2o
       translations:
         - language: es-MX
-          translation: Resolución
+          translation: Resolución sancionatoria de la falta cometida por la persona física
       validation: null
       validation_message: null
       width: full
@@ -7382,7 +7473,7 @@ fields:
         placeholder: >-
           En este espacio podrá realizar las aclaraciones u observaciones que
           considere pertinentes respecto de alguno o algunos de los apartados
-          del documento.
+          del documento
       readonly: false
       required: false
       sort: 18
@@ -7419,7 +7510,7 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: Tipo de sanción impuesta a la persona física
       options:
         enableSelect: false
         limit: -1
@@ -7631,158 +7722,6 @@ fields:
       validation: null
       validation_message: null
       width: full
-  - collection: faltas_graves_personas_fisicas_prueba
-    field: id
-    type: integer
-    meta:
-      collection: faltas_graves_personas_fisicas_prueba
-      conditions: null
-      display: null
-      display_options: null
-      field: id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 1
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: id
-      table: faltas_graves_personas_fisicas_prueba
-      data_type: integer
-      default_value: nextval('faltas_graves_personas_fisicas_prueba_id_seq'::regclass)
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: false
-      is_unique: true
-      is_primary_key: true
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: true
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: faltas_graves_personas_fisicas_prueba
-    field: faltas_graves_personas_fisicas_id
-    type: uuid
-    meta:
-      collection: faltas_graves_personas_fisicas_prueba
-      conditions: null
-      display: null
-      display_options: null
-      field: faltas_graves_personas_fisicas_id
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 2
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: faltas_graves_personas_fisicas_id
-      table: faltas_graves_personas_fisicas_prueba
-      data_type: uuid
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: faltas_graves_personas_fisicas
-      foreign_key_column: id
-  - collection: faltas_graves_personas_fisicas_prueba
-    field: item
-    type: string
-    meta:
-      collection: faltas_graves_personas_fisicas_prueba
-      conditions: null
-      display: null
-      display_options: null
-      field: item
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 3
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: item
-      table: faltas_graves_personas_fisicas_prueba
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: faltas_graves_personas_fisicas_prueba
-    field: collection
-    type: string
-    meta:
-      collection: faltas_graves_personas_fisicas_prueba
-      conditions: null
-      display: null
-      display_options: null
-      field: collection
-      group: null
-      hidden: true
-      interface: null
-      note: null
-      options: null
-      readonly: false
-      required: false
-      sort: 4
-      special: null
-      translations: null
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: collection
-      table: faltas_graves_personas_fisicas_prueba
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: faltas_graves_personas_morales
     field: id
     type: uuid
@@ -8005,7 +7944,7 @@ fields:
         - m2o
       translations:
         - language: es-MX
-          translation: Denominación o razón social
+          translation: Datos generales de la persona moral sancionada
       validation: null
       validation_message: null
       width: full
@@ -8171,13 +8110,15 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en la que se registra la información
       options: null
       readonly: false
       required: true
       sort: 10
       special: null
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Fecha (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: half
@@ -8209,7 +8150,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Registrar el número de expediente en el que recae la resolución
       options: null
       readonly: false
       required: true
@@ -8247,7 +8188,9 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        En esta sección se podrá elegir una o varias sanciones conforme al
+        catálogo y que fueron impuestas en la resolución definitiva
       options:
         enableSelect: false
         limit: -1
@@ -8317,7 +8260,9 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        Seleccionar el (los) tipo (s) de falta (s) cometida (s) por la persona
+        moral sancionada
       options:
         enableSelect: false
         limit: -1
@@ -8558,7 +8503,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Colocar el monto total del a indemnización
       options:
         min: 0
       readonly: false
@@ -8568,7 +8513,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: monto
       table: indemnizacion
@@ -8597,12 +8542,18 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Colocar el tipo de moneda en formato de tres letras, establecidos en el
+        ISO 4217
       options:
         allowOther: true
         choices:
           - text: Peso mexicano
             value: MXN
+          - text: "\tDólar estadounidense"
+            value: USD
+          - text: Euro
+            value: EUR
       readonly: false
       required: true
       sort: 3
@@ -8610,7 +8561,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: moneda
       table: indemnizacion
@@ -8639,7 +8590,9 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Señalar el plazo para dar cumplimiento a la indemnización: años, meses y
+        días
       options:
         enableSelect: false
         template: '{{anios}}{{meses}}'
@@ -8682,7 +8635,7 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: 'Indicar el monto efectivamente cobrado: monto y moneda'
       options:
         enableSelect: false
         template: '{{monto}}{{moneda}}'
@@ -8892,7 +8845,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en la que inició la inhabilitación de la persona física
       options: null
       readonly: false
       required: true
@@ -8900,7 +8853,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Fecha inicial
+          translation: Fecha inicial (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: half
@@ -8932,7 +8885,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        Indicar la fecha en la que se concluye la inhabilitación de la persona
+        física
       options: null
       readonly: false
       required: true
@@ -8940,7 +8895,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Fecha final
+          translation: Fecha final (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: half
@@ -8972,7 +8927,9 @@ fields:
       group: null
       hidden: false
       interface: presentation-divider
-      note: null
+      note: >-
+        Este campo se deberá llenar Sí en la resolución se sancionó con una
+        inhabilitación
       options:
         title: Plazo de la inhabilitación
       readonly: false
@@ -9047,7 +9004,7 @@ fields:
             value: ENLACE_HOMOLOGO
           - text: Jefatura de departamento u homólogo
             value: JEFATURA_DEPTO_HOMOLOGO
-          - text: Subdirección u homólogo
+          - text: Subdirección de área u homólogo
             value: SUBDIRECCION_HOMOLOGO
           - text: Dirección de área u homólogo
             value: DIRECCION_HOMOLOGO
@@ -9190,7 +9147,7 @@ fields:
       interface: select-radio
       note: >-
         En caso de seleccionar la opción "OTRO", se deberá especificar el motivo
-        que dio origen a la investigación.
+        que dio origen a la investigación
       options:
         choices:
           - text: >-
@@ -9334,11 +9291,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni
+        signos especiales
       options:
-        placeholder: >-
-          Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni
-          signos especiales.
+        placeholder: null
       readonly: false
       required: true
       sort: 2
@@ -9424,7 +9381,7 @@ fields:
         stepInterval: 1
       readonly: false
       required: false
-      sort: 2
+      sort: 3
       special: null
       translations:
         - language: es-MX
@@ -9468,7 +9425,7 @@ fields:
         minValue: 0
       readonly: false
       required: false
-      sort: 3
+      sort: 4
       special: null
       translations:
         - language: es-MX
@@ -9512,7 +9469,7 @@ fields:
         minValue: 0
       readonly: false
       required: false
-      sort: 4
+      sort: 5
       special: null
       translations:
         - language: es-MX
@@ -9536,6 +9493,33 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: plazo_pago
+    field: divider-jlk6ex
+    type: alias
+    meta:
+      collection: plazo_pago
+      conditions: null
+      display: null
+      display_options: null
+      field: divider-jlk6ex
+      group: null
+      hidden: false
+      interface: presentation-divider
+      note: >-
+        Señalar el plazo para dar cumplimiento a la sanción económica: año (s),
+        mes (es) y día (s)
+      options:
+        title: Plazo de pago
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
   - collection: resolucion
     field: id
     type: integer
@@ -9586,7 +9570,10 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir el nombre del documento que resuelve el procedimiento de
+        responsabilidad administrativa y que ha quedado firme, sin abreviaturas,
+        sin acentos ni signos especiales
       options: null
       readonly: false
       required: true
@@ -9626,7 +9613,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Colocar la fecha en la que se emite la resolución sancionatoria
       options: null
       readonly: false
       required: true
@@ -9666,7 +9653,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en que se notifica la resolución
       options: null
       readonly: false
       required: true
@@ -9706,7 +9693,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Colocar el enlace de la versión pública de la resolución emitida por la
+        autoridad a la que corresponde la sanción
       options: null
       readonly: false
       required: true
@@ -9748,7 +9737,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Colocar la fecha en que adquirió firmeza la resolución
       options: null
       readonly: false
       required: true
@@ -9788,7 +9777,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en que se notifica que la resolución ha quedado firme
       options: null
       readonly: false
       required: true
@@ -9828,7 +9817,10 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Colocar el enlace de la versión pública del acuerdo o determinación que
+        dicte la autoridad competente en la que declara que la resolución
+        definitiva ha quedado firme
       options: null
       readonly: false
       required: true
@@ -9859,51 +9851,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: resolucion
-    field: ordenJurisdiccional
-    type: string
-    meta:
-      collection: resolucion
-      conditions: null
-      display: null
-      display_options: null
-      field: ordenJurisdiccional
-      group: null
-      hidden: false
-      interface: select-radio
-      note: null
-      options:
-        choices:
-          - text: Federal
-            value: FEDERAL
-          - text: Estatal
-            value: ESTATAL
-      readonly: false
-      required: true
-      sort: 10
-      special: null
-      translations:
-        - language: es-MX
-          translation: Orden jurisdiccional
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: ordenJurisdiccional
-      table: resolucion
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: resolucion
     field: autoridadResolutora
     type: string
     meta:
@@ -9915,7 +9862,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Indicar el nombre de la autoridad facultada para dictar la sanción
       options: null
       readonly: false
       required: true
@@ -9955,7 +9902,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Especificar el nombre de la autoridad encargada de la investigación de
+        la (s) falta (s) del particular
       options: null
       readonly: false
       required: true
@@ -9995,7 +9944,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Señalar el nombre de la autoridad substanciadora del procedimiento
       options: null
       readonly: false
       required: true
@@ -10035,7 +9984,11 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        Anotar la fecha en la que se ejecutó la sanción.  Si al momento de
+        registrar la información la autoridad no cuenta con el dato señalado en
+        el presente numeral, esta podrá registrarse posteriormente mediante una
+        actualización de su registro
       options: null
       readonly: false
       required: false
@@ -10053,6 +10006,554 @@ fields:
       data_type: date
       default_value: null
       max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion
+    field: ordenJurisdiccional
+    type: string
+    meta:
+      collection: resolucion
+      conditions: null
+      display: null
+      display_options: null
+      field: ordenJurisdiccional
+      group: null
+      hidden: false
+      interface: select-radio
+      note: >-
+        Seleccionar la opción correspondiente el orden jurisdiccional de la
+        sanción
+      options:
+        choices:
+          - text: Federal
+            value: FEDERAL
+          - text: Estatal
+            value: ESTATAL
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ordenJurisdiccional
+      table: resolucion
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: id
+    type: integer
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: resolucion_no_graves
+      data_type: integer
+      default_value: nextval('resolucion_no_graves_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: tituloResolucion
+    type: string
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: tituloResolucion
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Escribir el nombre del documento que resuelve el procedimiento de
+        responsabilidad administrativa y que ha quedado firme, sin abreviaturas,
+        sin acentos ni signos especiales
+      options: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Título del documento
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: tituloResolucion
+      table: resolucion_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: fechaResolucion
+    type: date
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaResolucion
+      group: null
+      hidden: false
+      interface: datetime
+      note: Colocar la fecha en la que se emite la resolución sancionatoria
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de la resolución (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaResolucion
+      table: resolucion_no_graves
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: fechaNotificacion
+    type: date
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaNotificacion
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Indicar la fecha en que se notifica la resolución a la persona física
+        sancionada
+      options: null
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de notificación (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaNotificacion
+      table: resolucion_no_graves
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: urlResolucion
+    type: string
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: urlResolucion
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Colocar el enlace de la versión pública de la resolución emitida por la
+        autoridad a la que corresponde la sanción
+      options: null
+      readonly: false
+      required: true
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: >-
+            URL de la versión pública de la resolución de sanción en formato
+            digital
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: urlResolucion
+      table: resolucion_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: fechaResolucionFirme
+    type: date
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaResolucionFirme
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Colocar la fecha en que adquirió firmeza la resolución de la persona
+        física
+      options: null
+      readonly: false
+      required: true
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha en que adquirió firmeza la resolución (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaResolucionFirme
+      table: resolucion_no_graves
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: fechaNotificacionFirme
+    type: date
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaNotificacionFirme
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Indicar la fecha en que se notifica a la persona física que la
+        resolución ha quedado firme
+      options: null
+      readonly: false
+      required: true
+      sort: 7
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de notificación de la resolución firme (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaNotificacionFirme
+      table: resolucion_no_graves
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: urlResolucionFirme
+    type: string
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: urlResolucionFirme
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Colocar el enlace de la versión pública del acuerdo o determinación que
+        dicte la autoridad competente en la que declara que la resolución
+        definitiva ha quedado firme
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations:
+        - language: es-MX
+          translation: >-
+            URL de la versión pública del acuerdo o determinación que declare
+            firme la resolución en formato digital
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: urlResolucionFirme
+      table: resolucion_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: fechaEjecucion
+    type: date
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaEjecucion
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        "Anotar la fecha en la que se ejecutó la sanción a la persona física
+        pública en formato DD-MM-AAAA.  Si al momento de registrar la
+        información la autoridad no cuenta con el dato señalado en el presente
+        numeral, esta podrá registrarse posteriormente mediante una
+        actualización de su registro
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de ejecución de la sanción (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fechaEjecucion
+      table: resolucion_no_graves
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: autoridadResolutora
+    type: string
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadResolutora
+      group: null
+      hidden: false
+      interface: input
+      note: Indicar el nombre de la autoridad facultada para dictar la sanción
+      options: null
+      readonly: false
+      required: true
+      sort: 10
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad resolutora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadResolutora
+      table: resolucion_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: autoridadInvestigadora
+    type: string
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadInvestigadora
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Especificar el nombre de la autoridad encargada de la investigación de
+        la (s) falta (s) del particular
+      options: null
+      readonly: false
+      required: true
+      sort: 11
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad investigadora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadInvestigadora
+      table: resolucion_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: autoridadSusbstanciadora
+    type: string
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadSusbstanciadora
+      group: null
+      hidden: false
+      interface: input
+      note: Señalar el nombre de la autoridad substanciadora del procedimiento
+      options: null
+      readonly: false
+      required: true
+      sort: 12
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad substanciadora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadSusbstanciadora
+      table: resolucion_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -10113,7 +10614,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Colocar el monto total de la sanción económica
       options:
         min: 1
       readonly: false
@@ -10123,7 +10624,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: monto
       table: sancion_economica
@@ -10152,12 +10653,18 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Colocar el tipo de moneda en formato de tres letras, establecidos en el
+        ISO 4217
       options:
         allowOther: true
         choices:
           - text: Peso mexicano
             value: MXN
+          - text: Dólar estadounidense
+            value: USD
+          - text: Euro
+            value: EUR
       readonly: false
       required: true
       sort: 3
@@ -10165,7 +10672,7 @@ fields:
       translations: null
       validation: null
       validation_message: null
-      width: half
+      width: full
     schema:
       name: moneda
       table: sancion_economica
@@ -10194,7 +10701,9 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Señalar el plazo para pagar la sanción económica: año (s), mes (es) y
+        día (s)
       options:
         enableSelect: false
         template: '{{anios}}{{meses}}'
@@ -10237,7 +10746,7 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: 'Indicar el monto efectivamente cobrado: monto y moneda'
       options:
         enableSelect: false
         template: '{{monto}}{{moneda}}'
@@ -10323,7 +10832,7 @@ fields:
         min: 0
       readonly: false
       required: true
-      sort: 2
+      sort: 3
       special: null
       translations:
         - language: es-MX
@@ -10364,7 +10873,7 @@ fields:
         min: 0
       readonly: false
       required: true
-      sort: 3
+      sort: 4
       special: null
       translations:
         - language: es-MX
@@ -10405,7 +10914,7 @@ fields:
         min: 0
       readonly: false
       required: true
-      sort: 4
+      sort: 5
       special: null
       translations:
         - language: es-MX
@@ -10441,11 +10950,11 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en que inició la suspensión de actividades
       options: null
       readonly: false
       required: true
-      sort: 5
+      sort: 6
       special: null
       translations:
         - language: es-MX
@@ -10481,11 +10990,11 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en que concluye la suspensión de actividades
       options: null
       readonly: false
       required: true
-      sort: 6
+      sort: 7
       special: null
       translations:
         - language: es-MX
@@ -10509,6 +11018,33 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: suspension_actividades
+    field: divider-5zbv9e
+    type: alias
+    meta:
+      collection: suspension_actividades
+      conditions: null
+      display: null
+      display_options: null
+      field: divider-5zbv9e
+      group: null
+      hidden: false
+      interface: presentation-divider
+      note: >-
+        Señalar el plazo de la suspensión de actividades: año (s), mes (es) y
+        día (s)
+      options:
+        title: Plazo de pago
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - alias
+        - no-data
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
   - collection: suspension_empleo
     field: id
     type: integer
@@ -10789,11 +11325,14 @@ fields:
         choices:
           - text: Suspensión del empleo cargo o comisión
             value: SUSPENSION
-          - text: Destitución del empleo cargo o comisión
+          - text: Destitución del empleo, cargo o comisión
             value: DESTITUCION
           - text: Sanción económica
             value: SANCION_ECONOMICA
-          - text: ' Inhabilitación temporal para desempeñar empleos cargos o comisiones en el servicio público y para participar en adquisiciones y arrendamientos de servicios u obras públicas'
+          - text: >-
+              Inhabilitación temporal para desempeñar empleos, cargos o
+              comisiones en el servicio público y para participar en
+              adquisiciones y arrendamientos de servicios u obras públicas
             value: INHABILITACION
           - text: Otro (especifique)
             value: OTRO
@@ -11052,7 +11591,7 @@ fields:
       translations:
         - language: es-MX
           translation: >-
-            Inhabilitación temporal para desempeñar empleos cargos o comisiones
+            Inhabilitación temporal para desempeñar empleos, cargos o comisiones
             en el servicio público y para participar en adquisiciones y
             arrendamientos de servicios u obras públicas
       validation: null
@@ -11235,9 +11774,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: >-
-            Elegir una o varias sanciones conforme al catálogo y que fueron
-            dictaminadas en la resolución definitiva.
+          translation: Clave
       validation: null
       validation_message: null
       width: full
@@ -11389,7 +11926,12 @@ fields:
       sort: 6
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: >-
+            Inhabilitación temporal para desempeñar empleos, cargos o comisiones
+            en el servicio público y para participar en adquisiciones,
+            arrendamientos, servicios u obras públicas
       validation: null
       validation_message: null
       width: full
@@ -11561,7 +12103,9 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: >-
+        Elegir una o varias sanciones, según corresponda, conforme al catálogo y
+        que fueron dictaminadas en la resolución definitiva
       options:
         choices:
           - text: ' Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas'
@@ -11618,7 +12162,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Este campo se deberá llenar Sí en la resolución se sancionó con una
+        inhabilitación
       options:
         enableSelect: false
         template: '{{fechaInicial}}'
@@ -11817,7 +12363,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona física sea acreedora a
+        otro tipo de sanción prevista en las leyes locales anticorrupción de las
+        entidades federativas
       options:
         enableSelect: false
         template: '{{denominacionSancion}}'
@@ -12020,7 +12569,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá llenar si en la resolución definitiva se le impuso
+        indemnización
       options:
         enableSelect: false
         template: '{{monto}}'
@@ -12072,7 +12623,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado si en la resolución se sancionó con la suspensión
+        de actividades
       options:
         enableSelect: false
         template: '{{plazoSuspensioAnios}}{{plazoSuspensionMeses}}'
@@ -12126,7 +12679,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado si en la resolución se sancionó con la disolución
+        de la sociedad
       options:
         enableSelect: false
         template: '{{fechaDisolucion}}'
@@ -12215,7 +12770,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona moral sea acreedora a
+        otro tipo de sanción prevista en las leyes locales anticorrupción de las
+        entidades federativas
       options: null
       readonly: false
       required: false
@@ -12266,7 +12824,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona moral sea acreedora de
+        una sanción económica
       options:
         enableSelect: false
         template: '{{monto}}{{moneda}}'
@@ -12843,27 +13403,6 @@ relations:
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_administrativas_no_graves
-    field: resolucion
-    related_collection: resolucion
-    meta:
-      junction_field: null
-      many_collection: faltas_administrativas_no_graves
-      many_field: resolucion
-      one_allowed_collections: null
-      one_collection: resolucion
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_administrativas_no_graves
-      column: resolucion
-      foreign_key_table: resolucion
-      foreign_key_column: id
-      constraint_name: faltas_administrativas_no_graves_resolucion_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: faltas_administrativas_no_graves
     field: origenProcedimiento
     related_collection: origen_procedimiento
     meta:
@@ -12903,6 +13442,27 @@ relations:
       foreign_key_table: ente_publico
       foreign_key_column: id
       constraint_name: faltas_administrativas_no_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: faltas_administrativas_no_graves
+    field: resolucion
+    related_collection: resolucion_no_graves
+    meta:
+      junction_field: null
+      many_collection: faltas_administrativas_no_graves
+      many_field: resolucion
+      one_allowed_collections: null
+      one_collection: resolucion_no_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_administrativas_no_graves
+      column: resolucion
+      foreign_key_table: resolucion_no_graves
+      foreign_key_column: id
+      constraint_name: faltas_administrativas_no_graves_resolucion_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_graves_personas_fisicas
@@ -13050,42 +13610,6 @@ relations:
       foreign_key_table: ente_publico
       foreign_key_column: id
       constraint_name: faltas_graves_personas_fisicas_entepublico_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: faltas_graves_personas_fisicas_prueba
-    field: item
-    related_collection: null
-    meta:
-      junction_field: faltas_graves_personas_fisicas_id
-      many_collection: faltas_graves_personas_fisicas_prueba
-      many_field: item
-      one_allowed_collections:
-        - domicilio_extranjero
-        - domicilio_mexico
-      one_collection: null
-      one_collection_field: collection
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-  - collection: faltas_graves_personas_fisicas_prueba
-    field: faltas_graves_personas_fisicas_id
-    related_collection: faltas_graves_personas_fisicas
-    meta:
-      junction_field: item
-      many_collection: faltas_graves_personas_fisicas_prueba
-      many_field: faltas_graves_personas_fisicas_id
-      one_allowed_collections: null
-      one_collection: faltas_graves_personas_fisicas
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_graves_personas_fisicas_prueba
-      column: faltas_graves_personas_fisicas_id
-      foreign_key_table: faltas_graves_personas_fisicas
-      foreign_key_column: id
-      constraint_name: faltas_graves_personas_fisicas_prueba_falt__27e44c16_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_graves_personas_morales

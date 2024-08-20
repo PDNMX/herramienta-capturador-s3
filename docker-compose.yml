@@ -6,6 +6,7 @@ services:
       context: ./
     volumes:
       - ./migrations:/directus/migrations
+      - ./templates:/directus/templates
     command: >
         sh -c "node cli.js bootstrap &&
               node cli.js schema apply --yes /directus/migrations/colecciones.yaml &&
