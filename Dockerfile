@@ -4,5 +4,5 @@ USER root
 RUN corepack enable
 USER node
 
-RUN pnpm install directus-extension-schema-management-module
+RUN pnpm install directus-extension-schema-management-module@1.5.0
 
