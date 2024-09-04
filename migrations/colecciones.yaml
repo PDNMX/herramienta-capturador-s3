@@ -56,14 +56,14 @@ collections:
       collection: amonestacion_sancion
       color: null
       display_template: null
-      group: null
+      group: Faltas_de_Servidores_Publicos
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 14
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -80,31 +80,7 @@ collections:
       collection: datos_dg_rp
       color: null
       display_template: null
-      group: null
-      hidden: true
-      icon: null
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
-      sort: 13
-      sort_field: null
-      translations: null
-      unarchive_value: null
-      versioning: false
-    schema:
-      name: datos_dg_rp
-  - collection: datos_generales
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: null
-      archive_value: null
-      collapse: open
-      collection: datos_generales
-      color: null
-      display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_graves_personas_morales
       hidden: true
       icon: null
       item_duplication_fields: null
@@ -117,7 +93,55 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: datos_generales
+      name: datos_dg_rp
+  - collection: datos_generales_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: datos_generales_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: datos_generales_graves
+  - collection: datos_generales_no_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: datos_generales_no_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_no_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 1
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: datos_generales_no_graves
   - collection: datos_generales_personas_fisicas
     meta:
       accountability: all
@@ -128,14 +152,14 @@ collections:
       collection: datos_generales_personas_fisicas
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_fisicas
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 3
+      sort: 1
       sort_field: null
       translations: null
       unarchive_value: null
@@ -152,14 +176,14 @@ collections:
       collection: datos_generales_personas_morales
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_morales
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 9
+      sort: 1
       sort_field: null
       translations: null
       unarchive_value: null
@@ -176,14 +200,14 @@ collections:
       collection: datos_representante
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_morales
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 10
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -207,7 +231,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 12
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -224,14 +248,14 @@ collections:
       collection: disolucion_sociedad
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_morales
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 11
+      sort: 7
       sort_field: null
       translations: null
       unarchive_value: null
@@ -248,20 +272,44 @@ collections:
       collection: domicilio_extranjero
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_fisicas
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 8
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
       versioning: false
     schema:
       name: domicilio_extranjero
+  - collection: domicilio_extranjero_morales
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: domicilio_extranjero_morales
+      color: null
+      display_template: null
+      group: faltas_graves_personas_morales
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 6
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: domicilio_extranjero_morales
   - collection: domicilio_mexico
     meta:
       accountability: all
@@ -272,20 +320,44 @@ collections:
       collection: domicilio_mexico
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_fisicas
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 7
+      sort: 2
       sort_field: null
       translations: null
       unarchive_value: null
       versioning: false
     schema:
       name: domicilio_mexico
+  - collection: domicilio_mexico_morales
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: domicilio_mexico_morales
+      color: null
+      display_template: null
+      group: faltas_graves_personas_morales
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 5
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: domicilio_mexico_morales
   - collection: donde_cometio_falta
     meta:
       accountability: all
@@ -303,7 +375,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
@@ -327,7 +399,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 12
+      sort: 7
       sort_field: null
       translations: null
       unarchive_value: null
@@ -351,37 +423,61 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 16
+      sort: 10
       sort_field: null
       translations: null
       unarchive_value: null
       versioning: false
     schema:
       name: efectivamente_cobrado_indemnizacion
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       color: null
       display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_administrativas_graves
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 2
       sort_field: null
       translations: null
       unarchive_value: null
       versioning: false
     schema:
-      name: empleo_cargo_comision
+      name: empleo_cargo_comision_graves
+  - collection: empleo_cargo_comision_no_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: empleo_cargo_comision_no_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_no_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: empleo_cargo_comision_no_graves
   - collection: ente_publico
     meta:
       accountability: all
@@ -399,7 +495,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 15
+      sort: 12
       sort_field: null
       translations: null
       unarchive_value: null
@@ -440,14 +536,14 @@ collections:
       collection: falta_cometida_graves
       color: null
       display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_administrativas_graves
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -464,14 +560,14 @@ collections:
       collection: falta_cometida_no_graves
       color: null
       display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_administrativas_no_graves
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 7
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -495,7 +591,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -617,7 +713,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 8
+      sort: 9
       sort_field: null
       translations: null
       unarchive_value: null
@@ -641,37 +737,61 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 7
-      sort_field: null
-      translations: null
-      unarchive_value: null
-      versioning: false
-    schema:
-      name: inhabilitacion
-  - collection: nivel_jerarquico
-    meta:
-      accountability: all
-      archive_app_filter: true
-      archive_field: null
-      archive_value: null
-      collapse: open
-      collection: nivel_jerarquico
-      color: null
-      display_template: null
-      group: Faltas_de_Servidores_Publicos
-      hidden: true
-      icon: null
-      item_duplication_fields: null
-      note: null
-      preview_url: null
-      singleton: false
       sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
       versioning: false
     schema:
-      name: nivel_jerarquico
+      name: inhabilitacion
+  - collection: nivel_jerarquico_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: nivel_jerarquico_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 3
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: nivel_jerarquico_graves
+  - collection: nivel_jerarquico_no_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: nivel_jerarquico_no_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_no_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 3
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: nivel_jerarquico_no_graves
   - collection: origen_procedimiento
     meta:
       accountability: all
@@ -682,14 +802,14 @@ collections:
       collection: origen_procedimiento
       color: null
       display_template: null
-      group: null
+      group: Faltas_de_Servidores_Publicos
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
@@ -713,7 +833,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 9
+      sort: 11
       sort_field: null
       translations: null
       unarchive_value: null
@@ -737,7 +857,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 10
+      sort: 8
       sort_field: null
       translations: null
       unarchive_value: null
@@ -761,7 +881,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -778,14 +898,14 @@ collections:
       collection: resolucion_no_graves
       color: null
       display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_administrativas_no_graves
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 8
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -809,7 +929,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 11
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -826,14 +946,14 @@ collections:
       collection: suspension_actividades
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_morales
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 12
+      sort: 8
       sort_field: null
       translations: null
       unarchive_value: null
@@ -857,7 +977,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 11
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -874,14 +994,14 @@ collections:
       collection: tipo_sancion_graves
       color: null
       display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_administrativas_graves
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 9
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -898,14 +1018,14 @@ collections:
       collection: tipo_sancion_no_graves
       color: null
       display_template: null
-      group: Faltas_de_Servidores_Publicos
+      group: faltas_administrativas_no_graves
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 10
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -922,7 +1042,7 @@ collections:
       collection: tipo_sancion_personas_fisicas
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_fisicas
       hidden: true
       icon: null
       item_duplication_fields: null
@@ -946,14 +1066,14 @@ collections:
       collection: tipo_sancion_personas_morales
       color: null
       display_template: null
-      group: Faltas_de_Particulares
+      group: faltas_graves_personas_morales
       hidden: true
       icon: null
       item_duplication_fields: null
       note: null
       preview_url: null
       singleton: false
-      sort: 15
+      sort: 2
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1168,11 +1288,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: datos_representante
       foreign_key_column: id
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: id
     type: integer
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1192,9 +1312,9 @@ fields:
       width: full
     schema:
       name: id
-      table: datos_generales
+      table: datos_generales_graves
       data_type: integer
-      default_value: nextval('datos_generales_id_seq'::regclass)
+      default_value: nextval('datos_generales_graves_id_seq'::regclass)
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -1206,11 +1326,11 @@ fields:
       has_auto_increment: true
       foreign_key_table: null
       foreign_key_column: null
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: nombres
     type: string
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1234,7 +1354,7 @@ fields:
       width: full
     schema:
       name: nombres
-      table: datos_generales
+      table: datos_generales_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -1248,11 +1368,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: primerApellido
     type: string
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1274,7 +1394,7 @@ fields:
       width: full
     schema:
       name: primerApellido
-      table: datos_generales
+      table: datos_generales_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -1288,11 +1408,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: segundoApellido
     type: string
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1314,7 +1434,7 @@ fields:
       width: full
     schema:
       name: segundoApellido
-      table: datos_generales
+      table: datos_generales_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -1328,11 +1448,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: curp
     type: string
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1354,7 +1474,7 @@ fields:
       width: full
     schema:
       name: curp
-      table: datos_generales
+      table: datos_generales_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -1368,11 +1488,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: rfc
     type: string
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1394,7 +1514,7 @@ fields:
       width: full
     schema:
       name: rfc
-      table: datos_generales
+      table: datos_generales_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -1408,11 +1528,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: datos_generales
+  - collection: datos_generales_graves
     field: sexo
     type: string
     meta:
-      collection: datos_generales
+      collection: datos_generales_graves
       conditions: null
       display: null
       display_options: null
@@ -1437,7 +1557,290 @@ fields:
       width: full
     schema:
       name: sexo
-      table: datos_generales
+      table: datos_generales_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: id
+    type: integer
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: datos_generales_no_graves
+      data_type: integer
+      default_value: nextval('datos_generales_no_graves_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: nombres
+    type: string
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: nombres
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Se deberá escribir el o los nombres, sin abreviaturas, sin acentos, ni
+        signos especiales.
+      options: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Nombre (s)
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nombres
+      table: datos_generales_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: primerApellido
+    type: string
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: primerApellido
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Primer apellido
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: primerApellido
+      table: datos_generales_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: segundoApellido
+    type: string
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: segundoApellido
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Segundo apellido
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: segundoApellido
+      table: datos_generales_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: curp
+    type: string
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: curp
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: CURP
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: curp
+      table: datos_generales_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: rfc
+    type: string
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: rfc
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: RFC con homoclave
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: rfc
+      table: datos_generales_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: sexo
+    type: string
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: sexo
+      group: null
+      hidden: false
+      interface: select-radio
+      note: null
+      options:
+        choices:
+          - text: Mujer
+            value: MUJER
+          - text: Hombre
+            value: HOMBRE
+      readonly: false
+      required: true
+      sort: 7
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: sexo
+      table: datos_generales_no_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -2089,13 +2492,12 @@ fields:
     meta:
       collection: datos_generales_personas_morales
       conditions:
-        - name: MUESTRA CAMPO
+        - name: Mostrar
           rule:
             _and:
               - tipoDomicilio:
                   _eq: DOMICILIO_MEXICO
           hidden: false
-          required: false
           options:
             enableCreate: true
             enableSelect: false
@@ -2106,21 +2508,16 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: >-
-        Indicar los siguientes datos: tipo de vialidad, nombre de la vialidad,
-        número exterior, número interior (si aplica), colonia o localidad,
-        municipio, código postal y entidad federativa
+      note: null
       options:
         enableSelect: false
         template: '{{nombreVialidad}}'
       readonly: false
       required: false
-      sort: 7
+      sort: 9
       special:
         - m2o
-      translations:
-        - language: es-MX
-          translation: Domicilio en la República Mexicana
+      translations: null
       validation: null
       validation_message: null
       width: full
@@ -2138,7 +2535,7 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: domicilio_mexico
+      foreign_key_table: domicilio_mexico_morales
       foreign_key_column: id
   - collection: datos_generales_personas_morales
     field: domicilioExtranjero
@@ -2146,13 +2543,12 @@ fields:
     meta:
       collection: datos_generales_personas_morales
       conditions:
-        - name: MUESTRA CAMPO
+        - name: Mostrar
           rule:
             _and:
               - tipoDomicilio:
                   _eq: DOMICILIO_EXTRANJERO
           hidden: false
-          required: false
           options:
             enableCreate: true
             enableSelect: false
@@ -2163,20 +2559,15 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: >-
-        En su caso, Indicar los siguientes datos: ciudad, provincia, calle,
-        número exterior, número interior (si aplica), código postal y país
+      note: null
       options:
         enableSelect: false
-        template: '{{pais}}'
       readonly: false
       required: false
-      sort: 8
+      sort: 10
       special:
         - m2o
-      translations:
-        - language: es-MX
-          translation: Domicilio en el extranjero
+      translations: null
       validation: null
       validation_message: null
       width: full
@@ -2194,7 +2585,7 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: domicilio_extranjero
+      foreign_key_table: domicilio_extranjero_morales
       foreign_key_column: id
   - collection: datos_representante
     field: id
@@ -2956,6 +3347,324 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: id
+    type: integer
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: domicilio_extranjero_morales
+      data_type: integer
+      default_value: nextval('domicilio_extranjero_morales_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: ciudad
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: ciudad
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el nombre de la localidad del domicilio extranjero
+      options: null
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Ciudad / Localidad
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ciudad
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: provincia
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: provincia
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el nombre del estado/provincia del domicilio extranjero
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Estado / Provincia
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: provincia
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: calle
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: calle
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el nombre de la calle del domicilio extranjero
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Calle
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: calle
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: numeroExterior
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: numeroExterior
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el numero exterior del domicilio extranjero.
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: Número exterior
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: numeroExterior
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: numeroInterior
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: numeroInterior
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el numero interior del domicilio extranjero
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: Número interior
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: numeroInterior
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: codigoPostal
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: codigoPostal
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el codigo postal del domicilio extranjero
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations:
+        - language: es-MX
+          translation: Código postal
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: codigoPostal
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: pais
+    type: string
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: pais
+      group: null
+      hidden: false
+      interface: input
+      note: Nombre del país especificado en estándar ISO3166
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations:
+        - language: es-MX
+          translation: País
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: pais
+      table: domicilio_extranjero_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: domicilio_mexico
     field: id
     type: integer
@@ -3341,6 +4050,387 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: id
+    type: integer
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: domicilio_mexico_morales
+      data_type: integer
+      default_value: nextval('domicilio_mexico_morales_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: tipoVialidad
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: tipoVialidad
+      group: null
+      hidden: false
+      interface: select-radio
+      note: >-
+        Colocar el tipo de la vialidad correspondiente con base al catálogo de
+        vialidades del marco Geoestadístico Nacional.
+        https:/www.inegi.org.mx/temas/mg/#Documentacion
+      options:
+        choices:
+          - text: Avenida
+            value: AVENIDA
+          - text: Calle
+            value: CALLE
+          - text: Boulevard
+            value: BOULEVARD
+          - text: Viaducto
+            value: VIADUCTO
+          - text: Calzada
+            value: CALZADA
+          - text: Privada
+            value: PRIVADA
+          - text: Callejón
+            value: CALLEJON
+          - text: Prolongación
+            value: PROLONGACION
+          - text: Cerrada
+            value: CERRADA
+      readonly: false
+      required: false
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Tipo de vialidad
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: tipoVialidad
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: nombreVialidad
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: nombreVialidad
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el nombre completo de la calle, boulevard, avenida, etc
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Nombre de la vialidad
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nombreVialidad
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: numeroExterior
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: numeroExterior
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el número exterior
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Número exterior
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: numeroExterior
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: numeroInterior
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: numeroInterior
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el número interior
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: Número interior
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: numeroInterior
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: coloniaLocalidad
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: coloniaLocalidad
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el nombre completo de la colonia
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: Colonia / Localidad
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: coloniaLocalidad
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: municipioAlcaldia
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: municipioAlcaldia
+      group: null
+      hidden: false
+      interface: input
+      note: Nombre del municipio/alcaldia
+      options: null
+      readonly: false
+      required: false
+      sort: 7
+      special: null
+      translations:
+        - language: es-MX
+          translation: Municipio / Alcaldía
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: municipioAlcaldia
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: codigoPostal
+    type: string
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: codigoPostal
+      group: null
+      hidden: false
+      interface: input
+      note: Escribir el número código postal
+      options: null
+      readonly: false
+      required: false
+      sort: 8
+      special: null
+      translations:
+        - language: es-MX
+          translation: Código postal
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: codigoPostal
+      table: domicilio_mexico_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: entidadFederativa
+    type: integer
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entidadFederativa
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{valor}}'
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entidadFederativa
+      table: domicilio_mexico_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: entidad_federativa
+      foreign_key_column: id
   - collection: donde_cometio_falta
     field: id
     type: integer
@@ -3403,7 +4493,7 @@ fields:
           - text: Municipal / Alcadía
             value: MUNICIPAL_ALCALDIA
       readonly: false
-      required: false
+      required: true
       sort: 3
       special: null
       translations:
@@ -3580,7 +4670,7 @@ fields:
         enableCreate: false
         template: '{{valor}}'
       readonly: false
-      required: false
+      required: true
       sort: 2
       special:
         - m2o
@@ -4023,11 +5113,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: id
     type: integer
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4047,9 +5137,9 @@ fields:
       width: full
     schema:
       name: id
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: integer
-      default_value: nextval('empleo_cargo_comision_id_seq'::regclass)
+      default_value: nextval('empleo_cargo_comision_graves_id_seq'::regclass)
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -4061,11 +5151,52 @@ fields:
       has_auto_increment: true
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
+    field: entidadFederativa
+    type: integer
+    meta:
+      collection: empleo_cargo_comision_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entidadFederativa
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{valor}}'
+      readonly: false
+      required: false
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entidadFederativa
+      table: empleo_cargo_comision_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: entidad_federativa
+      foreign_key_column: id
+  - collection: empleo_cargo_comision_graves
     field: nivelOrdenGobierno
     type: string
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4094,7 +5225,7 @@ fields:
       width: full
     schema:
       name: nivelOrdenGobierno
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4108,11 +5239,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: ambitoPublico
     type: string
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4143,7 +5274,7 @@ fields:
       width: full
     schema:
       name: ambitoPublico
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4157,11 +5288,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: nombreEntePublico
     type: string
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4183,7 +5314,7 @@ fields:
       width: full
     schema:
       name: nombreEntePublico
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4197,11 +5328,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: siglasEntePublico
     type: string
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4223,7 +5354,7 @@ fields:
       width: full
     schema:
       name: siglasEntePublico
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4237,11 +5368,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: nivelJerarquico
     type: integer
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4252,21 +5383,18 @@ fields:
       note: null
       options:
         enableSelect: false
-        template: '{{clave}}'
       readonly: false
-      required: true
+      required: false
       sort: 7
       special:
         - m2o
-      translations:
-        - language: es-MX
-          translation: Nivel jerárquico del empleo, cargo o comisión
+      translations: null
       validation: null
       validation_message: null
       width: full
     schema:
       name: nivelJerarquico
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: integer
       default_value: null
       max_length: null
@@ -4278,56 +5406,13 @@ fields:
       is_generated: false
       generation_expression: null
       has_auto_increment: false
-      foreign_key_table: nivel_jerarquico
+      foreign_key_table: nivel_jerarquico_graves
       foreign_key_column: id
-  - collection: empleo_cargo_comision
-    field: entidadFederativa
-    type: integer
-    meta:
-      collection: empleo_cargo_comision
-      conditions: null
-      display: null
-      display_options: null
-      field: entidadFederativa
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableCreate: false
-        template: '{{valor}}'
-      readonly: false
-      required: true
-      sort: 2
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: Entidad federativa
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: entidadFederativa
-      table: empleo_cargo_comision
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: entidad_federativa
-      foreign_key_column: id
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: denominacion
     type: string
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4349,7 +5434,7 @@ fields:
       width: full
     schema:
       name: denominacion
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4363,11 +5448,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: areaAdscripcion
     type: string
     meta:
-      collection: empleo_cargo_comision
+      collection: empleo_cargo_comision_graves
       conditions: null
       display: null
       display_options: null
@@ -4389,7 +5474,382 @@ fields:
       width: full
     schema:
       name: areaAdscripcion
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: id
+    type: integer
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: empleo_cargo_comision_no_graves
+      data_type: integer
+      default_value: nextval('empleo_cargo_comision_no_graves_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: entidadFederativa
+    type: integer
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entidadFederativa
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+        template: '{{valor}}'
+      readonly: false
+      required: true
+      sort: 2
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entidadFederativa
+      table: empleo_cargo_comision_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: entidad_federativa
+      foreign_key_column: id
+  - collection: empleo_cargo_comision_no_graves
+    field: nivelOrdenGobierno
+    type: string
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: nivelOrdenGobierno
+      group: null
+      hidden: false
+      interface: select-radio
+      note: null
+      options:
+        choices:
+          - text: Federal
+            value: FEDERAL
+          - text: Estatal
+            value: ESTATAL
+          - text: Municipal / Alcaldía
+            value: MUNICIPAL_ALCALDIA
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Nivel / Orden de gobierno
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nivelOrdenGobierno
+      table: empleo_cargo_comision_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: ambitoPublico
+    type: string
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: ambitoPublico
+      group: null
+      hidden: false
+      interface: select-radio
+      note: null
+      options:
+        choices:
+          - text: Ejecutivo
+            value: EJECUTIVO
+          - text: Legislativo
+            value: LEGISLATIVO
+          - text: Judicial
+            value: JUDICIAL
+          - text: Órgano autónomo
+            value: ORGANO_AUTONOMO
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Ambito público
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ambitoPublico
+      table: empleo_cargo_comision_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: nombreEntePublico
+    type: string
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: nombreEntePublico
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: Nombre del ente público
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nombreEntePublico
+      table: empleo_cargo_comision_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: siglasEntePublico
+    type: string
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: siglasEntePublico
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: Siglas del ente público
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: siglasEntePublico
+      table: empleo_cargo_comision_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: nivelJerarquico
+    type: integer
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: nivelJerarquico
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nivelJerarquico
+      table: empleo_cargo_comision_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: nivel_jerarquico_no_graves
+      foreign_key_column: id
+  - collection: empleo_cargo_comision_no_graves
+    field: denominacion
+    type: string
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: denominacion
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations:
+        - language: es-MX
+          translation: Denominación del empleo, cargo o comisión
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: denominacion
+      table: empleo_cargo_comision_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: areaAdscripcion
+    type: string
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: areaAdscripcion
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 9
+      special: null
+      translations:
+        - language: es-MX
+          translation: Área de adscripción
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: areaAdscripcion
+      table: empleo_cargo_comision_no_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -4793,7 +6253,7 @@ fields:
             value: ENRIQUECIMIENTO_OCULTO
           - text: Tráfico de influencias
             value: TRAFICO_INFLUENCIAS
-          - text: Simulación del acto jurídico
+          - text: Simulación de acto jurídico
             value: SIMULACION_ACTO_JURIDICO
           - text: Encubrimiento
             value: ENCUBRIMIENTO
@@ -5001,42 +6461,42 @@ fields:
               Cumplir con las funciones, atribuciones y comisiones encomendadas,
               observando en su desempeño disciplina y respeto, tanto a los demás
               servidores públicos como a los particulares con los que llegare a
-              tratar, en los términos que se establezcan en el código de ética
+              tratar, en los términos que se establezcan en el código de ética.
             value: CUMPLIR_FUNCIONES_DISCIPLINA_RESPETO
           - text: >-
               Denunciar los actos u omisiones que en ejercicio de sus funciones
-              llegare a advertir, que puedan constituir faltas administrativas
+              llegare a advertir, que puedan constituir faltas administrativas.
             value: DENUNCIAR_FALTAS_ADMINISTRATIVAS
           - text: >-
               Atender las instrucciones de sus superiores, siempre que estas
               sean acordes con las disposiciones relacionadas con el servicio
               público. En caso de recibir instrucción o encomienda contraria a
-              dichas disposiciones, deberá denunciar esta circunstancia
+              dichas disposiciones, deberá denunciar esta circunstancia.
             value: ATENDER_INSTRUCCIONES_SUPERIORES_DENUNCIAR_IRREGULARIDADES
           - text: >-
               Presentar en tiempo y forma las declaraciones de situación
-              patrimonial y de intereses
+              patrimonial y de intereses.
             value: DECLARACIONES_PATRIMONIALES_INTERESES
           - text: >-
               Registrar, integrar, custodiar y cuidar la documentación e
               información que por razón de su empleo, cargo o comisión, tenga
               bajo su responsabilidad, e impedir o evitar su uso, divulgación,
-              sustracción, destrucción, ocultamiento o inutilización indebidos
+              sustracción, destrucción, ocultamiento o inutilización indebidos.
             value: CUSTODIAR_DOCUMENTACION_EVITAR_DIVULGACION
           - text: >-
               Supervisar que los servidores públicos sujetos a su dirección,
               cumplan con las disposiciones del artículo 49 de la ley general de
-              responsabilidades administrativas
+              responsabilidades administrativas.
             value: SUPERVISAR_ART_49_LGRA
           - text: >-
               Rendir cuentas sobre el ejercicio de las funciones, en términos de
-              las normas aplicables
+              las normas aplicables.
             value: RENDIR_CUENTAS_FUNCIONES
           - text: >-
               Colaborar en los procedimientos judiciales y administrativos en
-              los que sea parte
+              los que sea parte.
             value: COLABORAR_PROCEDIMIENTOS
-          - text: Causar daños y perjuicios a la hacienda pública
+          - text: Causar daños y perjuicios a la hacienda pública.
             value: CAUSAR_DANOS_HACIENDA
           - text: Otro (especifique)
             value: OTRO
@@ -5174,7 +6634,7 @@ fields:
       note: null
       options: null
       readonly: false
-      required: false
+      required: true
       sort: 8
       special: null
       translations:
@@ -5962,49 +7422,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: faltas_administrativas_graves
-    field: datosGenerales
-    type: integer
-    meta:
-      collection: faltas_administrativas_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: datosGenerales
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-        template: '{{nombres}} {{primerApellido}} '
-      readonly: false
-      required: true
-      sort: 12
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: Datos generales de la persona servidora pública sancionada
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: datosGenerales
-      table: faltas_administrativas_graves
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: datos_generales
-      foreign_key_column: id
-  - collection: faltas_administrativas_graves
     field: observaciones
     type: text
     meta:
@@ -6049,51 +7466,6 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: faltas_administrativas_graves
-    field: empleoCargoComision
-    type: integer
-    meta:
-      collection: faltas_administrativas_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: empleoCargoComision
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-        template: '{{entidadFederativa.valor}} {{nombreEntePublico}}'
-      readonly: false
-      required: true
-      sort: 13
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: >-
-            Datos del empleo, cargo o comisión de la persona servidora pública
-            sancionada
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: empleoCargoComision
-      table: faltas_administrativas_graves
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: empleo_cargo_comision
-      foreign_key_column: id
   - collection: faltas_administrativas_graves
     field: faltaCometida
     type: alias
@@ -6370,6 +7742,87 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: faltas_administrativas_graves
+    field: datosGenerales
+    type: integer
+    meta:
+      collection: faltas_administrativas_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: datosGenerales
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+      readonly: false
+      required: true
+      sort: 12
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: datosGenerales
+      table: faltas_administrativas_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: datos_generales_graves
+      foreign_key_column: id
+  - collection: faltas_administrativas_graves
+    field: empleoCargoComision
+    type: integer
+    meta:
+      collection: faltas_administrativas_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: empleoCargoComision
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+        template: '{{nombreEntePublico}}'
+      readonly: false
+      required: true
+      sort: 13
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: empleoCargoComision
+      table: faltas_administrativas_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: empleo_cargo_comision_graves
+      foreign_key_column: id
   - collection: faltas_administrativas_no_graves
     field: id
     type: uuid
@@ -6649,92 +8102,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: faltas_administrativas_no_graves
-    field: datosGenerales
-    type: integer
-    meta:
-      collection: faltas_administrativas_no_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: datosGenerales
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-      readonly: false
-      required: true
-      sort: 12
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: Datos generales de la persona servidora pública sancionada.
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: datosGenerales
-      table: faltas_administrativas_no_graves
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: datos_generales
-      foreign_key_column: id
-  - collection: faltas_administrativas_no_graves
-    field: empleoCargoComision
-    type: integer
-    meta:
-      collection: faltas_administrativas_no_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: empleoCargoComision
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-      readonly: false
-      required: true
-      sort: 13
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: >-
-            Datos del empleo, cargo o comisión de la persona servidora pública
-            sancionada.
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: empleoCargoComision
-      table: faltas_administrativas_no_graves
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: empleo_cargo_comision
-      foreign_key_column: id
-  - collection: faltas_administrativas_no_graves
     field: observaciones
     type: text
     meta:
@@ -6791,6 +8158,7 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{valor}}'
       readonly: false
       required: true
       sort: 15
@@ -6808,8 +8176,9 @@ fields:
     meta:
       collection: faltas_administrativas_no_graves
       conditions: null
-      display: null
-      display_options: null
+      display: related-values
+      display_options:
+        template: '{{clave}}'
       field: origenProcedimiento
       group: null
       hidden: false
@@ -6817,14 +8186,15 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{clave}}'
       readonly: false
-      required: false
+      required: true
       sort: 14
       special:
         - m2o
       translations:
         - language: es-MX
-          translation: Origen del procedimineto
+          translation: Origen del procedimiento
       validation: null
       validation_message: null
       width: full
@@ -6850,7 +8220,7 @@ fields:
     meta:
       collection: faltas_administrativas_no_graves
       conditions: null
-      display: null
+      display: related-values
       display_options: null
       field: tipoSancion
       group: null
@@ -6861,6 +8231,7 @@ fields:
         dictaminadas en la resolución definitiva
       options:
         enableSelect: false
+        template: '{{clave}}'
       readonly: false
       required: true
       sort: 17
@@ -6962,7 +8333,7 @@ fields:
         color: info
         text: >-
           Todos los campos señalados con un asterisco (*) son de carácter
-          obligatorio.
+          obligatorio. 
       readonly: false
       required: false
       sort: 8
@@ -7020,7 +8391,7 @@ fields:
         enableSelect: false
         template: '{{tituloResolucion}}'
       readonly: false
-      required: false
+      required: true
       sort: 16
       special:
         - m2o
@@ -7045,6 +8416,87 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: resolucion_no_graves
+      foreign_key_column: id
+  - collection: faltas_administrativas_no_graves
+    field: empleoCargoComision
+    type: integer
+    meta:
+      collection: faltas_administrativas_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: empleoCargoComision
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+        template: '{{nombreEntePublico}}'
+      readonly: false
+      required: false
+      sort: 13
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: empleoCargoComision
+      table: faltas_administrativas_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: empleo_cargo_comision_no_graves
+      foreign_key_column: id
+  - collection: faltas_administrativas_no_graves
+    field: datosGenerales
+    type: integer
+    meta:
+      collection: faltas_administrativas_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: datosGenerales
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+      readonly: false
+      required: true
+      sort: 12
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: datosGenerales
+      table: faltas_administrativas_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: datos_generales_no_graves
       foreign_key_column: id
   - collection: faltas_graves_personas_fisicas
     field: id
@@ -7385,7 +8837,7 @@ fields:
         enableSelect: false
         template: '{{nombreEntePublico}}'
       readonly: false
-      required: false
+      required: true
       sort: 13
       special:
         - m2o
@@ -8028,7 +9480,7 @@ fields:
         enableSelect: false
         template: '{{nombreEntePublico}}'
       readonly: false
-      required: false
+      required: true
       sort: 14
       special:
         - m2o
@@ -8104,8 +9556,7 @@ fields:
       collection: faltas_graves_personas_morales
       conditions: null
       display: datetime
-      display_options:
-        format: null
+      display_options: {}
       field: fecha
       group: null
       hidden: false
@@ -8942,11 +10393,11 @@ fields:
       validation: null
       validation_message: null
       width: full
-  - collection: nivel_jerarquico
+  - collection: nivel_jerarquico_graves
     field: id
     type: integer
     meta:
-      collection: nivel_jerarquico
+      collection: nivel_jerarquico_graves
       conditions: null
       display: null
       display_options: null
@@ -8966,9 +10417,9 @@ fields:
       width: full
     schema:
       name: id
-      table: nivel_jerarquico
+      table: nivel_jerarquico_graves
       data_type: integer
-      default_value: nextval('nivel_jerarquico_id_seq'::regclass)
+      default_value: nextval('nivel_jerarquico_graves_id_seq'::regclass)
       max_length: null
       numeric_precision: 32
       numeric_scale: 0
@@ -8980,11 +10431,11 @@ fields:
       has_auto_increment: true
       foreign_key_table: null
       foreign_key_column: null
-  - collection: nivel_jerarquico
+  - collection: nivel_jerarquico_graves
     field: clave
     type: string
     meta:
-      collection: nivel_jerarquico
+      collection: nivel_jerarquico_graves
       conditions: null
       display: null
       display_options: null
@@ -9030,7 +10481,7 @@ fields:
       width: full
     schema:
       name: clave
-      table: nivel_jerarquico
+      table: nivel_jerarquico_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -9044,11 +10495,11 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
-  - collection: nivel_jerarquico
+  - collection: nivel_jerarquico_graves
     field: valor
     type: string
     meta:
-      collection: nivel_jerarquico
+      collection: nivel_jerarquico_graves
       conditions:
         - name: Mostrar
           rule:
@@ -9081,7 +10532,160 @@ fields:
       width: full
     schema:
       name: valor
-      table: nivel_jerarquico
+      table: nivel_jerarquico_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: nivel_jerarquico_no_graves
+    field: id
+    type: integer
+    meta:
+      collection: nivel_jerarquico_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: nivel_jerarquico_no_graves
+      data_type: integer
+      default_value: nextval('nivel_jerarquico_no_graves_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: nivel_jerarquico_no_graves
+    field: clave
+    type: string
+    meta:
+      collection: nivel_jerarquico_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: clave
+      group: null
+      hidden: false
+      interface: select-radio
+      note: >-
+        En caso de seleccionar la opción "OTRO", se deberá especificar el tipo
+        de nivel jerárquico del empleo, cargo o comisión que desempeña la
+        persona servidora pública sancionada.
+      options:
+        choices:
+          - text: Operativo u homólogo
+            value: OPERATIVO_HOMOLOGO
+          - text: Enlace u homólogo
+            value: ENLACE_HOMOLOGO
+          - text: Jefatura de departamento u homólogo
+            value: JEFATURA_DEPTO_HOMOLOGO
+          - text: Subdirección de área u homólogo
+            value: SUBDIRECCION_HOMOLOGO
+          - text: Dirección de área u homólogo
+            value: DIRECCION_HOMOLOGO
+          - text: Dirección general u homólogo
+            value: DG_HOMOLOGO
+          - text: Jefatura de unidad u homólogo
+            value: JEFATURA_UNIDAD_HOMOLOGO
+          - text: Subsecretaría de estado oficialía mayor u homólogo
+            value: SUBSECRETARIA_HOMOLOGO
+          - text: Secretaría de estado u homólogo
+            value: SECRETARIA_HOMOLOGO
+          - text: 'Otro (especifique):'
+            value: OTRO
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Señalar el nivel jerárquico del empleo, cargo o comisión
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: clave
+      table: nivel_jerarquico_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: nivel_jerarquico_no_graves
+    field: valor
+    type: string
+    meta:
+      collection: nivel_jerarquico_no_graves
+      conditions:
+        - name: Mostrar
+          rule:
+            _and:
+              - clave:
+                  _eq: OTRO
+          hidden: false
+          required: true
+          options:
+            font: sans-serif
+            trim: false
+            masked: false
+            clear: false
+            slug: false
+      display: null
+      display_options: null
+      field: valor
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 3
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: valor
+      table: nivel_jerarquico_no_graves
       data_type: character varying
       default_value: null
       max_length: 255
@@ -9904,7 +11508,7 @@ fields:
       interface: input
       note: >-
         Especificar el nombre de la autoridad encargada de la investigación de
-        la (s) falta (s) del particular
+        la falta administrativa
       options: null
       readonly: false
       required: true
@@ -10038,7 +11642,7 @@ fields:
           - text: Estatal
             value: ESTATAL
       readonly: false
-      required: false
+      required: true
       sort: 10
       special: null
       translations: null
@@ -10225,50 +11829,6 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: resolucion_no_graves
-    field: urlResolucion
-    type: string
-    meta:
-      collection: resolucion_no_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: urlResolucion
-      group: null
-      hidden: false
-      interface: input
-      note: >-
-        Colocar el enlace de la versión pública de la resolución emitida por la
-        autoridad a la que corresponde la sanción
-      options: null
-      readonly: false
-      required: true
-      sort: 5
-      special: null
-      translations:
-        - language: es-MX
-          translation: >-
-            URL de la versión pública de la resolución de sanción en formato
-            digital
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: urlResolucion
-      table: resolucion_no_graves
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: resolucion_no_graves
     field: fechaResolucionFirme
     type: date
     meta:
@@ -10342,51 +11902,6 @@ fields:
       data_type: date
       default_value: null
       max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: resolucion_no_graves
-    field: urlResolucionFirme
-    type: string
-    meta:
-      collection: resolucion_no_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: urlResolucionFirme
-      group: null
-      hidden: false
-      interface: input
-      note: >-
-        Colocar el enlace de la versión pública del acuerdo o determinación que
-        dicte la autoridad competente en la que declara que la resolución
-        definitiva ha quedado firme
-      options: null
-      readonly: false
-      required: true
-      sort: 8
-      special: null
-      translations:
-        - language: es-MX
-          translation: >-
-            URL de la versión pública del acuerdo o determinación que declare
-            firme la resolución en formato digital
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: urlResolucionFirme
-      table: resolucion_no_graves
-      data_type: character varying
-      default_value: null
-      max_length: 255
       numeric_precision: null
       numeric_scale: null
       is_nullable: true
@@ -10496,7 +12011,7 @@ fields:
       interface: input
       note: >-
         Especificar el nombre de la autoridad encargada de la investigación de
-        la (s) falta (s) del particular
+        la falta administrativa
       options: null
       readonly: false
       required: true
@@ -11323,7 +12838,7 @@ fields:
       note: null
       options:
         choices:
-          - text: Suspensión del empleo cargo o comisión
+          - text: Suspensión del empleo, cargo o comisión
             value: SUSPENSION
           - text: Destitución del empleo, cargo o comisión
             value: DESTITUCION
@@ -11332,7 +12847,7 @@ fields:
           - text: >-
               Inhabilitación temporal para desempeñar empleos, cargos o
               comisiones en el servicio público y para participar en
-              adquisiciones y arrendamientos de servicios u obras públicas
+              adquisiciones, arrendamientos, servicios u obras públicas
             value: INHABILITACION
           - text: Otro (especifique)
             value: OTRO
@@ -11592,8 +13107,8 @@ fields:
         - language: es-MX
           translation: >-
             Inhabilitación temporal para desempeñar empleos, cargos o comisiones
-            en el servicio público y para participar en adquisiciones y
-            arrendamientos de servicios u obras públicas
+            en el servicio público y para participar en adquisiciones,
+            arrendamientos, servicios u obras públicas
       validation: null
       validation_message: null
       width: full
@@ -11759,7 +13274,7 @@ fields:
             value: AMONESTACION
           - text: Suspensión del empleo, cargo o comisión
             value: SUSPENSION
-          - text: Destitución de su empleo, cargo o comisión
+          - text: Destitución del empleo, cargo o comisión
             value: DESTITUCION
           - text: >-
               Inhabilitación temporal para desempeñar empleos, cargos o
@@ -11819,6 +13334,7 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: "{{fechaInicial}}\_-\_{{fechaFinal}}"
       readonly: false
       required: false
       sort: 4
@@ -11871,12 +13387,15 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{fechaDestitucion}}'
       readonly: false
       required: false
       sort: 5
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Destitución del empleo, cargo o comisión
       validation: null
       validation_message: null
       width: full
@@ -11921,6 +13440,7 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{fechaInicial}} - {{fechaFinal}} '
       readonly: false
       required: false
       sort: 6
@@ -11976,6 +13496,7 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{denominacionSancion}}'
       readonly: false
       required: false
       sort: 7
@@ -12026,6 +13547,7 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{tipo}}'
       readonly: false
       required: false
       sort: 3
@@ -12942,13 +14464,13 @@ relations:
       on_delete: SET NULL
   - collection: datos_generales_personas_morales
     field: domicilioMexico
-    related_collection: domicilio_mexico
+    related_collection: domicilio_mexico_morales
     meta:
       junction_field: null
       many_collection: datos_generales_personas_morales
       many_field: domicilioMexico
       one_allowed_collections: null
-      one_collection: domicilio_mexico
+      one_collection: domicilio_mexico_morales
       one_collection_field: null
       one_deselect_action: nullify
       one_field: null
@@ -12956,20 +14478,20 @@ relations:
     schema:
       table: datos_generales_personas_morales
       column: domicilioMexico
-      foreign_key_table: domicilio_mexico
+      foreign_key_table: domicilio_mexico_morales
       foreign_key_column: id
       constraint_name: datos_generales_personas_morales_domiciliomexico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: datos_generales_personas_morales
     field: domicilioExtranjero
-    related_collection: domicilio_extranjero
+    related_collection: domicilio_extranjero_morales
     meta:
       junction_field: null
       many_collection: datos_generales_personas_morales
       many_field: domicilioExtranjero
       one_allowed_collections: null
-      one_collection: domicilio_extranjero
+      one_collection: domicilio_extranjero_morales
       one_collection_field: null
       one_deselect_action: nullify
       one_field: null
@@ -12977,7 +14499,7 @@ relations:
     schema:
       table: datos_generales_personas_morales
       column: domicilioExtranjero
-      foreign_key_table: domicilio_extranjero
+      foreign_key_table: domicilio_extranjero_morales
       foreign_key_column: id
       constraint_name: datos_generales_personas_morales_domicilioextranjero_foreign
       on_update: NO ACTION
@@ -13024,6 +14546,27 @@ relations:
       constraint_name: domicilio_mexico_entidadfederativa_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: domicilio_mexico_morales
+    field: entidadFederativa
+    related_collection: entidad_federativa
+    meta:
+      junction_field: null
+      many_collection: domicilio_mexico_morales
+      many_field: entidadFederativa
+      one_allowed_collections: null
+      one_collection: entidad_federativa
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: domicilio_mexico_morales
+      column: entidadFederativa
+      foreign_key_table: entidad_federativa
+      foreign_key_column: id
+      constraint_name: domicilio_mexico_morales_entidadfederativa_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: donde_cometio_falta
     field: entidadFederativa
     related_collection: entidad_federativa
@@ -13045,33 +14588,12 @@ relations:
       constraint_name: donde_cometio_falta_entidadfederativa_foreign
       on_update: NO ACTION
       on_delete: SET NULL
-  - collection: empleo_cargo_comision
-    field: nivelJerarquico
-    related_collection: nivel_jerarquico
-    meta:
-      junction_field: null
-      many_collection: empleo_cargo_comision
-      many_field: nivelJerarquico
-      one_allowed_collections: null
-      one_collection: nivel_jerarquico
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: empleo_cargo_comision
-      column: nivelJerarquico
-      foreign_key_table: nivel_jerarquico
-      foreign_key_column: id
-      constraint_name: empleo_cargo_comision_niveljerarquico_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: empleo_cargo_comision
+  - collection: empleo_cargo_comision_graves
     field: entidadFederativa
     related_collection: entidad_federativa
     meta:
       junction_field: null
-      many_collection: empleo_cargo_comision
+      many_collection: empleo_cargo_comision_graves
       many_field: entidadFederativa
       one_allowed_collections: null
       one_collection: entidad_federativa
@@ -13080,13 +14602,76 @@ relations:
       one_field: null
       sort_field: null
     schema:
-      table: empleo_cargo_comision
+      table: empleo_cargo_comision_graves
       column: entidadFederativa
       foreign_key_table: entidad_federativa
       foreign_key_column: id
-      constraint_name: empleo_cargo_comision_entidadfederativa_foreign
+      constraint_name: empleo_cargo_comision_graves_entidadfederativa_foreign
       on_update: NO ACTION
-      on_delete: NO ACTION
+      on_delete: SET NULL
+  - collection: empleo_cargo_comision_graves
+    field: nivelJerarquico
+    related_collection: nivel_jerarquico_graves
+    meta:
+      junction_field: null
+      many_collection: empleo_cargo_comision_graves
+      many_field: nivelJerarquico
+      one_allowed_collections: null
+      one_collection: nivel_jerarquico_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: empleo_cargo_comision_graves
+      column: nivelJerarquico
+      foreign_key_table: nivel_jerarquico_graves
+      foreign_key_column: id
+      constraint_name: empleo_cargo_comision_graves_niveljerarquico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: empleo_cargo_comision_no_graves
+    field: entidadFederativa
+    related_collection: entidad_federativa
+    meta:
+      junction_field: null
+      many_collection: empleo_cargo_comision_no_graves
+      many_field: entidadFederativa
+      one_allowed_collections: null
+      one_collection: entidad_federativa
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: empleo_cargo_comision_no_graves
+      column: entidadFederativa
+      foreign_key_table: entidad_federativa
+      foreign_key_column: id
+      constraint_name: empleo_cargo_comision_no_graves_entidadfederativa_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: empleo_cargo_comision_no_graves
+    field: nivelJerarquico
+    related_collection: nivel_jerarquico_no_graves
+    meta:
+      junction_field: null
+      many_collection: empleo_cargo_comision_no_graves
+      many_field: nivelJerarquico
+      one_allowed_collections: null
+      one_collection: nivel_jerarquico_no_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: empleo_cargo_comision_no_graves
+      column: nivelJerarquico
+      foreign_key_table: nivel_jerarquico_no_graves
+      foreign_key_column: id
+      constraint_name: empleo_cargo_comision_no_graves_niveljerarquico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: falta_cometida_graves
     field: fk_id
     related_collection: faltas_administrativas_graves
@@ -13214,48 +14799,6 @@ relations:
       on_update: NO ACTION
       on_delete: NO ACTION
   - collection: faltas_administrativas_graves
-    field: datosGenerales
-    related_collection: datos_generales
-    meta:
-      junction_field: null
-      many_collection: faltas_administrativas_graves
-      many_field: datosGenerales
-      one_allowed_collections: null
-      one_collection: datos_generales
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_administrativas_graves
-      column: datosGenerales
-      foreign_key_table: datos_generales
-      foreign_key_column: id
-      constraint_name: faltas_administrativas_graves_datosgenerales_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: faltas_administrativas_graves
-    field: empleoCargoComision
-    related_collection: empleo_cargo_comision
-    meta:
-      junction_field: null
-      many_collection: faltas_administrativas_graves
-      many_field: empleoCargoComision
-      one_allowed_collections: null
-      one_collection: empleo_cargo_comision
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_administrativas_graves
-      column: empleoCargoComision
-      foreign_key_table: empleo_cargo_comision
-      foreign_key_column: id
-      constraint_name: faltas_administrativas_graves_empleocargocomision_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: faltas_administrativas_graves
     field: resolucion
     related_collection: resolucion
     meta:
@@ -13318,6 +14861,48 @@ relations:
       constraint_name: faltas_administrativas_graves_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: faltas_administrativas_graves
+    field: datosGenerales
+    related_collection: datos_generales_graves
+    meta:
+      junction_field: null
+      many_collection: faltas_administrativas_graves
+      many_field: datosGenerales
+      one_allowed_collections: null
+      one_collection: datos_generales_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_administrativas_graves
+      column: datosGenerales
+      foreign_key_table: datos_generales_graves
+      foreign_key_column: id
+      constraint_name: faltas_administrativas_graves_datosgenerales_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: faltas_administrativas_graves
+    field: empleoCargoComision
+    related_collection: empleo_cargo_comision_graves
+    meta:
+      junction_field: null
+      many_collection: faltas_administrativas_graves
+      many_field: empleoCargoComision
+      one_allowed_collections: null
+      one_collection: empleo_cargo_comision_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_administrativas_graves
+      column: empleoCargoComision
+      foreign_key_table: empleo_cargo_comision_graves
+      foreign_key_column: id
+      constraint_name: faltas_administrativas_graves_empleocargocomision_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: faltas_administrativas_no_graves
     field: user_created
     related_collection: directus_users
@@ -13360,48 +14945,6 @@ relations:
       constraint_name: faltas_administrativas_no_graves_user_updated_foreign
       on_update: NO ACTION
       on_delete: NO ACTION
-  - collection: faltas_administrativas_no_graves
-    field: datosGenerales
-    related_collection: datos_generales
-    meta:
-      junction_field: null
-      many_collection: faltas_administrativas_no_graves
-      many_field: datosGenerales
-      one_allowed_collections: null
-      one_collection: datos_generales
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_administrativas_no_graves
-      column: datosGenerales
-      foreign_key_table: datos_generales
-      foreign_key_column: id
-      constraint_name: faltas_administrativas_no_graves_datosgenerales_foreign
-      on_update: NO ACTION
-      on_delete: NO ACTION
-  - collection: faltas_administrativas_no_graves
-    field: empleoCargoComision
-    related_collection: empleo_cargo_comision
-    meta:
-      junction_field: null
-      many_collection: faltas_administrativas_no_graves
-      many_field: empleoCargoComision
-      one_allowed_collections: null
-      one_collection: empleo_cargo_comision
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_administrativas_no_graves
-      column: empleoCargoComision
-      foreign_key_table: empleo_cargo_comision
-      foreign_key_column: id
-      constraint_name: faltas_administrativas_no_graves_empleocargocomision_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
   - collection: faltas_administrativas_no_graves
     field: origenProcedimiento
     related_collection: origen_procedimiento
@@ -13463,6 +15006,48 @@ relations:
       foreign_key_table: resolucion_no_graves
       foreign_key_column: id
       constraint_name: faltas_administrativas_no_graves_resolucion_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: faltas_administrativas_no_graves
+    field: empleoCargoComision
+    related_collection: empleo_cargo_comision_no_graves
+    meta:
+      junction_field: null
+      many_collection: faltas_administrativas_no_graves
+      many_field: empleoCargoComision
+      one_allowed_collections: null
+      one_collection: empleo_cargo_comision_no_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_administrativas_no_graves
+      column: empleoCargoComision
+      foreign_key_table: empleo_cargo_comision_no_graves
+      foreign_key_column: id
+      constraint_name: faltas_administrativas_no_graves_empleocargocomision_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: faltas_administrativas_no_graves
+    field: datosGenerales
+    related_collection: datos_generales_no_graves
+    meta:
+      junction_field: null
+      many_collection: faltas_administrativas_no_graves
+      many_field: datosGenerales
+      one_allowed_collections: null
+      one_collection: datos_generales_no_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_administrativas_no_graves
+      column: datosGenerales
+      foreign_key_table: datos_generales_no_graves
+      foreign_key_column: id
+      constraint_name: faltas_administrativas_no_graves_datosgenerales_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_graves_personas_fisicas
