@@ -1131,7 +1131,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar el tipo de amonestación
       options:
         choices:
           - text: Pública
@@ -1339,8 +1339,10 @@ fields:
       hidden: false
       interface: input
       note: >-
-        Se deberá escribir el o los nombres, sin abreviaturas, sin acentos, ni
-        signos especiales.
+        Se deberá escribir el o los nombres, así como los apellidos, sin
+        abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo
+        un apellido, deberá colocarse en el espacio del primer apellido y dejar
+        el espacio del segundo apellido en blanco
       options: null
       readonly: false
       required: true
@@ -1460,7 +1462,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los dieciocho caracteres alfanuméricos como aparece en el
+        documento que emite la Secretaría de Gobernación.  En caso de no contar
+        con ese dato, podrá consultarlo en la siguiente página:
+        https://www.gob.mx/curp/
       options: null
       readonly: false
       required: true
@@ -1500,7 +1506,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los primeros diez caracteres básicos y los tres
+        correspondientes a la homoclave
       options: null
       readonly: false
       required: true
@@ -1509,7 +1517,10 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation: null
+      validation:
+        _and:
+          - rfc:
+              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
       validation_message: null
       width: full
     schema:
@@ -1540,7 +1551,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar la opción que corresponda
       options:
         choices:
           - text: Mujer
@@ -1622,8 +1633,10 @@ fields:
       hidden: false
       interface: input
       note: >-
-        Se deberá escribir el o los nombres, sin abreviaturas, sin acentos, ni
-        signos especiales.
+        Se deberá escribir el o los nombres, así como los apellidos, sin
+        abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo
+        un apellido, deberá colocarse en el espacio del primer apellido y dejar
+        el espacio del segundo apellido en blanco
       options: null
       readonly: false
       required: true
@@ -1743,7 +1756,11 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los dieciocho caracteres alfanuméricos como aparece en el
+        documento que emite la Secretaría de Gobernación. En caso de no contar
+        con ese dato, podrá consultarlo en la siguiente página:
+        https://www.gob.mx/curp/
       options: null
       readonly: false
       required: true
@@ -1783,7 +1800,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir los primeros diez caracteres básicos y los tres
+        correspondientes a la homoclave
       options: null
       readonly: false
       required: true
@@ -1792,7 +1811,10 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation: null
+      validation:
+        _and:
+          - rfc:
+              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
       validation_message: null
       width: full
     schema:
@@ -1823,7 +1845,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar la opción que corresponda
       options:
         choices:
           - text: Mujer
@@ -1905,8 +1927,10 @@ fields:
       hidden: false
       interface: input
       note: >-
-        Se deberá escribir el o los nombres sin abreviaturas, sin acentos, ni
-        signos especiales
+        Se deberá escribir el o los nombres, así como los apellidos, sin
+        abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo
+        un apellido, deberá colocarse en el espacio del primer apellido y dejar
+        el espacio del segundo apellido en blanco
       options:
         placeholder: null
       readonly: false
@@ -1950,9 +1974,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: >-
-        Se deberá escribir el primer apellido sin abreviaturas, sin acentos, ni
-        signos especiales
+      note: null
       options:
         placeholder: null
       readonly: false
@@ -1996,11 +2018,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: >-
-        Se deberá escribir el segundo apellido, sin abreviaturas, sin acentos,
-        ni signos especiales. En caso de tener sólo un apellido, deberá
-        colocarse en el espacio del primer apellido y dejar el espacio del
-        segundo apellido en blanco
+      note: null
       options:
         placeholder: null
       readonly: false
@@ -2101,7 +2119,10 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation: null
+      validation:
+        _and:
+          - rfc:
+              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
       validation_message: null
       width: full
     schema:
@@ -2135,9 +2156,9 @@ fields:
       note: null
       options:
         choices:
-          - text: Domicilio en la república mexicana
+          - text: Domicilio en la República Mexicana
             value: DOMICILIO_MEXICO
-          - text: Domicilio en el Extranjero
+          - text: Domicilio en el extranjero
             value: DOMICILIO_EXTRANJERO
       readonly: false
       required: false
@@ -2201,7 +2222,7 @@ fields:
         - m2o
       translations:
         - language: es-MX
-          translation: Domicilio en la república mexicana
+          translation: Domicilio en la República Mexicana
       validation: null
       validation_message: null
       width: full
@@ -2508,7 +2529,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Indicar los siguientes datos: tipo de vialidad, nombre de la vialidad,
+        número exterior, número interior (si aplica), colonia o localidad,
+        municipio, código postal y entidad federativa
       options:
         enableSelect: false
         template: '{{nombreVialidad}}'
@@ -2517,7 +2541,9 @@ fields:
       sort: 9
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Domicilio en la República Mexicana
       validation: null
       validation_message: null
       width: full
@@ -2559,7 +2585,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        En su caso, Indicar los siguientes datos: ciudad, provincia, calle,
+        número exterior, número interior (si aplica), código postal y país
       options:
         enableSelect: false
       readonly: false
@@ -2567,7 +2595,9 @@ fields:
       sort: 10
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Domicilio en el extranjero
       validation: null
       validation_message: null
       width: full
@@ -2648,8 +2678,11 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - rfc:
+              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
+      validation_message: El formato del RFC es incorrecto
       width: full
     schema:
       name: rfc
@@ -2885,7 +2918,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        Indicar la fecha de destitución del empleo, cargo o comisión de la
+        persona servidora pública
       options: null
       readonly: false
       required: true
@@ -3397,7 +3432,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: Escribir el nombre de la localidad del domicilio extranjero
+      note: Escribir el nombre de la ciudad o localidad del domicilio extranjero
       options: null
       readonly: false
       required: false
@@ -3714,7 +3749,7 @@ fields:
       field: tipoVialidad
       group: null
       hidden: false
-      interface: select-radio
+      interface: select-dropdown
       note: >-
         Colocar el tipo de la vialidad correspondiente con base al catálogo de
         vialidades del marco Geoestadístico Nacional.
@@ -3739,6 +3774,32 @@ fields:
             value: PROLONGACION
           - text: Cerrada
             value: CERRADA
+          - text: Circunvalación
+            value: CIRCUNVALACIÓN
+          - text: Circuito
+            value: CIRCUITO
+          - text: Continuación
+            value: CONTINUACIÓN
+          - text: Corredor
+            value: CORREDOR
+          - text: Diagonal
+            value: DIAGONAL
+          - text: Ampliación
+            value: AMPLIACIÓN
+          - text: Andador
+            value: ANDADOR
+          - text: Eje vial
+            value: EJE VIAL
+          - text: Pasaje
+            value: PASAJE
+          - text: Peatonal
+            value: PEATONAL
+          - text: Periférico
+            value: PERIFERICO
+          - text: Retorno
+            value: RETORNO
+          - text: Ninguno
+            value: NINGUNO
       readonly: false
       required: false
       sort: 2
@@ -4099,7 +4160,7 @@ fields:
       field: tipoVialidad
       group: null
       hidden: false
-      interface: select-radio
+      interface: select-dropdown
       note: >-
         Colocar el tipo de la vialidad correspondiente con base al catálogo de
         vialidades del marco Geoestadístico Nacional.
@@ -4119,11 +4180,37 @@ fields:
           - text: Privada
             value: PRIVADA
           - text: Callejón
-            value: CALLEJON
+            value: CALLEJÓN
           - text: Prolongación
             value: PROLONGACION
           - text: Cerrada
             value: CERRADA
+          - text: Circunvalación
+            value: CIRCUNVALACIÓN
+          - text: Circuito
+            value: CIRCUITO
+          - text: Continuación
+            value: CONTINUACIÓN
+          - text: Corredor
+            value: CORREDOR
+          - text: Diagonal
+            value: DIAGONAL
+          - text: Ampliación
+            value: AMPLIACIÓN
+          - text: Andador
+            value: ANDADOR
+          - text: Eje vial
+            value: EJE VIAL
+          - text: Pasaje
+            value: PASAJE
+          - text: Peatonal
+            value: PEATONAL
+          - text: Periférico
+            value: PERIFERICO
+          - text: Retorno
+            value: RETORNO
+          - text: Ninguno
+            value: NINGUNO
       readonly: false
       required: false
       sort: 2
@@ -4402,7 +4489,7 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: Seleccionar la entidad federativa
       options:
         enableCreate: false
         template: '{{valor}}'
@@ -4482,7 +4569,7 @@ fields:
       hidden: false
       interface: select-radio
       note: >-
-        Seleccionar el nivel u orden de gobierno al que pertenece el ente
+        Seleccionar el nivel u orden de gobierno al que pertenece el Ente
         público donde se cometió la falta administrativa
       options:
         choices:
@@ -4530,9 +4617,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: >-
-        Seleccionar el ámbito público del ente público donde se cometió la falta
-        administrativa
+      note: Seleccionar el ámbito público
       options:
         choices:
           - text: Ejecutivo
@@ -4582,7 +4667,7 @@ fields:
       hidden: false
       interface: input
       note: >-
-        Indicar el nombre completo del ente público sin abreviaturas, sin
+        Indicar el nombre completo del Ente público sin abreviaturas, sin
         acentos, ni signos especiales
       options: null
       readonly: false
@@ -4623,7 +4708,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: Indicar las siglas del ente público
+      note: Indicar las siglas del Ente público
       options: null
       readonly: false
       required: false
@@ -4664,7 +4749,7 @@ fields:
       hidden: false
       interface: select-dropdown-m2o
       note: >-
-        Seleccionar la entidad federativa donde se ubique el ente público donde
+        Seleccionar la entidad federativa donde se ubique el Ente público donde
         se cometió la falta administrativa
       options:
         enableCreate: false
@@ -5163,16 +5248,21 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Seleccionar la entidad federativa donde se ubica el Ente público donde
+        labora o laboraba la persona servidora pública sancionada, al momento de
+        cometer la falta administrativa
       options:
         enableCreate: false
         template: '{{valor}}'
       readonly: false
-      required: false
+      required: true
       sort: 2
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Entidad federativa
       validation: null
       validation_message: null
       width: full
@@ -5204,7 +5294,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar el nivel u orden de gobierno
       options:
         choices:
           - text: Federal
@@ -5251,7 +5341,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar el ámbito público
       options:
         choices:
           - text: Ejecutivo
@@ -5300,7 +5390,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Indicar el nombre completo del Ente público, sin abreviaturas, sin
+        acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -5308,7 +5400,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Nombre del ente público
+          translation: Nombre del Ente público
       validation: null
       validation_message: null
       width: full
@@ -5340,7 +5432,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Indicar las siglas del Ente público
       options: null
       readonly: false
       required: false
@@ -5348,7 +5440,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Siglas del ente público
+          translation: Siglas del Ente público
       validation: null
       validation_message: null
       width: full
@@ -5383,12 +5475,15 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{clave}}'
       readonly: false
       required: false
       sort: 7
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Nivel jerárquico del empleo, cargo o comisión
       validation: null
       validation_message: null
       width: full
@@ -5420,7 +5515,10 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir la denominación completa del empleo, cargo o comisión que
+        aparece en el recibo de nómina, nombramiento, contrato u oficio de
+        comisión, sin abreviaturas, sin acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -5460,7 +5558,10 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Especificar el nombre de la Unidad Administrativa del Ente público a la
+        que está o estaba adscrita la persona servidora pública sancionada, sin
+        abreviaturas, sin acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -5538,7 +5639,10 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Seleccionar la entidad federativa donde se ubica el Ente público donde
+        labora o laboraba la persona servidora pública sancionada, al momento de
+        cometer la falta administrativa
       options:
         enableCreate: false
         template: '{{valor}}'
@@ -5579,7 +5683,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar el nivel u orden de gobierno
       options:
         choices:
           - text: Federal
@@ -5626,7 +5730,7 @@ fields:
       group: null
       hidden: false
       interface: select-radio
-      note: null
+      note: Seleccionar el ámbito público
       options:
         choices:
           - text: Ejecutivo
@@ -5675,7 +5779,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Indicar el nombre completo del Ente público, sin abreviaturas, sin
+        acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -5683,7 +5789,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Nombre del ente público
+          translation: Nombre del Ente público
       validation: null
       validation_message: null
       width: full
@@ -5715,7 +5821,7 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Indicar las siglas del Ente público
       options: null
       readonly: false
       required: false
@@ -5723,7 +5829,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Siglas del ente público
+          translation: Siglas del Ente público
       validation: null
       validation_message: null
       width: full
@@ -5758,12 +5864,15 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{clave}}'
       readonly: false
       required: false
       sort: 7
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Nivel jerárquico del empleo, cargo o comisión
       validation: null
       validation_message: null
       width: full
@@ -5795,7 +5904,10 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir la denominación completa del empleo, cargo o comisión que
+        aparece en el recibo de nómina, nombramiento, contrato u oficio de
+        comisión, sin abreviaturas, sin acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -5835,7 +5947,10 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Especificar el nombre de la Unidad Administrativa del Ente público a la
+        que está o estaba adscrita la persona servidora pública sancionada, sin
+        abreviaturas, sin acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -6145,7 +6260,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir el nombre de la normatividad infringida por la persona
+        servidora pública, sin abreviaturas, sin acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -6366,6 +6483,7 @@ fields:
               required: true
               interface: input
               options: {}
+              note: Escribir el (los) artículo (s) infringido (s)
           - field: fraccion
             name: fraccion
             type: text
@@ -6375,6 +6493,7 @@ fields:
               type: text
               required: false
               interface: input
+              note: En su caso, escribir la (s) fracción (es) infringida (s)
         sort: articulo
         template: null
       readonly: false
@@ -6454,7 +6573,10 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown
-      note: null
+      note: >-
+        En caso de seleccionar la opción "OTRO", se deberá especificar el el
+        tipo de falta cometida por parte de la persona servidora pública
+        sancionada
       options:
         choices:
           - text: >-
@@ -6591,7 +6713,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: >-
+        Escribir el nombre de la normatividad infringida por la persona
+        servidora pública, sin abreviaturas, sin acentos, ni signos especiales
       options: null
       readonly: false
       required: true
@@ -6631,7 +6755,10 @@ fields:
       group: null
       hidden: false
       interface: input-multiline
-      note: null
+      note: >-
+        Redactar una descripción breve de los hechos, sin incluir información
+        reservada o confidencial, de conformidad con la normatividad en materia
+        de transparencia y protección de datos personales
       options: null
       readonly: false
       required: true
@@ -6723,6 +6850,7 @@ fields:
               required: true
               interface: input
               options: {}
+              note: Escribir el (los) artículo (s) infringido (s)
           - field: fraccion
             name: fraccion
             type: text
@@ -6732,6 +6860,7 @@ fields:
               type: text
               required: true
               interface: input
+              note: En su caso, escribir la (s) fracción (es) infringida (s)
         sort: articulo
         template: null
       readonly: false
@@ -6741,7 +6870,7 @@ fields:
         - cast-json
       translations:
         - language: es-MX
-          translation: Artículo y fracción
+          translation: Artículo (s) y fracción (es) de la normatividad infringida
       validation: null
       validation_message: null
       width: full
@@ -6924,8 +7053,8 @@ fields:
       hidden: false
       interface: input
       note: >-
-        Escribir el nombre de la normatividad infringida por la persona física,
-        sin abreviaturas, sin acentos, ni signos especiales
+        Escribir el nombre de la normatividad infringida, sin abreviaturas, sin
+        acentos, ni signos especiales
       options:
         placeholder: null
       readonly: false
@@ -7478,7 +7607,9 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        Seleccionar del catálogo la (s) falta (s) cometida (s) por la persona
+        servidora pública
       options:
         enableSelect: false
         template: '{{clave}} {{nombreNormatividad}}'
@@ -7612,7 +7743,9 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá señalar el motivo que dio origen a la investigación por la
+        comisión de la falta administrativa grave
       options:
         enableSelect: false
         template: '{{clave}}'
@@ -7731,7 +7864,7 @@ fields:
             icon: menu_book
             type: info
             url: >-
-              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EWZKmztNU7hAm3KFrZiRKDgBhy-h9mpr_gCQa_AIEdSJzg?e=wlq5kg
+              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EazlL3WqY2BKo6c8W3jl4ecBh2Ec-Is_bM5Lj4kSN_cYKg?e=12UdT9
       readonly: false
       required: false
       sort: 9
@@ -7757,12 +7890,15 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{nombres}} {{primerApellido}} {{segundoApellido}}'
       readonly: false
       required: true
       sort: 12
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Datos generales de la persona servidora pública sancionada
       validation: null
       validation_message: null
       width: full
@@ -7803,7 +7939,11 @@ fields:
       sort: 13
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: >-
+            Datos del empleo, cargo o comisión de la persona servidora pública
+            sancionada
       validation: null
       validation_message: null
       width: full
@@ -8034,7 +8174,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: Indicar la fecha en la que se registra la información
       options: null
       readonly: false
       required: true
@@ -8074,9 +8214,9 @@ fields:
       group: null
       hidden: false
       interface: input
-      note: null
+      note: Registrar el número de expediente, en el que recae la resolución
       options:
-        placeholder: Registrar el número de expediente, en el que recae la resolución.
+        placeholder: null
       readonly: false
       required: true
       sort: 11
@@ -8155,10 +8295,12 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        Seleccionar conforme el catálogo el (los) tipo (s) de falta (s) cometida
+        (s) por la persona servidora pública
       options:
         enableSelect: false
-        template: '{{valor}}'
+        template: '{{nombreNormatividad}}'
       readonly: false
       required: true
       sort: 15
@@ -8183,7 +8325,9 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        En el presente apartado se deberá señalar el motivo que dio origen a la
+        investigación por la comisión de la falta administrativa no grave
       options:
         enableSelect: false
         template: '{{clave}}'
@@ -8363,7 +8507,7 @@ fields:
             icon: menu_book
             type: info
             url: >-
-              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EWZKmztNU7hAm3KFrZiRKDgBhy-h9mpr_gCQa_AIEdSJzg?e=wlq5kg
+              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EazlL3WqY2BKo6c8W3jl4ecBh2Ec-Is_bM5Lj4kSN_cYKg?e=12UdT9
       readonly: false
       required: false
       sort: 9
@@ -8438,7 +8582,11 @@ fields:
       sort: 13
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: >-
+            Datos del empleo, cargo o comisión de la persona servidora pública
+            sancionada
       validation: null
       validation_message: null
       width: full
@@ -8473,12 +8621,16 @@ fields:
       note: null
       options:
         enableSelect: false
+        template: '{{nombres}} {{primerApellido}} {{segundoApellido}}'
       readonly: false
       required: true
       sort: 12
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: |
+            Datos generales de la persona servidora pública sancionada
       validation: null
       validation_message: null
       width: full
@@ -8717,7 +8869,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Fecha
+          translation: Fecha (DD-MM-AAAA)
       validation: null
       validation_message: null
       width: half
@@ -8990,7 +9142,9 @@ fields:
       group: null
       hidden: false
       interface: list-o2m
-      note: null
+      note: >-
+        Seleccionar el (los) tipo (s) de falta (s) cometida (s) por la persona
+        física sancionada
       options:
         enableSelect: false
         limit: -1
@@ -9163,7 +9317,7 @@ fields:
             icon: menu_book
             type: info
             url: >-
-              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EWZKmztNU7hAm3KFrZiRKDgBhy-h9mpr_gCQa_AIEdSJzg?e=wlq5kg
+              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EazlL3WqY2BKo6c8W3jl4ecBh2Ec-Is_bM5Lj4kSN_cYKg?e=12UdT9
       readonly: false
       required: false
       sort: 9
@@ -9388,6 +9542,10 @@ fields:
       note: null
       options:
         enableSelect: false
+        filter:
+          _and:
+            - rfc:
+                _contains: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
         template: '{{nombreRazonSocial}}'
       readonly: false
       required: true
@@ -9486,7 +9644,7 @@ fields:
         - m2o
       translations:
         - language: es-MX
-          translation: Datos del ente público donde se cometió la falta administrativa.
+          translation: Datos del Ente público donde se cometió la falta administrativa.
       validation: null
       validation_message: null
       width: full
@@ -9741,7 +9899,10 @@ fields:
       group: null
       hidden: false
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        En el presente apartado se deberá señalar el motivo que dio origen a la
+        investigación por actos vinculados con faltas administrativas graves por
+        parte de la persona moral
       options:
         enableSelect: false
         template: '{{clave}}'
@@ -9893,7 +10054,7 @@ fields:
             icon: menu_book
             type: info
             url: >-
-              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EWZKmztNU7hAm3KFrZiRKDgBhy-h9mpr_gCQa_AIEdSJzg?e=wlq5kg
+              https://sesnamx.sharepoint.com/:b:/s/DocumentosPublicos/EazlL3WqY2BKo6c8W3jl4ecBh2Ec-Is_bM5Lj4kSN_cYKg?e=12UdT9
       readonly: false
       required: false
       sort: 9
@@ -10042,8 +10203,8 @@ fields:
       hidden: false
       interface: select-dropdown-m2o
       note: >-
-        Señalar el plazo para dar cumplimiento a la indemnización: años, meses y
-        días
+        Señalar el plazo determinado para el pago de la indemnización: año (s),
+        mes (es) y día (s)
       options:
         enableSelect: false
         template: '{{anios}}{{meses}}'
@@ -10296,7 +10457,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: Indicar la fecha en la que inició la inhabilitación de la persona física
+      note: Indicar la fecha en la que inició la inhabilitación
       options: null
       readonly: false
       required: true
@@ -10336,9 +10497,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: >-
-        Indicar la fecha en la que se concluye la inhabilitación de la persona
-        física
+      note: Indicar la fecha en la que se concluye la inhabilitación
       options: null
       readonly: false
       required: true
@@ -10379,8 +10538,8 @@ fields:
       hidden: false
       interface: presentation-divider
       note: >-
-        Este campo se deberá llenar Sí en la resolución se sancionó con una
-        inhabilitación
+        Colocar el plazo de la inhabilitación, empezando por año(s), mes(es) y
+        día(s)
       options:
         title: Plazo de la inhabilitación
       readonly: false
@@ -10773,8 +10932,8 @@ fields:
       translations:
         - language: es-MX
           translation: >-
-            Motivo que dio origen a la investigación por la comisión de la falta
-            administrativa grave
+            Seleccionar conforme al catálogo el origen de la falta
+            administrativa
       validation: null
       validation_message: null
       width: full
@@ -11109,9 +11268,7 @@ fields:
       group: null
       hidden: false
       interface: presentation-divider
-      note: >-
-        Señalar el plazo para dar cumplimiento a la sanción económica: año (s),
-        mes (es) y día (s)
+      note: null
       options:
         title: Plazo de pago
       readonly: false
@@ -11310,8 +11467,12 @@ fields:
           translation: >-
             URL de la versión pública de la resolución de sanción en formato
             digital
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - urlResolucion:
+              _regex: >-
+                ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:[0-9]{1,5})?(\/\S*)?$
+      validation_message: Formato URL inválido
       width: full
     schema:
       name: urlResolucion
@@ -11435,8 +11596,12 @@ fields:
           translation: >-
             URL de la versión pública del acuerdo o determinación que declare
             firme la resolución en formato digital
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - urlResolucionFirme:
+              _regex: >-
+                ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:[0-9]{1,5})?(\/\S*)?$
+      validation_message: Formato de URL inválido
       width: full
     schema:
       name: urlResolucionFirme
@@ -11799,8 +11964,8 @@ fields:
       hidden: false
       interface: datetime
       note: >-
-        Indicar la fecha en que se notifica la resolución a la persona física
-        sancionada
+        Indicar la fecha en que se notifica la resolución a la persona servidora
+        pública sancionada
       options: null
       readonly: false
       required: true
@@ -11842,7 +12007,7 @@ fields:
       interface: datetime
       note: >-
         Colocar la fecha en que adquirió firmeza la resolución de la persona
-        física
+        servidora pública
       options: null
       readonly: false
       required: true
@@ -11883,8 +12048,8 @@ fields:
       hidden: false
       interface: datetime
       note: >-
-        Indicar la fecha en que se notifica a la persona física que la
-        resolución ha quedado firme
+        Indicar la fecha en que se notifica a la persona servidora pública que
+        la resolución ha quedado firme
       options: null
       readonly: false
       required: true
@@ -12692,7 +12857,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        Indicar la fecha en que inició la suspensión del empleo, cargo o
+        comisión de la persona servidora pública
       options: null
       readonly: false
       required: true
@@ -12732,7 +12899,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: null
+      note: >-
+        Indicar la fecha en la que se concluye la suspensión del empleo, cargo o
+        comisión de la persona servidora pública
       options: null
       readonly: false
       required: true
@@ -12772,7 +12941,9 @@ fields:
       group: null
       hidden: false
       interface: presentation-divider
-      note: null
+      note: >-
+        Colocar el plazo de la suspensión de la persona servidora pública
+        sancionada, empezando por mes (es) y/o día (s)
       options:
         title: Plazo de la suspensión *
       readonly: false
@@ -12935,7 +13106,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona servidora pública sea
+        acreedora de una sanción económica
       options:
         enableSelect: false
         template: '{{monto}}{{moneda}}'
@@ -12988,7 +13161,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá llenar si en la resolución se determinó sancionar con la
+        suspensión del empleo, cargo o comisión
       options:
         enableSelect: false
         template: '{{fechaInicial}} - {{fechaFinal}}'
@@ -13041,7 +13216,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá llenar si en la resolución definitiva se le impuso destitución
+        del empleo, cargo o comisión a la persona servidora pública
       options:
         enableSelect: false
         template: '{{fechaDestitucion}}'
@@ -13094,7 +13271,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona servidora pública haya
+        sido inhabilitada
       options:
         enableSelect: false
         template: '{{fechaInicial}} - {{fechaFinal}}'
@@ -13150,7 +13329,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona servidora pública sea
+        acreedora a otro tipo de sanción prevista en las leyes locales
+        anticorrupción de las entidades federativas
       options:
         enableSelect: false
         template: '{{denominacionSancion}}'
@@ -13331,7 +13513,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá llenar si en la resolución definitiva se le impuso la
+        suspensión del empleo, cargo o comisión
       options:
         enableSelect: false
         template: "{{fechaInicial}}\_-\_{{fechaFinal}}"
@@ -13384,7 +13568,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado si en la resolución definitiva se impuso la
+        destitución del empleo, cargo o comisión a la persona servidora pública
       options:
         enableSelect: false
         template: '{{fechaDestitucion}}'
@@ -13437,7 +13623,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona servidora pública haya
+        sido inhabilitada
       options:
         enableSelect: false
         template: '{{fechaInicial}} - {{fechaFinal}} '
@@ -13493,7 +13681,10 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona servidora pública sea
+        acreedora a otro tipo de sanción prevista en las leyes locales
+        anticorrupción de las entidades federativas
       options:
         enableSelect: false
         template: '{{denominacionSancion}}'
@@ -13544,7 +13735,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá llenar si en la resolución se determinó sancionar con
+        amonestación pública o privada
       options:
         enableSelect: false
         template: '{{tipo}}'
@@ -13741,7 +13934,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Se deberá llenar si en la resolución definitiva se le impuso
+        indemnización
       options:
         enableSelect: false
         template: '{{monto}}'
@@ -13832,7 +14027,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Llenar este apartado en caso de que la persona física sea acreedora de
+        una sanción económica
       options:
         enableSelect: false
         template: '{{monto}}'
@@ -14035,7 +14232,9 @@ fields:
       group: null
       hidden: true
       interface: select-dropdown-m2o
-      note: null
+      note: >-
+        Este campo se deberá llenar Sí en la resolución se sancionó con una
+        inhabilitación
       options:
         enableSelect: false
         template: '{{plazoAnios}}{{plazoMeses}}'
@@ -14212,7 +14411,9 @@ fields:
       sort: 7
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Disolución de la sociedad
       validation: null
       validation_message: null
       width: full
@@ -14357,7 +14558,9 @@ fields:
       sort: 5
       special:
         - m2o
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Sanción económica
       validation: null
       validation_message: null
       width: full
