@@ -1718,6 +1718,336 @@
             "fields": [
                 "fechaDisolucion"
             ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
         }
     ]
 }
