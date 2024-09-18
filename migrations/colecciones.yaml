@@ -1,5 +1,5 @@
 version: 1
-directus: 10.13.1
+directus: 10.13.2
 vendor: postgres
 collections:
   - collection: Faltas_de_Particulares
@@ -87,7 +87,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 3
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -207,7 +207,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -255,7 +255,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 7
+      sort: 8
       sort_field: null
       translations: null
       unarchive_value: null
@@ -303,7 +303,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 7
       sort_field: null
       translations: null
       unarchive_value: null
@@ -351,7 +351,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -399,7 +399,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 7
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -423,7 +423,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 10
+      sort: 9
       sort_field: null
       translations: null
       unarchive_value: null
@@ -495,7 +495,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 12
+      sort: 11
       sort_field: null
       translations: null
       unarchive_value: null
@@ -591,7 +591,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -713,7 +713,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 9
+      sort: 8
       sort_field: null
       translations: null
       unarchive_value: null
@@ -737,7 +737,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 4
       sort_field: null
       translations: null
       unarchive_value: null
@@ -792,6 +792,78 @@ collections:
       versioning: false
     schema:
       name: nivel_jerarquico_no_graves
+  - collection: normatividad_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: normatividad_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 5
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: normatividad_graves
+  - collection: normatividad_no_graves
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: normatividad_no_graves
+      color: null
+      display_template: null
+      group: faltas_administrativas_no_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 5
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: normatividad_no_graves
+  - collection: normatividad_particulares
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: normatividad_particulares
+      color: null
+      display_template: null
+      group: Faltas_de_Particulares
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 4
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: normatividad_particulares
   - collection: origen_procedimiento
     meta:
       accountability: all
@@ -833,7 +905,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 11
+      sort: 10
       sort_field: null
       translations: null
       unarchive_value: null
@@ -857,7 +929,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 8
+      sort: 7
       sort_field: null
       translations: null
       unarchive_value: null
@@ -874,7 +946,31 @@ collections:
       collection: resolucion
       color: null
       display_template: '{{tituloResolucion}}'
-      group: null
+      group: faltas_administrativas_graves
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 6
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: resolucion
+  - collection: resolucion_fisica
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: resolucion_fisica
+      color: null
+      display_template: null
+      group: faltas_graves_personas_fisicas
       hidden: true
       icon: null
       item_duplication_fields: null
@@ -887,7 +983,31 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: resolucion
+      name: resolucion_fisica
+  - collection: resolucion_morales
+    meta:
+      accountability: all
+      archive_app_filter: true
+      archive_field: null
+      archive_value: null
+      collapse: open
+      collection: resolucion_morales
+      color: null
+      display_template: null
+      group: faltas_graves_personas_morales
+      hidden: true
+      icon: null
+      item_duplication_fields: null
+      note: null
+      preview_url: null
+      singleton: false
+      sort: 2
+      sort_field: null
+      translations: null
+      unarchive_value: null
+      versioning: false
+    schema:
+      name: resolucion_morales
   - collection: resolucion_no_graves
     meta:
       accountability: all
@@ -905,7 +1025,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 6
       sort_field: null
       translations: null
       unarchive_value: null
@@ -929,7 +1049,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -953,7 +1073,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 8
+      sort: 9
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1001,7 +1121,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 5
+      sort: 7
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1025,7 +1145,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 6
+      sort: 7
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1049,7 +1169,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 4
+      sort: 5
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1073,7 +1193,7 @@ collections:
       note: null
       preview_url: null
       singleton: false
-      sort: 2
+      sort: 3
       sort_field: null
       translations: null
       unarchive_value: null
@@ -1217,7 +1337,7 @@ fields:
       note: null
       options:
         enableSelect: false
-        template: '{{nombre}}{{primerApellido}}'
+        template: '{{nombre}} {{primerApellido}} {{segundoApellido}}'
       readonly: false
       required: true
       sort: 2
@@ -1260,7 +1380,7 @@ fields:
       note: null
       options:
         enableSelect: false
-        template: '{{nombre}}{{primerApellido}}'
+        template: '{{nombre}} {{primerApellido}} {{segundoApellido}}'
       readonly: false
       required: true
       sort: 3
@@ -1475,8 +1595,12 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - curp:
+              _regex: >-
+                ^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation_message: Formato no valido, revisa el CURP dentro de los datos personales
       width: full
     schema:
       name: curp
@@ -1520,8 +1644,10 @@ fields:
       validation:
         _and:
           - rfc:
-              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
-      validation_message: null
+              _regex: >-
+                ˆ([A-ZÑ]|\&){3,4}[0-9]{2}(0[1-9]|1[0-2])([12][0
+                -9]|0[1-9]|3[01])[A-Z0-9]{3}$
+      validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
       name: rfc
@@ -1769,8 +1895,12 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - curp:
+              _regex: >-
+                ^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation_message: Formato no valido, revisa el CURP dentro de los datos personales
       width: full
     schema:
       name: curp
@@ -1814,8 +1944,10 @@ fields:
       validation:
         _and:
           - rfc:
-              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
-      validation_message: null
+              _regex: >-
+                ˆ([A-ZÑ]|\&){3,4}[0-9]{2}(0[1-9]|1[0-2])([12][0
+                -9]|0[1-9]|3[01])[A-Z0-9]{3}$
+      validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
       name: rfc
@@ -2076,8 +2208,12 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - curp:
+              _regex: >-
+                ^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation_message: Formato no valido, revisa el CURP dentro de los datos personales
       width: full
     schema:
       name: curp
@@ -2122,8 +2258,10 @@ fields:
       validation:
         _and:
           - rfc:
-              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
-      validation_message: null
+              _regex: >-
+                ˆ([A-ZÑ]|\&){3,4}[0-9]{2}(0[1-9]|1[0-2])([12][0
+                -9]|0[1-9]|3[01])[A-Z0-9]{3}$
+      validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
       name: rfc
@@ -2392,7 +2530,8 @@ fields:
       note: >-
         Escribir los primeros nueve caracteres básicos y los tres
         correspondientes a la homoclave
-      options: null
+      options:
+        softLength: 12
       readonly: false
       required: true
       sort: 3
@@ -2403,8 +2542,10 @@ fields:
       validation:
         _and:
           - rfc:
-              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
-      validation_message: 'Formato de RFC invalido '
+              _regex: >-
+                ˆ([A-ZÑ]|\&){3,4}[0-9]{2}(0[1-9]|1[0-2])([12][0
+                -9]|0[1-9]|3[01])[A-Z0-9]{3}$
+      validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
       name: rfc
@@ -2535,7 +2676,7 @@ fields:
         municipio, código postal y entidad federativa
       options:
         enableSelect: false
-        template: '{{nombreVialidad}}'
+        template: '{{tipoVialidad}} {{nombreVialidad}} {{numeroExterior}}'
       readonly: false
       required: false
       sort: 9
@@ -2681,8 +2822,10 @@ fields:
       validation:
         _and:
           - rfc:
-              _regex: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
-      validation_message: El formato del RFC es incorrecto
+              _regex: >-
+                ˆ([A-ZÑ]|\&){3,4}[0-9]{2}(0[1-9]|1[0-2])([12][0
+                -9]|0[1-9]|3[01])[A-Z0-9]{3}$
+      validation_message: Formato no valido, revisa el RFC dentro de la sección de representantes
       width: full
     schema:
       name: rfc
@@ -2805,8 +2948,12 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - curp:
+              _regex: >-
+                ^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation_message: Formato no valido, revisa el CURP dentro de los datos del representante
       width: full
     schema:
       name: curp
@@ -6226,7 +6373,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 9
+      sort: 6
       special: null
       translations: null
       validation: null
@@ -6249,48 +6396,6 @@ fields:
       foreign_key_table: faltas_administrativas_graves
       foreign_key_column: id
   - collection: falta_cometida_graves
-    field: nombreNormatividad
-    type: string
-    meta:
-      collection: falta_cometida_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: nombreNormatividad
-      group: null
-      hidden: false
-      interface: input
-      note: >-
-        Escribir el nombre de la normatividad infringida por la persona
-        servidora pública, sin abreviaturas, sin acentos, ni signos especiales
-      options: null
-      readonly: false
-      required: true
-      sort: 4
-      special: null
-      translations:
-        - language: es-MX
-          translation: Normatividad infringida
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: nombreNormatividad
-      table: falta_cometida_graves
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: falta_cometida_graves
     field: descripcionHechos
     type: text
     meta:
@@ -6310,7 +6415,7 @@ fields:
           materia de transparencia y protección de datos personales.
       readonly: false
       required: true
-      sort: 8
+      sort: 5
       special: null
       translations:
         - language: es-MX
@@ -6386,7 +6491,9 @@ fields:
       required: true
       sort: 2
       special: null
-      translations: null
+      translations:
+        - language: es-MX
+          translation: Tipo de falta
       validation: null
       validation_message: null
       width: full
@@ -6426,13 +6533,29 @@ fields:
             clear: false
             slug: false
       display: null
-      display_options: null
+      display_options: {}
       field: valor
       group: null
       hidden: true
-      interface: input
+      interface: select-dropdown
       note: null
-      options: null
+      options:
+        allowOther: true
+        choices:
+          - text: Acoso sexual
+            value: ACOSO_SEXUAL
+          - text: Hostigamiento sexual
+            value: HOSTIGAMIENTO_SEXUAL
+          - text: >-
+              Omisión de enterar cuotas, aportaciones, cuotas sociales,
+              descuentos
+            value: OMISION_ENTERAR_CUOTAS
+          - text: Proceso de entrega de recepción
+            value: ENTREGA_RECEPCION
+          - text: Recursos públicos sin tener derecho
+            value: RECURSOS_PUBLICOS_SIN_DERECHO
+          - text: Remuneración ilícita
+            value: REMUNERACION_ILICITA
       readonly: false
       required: false
       sort: 3
@@ -6458,71 +6581,31 @@ fields:
       foreign_key_table: null
       foreign_key_column: null
   - collection: falta_cometida_graves
-    field: articuloFraccion
-    type: json
+    field: normatividadInfringida
+    type: alias
     meta:
       collection: falta_cometida_graves
       conditions: null
       display: null
       display_options: null
-      field: articuloFraccion
+      field: normatividadInfringida
       group: null
       hidden: false
-      interface: list
+      interface: list-o2m
       note: null
       options:
-        addLabel: Agregar
-        fields:
-          - field: articulo
-            name: articulo
-            type: string
-            meta:
-              field: articulo
-              width: half
-              type: string
-              required: true
-              interface: input
-              options: {}
-              note: Escribir el (los) artículo (s) infringido (s)
-          - field: fraccion
-            name: fraccion
-            type: text
-            meta:
-              field: fraccion
-              width: half
-              type: text
-              required: false
-              interface: input
-              note: En su caso, escribir la (s) fracción (es) infringida (s)
-        sort: articulo
-        template: null
+        enableSelect: false
+        limit: -1
+        template: '{{nombreNormatividad}}'
       readonly: false
       required: true
-      sort: 7
+      sort: 4
       special:
-        - cast-json
-      translations:
-        - language: es-MX
-          translation: Artículo (s) y fracción (es) de la normatividad infringida
+        - o2m
+      translations: null
       validation: null
       validation_message: null
       width: full
-    schema:
-      name: articuloFraccion
-      table: falta_cometida_graves
-      data_type: json
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: falta_cometida_no_graves
     field: id
     type: integer
@@ -6622,15 +6705,14 @@ fields:
             value: CAUSAR_DANOS_HACIENDA
           - text: Otro (especifique)
             value: OTRO
+        placeholder: null
       readonly: false
       required: true
-      sort: 2
+      sort: 3
       special: null
       translations:
         - language: es-MX
-          translation: >-
-            Por actos u omisiones que incumplan o transgredan las siguientes
-            obligaciones:
+          translation: Tipo de falta
       validation: null
       validation_message: null
       width: full
@@ -6674,12 +6756,16 @@ fields:
       field: valor
       group: null
       hidden: true
-      interface: input
+      interface: select-dropdown
       note: null
-      options: null
+      options:
+        allowOther: true
+        choices:
+          - text: Opcion 1
+            value: OPCION1
       readonly: false
       required: false
-      sort: 3
+      sort: 4
       special: null
       translations: null
       validation: null
@@ -6687,48 +6773,6 @@ fields:
       width: full
     schema:
       name: valor
-      table: falta_cometida_no_graves
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: falta_cometida_no_graves
-    field: nombreNormatividad
-    type: string
-    meta:
-      collection: falta_cometida_no_graves
-      conditions: null
-      display: null
-      display_options: null
-      field: nombreNormatividad
-      group: null
-      hidden: false
-      interface: input
-      note: >-
-        Escribir el nombre de la normatividad infringida por la persona
-        servidora pública, sin abreviaturas, sin acentos, ni signos especiales
-      options: null
-      readonly: false
-      required: true
-      sort: 4
-      special: null
-      translations:
-        - language: es-MX
-          translation: Normatividad infringida
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: nombreNormatividad
       table: falta_cometida_no_graves
       data_type: character varying
       default_value: null
@@ -6762,7 +6806,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 8
+      sort: 6
       special: null
       translations:
         - language: es-MX
@@ -6802,7 +6846,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 9
+      sort: 7
       special: null
       translations: null
       validation: null
@@ -6825,71 +6869,59 @@ fields:
       foreign_key_table: faltas_administrativas_no_graves
       foreign_key_column: id
   - collection: falta_cometida_no_graves
-    field: articuloFraccion
-    type: json
+    field: divider-lgubbc
+    type: alias
     meta:
       collection: falta_cometida_no_graves
       conditions: null
       display: null
       display_options: null
-      field: articuloFraccion
+      field: divider-lgubbc
       group: null
       hidden: false
-      interface: list
+      interface: presentation-divider
       note: null
       options:
-        addLabel: Agregar
-        fields:
-          - field: articulo
-            name: articulo
-            type: string
-            meta:
-              field: articulo
-              width: half
-              type: string
-              required: true
-              interface: input
-              options: {}
-              note: Escribir el (los) artículo (s) infringido (s)
-          - field: fraccion
-            name: fraccion
-            type: text
-            meta:
-              field: fraccion
-              width: half
-              type: text
-              required: true
-              interface: input
-              note: En su caso, escribir la (s) fracción (es) infringida (s)
-        sort: articulo
-        template: null
+        inlineTitle: true
+        title: >-
+          Por actos u omisiones que incumplan o transgredan las siguientes
+          obligaciones:
       readonly: false
-      required: true
-      sort: 7
+      required: false
+      sort: 2
       special:
-        - cast-json
-      translations:
-        - language: es-MX
-          translation: Artículo (s) y fracción (es) de la normatividad infringida
+        - alias
+        - no-data
+      translations: null
       validation: null
       validation_message: null
       width: full
-    schema:
-      name: articuloFraccion
-      table: falta_cometida_no_graves
-      data_type: json
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
+  - collection: falta_cometida_no_graves
+    field: normatividadInfringida
+    type: alias
+    meta:
+      collection: falta_cometida_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: normatividadInfringida
+      group: null
+      hidden: false
+      interface: list-o2m
+      note: null
+      options:
+        enableSelect: false
+        limit: -1
+        template: '{{nombreNormatividad}}'
+      readonly: false
+      required: false
+      sort: 5
+      special:
+        - o2m
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
   - collection: falta_cometida_particulares
     field: id
     type: integer
@@ -6969,7 +7001,7 @@ fields:
       special: null
       translations:
         - language: es-MX
-          translation: Tipo de falta cometida
+          translation: Tipo de falta
       validation: null
       validation_message: null
       width: full
@@ -7013,9 +7045,13 @@ fields:
       field: valor
       group: null
       hidden: true
-      interface: input
+      interface: select-dropdown
       note: null
-      options: null
+      options:
+        allowOther: true
+        choices:
+          - text: Faltas de particulares en situación especial
+            value: FALTAS_PARTICULARES_ESPECIAL
       readonly: false
       required: false
       sort: 3
@@ -7026,49 +7062,6 @@ fields:
       width: full
     schema:
       name: valor
-      table: falta_cometida_particulares
-      data_type: character varying
-      default_value: null
-      max_length: 255
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
-  - collection: falta_cometida_particulares
-    field: nombreNormatividad
-    type: string
-    meta:
-      collection: falta_cometida_particulares
-      conditions: null
-      display: null
-      display_options: null
-      field: nombreNormatividad
-      group: null
-      hidden: false
-      interface: input
-      note: >-
-        Escribir el nombre de la normatividad infringida, sin abreviaturas, sin
-        acentos, ni signos especiales
-      options:
-        placeholder: null
-      readonly: false
-      required: true
-      sort: 4
-      special: null
-      translations:
-        - language: es-MX
-          translation: Normatividad infringida
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: nombreNormatividad
       table: falta_cometida_particulares
       data_type: character varying
       default_value: null
@@ -7103,7 +7096,7 @@ fields:
           materia de transparencia y protección de datos personales
       readonly: false
       required: true
-      sort: 6
+      sort: 5
       special: null
       translations:
         - language: es-MX
@@ -7143,7 +7136,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 7
+      sort: 6
       special: null
       translations: null
       validation: null
@@ -7181,7 +7174,7 @@ fields:
       options: null
       readonly: false
       required: false
-      sort: 8
+      sort: 7
       special: null
       translations: null
       validation: null
@@ -7204,71 +7197,31 @@ fields:
       foreign_key_table: faltas_graves_personas_morales
       foreign_key_column: id
   - collection: falta_cometida_particulares
-    field: articuloFraccion
-    type: json
+    field: normatividadInfringida
+    type: alias
     meta:
       collection: falta_cometida_particulares
       conditions: null
       display: null
       display_options: null
-      field: articuloFraccion
+      field: normatividadInfringida
       group: null
       hidden: false
-      interface: list
+      interface: list-o2m
       note: null
       options:
-        addLabel: Agregar
-        fields:
-          - field: articulo
-            name: articulo
-            type: string
-            meta:
-              field: articulo
-              width: half
-              type: string
-              required: true
-              interface: input
-              options: {}
-              note: Escribir el (los) artículo (s) infringido (s)
-          - field: fraccion
-            name: fraccion
-            type: text
-            meta:
-              field: fraccion
-              width: half
-              type: text
-              required: false
-              interface: input
-              note: 'En su caso, escribir la (s) fracción (es) infringida (s) '
-        sort: articulo
-        template: null
+        enableSelect: false
+        limit: -1
+        template: '{{nombreNormatividad}}'
       readonly: false
-      required: true
-      sort: 5
+      required: false
+      sort: 4
       special:
-        - cast-json
-      translations:
-        - language: es-MX
-          translation: Artículo (s) y fracción (es) de la normatividad infringida
+        - o2m
+      translations: null
       validation: null
       validation_message: null
       width: full
-    schema:
-      name: articuloFraccion
-      table: falta_cometida_particulares
-      data_type: json
-      default_value: null
-      max_length: null
-      numeric_precision: null
-      numeric_scale: null
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: null
-      foreign_key_column: null
   - collection: faltas_administrativas_graves
     field: id
     type: uuid
@@ -7612,7 +7565,7 @@ fields:
         servidora pública
       options:
         enableSelect: false
-        template: '{{clave}} {{nombreNormatividad}}'
+        template: '{{clave}} '
       readonly: false
       required: true
       sort: 15
@@ -8541,7 +8494,9 @@ fields:
         - m2o
       translations:
         - language: es-MX
-          translation: Resolución
+          translation: >-
+            Resolución sancionatoria de la falta cometida por la persona
+            servidora pública
       validation: null
       validation_message: null
       width: full
@@ -9018,49 +8973,6 @@ fields:
       foreign_key_table: donde_cometio_falta
       foreign_key_column: id
   - collection: faltas_graves_personas_fisicas
-    field: resolucion
-    type: integer
-    meta:
-      collection: faltas_graves_personas_fisicas
-      conditions: null
-      display: raw
-      display_options: null
-      field: resolucion
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-        template: '{{tituloResolucion}}'
-      readonly: false
-      required: true
-      sort: 16
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: Resolución sancionatoria de la falta cometida por la persona física
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: resolucion
-      table: faltas_graves_personas_fisicas
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: resolucion
-      foreign_key_column: id
-  - collection: faltas_graves_personas_fisicas
     field: observaciones
     type: text
     meta:
@@ -9328,6 +9240,49 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: faltas_graves_personas_fisicas
+    field: resolucion
+    type: integer
+    meta:
+      collection: faltas_graves_personas_fisicas
+      conditions: null
+      display: null
+      display_options: null
+      field: resolucion
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+        template: '{{tituloResolucion}}'
+      readonly: false
+      required: true
+      sort: 16
+      special:
+        - m2o
+      translations:
+        - language: es-MX
+          translation: Resolución sancionatoria de la falta cometida por la persona física
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: resolucion
+      table: faltas_graves_personas_fisicas
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: resolucion_fisica
+      foreign_key_column: id
   - collection: faltas_graves_personas_morales
     field: id
     type: uuid
@@ -9542,10 +9497,7 @@ fields:
       note: null
       options:
         enableSelect: false
-        filter:
-          _and:
-            - rfc:
-                _contains: ^[A-ZÑ&]{4}\d{6}[A-Z0-9]{3}$
+        filter: null
         template: '{{nombreRazonSocial}}'
       readonly: false
       required: true
@@ -9590,8 +9542,10 @@ fields:
       options:
         enableSelect: false
         template: >-
-          {{directorGeneral.nombre}} {{directorGeneral.primerApellido}} /
-          {{representanteLegal.nombre}} {{representanteLegal.primerApellido}}
+          {{directorGeneral.nombre}} {{directorGeneral.primerApellido}}
+          {{directorGeneral.segundoApellido}} / {{representanteLegal.nombre}}
+          {{representanteLegal.primerApellido}}
+          {{representanteLegal.segundoApellido}}
       readonly: false
       required: true
       sort: 13
@@ -9663,49 +9617,6 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: donde_cometio_falta
-      foreign_key_column: id
-  - collection: faltas_graves_personas_morales
-    field: resolucion
-    type: integer
-    meta:
-      collection: faltas_graves_personas_morales
-      conditions: null
-      display: null
-      display_options: null
-      field: resolucion
-      group: null
-      hidden: false
-      interface: select-dropdown-m2o
-      note: null
-      options:
-        enableSelect: false
-        template: '{{tituloResolucion}}'
-      readonly: false
-      required: true
-      sort: 17
-      special:
-        - m2o
-      translations:
-        - language: es-MX
-          translation: Resolución sancionatoria de la falta cometida por la persona moral
-      validation: null
-      validation_message: null
-      width: full
-    schema:
-      name: resolucion
-      table: faltas_graves_personas_morales
-      data_type: integer
-      default_value: null
-      max_length: null
-      numeric_precision: 32
-      numeric_scale: 0
-      is_nullable: true
-      is_unique: false
-      is_primary_key: false
-      is_generated: false
-      generation_expression: null
-      has_auto_increment: false
-      foreign_key_table: resolucion
       foreign_key_column: id
   - collection: faltas_graves_personas_morales
     field: fecha
@@ -10065,6 +9976,49 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: faltas_graves_personas_morales
+    field: resolucion
+    type: integer
+    meta:
+      collection: faltas_graves_personas_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: resolucion
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableSelect: false
+        template: '{{tituloResolucion}}'
+      readonly: false
+      required: true
+      sort: 17
+      special:
+        - m2o
+      translations:
+        - language: es-MX
+          translation: Resolución sancionatoria de la falta cometida por la persona moral
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: resolucion
+      table: faltas_graves_personas_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: resolucion_morales
+      foreign_key_column: id
   - collection: indemnizacion
     field: id
     type: integer
@@ -10207,7 +10161,7 @@ fields:
         mes (es) y día (s)
       options:
         enableSelect: false
-        template: '{{anios}}{{meses}}'
+        template: "{{anios}} año (s), {{meses}}\_mes (es),\_{{dias}} dia (s)"
       readonly: false
       required: false
       sort: 4
@@ -10250,7 +10204,7 @@ fields:
       note: 'Indicar el monto efectivamente cobrado: monto y moneda'
       options:
         enableSelect: false
-        template: '{{monto}}{{moneda}}'
+        template: '{{monto}} {{moneda}}'
       readonly: false
       required: false
       sort: 5
@@ -10333,6 +10287,7 @@ fields:
         alwaysShowValue: true
         min: 0
         minValue: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 3
@@ -10376,6 +10331,7 @@ fields:
         alwaysShowValue: true
         min: 0
         minValue: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 4
@@ -10419,6 +10375,7 @@ fields:
         alwaysShowValue: true
         min: 0
         minValue: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 5
@@ -10858,6 +10815,857 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: normatividad_graves
+    field: id
+    type: integer
+    meta:
+      collection: normatividad_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: normatividad_graves
+      data_type: integer
+      default_value: nextval('normatividad_graves_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_graves
+    field: articulo
+    type: string
+    meta:
+      collection: normatividad_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: articulo
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Artículo (s) de la normatividad infringida
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: articulo
+      table: normatividad_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_graves
+    field: fraccion
+    type: string
+    meta:
+      collection: normatividad_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fraccion
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fracción (es) de la normatividad infringida
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fraccion
+      table: normatividad_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_graves
+    field: fk_graves
+    type: integer
+    meta:
+      collection: normatividad_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fk_graves
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fk_graves
+      table: normatividad_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: falta_cometida_graves
+      foreign_key_column: id
+  - collection: normatividad_graves
+    field: nombreNormatividad
+    type: string
+    meta:
+      collection: normatividad_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: nombreNormatividad
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: >-
+        Escribir el nombre de la normatividad infringida, sin abreviaturas, sin
+        acentos, ni signos especiales
+      options:
+        allowOther: true
+        choices:
+          - text: Ley de Responsabilidades Administrativas de la Ciudad de México
+            value: LRACDMX
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de
+              Aguascalientes
+            value: LRAAGS
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Baja
+              California
+            value: LRABC
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Baja
+              California Sur
+            value: LRABCS
+          - text: Ley de Responsabilidades Administrativas del Estado de Chiapas
+            value: LRACHP
+          - text: Ley de Responsabilidades Administrativas del Estado de Hidalgo
+            value: LRAHGO
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de México y
+              Municipios
+            value: LRAEMM
+          - text: Ley de Responsabilidades Administrativas del Estado de Morelos
+            value: LRAEMOR
+          - text: Ley de Responsabilidades Administrativas del Estado de Nayarit
+            value: LRANAY
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado y Municipios
+              de Oaxaca
+            value: LRAEMMOAX
+          - text: Ley de Responsabilidades Administrativas del Estado de Querétaro
+            value: LRAQRO
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Quintana
+              Roo
+            value: LRAQR
+          - text: Ley de Responsabilidades Administrativas del Estado de Sinaloa
+            value: LRASIN
+          - text: Ley de Responsabilidades Administrativas del Estado de Sonora
+            value: LRASON
+          - text: Ley de Responsabilidades Administrativas del Estado de Tamaulipas
+            value: LRATAM
+          - text: Ley de Responsabilidades Administrativas del Estado de Yucatán
+            value: LRAYUC
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Guanajuato
+            value: LRAGTO
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Michoacán de Ocampo
+            value: LRAMICH
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de Nuevo
+              León
+            value: LRANL
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado y
+              Municipios de San Luis Potosí
+            value: LRASLP
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Veracruz de Ignacio de la Llave
+            value: LRAVER
+          - text: >-
+              Ley de Responsabilidades Políticas y Administrativas del Estado de
+              Jalisco
+            value: LRPAEJ
+          - text: Ley General de Responsabilidades Administrativas
+            value: LGRA
+          - text: >-
+              Ley Número 465 de Responsabilidades Administrativas para el Estado
+              de Guerrero
+            value: LRAEGR465
+        placeholder: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Normatividad infringida
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nombreNormatividad
+      table: normatividad_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_no_graves
+    field: id
+    type: integer
+    meta:
+      collection: normatividad_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: normatividad_no_graves
+      data_type: integer
+      default_value: nextval('normatividad_no_graves_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_no_graves
+    field: articulo
+    type: string
+    meta:
+      collection: normatividad_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: articulo
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Artículo (s) de la normatividad infringida
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: articulo
+      table: normatividad_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_no_graves
+    field: fraccion
+    type: string
+    meta:
+      collection: normatividad_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fraccion
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fracción (es) de la normatividad infringida
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fraccion
+      table: normatividad_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_no_graves
+    field: fk_no_graves
+    type: integer
+    meta:
+      collection: normatividad_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: fk_no_graves
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fk_no_graves
+      table: normatividad_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: falta_cometida_no_graves
+      foreign_key_column: id
+  - collection: normatividad_no_graves
+    field: nombreNormatividad
+    type: string
+    meta:
+      collection: normatividad_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: nombreNormatividad
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: >-
+        Escribir el nombre de la normatividad infringida, sin abreviaturas, sin
+        acentos, ni signos especiales
+      options:
+        allowOther: true
+        choices:
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Guerrero
+            value: LRAEGR
+          - text: Ley de Archivos del Estado de Jalisco y sus Municipios
+            value: LAEJM
+          - text: >-
+              Ley de Fomento Apícola y Protección de Agentes Polinizadores del
+              Estado de Jalisco
+            value: LFAJ
+          - text: >-
+              Ley de Protección de Datos Personales en Posesión de Sujetos
+              Obligados del Estado de Jalisco y sus Municipios
+            value: LPDPJ
+          - text: Ley de Responsabilidades Administrativas del Estado de Yucatán
+            value: LRAEY
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Guanajuato
+            value: LRAEG
+          - text: Ley de Responsabilidades Administrativas de la Ciudad de México
+            value: LRACDMX
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de
+              Aguascalientes
+            value: LRAEA
+          - text: Ley de Responsabilidades Administrativas del Estado de Hidalgo
+            value: LRAEH
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado y Municipios
+              de Baja California Sur
+            value: LRAEMMBCS
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Baja
+              California
+            value: LRAEBC
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de México y
+              Municipios
+            value: LRAEMM
+          - text: Ley de Responsabilidades Administrativas del Estado de Nayarit
+            value: LRAEN
+          - text: Ley de Responsabilidades Administrativas del Estado de Nuevo León
+            value: LRAENL
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado y Municipios
+              de Oaxaca
+            value: LRAEMMOAX
+          - text: Ley de Responsabilidades Administrativas del Estado de Querétaro
+            value: LRAEQ
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Quintana
+              Roo
+            value: LRAEQR
+          - text: Ley de Responsabilidades Administrativas del Estado de Sinaloa
+            value: LRAES
+          - text: Ley de Responsabilidades Administrativas del Estado de Tamaulipas
+            value: LRAET
+          - text: Ley de Responsabilidades Administrativas para el Estado de Chiapas
+            value: LRAECH
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Michoacán de Ocampo
+            value: LRAEMICH
+          - text: Ley de Responsabilidades Administrativas para el Estado de Morelos
+            value: LRAEMOR
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado y
+              Municipios de San Luis Potosí
+            value: LRAESLP
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Veracruz de Ignacio de la Llave
+            value: LRAVER
+          - text: >-
+              Ley de Responsabilidades Políticas y Administrativas del Estado de
+              Jalisco
+            value: LRPAEJ
+          - text: >-
+              Ley de Transparencia y Acceso a la Información Pública del Estado
+              de Jalisco y sus Municipios
+            value: LTAIPJM
+          - text: >-
+              Ley del Gobierno y la Administración Pública Municipal del Estado
+              de Jalisco
+            value: LGAPM
+          - text: Ley del Notariado del Estado de Jalisco
+            value: LNJ
+          - text: >-
+              Ley del Presupuesto, Contabilidad y Gasto Público del Estado de
+              Jalisco
+            value: LPCGPJ
+          - text: Ley Estatal de Responsabilidades del Estado de Sonora
+            value: LERSON
+          - text: >-
+              Ley Estatal para Promover la Igualdad, Prevenir y Eliminar la
+              Discriminación en el Estado de Jalisco
+            value: LEIPEDJ
+          - text: Ley General de Responsabilidades Administrativas
+            value: LGRA
+        placeholder: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Normatividad infringida
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nombreNormatividad
+      table: normatividad_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_particulares
+    field: id
+    type: integer
+    meta:
+      collection: normatividad_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: normatividad_particulares
+      data_type: integer
+      default_value: nextval('normatividad_particulares_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_particulares
+    field: nombreNormatividad
+    type: string
+    meta:
+      collection: normatividad_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: nombreNormatividad
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: >-
+        Escribir el nombre de la normatividad infringida, sin abreviaturas, sin
+        acentos, ni signos especiales
+      options:
+        allowOther: true
+        choices:
+          - text: Ley de Responsabilidades Administrativas de la Ciudad de México
+            value: LRACDMX
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de
+              Aguascalientes
+            value: LRAAGS
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Baja
+              California
+            value: LRABC
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Baja
+              California Sur
+            value: LRABCS
+          - text: Ley de Responsabilidades Administrativas del Estado de Chiapas
+            value: LRACHP
+          - text: Ley de Responsabilidades Administrativas del Estado de Hidalgo
+            value: LRAHGO
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de México y
+              Municipios
+            value: LRAEMM
+          - text: Ley de Responsabilidades Administrativas del Estado de Morelos
+            value: LRAEMOR
+          - text: Ley de Responsabilidades Administrativas del Estado de Nayarit
+            value: LRANAY
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado y Municipios
+              de Oaxaca
+            value: LRAEMMOAX
+          - text: Ley de Responsabilidades Administrativas del Estado de Querétaro
+            value: LRAQRO
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Quintana
+              Roo
+            value: LRAQR
+          - text: Ley de Responsabilidades Administrativas del Estado de Sinaloa
+            value: LRASIN
+          - text: Ley de Responsabilidades Administrativas del Estado de Sonora
+            value: LRASON
+          - text: Ley de Responsabilidades Administrativas del Estado de Tamaulipas
+            value: LRATAM
+          - text: Ley de Responsabilidades Administrativas del Estado de Yucatán
+            value: LRAYUC
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Guanajuato
+            value: LRAGTO
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Michoacán de Ocampo
+            value: LRAMICH
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de Nuevo
+              León
+            value: LRANL
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado y
+              Municipios de San Luis Potosí
+            value: LRASLP
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Veracruz de Ignacio de la Llave
+            value: LRAVER
+          - text: >-
+              Ley de Responsabilidades Políticas y Administrativas del Estado de
+              Jalisco
+            value: LRPAEJ
+          - text: Ley General de Responsabilidades Administrativas
+            value: LGRA
+          - text: >-
+              Ley Número 465 de Responsabilidades Administrativas para el Estado
+              de Guerrero
+            value: LRAEGR465
+        placeholder: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Normatividad infringida
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: nombreNormatividad
+      table: normatividad_particulares
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_particulares
+    field: articulo
+    type: string
+    meta:
+      collection: normatividad_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: articulo
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Artículo (s) de la normatividad infringida
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: articulo
+      table: normatividad_particulares
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_particulares
+    field: fraccion
+    type: string
+    meta:
+      collection: normatividad_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: fraccion
+      group: null
+      hidden: false
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fracción (es) de la normatividad infringida
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fraccion
+      table: normatividad_particulares
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: normatividad_particulares
+    field: fk_particulares
+    type: integer
+    meta:
+      collection: normatividad_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: fk_particulares
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 5
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fk_particulares
+      table: normatividad_particulares
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: falta_cometida_particulares
+      foreign_key_column: id
   - collection: origen_procedimiento
     field: id
     type: integer
@@ -11141,6 +11949,7 @@ fields:
         maxValue: 300
         min: 1
         minValue: 0
+        placeholder: El valor mínimo es 0 (cero)
         stepInterval: 1
       readonly: false
       required: false
@@ -11186,6 +11995,7 @@ fields:
         maxValue: 300
         min: 1
         minValue: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: false
       sort: 4
@@ -11230,6 +12040,7 @@ fields:
         maxValue: 300
         min: 1
         minValue: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: false
       sort: 5
@@ -11374,7 +12185,7 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: Colocar la fecha en la que se emite la resolución sancionatoria
+      note: Colocar la fecha en la que se emite la resolución definitiva
       options: null
       readonly: false
       required: true
@@ -11414,7 +12225,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: Indicar la fecha en que se notifica la resolución
+      note: >-
+        Indicar la fecha en que se notifica la resolución definitiva a la
+        persona servidora pública sancionada
       options: null
       readonly: false
       required: true
@@ -11471,7 +12284,7 @@ fields:
         _and:
           - urlResolucion:
               _regex: >-
-                ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:[0-9]{1,5})?(\/\S*)?$
+                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
       validation_message: Formato URL inválido
       width: full
     schema:
@@ -11502,7 +12315,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: Colocar la fecha en que adquirió firmeza la resolución
+      note: >-
+        Colocar la fecha en que adquirió firmeza la resolución de la persona
+        servidora pública
       options: null
       readonly: false
       required: true
@@ -11542,7 +12357,9 @@ fields:
       group: null
       hidden: false
       interface: datetime
-      note: Indicar la fecha en que se notifica que la resolución ha quedado firme
+      note: >-
+        Indicar la fecha en que se notifica a la persona servidora pública que
+        la resolución ha quedado firme
       options: null
       readonly: false
       required: true
@@ -11600,7 +12417,7 @@ fields:
         _and:
           - urlResolucionFirme:
               _regex: >-
-                ^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(:[0-9]{1,5})?(\/\S*)?$
+                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
       validation_message: Formato de URL inválido
       width: full
     schema:
@@ -11754,10 +12571,10 @@ fields:
       hidden: false
       interface: datetime
       note: >-
-        Anotar la fecha en la que se ejecutó la sanción.  Si al momento de
-        registrar la información la autoridad no cuenta con el dato señalado en
-        el presente numeral, esta podrá registrarse posteriormente mediante una
-        actualización de su registro
+        Anotar la fecha en la que se ejecutó la sanción a la persona servidora
+        pública.  Si al momento de registrar la información la autoridad no
+        cuenta con el dato señalado en el presente numeral, esta podrá
+        registrarse posteriormente mediante una actualización de su registro
       options: null
       readonly: false
       required: false
@@ -11798,8 +12615,8 @@ fields:
       hidden: false
       interface: select-radio
       note: >-
-        Seleccionar la opción correspondiente el orden jurisdiccional de la
-        sanción
+        Seleccionar la opción correspondiente al orden jurisdiccional del Ente
+        público que emitió la resolución: federal o estatal
       options:
         choices:
           - text: Federal
@@ -11817,6 +12634,1114 @@ fields:
     schema:
       name: ordenJurisdiccional
       table: resolucion
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: id
+    type: integer
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: resolucion_fisica
+      data_type: integer
+      default_value: nextval('resolucion_fisica_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: tituloResolucion
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: tituloResolucion
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Escribir el nombre del documento que resuelve el procedimiento de
+        responsabilidad administrativa y que ha quedado firme, sin abreviaturas,
+        sin acentos ni signos especiales
+      options: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Título del documento
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: tituloResolucion
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: fechaResolucion
+    type: date
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaResolucion
+      group: null
+      hidden: false
+      interface: datetime
+      note: Colocar la fecha en la que se emite la resolución sancionatoria
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de la resolución (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaResolucion
+      table: resolucion_fisica
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: fechaNotificacion
+    type: date
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaNotificacion
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Indicar la fecha en que se notifica la resolución a la persona física
+        sancionada
+      options: null
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de notificación (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaNotificacion
+      table: resolucion_fisica
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: urlResolucion
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: urlResolucion
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Colocar el enlace de la versión pública de la resolución emitida por la
+        autoridad a la que corresponde la sanción
+      options: null
+      readonly: false
+      required: true
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: >-
+            URL de la versión pública de la resolución de sanción en formato
+            digital
+      validation:
+        _and:
+          - urlResolucion:
+              _regex: >-
+                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+      validation_message: Formato URL inválido
+      width: full
+    schema:
+      name: urlResolucion
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: fechaResolucionFirme
+    type: date
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaResolucionFirme
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Colocar la fecha en que adquirió firmeza la resolución de la persona
+        física
+      options: null
+      readonly: false
+      required: true
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha en que adquirió firmeza la resolución (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaResolucionFirme
+      table: resolucion_fisica
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: fechaNotificacionFirme
+    type: date
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaNotificacionFirme
+      group: null
+      hidden: false
+      interface: datetime
+      note: ' Indicar la fecha en que se notifica a la persona física que la resolución ha quedado firme'
+      options: null
+      readonly: false
+      required: true
+      sort: 7
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de notificación de la resolución firme (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaNotificacionFirme
+      table: resolucion_fisica
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: urlResolucionFirme
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: urlResolucionFirme
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Colocar el enlace de la versión pública del acuerdo o determinación que
+        dicte la autoridad competente en la que declara que la resolución
+        definitiva ha quedado firme
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations:
+        - language: es-MX
+          translation: >-
+            URL de la versión pública del acuerdo o determinación que declare
+            firme la resolución en formato digital
+      validation:
+        _and:
+          - urlResolucionFirme:
+              _regex: >-
+                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+      validation_message: Formato de URL inválido
+      width: full
+    schema:
+      name: urlResolucionFirme
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: fechaEjecucion
+    type: date
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaEjecucion
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Anotar la fecha en la que se ejecutó la sanción a la persona física.  Si
+        al momento de registrar la información la autoridad no cuenta con el
+        dato señalado en el presente numeral, esta podrá registrarse
+        posteriormente mediante una actualización de su registro
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de ejecución de la sanción (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fechaEjecucion
+      table: resolucion_fisica
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: ordenJurisdiccional
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: ordenJurisdiccional
+      group: null
+      hidden: false
+      interface: select-radio
+      note: >-
+        Seleccionar la opción correspondiente al orden jurisdiccional del Ente
+        público que emitió la resolución: federal o estatal
+      options:
+        choices:
+          - text: Federal
+            value: FEDERAL
+          - text: Estatal
+            value: ESTATAL
+      readonly: false
+      required: true
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ordenJurisdiccional
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: autoridadResolutora
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadResolutora
+      group: null
+      hidden: false
+      interface: input
+      note: Indicar el nombre de la autoridad facultada para dictar la sanción
+      options: null
+      readonly: false
+      required: true
+      sort: 11
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad resolutora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadResolutora
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: autoridadInvestigadora
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadInvestigadora
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Especificar el nombre de la autoridad encargada de la investigación de
+        la falta administrativa
+      options: null
+      readonly: false
+      required: true
+      sort: 12
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad investigadora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadInvestigadora
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_fisica
+    field: autoridadSusbstanciadora
+    type: string
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadSusbstanciadora
+      group: null
+      hidden: false
+      interface: input
+      note: Señalar el nombre de la autoridad substanciadora del procedimiento
+      options: null
+      readonly: false
+      required: true
+      sort: 13
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad substanciadora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadSusbstanciadora
+      table: resolucion_fisica
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: id
+    type: integer
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: id
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: true
+      required: false
+      sort: 1
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: id
+      table: resolucion_morales
+      data_type: integer
+      default_value: nextval('resolucion_morales_id_seq'::regclass)
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: false
+      is_unique: true
+      is_primary_key: true
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: true
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: tituloResolucion
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: tituloResolucion
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Escribir el nombre del documento que resuelve el procedimiento de
+        responsabilidad administrativa y que ha quedado firme, sin abreviaturas,
+        sin acentos ni signos especiales
+      options: null
+      readonly: false
+      required: true
+      sort: 2
+      special: null
+      translations:
+        - language: es-MX
+          translation: Título del documento
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: tituloResolucion
+      table: resolucion_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: fechaResolucion
+    type: date
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaResolucion
+      group: null
+      hidden: false
+      interface: datetime
+      note: Colocar la fecha en la que se emite la resolución sancionatoria
+      options: null
+      readonly: false
+      required: true
+      sort: 3
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de la resolución (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaResolucion
+      table: resolucion_morales
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: fechaNotificacion
+    type: date
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaNotificacion
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        : Indicar la fecha en que se notifica la resolución a la persona moral
+        sancionada
+      options: null
+      readonly: false
+      required: true
+      sort: 4
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de notificación (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaNotificacion
+      table: resolucion_morales
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: urlResolucion
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: urlResolucion
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Colocar el enlace de la versión pública de la resolución emitida por la
+        autoridad a la que corresponde la sanción
+      options: null
+      readonly: false
+      required: true
+      sort: 5
+      special: null
+      translations:
+        - language: es-MX
+          translation: >-
+            URL de la versión pública de la resolución de sanción en formato
+            digital
+      validation:
+        _and:
+          - urlResolucion:
+              _regex: >-
+                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+      validation_message: Formato URL inválido
+      width: full
+    schema:
+      name: urlResolucion
+      table: resolucion_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: fechaResolucionFirme
+    type: date
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaResolucionFirme
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Colocar la fecha en que adquirió firmeza la resolución de la persona
+        moral 
+      options: null
+      readonly: false
+      required: true
+      sort: 6
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha en que adquirió firmeza la resolución (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaResolucionFirme
+      table: resolucion_morales
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: fechaNotificacionFirme
+    type: date
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaNotificacionFirme
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Indicar la fecha en que se notifica a la persona moral que la resolución
+        ha quedado firme
+      options: null
+      readonly: false
+      required: true
+      sort: 7
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de notificación de la resolución firme (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: half
+    schema:
+      name: fechaNotificacionFirme
+      table: resolucion_morales
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: urlResolucionFirme
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: urlResolucionFirme
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Colocar el enlace de la versión pública del acuerdo o determinación que
+        dicte la autoridad competente en la que declara que la resolución
+        definitiva ha quedado firme
+      options: null
+      readonly: false
+      required: true
+      sort: 8
+      special: null
+      translations:
+        - language: es-MX
+          translation: >-
+            URL de la versión pública del acuerdo o determinación que declare
+            firme la resolución en formato digital
+      validation:
+        _and:
+          - urlResolucionFirme:
+              _regex: >-
+                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+      validation_message: Formato de URL inválido
+      width: full
+    schema:
+      name: urlResolucionFirme
+      table: resolucion_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: fechaEjecucion
+    type: date
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: fechaEjecucion
+      group: null
+      hidden: false
+      interface: datetime
+      note: >-
+        Anotar la fecha en la que se ejecutó la sanción de la persona moral. Si
+        al momento de registrar la información la autoridad no cuenta con el
+        dato señalado en el presente numeral, esta podrá registrarse
+        posteriormente mediante una actualización de su registro
+      options: null
+      readonly: false
+      required: false
+      sort: 9
+      special: null
+      translations:
+        - language: es-MX
+          translation: Fecha de ejecución de la sanción (DD-MM-AAAA)
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: fechaEjecucion
+      table: resolucion_morales
+      data_type: date
+      default_value: null
+      max_length: null
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: ordenJurisdiccional
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: ordenJurisdiccional
+      group: null
+      hidden: false
+      interface: select-radio
+      note: >-
+        Seleccionar la opción correspondiente al orden jurisdiccional del Ente
+        público que emitió la resolución: federal o estatal
+      options:
+        choices:
+          - text: Federal
+            value: FEDERAL
+          - text: Estatal
+            value: ESTATAL
+      readonly: false
+      required: true
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: ordenJurisdiccional
+      table: resolucion_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: autoridadResolutora
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadResolutora
+      group: null
+      hidden: false
+      interface: input
+      note: Indicar el nombre de la autoridad facultada para dictar la sanción
+      options: null
+      readonly: false
+      required: true
+      sort: 11
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad resolutora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadResolutora
+      table: resolucion_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: autoridadInvestigadora
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadInvestigadora
+      group: null
+      hidden: false
+      interface: input
+      note: >-
+        Especificar el nombre de la autoridad encargada de la investigación de
+        la falta administrativa
+      options: null
+      readonly: false
+      required: true
+      sort: 12
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad investigadora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadInvestigadora
+      table: resolucion_morales
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: resolucion_morales
+    field: autoridadSusbstanciadora
+    type: string
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: autoridadSusbstanciadora
+      group: null
+      hidden: false
+      interface: input
+      note: Señalar el nombre de la autoridad substanciadora del procedimiento
+      options: null
+      readonly: false
+      required: true
+      sort: 13
+      special: null
+      translations:
+        - language: es-MX
+          translation: Autoridad substanciadora
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: autoridadSusbstanciadora
+      table: resolucion_morales
       data_type: character varying
       default_value: null
       max_length: 255
@@ -12090,11 +14015,10 @@ fields:
       hidden: false
       interface: datetime
       note: >-
-        "Anotar la fecha en la que se ejecutó la sanción a la persona física
-        pública en formato DD-MM-AAAA.  Si al momento de registrar la
-        información la autoridad no cuenta con el dato señalado en el presente
-        numeral, esta podrá registrarse posteriormente mediante una
-        actualización de su registro
+        Anotar la fecha en la que se ejecutó la sanción a la persona servidora
+        pública.  Si al momento de registrar la información la autoridad no
+        cuenta con el dato señalado en el presente numeral, esta podrá
+        registrarse posteriormente mediante una actualización de su registro
       options: null
       readonly: false
       required: false
@@ -12176,7 +14100,7 @@ fields:
       interface: input
       note: >-
         Especificar el nombre de la autoridad encargada de la investigación de
-        la falta administrativa
+        la falta administrativa no grave
       options: null
       readonly: false
       required: true
@@ -12386,7 +14310,7 @@ fields:
         día (s)
       options:
         enableSelect: false
-        template: '{{anios}}{{meses}}'
+        template: '{{anios}} año (s), {{meses}} mes (es), {{dias}} día (s)'
       readonly: false
       required: false
       sort: 4
@@ -12429,7 +14353,7 @@ fields:
       note: 'Indicar el monto efectivamente cobrado: monto y moneda'
       options:
         enableSelect: false
-        template: '{{monto}}{{moneda}}'
+        template: '{{monto}} {{moneda}}'
       readonly: false
       required: false
       sort: 5
@@ -12510,6 +14434,7 @@ fields:
       note: null
       options:
         min: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 3
@@ -12551,6 +14476,7 @@ fields:
       note: null
       options:
         min: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 4
@@ -12592,6 +14518,7 @@ fields:
       note: null
       options:
         min: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 5
@@ -12778,6 +14705,7 @@ fields:
       note: null
       options:
         min: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 3
@@ -12819,6 +14747,7 @@ fields:
       note: null
       options:
         min: 0
+        placeholder: El valor mínimo es 0 (cero)
       readonly: false
       required: true
       sort: 4
@@ -13882,7 +15811,7 @@ fields:
         inhabilitación
       options:
         enableSelect: false
-        template: '{{fechaInicial}}'
+        template: '{{fechaInicial}} - {{fechaFinal}}'
       readonly: false
       required: false
       sort: 4
@@ -13939,7 +15868,7 @@ fields:
         indemnización
       options:
         enableSelect: false
-        template: '{{monto}}'
+        template: '{{monto}} {{moneda}}'
       readonly: false
       required: false
       sort: 5
@@ -14032,7 +15961,7 @@ fields:
         una sanción económica
       options:
         enableSelect: false
-        template: '{{monto}}'
+        template: '{{monto}} {{moneda}}'
       readonly: false
       required: false
       sort: 6
@@ -14225,7 +16154,7 @@ fields:
           options:
             enableCreate: true
             enableSelect: false
-            template: '{{plazoAnios}}{{plazoMeses}}'
+            template: "{{fechaInicial}}\_-\_{{fechaFinal}}"
       display: null
       display_options: null
       field: inhabilitacion
@@ -14237,7 +16166,7 @@ fields:
         inhabilitación
       options:
         enableSelect: false
-        template: '{{plazoAnios}}{{plazoMeses}}'
+        template: '{{fechaInicial}} {{fechaFinal}}'
       readonly: false
       required: false
       sort: 3
@@ -14283,7 +16212,7 @@ fields:
           options:
             enableCreate: true
             enableSelect: false
-            template: '{{monto}}'
+            template: '{{monto}} {{moneda}}'
       display: null
       display_options: null
       field: indemnizacion
@@ -14337,7 +16266,7 @@ fields:
           options:
             enableCreate: true
             enableSelect: false
-            template: '{{plazoSuspensioAnios}}{{plazoSuspensionMeses}}'
+            template: '{{fechaInicial}} - {{fechaFinal}}'
       display: null
       display_options: null
       field: suspensionActividades
@@ -14497,7 +16426,8 @@ fields:
         Llenar este apartado en caso de que la persona moral sea acreedora a
         otro tipo de sanción prevista en las leyes locales anticorrupción de las
         entidades federativas
-      options: null
+      options:
+        template: '{{denominacionSancion}}'
       readonly: false
       required: false
       sort: 8
@@ -14540,7 +16470,7 @@ fields:
           options:
             enableCreate: true
             enableSelect: false
-            template: '{{monto}}{{moneda}}'
+            template: '{{monto}} {{moneda}}'
       display: null
       display_options: null
       field: sancionEconomica
@@ -15338,27 +17268,6 @@ relations:
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_graves_personas_fisicas
-    field: resolucion
-    related_collection: resolucion
-    meta:
-      junction_field: null
-      many_collection: faltas_graves_personas_fisicas
-      many_field: resolucion
-      one_allowed_collections: null
-      one_collection: resolucion
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_graves_personas_fisicas
-      column: resolucion
-      foreign_key_table: resolucion
-      foreign_key_column: id
-      constraint_name: faltas_graves_personas_fisicas_resolucion_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: faltas_graves_personas_fisicas
     field: origenProcedimiento
     related_collection: origen_procedimiento
     meta:
@@ -15398,6 +17307,27 @@ relations:
       foreign_key_table: ente_publico
       foreign_key_column: id
       constraint_name: faltas_graves_personas_fisicas_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: faltas_graves_personas_fisicas
+    field: resolucion
+    related_collection: resolucion_fisica
+    meta:
+      junction_field: null
+      many_collection: faltas_graves_personas_fisicas
+      many_field: resolucion
+      one_allowed_collections: null
+      one_collection: resolucion_fisica
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_graves_personas_fisicas
+      column: resolucion
+      foreign_key_table: resolucion_fisica
+      foreign_key_column: id
+      constraint_name: faltas_graves_personas_fisicas_resolucion_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_graves_personas_morales
@@ -15506,27 +17436,6 @@ relations:
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_graves_personas_morales
-    field: resolucion
-    related_collection: resolucion
-    meta:
-      junction_field: null
-      many_collection: faltas_graves_personas_morales
-      many_field: resolucion
-      one_allowed_collections: null
-      one_collection: resolucion
-      one_collection_field: null
-      one_deselect_action: nullify
-      one_field: null
-      sort_field: null
-    schema:
-      table: faltas_graves_personas_morales
-      column: resolucion
-      foreign_key_table: resolucion
-      foreign_key_column: id
-      constraint_name: faltas_graves_personas_morales_resolucion_foreign
-      on_update: NO ACTION
-      on_delete: SET NULL
-  - collection: faltas_graves_personas_morales
     field: origenProcedimiento
     related_collection: origen_procedimiento
     meta:
@@ -15566,6 +17475,27 @@ relations:
       foreign_key_table: ente_publico
       foreign_key_column: id
       constraint_name: faltas_graves_personas_morales_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: faltas_graves_personas_morales
+    field: resolucion
+    related_collection: resolucion_morales
+    meta:
+      junction_field: null
+      many_collection: faltas_graves_personas_morales
+      many_field: resolucion
+      one_allowed_collections: null
+      one_collection: resolucion_morales
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: faltas_graves_personas_morales
+      column: resolucion
+      foreign_key_table: resolucion_morales
+      foreign_key_column: id
+      constraint_name: faltas_graves_personas_morales_resolucion_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: indemnizacion
@@ -15608,6 +17538,69 @@ relations:
       foreign_key_table: efectivamente_cobrado_indemnizacion
       foreign_key_column: id
       constraint_name: indemnizacion_efectivamentecobrado_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: normatividad_graves
+    field: fk_graves
+    related_collection: falta_cometida_graves
+    meta:
+      junction_field: null
+      many_collection: normatividad_graves
+      many_field: fk_graves
+      one_allowed_collections: null
+      one_collection: falta_cometida_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: normatividadInfringida
+      sort_field: null
+    schema:
+      table: normatividad_graves
+      column: fk_graves
+      foreign_key_table: falta_cometida_graves
+      foreign_key_column: id
+      constraint_name: normatividad_graves_fk_graves_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: normatividad_no_graves
+    field: fk_no_graves
+    related_collection: falta_cometida_no_graves
+    meta:
+      junction_field: null
+      many_collection: normatividad_no_graves
+      many_field: fk_no_graves
+      one_allowed_collections: null
+      one_collection: falta_cometida_no_graves
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: normatividadInfringida
+      sort_field: null
+    schema:
+      table: normatividad_no_graves
+      column: fk_no_graves
+      foreign_key_table: falta_cometida_no_graves
+      foreign_key_column: id
+      constraint_name: normatividad_no_graves_fk_no_graves_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: normatividad_particulares
+    field: fk_particulares
+    related_collection: falta_cometida_particulares
+    meta:
+      junction_field: null
+      many_collection: normatividad_particulares
+      many_field: fk_particulares
+      one_allowed_collections: null
+      one_collection: falta_cometida_particulares
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: normatividadInfringida
+      sort_field: null
+    schema:
+      table: normatividad_particulares
+      column: fk_particulares
+      foreign_key_table: falta_cometida_particulares
+      foreign_key_column: id
+      constraint_name: normatividad_particulares_fk_particulares_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: sancion_economica
