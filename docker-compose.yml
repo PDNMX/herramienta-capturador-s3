@@ -5,6 +5,7 @@ services:
     build: 
       context: ./
     volumes:
+      - ./extensions:/directus/extensions
       - ./migrations:/directus/migrations
       - ./templates:/directus/templates
     command: >
@@ -17,8 +18,6 @@ services:
     depends_on:
       - db
     environment:
-      KEY: ${DIRECTUS_KEY}
-      SECRET: ${DIRECTUS_SECRET}
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
       PUBLIC_URL: ${PUBLIC_URL}
