@@ -6761,8 +6761,134 @@ fields:
       options:
         allowOther: true
         choices:
-          - text: Opcion 1
-            value: OPCION1
+          - text: "Cerciorarse, antes de la celebración de contratos de adquisiciones, arrendamientos o para la enajenación de todo tipo de bienes, prestación de servicios de cualquier naturaleza o la contratación de obra pública o servicios relacionados con ésta, que el particular manifieste bajo protesta de decir verdad que no desempeña empleo, cargo o comisión en el servicio público o, en su caso, que a pesar de desempeñarlo, con la formalización del contrato correspondiente no se actualiza un Conflicto de Interés. Las manifestaciones respectivas deberán constar por escrito y hacerse del conocimiento del Órgano interno de control, previo a la celebración del acto en cuestión.\_"
+            value: CECIORARSE_ANTES_CELEBRACION_CONTRATOS
+          - text: "Previo a realizar cualquier acto jurídico que involucre el ejercicio de recursos públicos con personas jurídicas, revisar su constitución y, en su caso, sus modificaciones con el fin de verificar que sus socios, integrantes de los consejos de administración o accionistas que ejerzan control no incurran en conflicto de interés\_"
+            value: REVISION_CONSTITUCION_PERSONAS_JURIDICAS
+          - text: "Someterse los servidores públicos al examen toxicológico para la detección del uso de estupefacientes, psicotrópicos, inhalantes o fármacos que puedan causar alteraciones mentales o dependencia\_"
+            value: SOMETIMIENTO_EXAMEN_TOXICOLOGICO
+          - text: "Cumplir con las recomendaciones vinculatorias emitidas por el Comité Coordinador del Sistema Estatal Anticorrupción\_"
+            value: CUMPLIR_RECOMENDACIONES_COMITE_ANTICORRUPCION
+          - text: "En el ejercicio de sus funciones, conducirse con respeto, libre de cualquier conducta\_ discriminatoria u otra conexa de intolerancia, que tenga por objeto o resultado la negación, exclusión, distinción, menoscabo, impedimento o restricción de los derechos de las personas, grupos o comunidades\_"
+            value: CONDUCCION_RESPETO_SIN_DISCRIMINACION
+          - text: "Atender en tiempo y forma las solicitudes de documentación, información o implementación de medidas cautelares solicitadas por las Comisiones de Derechos\_ Humanos\_"
+            value: ATIENDE_SOLICITUDES_DERECHOS_HUMANOS
+          - text: "Atender en tiempo y en forma las solicitudes de colaboración, información o documentación formuladas por autoridades judiciales o administrativas, siempre y cuando ello sea en el legítimo ejercicio de sus atribuciones y no exista impedimento legal para ello, lo cual deberá justificarse fundada y motivadamente.\_"
+            value: ATIENDE_SOLICITUDES_AUTORIDADES_JUDICIALES
+          - text: "Atender en tiempo y en forma las solicitudes de colaboración, información o\_ documentación formuladas por los Órganos internos de control o el Tribunal con motivo de procedimientos de investigación de quejas o denuncias o procedimientos administrativos\_ disciplinarios.\_"
+            value: ATIENDE_SOLICITUDES_CONTROL_TRIBUNAL
+          - text: "Ejecutar las sanciones de amonestación o suspensión temporal del empleo de servidores públicos sancionados por el órgano Interno de Control o bien por el Tribunal, que hayan causado estado. También será sancionable ejecutar la suspensión temporal del empleo a que se refiere este precepto cuando esta se haya impuesto como medida cautelar\_"
+            value: EJECUTAR_SANCIONES_CONTROL_TRIBUNAL
+          - text: "Verificar ante la autoridad competente que entre la fecha de emisión de una constancia de no inhabilitación y la fecha de contratación de una persona servidora pública su situación jurídica de no inhabilitado haya sido modificada, siempre y cuando hayan transcurrido más de diez días hábiles entre la fecha de la emisión y la fecha de contratación\_"
+            value: VERIFICAR_CONSTANCIA_NO_INHABILITADO
+          - text: "Solicitar, bajo la ostentación del puesto, cargo o comisión que desempeña, un trato\_ preferencial o cualquier especie de privilegio o beneficio indebido o al que no tenga derecho, ya sea en el ámbito privado o público\_"
+            value: NO_SOLICITAR_TRATO_PRIVILEGIADO
+          - text: "Abstenerse de cualquier acto u omisión que implique incumplimiento de cualquier\_ disposición jurídica relacionada con el servicio o función pública, cuya descripción típica no\_ esté previstas en cualquiera de las fracciones anteriores o constituya una falta administrativa\_ grave\_"
+            value: ABSTENERSE_INFRACCIONES_NO_GRAVES
+          - text: "Realizar la entrega o recepción de los recursos materiales, financieros y humanos que le fueron asignados para el desempeño de sus funciones, en los términos que establezca\_ la normatividad aplicable.\_"
+            value: ENTREGA_RECEPCION_RECURSOS_FUNCIONES
+          - text: "Cumplir con lo establecido en el artículo 7 de la presente ley, con excepción de los considerados como Faltas Graves, las cuales se estarán conforme a lo dispuesto en el\_ capítulo relativo a éstas.\_"
+            value: CUMPLIR_ARTICULO7_EXCEPTO_GRAVES
+          - text: "Cumplir con la máxima diligencia el servicio que le sea encomendado, y abstenerse de cualquier acto u\_omisión que cause la suspensión o deficiencia de dicho servicio o implique abuso o ejercicio indebido de su\_empleo, cargo o comisión\_"
+            value: SERVICIO_DILIGENTE_SIN_ABUSO
+          - text: "Observar buena conducta, tratando con respeto, diligencia, imparcialidad y rectitud a las personas con que\_tenga relación, con motivo de sus funciones\_"
+            value: OBTENER_BUENA_CONDUCTA_FUNCIONES
+          - text: "Observar en la dirección de sus inferiores jerárquicos las debidas reglas del trato, y abstenerse de\_incurrir en agravio, desviación o abuso\_"
+            value: TRATO_RESPETO_INFERIORES_JERARQUICOS
+          - text: "Observar respeto y subordinación con sus superiores jerárquicos, cumpliendo las disposiciones que éstos\_\_dicten, en el ejercicio de sus atribuciones\_"
+            value: OBEDIENCIA_SUPERIORES_JERARQUICOS
+          - text: "Informar por escrito a su superior jerárquico inmediato cuando tenga conocimiento de que en el ente público\_en que labora, existe un conflicto de interés;\_"
+            value: INFORMAR_CONFLICTO_INTERES_SUPERIOR
+          - text: "Abstenerse, el superior jerárquico, de disponer o autorizar a un servidor público a no asistir, sin causa justificada, a sus labores más de quince días continuos o treinta discontinuos, en un año, así como otorgar\_ licencias, permisos o comisiones con goce parcial o total de sueldos y otras percepciones, cuando las\_ necesidades del servicio público no lo exijan\_"
+            value: NO_AUTORIZAR_AUSENCIA_INJUSTIFICADA
+          - text: "Abstenerse de desempeñar otro empleo, cargo o comisión oficial, o particular, que la ley le prohíba\_"
+            value: NO_DESEMPEÑAR_OTRO_EMPLEO_PROHIBIDO
+          - text: "Abstenerse de cualquier acto u omisión que implique incumplimiento de las disposiciones jurídicas\_relacionadas con el servicio público\_"
+            value: CUMPLIR_DISPOSICIONES_SERVICIO_PUBLICO
+          - text: "Denunciar por escrito, ante el superior jerárquico o el órgano interno de control, los actos y 16 comisiones que en ejercicio de sus funciones llegue a advertir respecto de cualquier servidor público, que pueda ser causa de responsabilidad administrativa en los términos de ley\_"
+            value: DENUNCIAR_ACTOS_IRREGULARES_SUPERIOR
+          - text: "Entregar formalmente a quien le sustituya en el cargo, o a la persona que para tal efecto designe el superior\_jerárquico, los recursos patrimoniales que haya tenido a su disposición, así como los documentos y una relación\_de los asuntos relacionados con sus funciones.\_\_"
+            value: ENTREGA_FORMAL_RECURSOS_AL_SUSTITUTO
+          - text: "Recibir, al entrar en posesión del cargo, los recursos y documentos, verificar que correspondan al contenido del acta circunstanciada, verificar los inventarios, informes y demás documentación anexa. Debe solicitar las aclaraciones pertinentes dentro del término de cinco días hábiles contados a partir del acto de entrega - recepción\_"
+            value: RECIBIR_ACTA_ENTREGA_RECEPCION
+          - text: "Respetar el derecho de petición de los particulares en los términos del artículo 8 de la Constitución Política\_de los Estados Unidos Mexicanos\_"
+            value: RESPETO_DERECHO_PETICION_CONSTITUCION
+          - text: "Abstenerse de imponer condiciones, prestaciones u obligaciones que no estén previstas en las leyes, reglamentos o presupuestos respectivos\_"
+            value: NO_IMPONER_CONDICIONES_INJUSTIFICADAS
+          - text: "Abstenerse de realizar las gestiones necesarias para que el vehículo oficial que tenga asignado o bajo su\_ resguardo cumpla con la verificación vehicular\_"
+            value: VERIFICACION_VEHICULO_OFICIAL
+          - text: "Abstenerse de utilizar los vehículos propiedad del ente público o que tengan en posesión bajo cualquier\_ título, fuera del horario de trabajo del servidor público o en actividades distintas a las que requiere la naturaleza del empleo, cargo o comisión respectivos\_"
+            value: USO_CORRECTO_VEHICULO_ENTE_PUBLICO
+          - text: "Atender la colaboración, requerimientos y apercibimientos fundados y motivados que les hagan las dependencias estatales, federales, municipales y organismos públicos descentralizados\_"
+            value: ATIENDE_REQUERIMIENTOS_ENTIDADES
+          - text: "Respetar y hacer respetar el derecho a la formulación de quejas y denuncias o evitar que por sí o por\_ interpósita persona, utilizando cualquier medio, inhiba al quejoso para la no presentación de quejas y denuncias, o que, con motivo de ello realice cualquier conducta injusta u omita una justa y debida conducta que\_ lesione los intereses legítimos de quienes las presenten\_"
+            value: RESPETA_QUEJAS_Y_DENUNCIAS
+          - text: "Responder las recomendaciones que les presente la Comisión Estatal de Derechos Humanos. Cuando\_ las recomendaciones emitidas no sean aceptadas o cumplidas por las autoridades o servidores públicos, éstos\_ deberán fundar, motivar y hacer pública su negativa\_"
+            value: RESPONDER_RECOMENDACIONES_DERECHOS_HUMANOS
+          - text: "Observar, respetar y aplicar las reglas para el ahorro, gasto eficiente, racional y honesto de los recursos\_ públicos, señalados en la Ley de Austeridad y Ahorro del Estado de Jalisco\_"
+            value: AHORRO_EFICIENTE_RECURSOS_PUBLICOS
+          - text: "Observar el código de ética que emitan los respectivos órganos internos de control\_"
+            value: CUMPLIR_CODIGO_ETICA_CONTROL_INTERNO
+          - text: "Cometer actos u omisiones en el ejercicio de su encargo, considerados como tipos o modalidades de\_ violencia en razón de género, previstas en las leyes aplicables\_"
+            value: NO_COMETE_VIOLENCIA_GENERO
+          - text: "Realizar, tolerar o permitir actos de acoso u hostigamiento laboral, independientemente del nivel jerárquico\_en que se encuentre la persona responsable, como quien lo resienta\_"
+            value: NO_ACOSO_HOSTIGAMIENTO_LABORAL
+          - text: "Actuar y ejecutar legalmente con la máxima diligencia, los planes, programas, presupuestos y\_ demás normas a fin de alcanzar las metas institucionales según sus responsabilidades, conforme a\_ una cultura de servicio orientada al logro de resultados\_"
+            value: CUMPLIR_PLANES_Y_OBJETIVOS
+          - text: "Registrar, integrar, custodiar y cuidar la documentación e información que por razón de su empleo,\_ cargo o comisión, conserve bajo su cuidado y responsabilidad o a la cual tenga acceso, impidiendo o\_ evitando el uso, divulgación, sustracción, destrucción, ocultamiento o inutilización indebidas de aquéllas\_"
+            value: CUSTODIA_DOCUMENTACION_FUNCION_PUBLICA
+          - text: "Observar buena conducta en su empleo, cargo o comisión tratando con respeto, diligencia,\_ imparcialidad y rectitud a las personas y servidores públicos con los que tenga relación con motivo de éste.\_"
+            value: BUENA_CONDUCTA_CON_RESPETO
+          - text: "Observar un trato respetuoso con sus subalternos\_"
+            value: RESPETO_SUBALTERNOS
+          - text: "Cumplir con la entrega de índole administrativo del despacho y de toda aquella documentación\_ inherente a su cargo, en los términos que establezcan las disposiciones legales o administrativas que al\_ efecto se señalen\_"
+            value: ENTREGA_DOCUMENTOS_ADMINISTRATIVOS
+          - text: "Proporcionar, en su caso, en tiempo y forma ante las dependencias competentes, la documentación comprobatoria de la aplicación de recursos económicos federales, estatales o\_ municipales, asignados a través de los programas respectivos.\_"
+            value: PROPORCIONAR_DOCUMENTOS_RECURSOS_APLICADOS
+          - text: "Abstenerse de solicitar requisitos, cargas tributarias o cualquier otro concepto adicional no\_ previsto en la legislación aplicable, que tengan por objeto condicionar la expedición de licencias de\_ funcionamiento para unidades económicas o negocios.\_"
+            value: NO_SOLICITAR_CONDICIONES_ADICIONALES
+          - text: "Cumplir con las disposiciones en materia de Gobierno Digital que impongan la Ley de la materia, su reglamento y demás disposiciones aplicables\_"
+            value: CUMPLIR_DISPOSICIONES_GOBIERNO_DIGITAL
+          - text: "Utilizar las medidas de seguridad informática y protección de datos e información personal\_ recomendada por las instancias competentes\_"
+            value: MEDIDAS_SEGURIDAD_INFORMATICA
+          - text: "Cumplir oportunamente con los laudos que dicte el Tribunal Estatal de Conciliación y Arbitraje\_ o cualquier de las Salas Auxiliares del mismo, así como pagar el monto de las indemnizaciones y demás prestaciones a que tenga derecho el servidor público\_"
+            value: CUMPLIR_LAUDOS_Y_PAGOS_TRIBUNAL
+          - text: "No entregue uno de los informes trimestrales relativos a la Cuenta Pública\_"
+            value: ENTREGA_INFORMES_TRIMESTRALES
+          - text: "Abstenerse de realizar propaganda gubernamental con recursos públicos\_ que incluya nombres, imágenes, voces o símbolos que impliquen promoción\_ personalizada de cualquier servidor público o a través de terceros\_"
+            value: NO_PROPAGANDA_PERSONALIZADA
+          - text: "Abstenerse de autorizar a sus subordinados licencias, permisos,\_ suspensiones o faltas a las labores cuando no tenga facultad para ello o sin\_ justificación\_"
+            value: NO_AUTORIZAR_AUSENCIAS_INJUSTIFICADAS
+          - text: "Abstenerse de desempeñar algún otro empleo, cargo o comisión oficial o\_ particular que la Ley prohíba\_"
+            value: NO_APROBAR_SUELDO_SUPERIOR
+          - text: "Atender con diligencia las instrucciones, requerimientos o resoluciones que\_ reciba de otras autoridades o de los titulares de las áreas de auditoría\_"
+            value: GARANTIZAR_FUNCIONES_SERVIDOR_PUBLICO
+          - text: "Abstenerse de aprobar, para sí o para algún servidor público el salario o\_ sueldo cuyo monto resulte mayor o igual al sueldo o salario asignado al superior\_ jerárquico de dicho servidor público, excepto en los siguientes casos: cuando el\_ importe sea producto del cumplimiento de las condiciones generales del trabajo\_ que se pacten; o cuando derive de un trabajo técnico calificado o especializado\_ de la función en encomendada\_"
+            value: INTEGRAR_COMISIONES_Y_ASISTIR
+          - text: "Garantizar el acceso de un servidor público por elección o designación al\_ ejercicio de su función o a la realización de programas, proyectos o actividades\_ inherentes a la misma\_"
+            value: NO_IMPONER_ESTEREOTIPOS_GENERO
+          - text: "Garantizar que un servidor público por elección o designación integre\_ comisiones, comités y otras instancias inherentes a su cargo o asista a las\_ sesiones, o reuniones de los mismos\_"
+            value: GARANTIZAR_RETRIBUCIONES_FUNCIONARIOS
+          - text: "Abstenerse de imponer estereotipos de género en la realización de\_ actividades y tareas ajenas a las funciones y atribuciones de su cargo, así como\_ la asignación de responsabilidades que tengan como propósito la limitación del\_ ejercicio de sus funciones,\_"
+            value: CUSTODIA_DOCUMENTOS_FUNCION_PUBLICA
+          - text: "Garantizar las retribuciones, emolumentos o prerrogativas a que tienen\_ derecho los funcionarios públicos en el ejercicio de un cargo de elección\_ popular\_"
+            value: CUMPLIR_PARIDAD_GENERO_NOMBRAMIENTOS
+          - text: "Registrar, integrar, custodiar y cuidar valores, documentación e información que por razón de su empleo, cargo, comisión o función, tenga bajo su responsabilidad, e impedir o evitar su uso, divulgación, sustracción, destrucción, ocultamiento o inutilización indebidos\_"
+            value: CONDUCE_RESPETO_SIN_DISCRIMINACION
+          - text: "Cuando esté dentro de sus facultades, cumplir con el principio de paridad de\_ género en la realización de nombramientos de la estructura de mando dentro del\_ servicio público de la entidad estatal o municipal de que se trate, así como al\_ cubrirse alguna de sus vacantes\_"
+            value: NO_DIFUNDIR_EXPRESIONES_ODIO
+          - text: "En el ejercicio de sus funciones, conducirse con respeto, libre de cualquier\_ conducta discriminatoria u otra conexa de intolerancia, que tenga por objeto o\_ resultado la negación, exclusión, distinción, menoscabo, impedimento o restricción\_ de los derechos de las personas, grupos o comunidades\_"
+            value: CUMPLIR_LEY_VIOLENCIA_MUJERES
+          - text: "Evitar provocar o incitar, apoyar a difundir acciones o expresiones\_ verbales o escritas de cualquier tipo, tendientes a denostar la dignidad de las\_ personas basadas o motivadas en odio\_"
+            value: OPINION_SIN_PREJUZGAR
+          - text: "Cumplir con las disposiciones contenidas en la Ley de Acceso de las Mujeres a\_ una Vida libre de Violencia para el Estado de Sinaloa\_"
+            value: OMITIR_IMPULSO_PROCESAL
+          - text: "Emitir opinión pública sin prejuzgar sobre un asunto de su conocimiento\_"
+            value: CUMPLIR_FUNCIONES_ASIGNADAS
+          - text: "Omitir el impulso procesal que oficiosamente corresponda, tratándose de juicios o\_ procedimientos de carácter administrativo, cuyo incumplimiento derive en la caducidad de los mismos\_"
+            value: NO_DEJAR_CADUCAR_PROCEDIMIENTOS
+          - text: "Cumplir con las funciones, atribuciones y comisiones encomendadas\_"
+            value: CUMPLIR_COMISIONES_ENCOMENDADAS
       readonly: false
       required: false
       sort: 4
@@ -6914,7 +7040,7 @@ fields:
         limit: -1
         template: '{{nombreNormatividad}}'
       readonly: false
-      required: false
+      required: true
       sort: 5
       special:
         - o2m
@@ -7214,7 +7340,7 @@ fields:
         limit: -1
         template: '{{nombreNormatividad}}'
       readonly: false
-      required: false
+      required: true
       sort: 4
       special:
         - o2m
@@ -11183,7 +11309,7 @@ fields:
       note: null
       options: null
       readonly: false
-      required: false
+      required: true
       sort: 4
       special: null
       translations:
@@ -11264,76 +11390,66 @@ fields:
       options:
         allowOther: true
         choices:
-          - text: >-
-              Ley de Responsabilidades Administrativas para el Estado de
-              Guerrero
-            value: LRAEGR
-          - text: Ley de Archivos del Estado de Jalisco y sus Municipios
-            value: LAEJM
-          - text: >-
-              Ley de Fomento Apícola y Protección de Agentes Polinizadores del
-              Estado de Jalisco
-            value: LFAJ
-          - text: >-
-              Ley de Protección de Datos Personales en Posesión de Sujetos
-              Obligados del Estado de Jalisco y sus Municipios
-            value: LPDPJ
-          - text: Ley de Responsabilidades Administrativas del Estado de Yucatán
-            value: LRAEY
-          - text: >-
-              Ley de Responsabilidades Administrativas para el Estado de
-              Guanajuato
-            value: LRAEG
           - text: Ley de Responsabilidades Administrativas de la Ciudad de México
             value: LRACDMX
           - text: >-
               Ley de Responsabilidades Administrativas del Estado de
               Aguascalientes
-            value: LRAEA
-          - text: Ley de Responsabilidades Administrativas del Estado de Hidalgo
-            value: LRAEH
-          - text: >-
-              Ley de Responsabilidades Administrativas del Estado y Municipios
-              de Baja California Sur
-            value: LRAEMMBCS
+            value: LRAAGS
           - text: >-
               Ley de Responsabilidades Administrativas del Estado de Baja
               California
-            value: LRAEBC
+            value: LRABC
+          - text: >-
+              Ley de Responsabilidades Administrativas del Estado de Baja
+              California Sur
+            value: LRABCS
+          - text: Ley de Responsabilidades Administrativas del Estado de Chiapas
+            value: LRACHP
+          - text: Ley de Responsabilidades Administrativas del Estado de Hidalgo
+            value: LRAHGO
           - text: >-
               Ley de Responsabilidades Administrativas del Estado de México y
               Municipios
             value: LRAEMM
+          - text: Ley de Responsabilidades Administrativas del Estado de Morelos
+            value: LRAEMOR
           - text: Ley de Responsabilidades Administrativas del Estado de Nayarit
-            value: LRAEN
-          - text: Ley de Responsabilidades Administrativas del Estado de Nuevo León
-            value: LRAENL
+            value: LRANAY
           - text: >-
               Ley de Responsabilidades Administrativas del Estado y Municipios
               de Oaxaca
             value: LRAEMMOAX
           - text: Ley de Responsabilidades Administrativas del Estado de Querétaro
-            value: LRAEQ
+            value: LRAQRO
           - text: >-
               Ley de Responsabilidades Administrativas del Estado de Quintana
               Roo
-            value: LRAEQR
+            value: LRAQR
           - text: Ley de Responsabilidades Administrativas del Estado de Sinaloa
-            value: LRAES
+            value: LRASIN
+          - text: Ley de Responsabilidades Administrativas del Estado de Sonora
+            value: LRASON
           - text: Ley de Responsabilidades Administrativas del Estado de Tamaulipas
-            value: LRAET
-          - text: Ley de Responsabilidades Administrativas para el Estado de Chiapas
-            value: LRAECH
+            value: LRATAM
+          - text: Ley de Responsabilidades Administrativas del Estado de Yucatán
+            value: LRAYUC
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de
+              Guanajuato
+            value: LRAGTO
           - text: >-
               Ley de Responsabilidades Administrativas para el Estado de
               Michoacán de Ocampo
-            value: LRAEMICH
-          - text: Ley de Responsabilidades Administrativas para el Estado de Morelos
-            value: LRAEMOR
+            value: LRAMICH
+          - text: >-
+              Ley de Responsabilidades Administrativas para el Estado de Nuevo
+              León
+            value: LRANL
           - text: >-
               Ley de Responsabilidades Administrativas para el Estado y
               Municipios de San Luis Potosí
-            value: LRAESLP
+            value: LRASLP
           - text: >-
               Ley de Responsabilidades Administrativas para el Estado de
               Veracruz de Ignacio de la Llave
@@ -11342,28 +11458,12 @@ fields:
               Ley de Responsabilidades Políticas y Administrativas del Estado de
               Jalisco
             value: LRPAEJ
-          - text: >-
-              Ley de Transparencia y Acceso a la Información Pública del Estado
-              de Jalisco y sus Municipios
-            value: LTAIPJM
-          - text: >-
-              Ley del Gobierno y la Administración Pública Municipal del Estado
-              de Jalisco
-            value: LGAPM
-          - text: Ley del Notariado del Estado de Jalisco
-            value: LNJ
-          - text: >-
-              Ley del Presupuesto, Contabilidad y Gasto Público del Estado de
-              Jalisco
-            value: LPCGPJ
-          - text: Ley Estatal de Responsabilidades del Estado de Sonora
-            value: LERSON
-          - text: >-
-              Ley Estatal para Promover la Igualdad, Prevenir y Eliminar la
-              Discriminación en el Estado de Jalisco
-            value: LEIPEDJ
           - text: Ley General de Responsabilidades Administrativas
             value: LGRA
+          - text: >-
+              Ley Número 465 de Responsabilidades Administrativas para el Estado
+              de Guerrero
+            value: LRAEGR465
         placeholder: null
       readonly: false
       required: true
