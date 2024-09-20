@@ -2048,6 +2048,254 @@
             "fields": [
                 "*"
             ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_particulares",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_particulares",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_particulares",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_fisica",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_fisica",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_fisica",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
+            "collection": "normatividad_graves",
+            "action": "read",
+            "permissions": null,
+            "validation": null,
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
+            "collection": "normatividad_no_graves",
+            "action": "read",
+            "permissions": null,
+            "validation": null,
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
+            "collection": "normatividad_particulares",
+            "action": "read",
+            "permissions": null,
+            "validation": null,
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
+            "collection": "resolucion_morales",
+            "action": "read",
+            "permissions": null,
+            "validation": null,
+            "presets": null,
+            "fields": [
+                "tituloResolucion",
+                "fechaResolucion",
+                "fechaNotificacion",
+                "urlResolucion",
+                "fechaResolucionFirme",
+                "urlResolucionFirme",
+                "fechaNotificacionFirme",
+                "fechaEjecucion",
+                "ordenJurisdiccional",
+                "autoridadInvestigadora",
+                "autoridadResolutora",
+                "autoridadSusbstanciadora"
+            ]
+        },
+        {
+            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
+            "collection": "resolucion_fisica",
+            "action": "read",
+            "permissions": null,
+            "validation": null,
+            "presets": null,
+            "fields": [
+                "tituloResolucion",
+                "fechaResolucion",
+                "fechaNotificacion",
+                "urlResolucion",
+                "fechaResolucionFirme",
+                "fechaNotificacionFirme",
+                "urlResolucionFirme",
+                "ordenJurisdiccional",
+                "fechaEjecucion",
+                "autoridadResolutora",
+                "autoridadInvestigadora",
+                "autoridadSusbstanciadora"
+            ]
         }
     ]
 }
