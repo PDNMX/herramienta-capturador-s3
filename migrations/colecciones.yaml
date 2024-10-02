@@ -9515,7 +9515,7 @@ fields:
         falta cometida
       options:
         enableSelect: false
-        template: '{{nombreNormatividad}}'
+        template: '{{clave}}'
       readonly: false
       required: true
       sort: 15
