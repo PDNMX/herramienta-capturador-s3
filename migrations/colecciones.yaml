@@ -7557,7 +7557,7 @@ fields:
           - text: Tráfico de influencias
             value: TRAFICO_INFLUENCIAS
           - text: Utilización de información falsa
-            value: ' UTILIZACION_INFORMACION_FALSA'
+            value: UTILIZACION_INFORMACION_FALSA
           - text: Colusión
             value: COLUSION
           - text: Obstrucción de facultades
@@ -8266,7 +8266,7 @@ fields:
           - text: Tráfico de influencias
             value: TRAFICO_INFLUENCIAS
           - text: Utilización de información falsa
-            value: ' UTILIZACION_INFORMACION_FALSA'
+            value: UTILIZACION_INFORMACION_FALSA
           - text: Colusión
             value: COLUSION
           - text: Obstrucción de facultades
@@ -18348,13 +18348,13 @@ fields:
       note: null
       options:
         choices:
-          - text: ' Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas'
+          - text: 'Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas'
             value: INHABILITACION
-          - text: 'Indemnización '
-            value: 'INDEMNIZACION '
+          - text: 'Indemnización'
+            value: INDEMNIZACION
           - text: Sanción económica
             value: SANCION_ECONOMICA
-          - text: 'Otro (especifique) '
+          - text: 'Otro (especifique)'
             value: OTRO
       readonly: false
       required: true
@@ -18451,7 +18451,7 @@ fields:
           rule:
             _and:
               - clave:
-                  _eq: 'INDEMNIZACION '
+                  _eq: INDEMNIZACION
           hidden: false
           required: true
           options:
