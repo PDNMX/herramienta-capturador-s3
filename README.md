@@ -112,8 +112,8 @@ docker-compose -p herramienta-s3 up -d --build
 
 ## 📚 Documentación
 
-- [Manual de Usuario](https://docs.google.com/document/d/1o2nKauXvTeakbqemG08Ym9lUmj5tuKOBH3_yHpE-t30/edit?tab=t.0)
-- [Manual de Instalación](https://docs.google.com/document/d/1FmU7UaKAkkdnGDq40rscDZBDamrO-yoRftGFw2Y_YV8/edit?tab=t.0#heading=h.kf0g0pgoi74)
+- [Manual de Usuario](https://docs.google.com/document/d/1FmU7UaKAkkdnGDq40rscDZBDamrO-yoRftGFw2Y_YV8/edit?tab=t.0#heading=h.kf0g0pgoi74)
+- [Manual de Instalación](https://docs.google.com/document/d/1o2nKauXvTeakbqemG08Ym9lUmj5tuKOBH3_yHpE-t30/edit?tab=t.0)
 - [API Documentation](https://www.plataformadigitalnacional.org/oas/ui/?urls.primaryName=S3%20-%20Sancionados%20-%20v2)
 
 ## ✉️ Soporte
