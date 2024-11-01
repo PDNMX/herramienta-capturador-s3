@@ -7427,7 +7427,7 @@ fields:
       note: >-
         En caso de seleccionar la opción "OTRO", se deberá especificar el el
         tipo de falta cometida por parte de la persona servidora pública
-        sancionada. 
+        sancionada.
       options:
         allowOther: true
         choices:
@@ -8926,7 +8926,7 @@ fields:
           Digital Nacional relacionados con las sanciones firmes impuestas a
           personas servidoras públicas por la comisión de faltas administrativas
           graves en términos de la Ley General de Responsabilidades
-          Administrativas. 
+          Administrativas.
       readonly: false
       required: false
       sort: 7
@@ -9694,7 +9694,7 @@ fields:
         color: info
         text: >-
           Todos los campos señalados con un asterisco (*) son de carácter
-          obligatorio. 
+          obligatorio.
       readonly: false
       required: false
       sort: 8
@@ -14478,7 +14478,7 @@ fields:
         _and:
           - urlResolucion:
               _regex: >-
-                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+                ^(https?:\/\/)([\w.-]+)(:\d+)?(\/[\w\.-]*)*(\?[\w\-\.]+(=[\w\-\.%]*)?((&[\w\-\.]+(=[\w\-\.%]*)?)*))?(;\w+=[\w\-\.~!*'():@&=+$,%]*)?$
       validation_message: Formato URL inválido
       width: full
     schema:
@@ -14611,7 +14611,7 @@ fields:
         _and:
           - urlResolucionFirme:
               _regex: >-
-                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+                ^(https?:\/\/)([\w.-]+)(:\d+)?(\/[\w\.-]*)*(\?[\w\-\.]+(=[\w\-\.%]*)?((&[\w\-\.]+(=[\w\-\.%]*)?)*))?(;\w+=[\w\-\.~!*'():@&=+$,%]*)?$
       validation_message: Formato de URL inválido
       width: full
     schema:
@@ -15033,7 +15033,7 @@ fields:
         _and:
           - urlResolucion:
               _regex: >-
-                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+                ^(https?:\/\/)([\w.-]+)(:\d+)?(\/[\w\.-]*)*(\?[\w\-\.]+(=[\w\-\.%]*)?((&[\w\-\.]+(=[\w\-\.%]*)?)*))?(;\w+=[\w\-\.~!*'():@&=+$,%]*)?$
       validation_message: Formato URL inválido
       width: full
     schema:
@@ -15166,7 +15166,7 @@ fields:
         _and:
           - urlResolucionFirme:
               _regex: >-
-                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+                ^(https?:\/\/)([\w.-]+)(:\d+)?(\/[\w\.-]*)*(\?[\w\-\.]+(=[\w\-\.%]*)?((&[\w\-\.]+(=[\w\-\.%]*)?)*))?(;\w+=[\w\-\.~!*'():@&=+$,%]*)?$
       validation_message: Formato de URL inválido
       width: full
     schema:
@@ -15588,7 +15588,7 @@ fields:
         _and:
           - urlResolucion:
               _regex: >-
-                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+                ^(https?:\/\/)([\w.-]+)(:\d+)?(\/[\w\.-]*)*(\?[\w\-\.]+(=[\w\-\.%]*)?((&[\w\-\.]+(=[\w\-\.%]*)?)*))?(;\w+=[\w\-\.~!*'():@&=+$,%]*)?$
       validation_message: Formato URL inválido
       width: full
     schema:
@@ -15621,7 +15621,7 @@ fields:
       interface: datetime
       note: >-
         Colocar la fecha en que adquirió firmeza la resolución de la persona
-        moral 
+        moral
       options: null
       readonly: false
       required: true
@@ -15721,7 +15721,7 @@ fields:
         _and:
           - urlResolucionFirme:
               _regex: >-
-                ^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+([\/\w\.-])*\/?$
+                ^(https?:\/\/)([\w.-]+)(:\d+)?(\/[\w\.-]*)*(\?[\w\-\.]+(=[\w\-\.%]*)?((&[\w\-\.]+(=[\w\-\.%]*)?)*))?(;\w+=[\w\-\.~!*'():@&=+$,%]*)?$
       validation_message: Formato de URL inválido
       width: full
     schema:
@@ -17376,7 +17376,7 @@ fields:
       interface: datetime
       note: >-
         Indicar la fecha en que inició la suspensión del empleo, cargo o
-        comisión de la persona servidora pública 
+        comisión de la persona servidora pública
       options: null
       readonly: false
       required: true
