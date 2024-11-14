@@ -25,1112 +25,6 @@
     ],
     "permissions": [
         {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_administrativas_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": {
-                "entePublico": "$CURRENT_USER.entePublico"
-            },
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_administrativas_graves",
-            "action": "read",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_administrativas_graves",
-            "action": "update",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_graves_personas_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": {
-                "entePublico": "$CURRENT_USER.entePublico"
-            },
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_graves_personas_morales",
-            "action": "read",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_graves_personas_morales",
-            "action": "update",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_administrativas_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": {
-                "entePublico": "$CURRENT_USER.entePublico"
-            },
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_administrativas_no_graves",
-            "action": "read",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_administrativas_no_graves",
-            "action": "update",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_graves_personas_fisicas",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": {
-                "entePublico": "$CURRENT_USER.entePublico"
-            },
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_graves_personas_fisicas",
-            "action": "read",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "faltas_graves_personas_fisicas",
-            "action": "update",
-            "permissions": {
-                "_and": [
-                    {
-                        "entePublico": {
-                            "_eq": "$CURRENT_USER.entePublico"
-                        }
-                    }
-                ]
-            },
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_personas_fisicas",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_personas_fisicas",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_personas_fisicas",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "origen_procedimiento",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "origen_procedimiento",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "origen_procedimiento",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_personas_fisicas",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_personas_fisicas",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_personas_fisicas",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_particulares",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_particulares",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_particulares",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "donde_cometio_falta",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "donde_cometio_falta",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "donde_cometio_falta",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_mexico",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_mexico",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_mexico",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_personas_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_personas_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_personas_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "amonestacion_sancion",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "amonestacion_sancion",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "amonestacion_sancion",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "suspension_actividades",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "suspension_actividades",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "suspension_actividades",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_dg_rp",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_dg_rp",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_dg_rp",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "sancion_economica",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "sancion_economica",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "sancion_economica",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "disolucion_sociedad",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "disolucion_sociedad",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "disolucion_sociedad",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "plazo_pago",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "plazo_pago",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "plazo_pago",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "destitucion_empleo",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "destitucion_empleo",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "destitucion_empleo",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_representante",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_representante",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_representante",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "suspension_empleo",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "suspension_empleo",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "suspension_empleo",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "otro_sancion",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "otro_sancion",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "otro_sancion",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "inhabilitacion",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "inhabilitacion",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "inhabilitacion",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_extranjero",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_extranjero",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_extranjero",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "efectivamente_cobrado",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "efectivamente_cobrado",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "efectivamente_cobrado",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "indemnizacion",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "indemnizacion",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "indemnizacion",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "tipo_sancion_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_personas_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_personas_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_personas_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "ente_publico",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
             "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
             "collection": "faltas_administrativas_graves",
             "action": "read",
@@ -1676,501 +570,6 @@
             ]
         },
         {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "datos_generales_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "empleo_cargo_comision_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "empleo_cargo_comision_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "empleo_cargo_comision_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "empleo_cargo_comision_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "empleo_cargo_comision_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "empleo_cargo_comision_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "nivel_jerarquico_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "nivel_jerarquico_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "nivel_jerarquico_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "nivel_jerarquico_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "nivel_jerarquico_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "nivel_jerarquico_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_mexico_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_mexico_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_mexico_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_extranjero_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_extranjero_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "domicilio_extranjero_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "efectivamente_cobrado_indemnizacion",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "efectivamente_cobrado_indemnizacion",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "efectivamente_cobrado_indemnizacion",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_particulares",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_particulares",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_particulares",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_fisica",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_fisica",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_fisica",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_no_graves",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_no_graves",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_no_graves",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "resolucion_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
             "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
             "collection": "normatividad_graves",
             "action": "read",
@@ -2251,72 +650,6 @@
                 "autoridadResolutora",
                 "autoridadInvestigadora",
                 "autoridadSusbstanciadora"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "falta_cometida_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_morales",
-            "action": "create",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_morales",
-            "action": "read",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
-            ]
-        },
-        {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
-            "collection": "normatividad_morales",
-            "action": "update",
-            "permissions": {},
-            "validation": {},
-            "presets": null,
-            "fields": [
-                "*"
             ]
         },
         {
@@ -2347,9 +680,2126 @@
             ]
         },
         {
-            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
             "collection": "plazo_pago_indemnizacion",
+            "action": "read",
+            "permissions": null,
+            "validation": null,
+            "presets": null,
+            "fields": [
+                "anios",
+                "meses",
+                "dias"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_administrativas_graves",
             "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_administrativas_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_administrativas_graves",
+            "action": "update",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_graves_personas_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_graves_personas_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_graves_personas_morales",
+            "action": "update",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_administrativas_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_administrativas_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_administrativas_no_graves",
+            "action": "update",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_graves_personas_fisicas",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_graves_personas_fisicas",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "faltas_graves_personas_fisicas",
+            "action": "update",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_personas_fisicas",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_personas_fisicas",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_personas_fisicas",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "origen_procedimiento",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "origen_procedimiento",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "origen_procedimiento",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_personas_fisicas",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_personas_fisicas",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_personas_fisicas",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_particulares",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_particulares",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_particulares",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "donde_cometio_falta",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "donde_cometio_falta",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "donde_cometio_falta",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_personas_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_personas_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_personas_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "amonestacion_sancion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "amonestacion_sancion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "amonestacion_sancion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "suspension_actividades",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "suspension_actividades",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "suspension_actividades",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_dg_rp",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_dg_rp",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_dg_rp",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "sancion_economica",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "sancion_economica",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "sancion_economica",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "disolucion_sociedad",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "disolucion_sociedad",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "disolucion_sociedad",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "plazo_pago",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "plazo_pago",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "plazo_pago",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "destitucion_empleo",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "destitucion_empleo",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "destitucion_empleo",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_representante",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_representante",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_representante",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "suspension_empleo",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "suspension_empleo",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "suspension_empleo",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "otro_sancion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "otro_sancion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "otro_sancion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "inhabilitacion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "inhabilitacion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "inhabilitacion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "indemnizacion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "indemnizacion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "indemnizacion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "tipo_sancion_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_personas_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_personas_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_personas_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "ente_publico",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "datos_generales_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_mexico_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "domicilio_extranjero_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_particulares",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_particulares",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_particulares",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_fisica",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_fisica",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_fisica",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_no_graves",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_no_graves",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_no_graves",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "resolucion_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "falta_cometida_morales",
+            "action": "update",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_morales",
+            "action": "create",
+            "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_morales",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "normatividad_morales",
+            "action": "update",
             "permissions": {},
             "validation": {},
             "presets": null,
@@ -2360,8 +2810,29 @@
         {
             "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
             "collection": "plazo_pago_indemnizacion",
-            "action": "read",
+            "action": "create",
             "permissions": {},
+            "validation": {},
+            "presets": {
+                "entePublico": "$CURRENT_USER.entePublico"
+            },
+            "fields": [
+                "*"
+            ]
+        },
+        {
+            "role": "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+            "collection": "plazo_pago_indemnizacion",
+            "action": "read",
+            "permissions": {
+                "_and": [
+                    {
+                        "entePublico": {
+                            "_eq": "$CURRENT_USER.entePublico"
+                        }
+                    }
+                ]
+            },
             "validation": {},
             "presets": null,
             "fields": [
@@ -2377,19 +2848,6 @@
             "presets": null,
             "fields": [
                 "*"
-            ]
-        },
-        {
-            "role": "80ba6d0a-3025-4bc5-9966-2acefa91d7c2",
-            "collection": "plazo_pago_indemnizacion",
-            "action": "read",
-            "permissions": null,
-            "validation": null,
-            "presets": null,
-            "fields": [
-                "anios",
-                "meses",
-                "dias"
             ]
         }
     ]

@@ -1332,6 +1332,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: amonestacion_sancion
+    field: entePublico
+    type: integer
+    meta:
+      collection: amonestacion_sancion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: amonestacion_sancion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: datos_dg_rp
     field: id
     type: integer
@@ -1455,6 +1495,46 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: datos_representante
+      foreign_key_column: id
+  - collection: datos_dg_rp
+    field: entePublico
+    type: integer
+    meta:
+      collection: datos_dg_rp
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: datos_dg_rp
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
       foreign_key_column: id
   - collection: datos_generales_graves
     field: id
@@ -1754,6 +1834,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: datos_generales_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: datos_generales_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: datos_generales_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: datos_generales_no_graves
     field: id
     type: integer
@@ -2049,6 +2169,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: datos_generales_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: datos_generales_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: datos_generales_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: datos_generales_personas_fisicas
     field: id
     type: integer
@@ -2472,6 +2632,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: domicilio_extranjero
       foreign_key_column: id
+  - collection: datos_generales_personas_fisicas
+    field: entePublico
+    type: integer
+    meta:
+      collection: datos_generales_personas_fisicas
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 11
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: datos_generales_personas_fisicas
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: datos_generales_personas_morales
     field: id
     type: integer
@@ -2788,6 +2988,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: domicilio_extranjero_morales
       foreign_key_column: id
+  - collection: datos_generales_personas_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: datos_generales_personas_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 11
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: datos_generales_personas_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: datos_representante
     field: id
     type: integer
@@ -3040,6 +3280,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: datos_representante
+    field: entePublico
+    type: integer
+    meta:
+      collection: datos_representante
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: true
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: datos_representante
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: destitucion_empleo
     field: id
     type: integer
@@ -3121,6 +3401,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: destitucion_empleo
+    field: entePublico
+    type: integer
+    meta:
+      collection: destitucion_empleo
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: destitucion_empleo
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: directus_users
     field: entePublico
     type: integer
@@ -3241,6 +3561,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: disolucion_sociedad
+    field: entePublico
+    type: integer
+    meta:
+      collection: disolucion_sociedad
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: disolucion_sociedad
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: domicilio_extranjero
     field: id
     type: integer
@@ -3559,6 +3919,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: domicilio_extranjero
+    field: entePublico
+    type: integer
+    meta:
+      collection: domicilio_extranjero
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: domicilio_extranjero
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: domicilio_extranjero_morales
     field: id
     type: integer
@@ -3877,6 +4277,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: domicilio_extranjero_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: domicilio_extranjero_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: false
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: true
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: domicilio_extranjero_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: domicilio_mexico
     field: id
     type: integer
@@ -4348,6 +4788,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: domicilio_mexico
+    field: entePublico
+    type: integer
+    meta:
+      collection: domicilio_mexico
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: domicilio_mexico
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: domicilio_mexico_morales
     field: id
     type: integer
@@ -4819,6 +5299,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: domicilio_mexico_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: domicilio_mexico_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: domicilio_mexico_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: donde_cometio_falta
     field: id
     type: integer
@@ -5144,6 +5664,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: donde_cometio_falta
+    field: entePublico
+    type: integer
+    meta:
+      collection: donde_cometio_falta
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: donde_cometio_falta
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: efectivamente_cobrado
     field: id
     type: integer
@@ -5685,6 +6245,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: efectivamente_cobrado
+    field: entePublico
+    type: integer
+    meta:
+      collection: efectivamente_cobrado
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: efectivamente_cobrado
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: efectivamente_cobrado_indemnizacion
     field: id
     type: integer
@@ -6226,6 +6826,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: efectivamente_cobrado_indemnizacion
+    field: entePublico
+    type: integer
+    meta:
+      collection: efectivamente_cobrado_indemnizacion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: efectivamente_cobrado_indemnizacion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: empleo_cargo_comision_graves
     field: id
     type: integer
@@ -6679,6 +7319,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: empleo_cargo_comision_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: empleo_cargo_comision_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: empleo_cargo_comision_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: empleo_cargo_comision_no_graves
     field: id
     type: integer
@@ -7132,6 +7812,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: empleo_cargo_comision_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: empleo_cargo_comision_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: empleo_cargo_comision_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: ente_publico
     field: id
     type: integer
@@ -7495,6 +8215,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: falta_cometida_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: falta_cometida_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: falta_cometida_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: falta_cometida_morales
     field: id
     type: integer
@@ -7759,6 +8519,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: falta_cometida_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: falta_cometida_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: falta_cometida_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: falta_cometida_no_graves
     field: id
     type: integer
@@ -8204,6 +9004,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: falta_cometida_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: falta_cometida_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: falta_cometida_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: falta_cometida_particulares
     field: id
     type: integer
@@ -8470,6 +9310,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: falta_cometida_particulares
+    field: entePublico
+    type: integer
+    meta:
+      collection: falta_cometida_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: falta_cometida_particulares
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: faltas_administrativas_graves
     field: id
     type: uuid
@@ -11926,6 +12806,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: plazo_pago_indemnizacion
       foreign_key_column: id
+  - collection: indemnizacion
+    field: entePublico
+    type: integer
+    meta:
+      collection: indemnizacion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: indemnizacion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: inhabilitacion
     field: id
     type: integer
@@ -12201,6 +13121,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: inhabilitacion
+    field: entePublico
+    type: integer
+    meta:
+      collection: inhabilitacion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: inhabilitacion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: nivel_jerarquico_graves
     field: id
     type: integer
@@ -12354,6 +13314,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: nivel_jerarquico_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: nivel_jerarquico_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: nivel_jerarquico_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: nivel_jerarquico_no_graves
     field: id
     type: integer
@@ -12507,6 +13507,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: nivel_jerarquico_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: nivel_jerarquico_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: nivel_jerarquico_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: normatividad_graves
     field: id
     type: integer
@@ -12782,6 +13822,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: normatividad_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: normatividad_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: normatividad_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: normatividad_morales
     field: id
     type: integer
@@ -13056,6 +14136,46 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: falta_cometida_morales
+      foreign_key_column: id
+  - collection: normatividad_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: normatividad_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: normatividad_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
       foreign_key_column: id
   - collection: normatividad_no_graves
     field: id
@@ -13332,6 +14452,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: normatividad_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: normatividad_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: normatividad_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: normatividad_particulares
     field: id
     type: integer
@@ -13607,6 +14767,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: falta_cometida_particulares
       foreign_key_column: id
+  - collection: normatividad_particulares
+    field: entePublico
+    type: integer
+    meta:
+      collection: normatividad_particulares
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 6
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: normatividad_particulares
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: origen_procedimiento
     field: id
     type: integer
@@ -13753,6 +14953,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: origen_procedimiento
+    field: entePublico
+    type: integer
+    meta:
+      collection: origen_procedimiento
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 4
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: origen_procedimiento
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: otro_sancion
     field: id
     type: integer
@@ -13834,6 +15074,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: otro_sancion
+    field: entePublico
+    type: integer
+    meta:
+      collection: otro_sancion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 3
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: otro_sancion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: plazo_pago
     field: id
     type: integer
@@ -14060,6 +15340,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: plazo_pago
+    field: entePublico
+    type: integer
+    meta:
+      collection: plazo_pago
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: plazo_pago
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: plazo_pago_indemnizacion
     field: id
     type: integer
@@ -14286,6 +15606,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: plazo_pago_indemnizacion
+    field: entePublico
+    type: integer
+    meta:
+      collection: plazo_pago_indemnizacion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: plazo_pago_indemnizacion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: resolucion
     field: id
     type: integer
@@ -14841,6 +16201,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: resolucion
+    field: entePublico
+    type: integer
+    meta:
+      collection: resolucion
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 14
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: resolucion
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: resolucion_fisica
     field: id
     type: integer
@@ -15396,6 +16796,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: resolucion_fisica
+    field: entePublico
+    type: integer
+    meta:
+      collection: resolucion_fisica
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 14
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: resolucion_fisica
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: resolucion_morales
     field: id
     type: integer
@@ -15953,6 +17393,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: resolucion_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: resolucion_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 14
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: resolucion_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: resolucion_no_graves
     field: id
     type: integer
@@ -16366,6 +17846,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: resolucion_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: resolucion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 13
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: resolucion_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: sancion_economica
     field: id
     type: integer
@@ -16971,6 +18491,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: sancion_economica
+    field: entePublico
+    type: integer
+    meta:
+      collection: sancion_economica
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: sancion_economica
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: suspension_actividades
     field: id
     type: integer
@@ -17240,6 +18800,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: suspension_actividades
+    field: entePublico
+    type: integer
+    meta:
+      collection: suspension_actividades
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 8
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: suspension_actividades
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: suspension_empleo
     field: id
     type: integer
@@ -17473,6 +19073,46 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: suspension_empleo
+    field: entePublico
+    type: integer
+    meta:
+      collection: suspension_empleo
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 7
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: suspension_empleo
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: tipo_sancion_graves
     field: id
     type: integer
@@ -17883,6 +19523,46 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: otro_sancion
+      foreign_key_column: id
+  - collection: tipo_sancion_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: tipo_sancion_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: tipo_sancion_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
       foreign_key_column: id
   - collection: tipo_sancion_no_graves
     field: id
@@ -18295,6 +19975,46 @@ fields:
       has_auto_increment: false
       foreign_key_table: amonestacion_sancion
       foreign_key_column: id
+  - collection: tipo_sancion_no_graves
+    field: entePublico
+    type: integer
+    meta:
+      collection: tipo_sancion_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: tipo_sancion_no_graves
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
   - collection: tipo_sancion_personas_fisicas
     field: id
     type: integer
@@ -18348,13 +20068,15 @@ fields:
       note: null
       options:
         choices:
-          - text: 'Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas'
+          - text: >-
+              Inhabilitación temporal para participar en adquisiciones,
+              arrendamientos, servicios u obras públicas
             value: INHABILITACION
-          - text: 'Indemnización'
+          - text: Indemnización
             value: INDEMNIZACION
           - text: Sanción económica
             value: SANCION_ECONOMICA
-          - text: 'Otro (especifique)'
+          - text: Otro (especifique)
             value: OTRO
       readonly: false
       required: true
@@ -18642,6 +20364,46 @@ fields:
       generation_expression: null
       has_auto_increment: false
       foreign_key_table: otro_sancion
+      foreign_key_column: id
+  - collection: tipo_sancion_personas_fisicas
+    field: entePublico
+    type: integer
+    meta:
+      collection: tipo_sancion_personas_fisicas
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 9
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: tipo_sancion_personas_fisicas
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
       foreign_key_column: id
   - collection: tipo_sancion_personas_morales
     field: id
@@ -19112,7 +20874,68 @@ fields:
       has_auto_increment: false
       foreign_key_table: sancion_economica
       foreign_key_column: id
+  - collection: tipo_sancion_personas_morales
+    field: entePublico
+    type: integer
+    meta:
+      collection: tipo_sancion_personas_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: entePublico
+      group: null
+      hidden: true
+      interface: select-dropdown-m2o
+      note: null
+      options:
+        enableCreate: false
+      readonly: false
+      required: false
+      sort: 10
+      special:
+        - m2o
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: entePublico
+      table: tipo_sancion_personas_morales
+      data_type: integer
+      default_value: null
+      max_length: null
+      numeric_precision: 32
+      numeric_scale: 0
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: ente_publico
+      foreign_key_column: id
 relations:
+  - collection: amonestacion_sancion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: amonestacion_sancion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: amonestacion_sancion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: amonestacion_sancion_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: datos_dg_rp
     field: directorGeneral
     related_collection: datos_representante
@@ -19153,6 +20976,69 @@ relations:
       foreign_key_table: datos_representante
       foreign_key_column: id
       constraint_name: datos_dg_rp_representantelegal_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: datos_dg_rp
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: datos_dg_rp
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: datos_dg_rp
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: datos_dg_rp_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: datos_generales_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: datos_generales_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: datos_generales_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: datos_generales_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: datos_generales_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: datos_generales_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: datos_generales_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: datos_generales_no_graves_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: datos_generales_personas_fisicas
@@ -19197,6 +21083,27 @@ relations:
       constraint_name: datos_generales_personas_fisicas_domicilioextranjero_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: datos_generales_personas_fisicas
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: datos_generales_personas_fisicas
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: datos_generales_personas_fisicas
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: datos_generales_personas_fisicas_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: datos_generales_personas_morales
     field: domicilioMexico
     related_collection: domicilio_mexico_morales
@@ -19239,6 +21146,69 @@ relations:
       constraint_name: datos_generales_personas_morales_domicilioextranjero_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: datos_generales_personas_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: datos_generales_personas_morales
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: datos_generales_personas_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: datos_generales_personas_morales_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: datos_representante
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: datos_representante
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: datos_representante
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: datos_representante_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: destitucion_empleo
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: destitucion_empleo
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: destitucion_empleo
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: destitucion_empleo_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: directus_users
     field: entePublico
     related_collection: ente_publico
@@ -19258,6 +21228,174 @@ relations:
       foreign_key_table: ente_publico
       foreign_key_column: id
       constraint_name: directus_users_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: disolucion_sociedad
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: disolucion_sociedad
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: disolucion_sociedad
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: disolucion_sociedad_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: domicilio_extranjero
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: domicilio_extranjero
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: domicilio_extranjero
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: domicilio_extranjero_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: domicilio_extranjero_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: domicilio_extranjero_morales
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: domicilio_extranjero_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: domicilio_extranjero_morales_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: domicilio_mexico
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: domicilio_mexico
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: domicilio_mexico
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: domicilio_mexico_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: domicilio_mexico_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: domicilio_mexico_morales
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: domicilio_mexico_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: domicilio_mexico_morales_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: donde_cometio_falta
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: donde_cometio_falta
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: donde_cometio_falta
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: donde_cometio_falta_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: NO ACTION
+  - collection: efectivamente_cobrado
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: efectivamente_cobrado
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: efectivamente_cobrado
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: efectivamente_cobrado_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: efectivamente_cobrado_indemnizacion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: efectivamente_cobrado_indemnizacion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: efectivamente_cobrado_indemnizacion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: efectivamente_cobrado_indemnizacion_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: empleo_cargo_comision_graves
@@ -19281,6 +21419,27 @@ relations:
       constraint_name: empleo_cargo_comision_graves_niveljerarquico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: empleo_cargo_comision_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: empleo_cargo_comision_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: empleo_cargo_comision_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: empleo_cargo_comision_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: empleo_cargo_comision_no_graves
     field: nivelJerarquico
     related_collection: nivel_jerarquico_no_graves
@@ -19300,6 +21459,27 @@ relations:
       foreign_key_table: nivel_jerarquico_no_graves
       foreign_key_column: id
       constraint_name: empleo_cargo_comision_no_graves_niveljerarquico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: empleo_cargo_comision_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: empleo_cargo_comision_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: empleo_cargo_comision_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: empleo_cargo_comision_no_graves_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: falta_cometida_graves
@@ -19323,6 +21503,27 @@ relations:
       constraint_name: falta_cometida_graves_fk_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: falta_cometida_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: falta_cometida_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: falta_cometida_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: falta_cometida_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: falta_cometida_morales
     field: fk_morales
     related_collection: faltas_graves_personas_morales
@@ -19342,6 +21543,27 @@ relations:
       foreign_key_table: faltas_graves_personas_morales
       foreign_key_column: id
       constraint_name: falta_cometida_morales_fk_morales_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: falta_cometida_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: falta_cometida_morales
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: falta_cometida_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: falta_cometida_morales_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: falta_cometida_no_graves
@@ -19365,6 +21587,27 @@ relations:
       constraint_name: falta_cometida_no_graves_fk_id_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: falta_cometida_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: falta_cometida_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: falta_cometida_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: falta_cometida_no_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: falta_cometida_particulares
     field: fk_personas_fisicas
     related_collection: faltas_graves_personas_fisicas
@@ -19384,6 +21627,27 @@ relations:
       foreign_key_table: faltas_graves_personas_fisicas
       foreign_key_column: id
       constraint_name: falta_cometida_particulares_fk_personas_fisicas_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: falta_cometida_particulares
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: falta_cometida_particulares
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: falta_cometida_particulares
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: falta_cometida_particulares_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: faltas_administrativas_graves
@@ -20037,6 +22301,90 @@ relations:
       constraint_name: indemnizacion_plazopago_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: indemnizacion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: indemnizacion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: indemnizacion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: indemnizacion_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: inhabilitacion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: inhabilitacion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: inhabilitacion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: inhabilitacion_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: nivel_jerarquico_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: nivel_jerarquico_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: nivel_jerarquico_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: nivel_jerarquico_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: nivel_jerarquico_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: nivel_jerarquico_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: nivel_jerarquico_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: nivel_jerarquico_no_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: normatividad_graves
     field: fk_graves
     related_collection: falta_cometida_graves
@@ -20056,6 +22404,27 @@ relations:
       foreign_key_table: falta_cometida_graves
       foreign_key_column: id
       constraint_name: normatividad_graves_fk_graves_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: normatividad_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: normatividad_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: normatividad_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: normatividad_graves_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: normatividad_morales
@@ -20079,6 +22448,27 @@ relations:
       constraint_name: normatividad_morales_fk_morales_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: normatividad_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: normatividad_morales
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: normatividad_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: normatividad_morales_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: normatividad_no_graves
     field: fk_no_graves
     related_collection: falta_cometida_no_graves
@@ -20100,6 +22490,27 @@ relations:
       constraint_name: normatividad_no_graves_fk_no_graves_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: normatividad_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: normatividad_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: normatividad_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: normatividad_no_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: normatividad_particulares
     field: fk_particulares
     related_collection: falta_cometida_particulares
@@ -20119,6 +22530,195 @@ relations:
       foreign_key_table: falta_cometida_particulares
       foreign_key_column: id
       constraint_name: normatividad_particulares_fk_particulares_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: normatividad_particulares
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: normatividad_particulares
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: normatividad_particulares
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: normatividad_particulares_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: origen_procedimiento
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: origen_procedimiento
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: origen_procedimiento
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: origen_procedimiento_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: otro_sancion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: otro_sancion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: otro_sancion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: otro_sancion_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: plazo_pago
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: plazo_pago
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: plazo_pago
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: plazo_pago_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: plazo_pago_indemnizacion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: plazo_pago_indemnizacion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: plazo_pago_indemnizacion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: plazo_pago_indemnizacion_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: resolucion
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: resolucion
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: resolucion
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: resolucion_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: resolucion_fisica
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: resolucion_fisica
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: resolucion_fisica
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: resolucion_fisica_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: resolucion_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: resolucion_morales_id
+      many_collection: resolucion_morales
+      many_field: entePublico
+      one_allowed_collections: []
+      one_collection: ente_publico
+      one_collection_field: collection
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: resolucion_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: resolucion_morales_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: resolucion_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: resolucion_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: resolucion_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: resolucion_no_graves_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: sancion_economica
@@ -20161,6 +22761,69 @@ relations:
       foreign_key_table: efectivamente_cobrado
       foreign_key_column: id
       constraint_name: sancion_economica_efectivamentecobrado_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: sancion_economica
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: sancion_economica
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: sancion_economica
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: sancion_economica_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: suspension_actividades
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: suspension_actividades
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: suspension_actividades
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: suspension_actividades_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: suspension_empleo
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: suspension_empleo
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: suspension_empleo
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: suspension_empleo_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: tipo_sancion_graves
@@ -20289,6 +22952,27 @@ relations:
       constraint_name: tipo_sancion_graves_otro_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: tipo_sancion_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: tipo_sancion_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: tipo_sancion_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: tipo_sancion_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: tipo_sancion_no_graves
     field: fk_id
     related_collection: faltas_administrativas_no_graves
@@ -20415,6 +23099,27 @@ relations:
       constraint_name: tipo_sancion_no_graves_amonestacion_foreign
       on_update: NO ACTION
       on_delete: SET NULL
+  - collection: tipo_sancion_no_graves
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: tipo_sancion_no_graves
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: tipo_sancion_no_graves
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: tipo_sancion_no_graves_entepublico_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
   - collection: tipo_sancion_personas_fisicas
     field: inhabilitacion
     related_collection: inhabilitacion
@@ -20518,6 +23223,27 @@ relations:
       foreign_key_table: otro_sancion
       foreign_key_column: id
       constraint_name: tipo_sancion_personas_fisicas_otro_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: tipo_sancion_personas_fisicas
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: tipo_sancion_personas_fisicas
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: tipo_sancion_personas_fisicas
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: tipo_sancion_personas_fisicas_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
   - collection: tipo_sancion_personas_morales
@@ -20665,5 +23391,26 @@ relations:
       foreign_key_table: sancion_economica
       foreign_key_column: id
       constraint_name: tipo_sancion_personas_morales_sancioneconomica_foreign
+      on_update: NO ACTION
+      on_delete: SET NULL
+  - collection: tipo_sancion_personas_morales
+    field: entePublico
+    related_collection: ente_publico
+    meta:
+      junction_field: null
+      many_collection: tipo_sancion_personas_morales
+      many_field: entePublico
+      one_allowed_collections: null
+      one_collection: ente_publico
+      one_collection_field: null
+      one_deselect_action: nullify
+      one_field: null
+      sort_field: null
+    schema:
+      table: tipo_sancion_personas_morales
+      column: entePublico
+      foreign_key_table: ente_publico
+      foreign_key_column: id
+      constraint_name: tipo_sancion_personas_morales_entepublico_foreign
       on_update: NO ACTION
       on_delete: SET NULL
