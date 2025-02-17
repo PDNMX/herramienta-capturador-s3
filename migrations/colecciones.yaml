@@ -3296,7 +3296,7 @@ fields:
       options:
         enableCreate: false
       readonly: false
-      required: true
+      required: false
       sort: 7
       special:
         - m2o
