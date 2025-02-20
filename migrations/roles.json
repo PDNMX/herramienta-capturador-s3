@@ -41,7 +41,8 @@
                 "empleoCargoComision",
                 "faltaCometida",
                 "resolucion",
-                "tipoSancion"
+                "tipoSancion",
+                "id"
             ]
         },
         {
@@ -263,7 +264,8 @@
                 "faltaCometida",
                 "resolucion",
                 "tipoSancion",
-                "observaciones"
+                "observaciones",
+                "id"
             ]
         },
         {
@@ -368,7 +370,10 @@
                 "origenProcedimiento",
                 "faltaCometida",
                 "resolucion",
-                "tipoSancion"
+                "tipoSancion",
+                "date_created",
+                "date_updated",
+                "id"
             ]
         },
         {
@@ -472,7 +477,10 @@
                 "origenProcedimiento",
                 "faltaCometida",
                 "resolucion",
-                "tipoSancion"
+                "tipoSancion",
+                "date_created",
+                "date_updated",
+                "id"
             ]
         },
         {
