@@ -64,6 +64,7 @@ DATABASE_USERNAME=usuarioPostgres
 DATABASE_PASSWORD=passwordEjemplo
 DIRECTUS_ADMIN_EMAIL=ejemplo@dominio.com
 DIRECTUS_ADMIN_PASSWORD=directusPassword
+DIRECTUS_SECRET=<GENERA_UN_NUEVO_VALOR_SEGURO>
 EMAIL_TRANSPORT=smtp
 EMAIL_FROM=no-reply@gmail.com
 SMTP_HOST=smtp.gmail.com
