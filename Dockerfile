@@ -31,11 +31,16 @@ FROM directus/directus:10
 USER root
 RUN npm install -g corepack@latest
 RUN corepack enable
+RUN apk add --no-cache postgresql-client
+
+# Copiar el script de trigger
+COPY init-modificaciones-db.sh /directus/init-modificaciones-db.sh
+RUN chmod +x /directus/init-modificaciones-db.sh
 
 # Copiar las extensiones construidas
 COPY --from=builder --chown=node:node /directus/extensions /directus/extensions
 
-# Instalar módulo de gestión de esquemas para importar ROLES
+# Instalar módulo de gestión de esquemas para importar
 USER node
 RUN pnpm install directus-extension-schema-management-module@1.5.0
 

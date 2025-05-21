@@ -1,4 +1,3 @@
-version: "3"
 services:
 
   app:
@@ -11,7 +10,8 @@ services:
     command: >
         sh -c "node cli.js bootstrap &&
               node cli.js schema apply --yes /directus/migrations/colecciones.yaml &&
-              pm2-runtime start ecosystem.config.cjs"
+              sh /directus/init-modificaciones-db.sh &&
+              pm2-runtime start ecosystem.config.cjs"  # ✅ Ruta absoluta al script
     restart: always
     ports:
       - 8055:8055
