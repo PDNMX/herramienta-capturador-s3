@@ -10,18 +10,20 @@ done
 echo "✅ Base de datos disponible. Ejecutando configuración..."
 
 # Ejecuta las modificaciones usando la contraseña de la base de datos
-PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" <<EOF
+PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" <<'EOF'
 
 -- Agregar restricción NOT NULL a los campos de USUARIOS
 ALTER TABLE directus_users ALTER COLUMN first_name SET NOT NULL;
 ALTER TABLE directus_users ALTER COLUMN last_name SET NOT NULL;
 ALTER TABLE directus_users ALTER COLUMN email SET NOT NULL;
 
--- Obtener el ID del usuario administrador
-DO \$\$
+-- Obtener el ID del usuario administrador y configurar el flow
+DO $$
 DECLARE
     admin_id uuid;
+    validation_code text;
 BEGIN
+    -- Obtener el ID del administrador
     SELECT u.id INTO admin_id 
     FROM directus_users u
     JOIN directus_roles r ON u.role = r.id
@@ -40,11 +42,74 @@ BEGIN
         'Logo Pdn White',
         'image/svg+xml',
         admin_id,
-        '2025-05-21 01:03:32.911+00',
-        '2025-05-21 01:03:32.921+00',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
         2334
     ) ON CONFLICT (id) DO NOTHING;
-END \$\$;
+
+    -- Definir el código de validación
+    validation_code := 'module.exports=async function(data){const{first_name,last_name}=data.$trigger.payload;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;const validateNameField=(fieldName,value)=>{if(!value)return true;if(!nameRegex.test(value)){const invalidChars=[...new Set(value.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw{message:`El campo ${fieldName.toUpperCase()} contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino (con o sin acento), Ñ/ñ, Ü/ü, espacios, apóstrofes ('') y guiones (-).`,extensions:{code:"FAILED_VALIDATION",field:fieldName,type:"regex",invalid:value}};}return true;};try{validateNameField("Nombre",first_name);validateNameField("Apellido",last_name);return data;}catch(error){throw error;}};';
+
+    -- Insertar el flow de validación
+    INSERT INTO directus_flows (
+        id, name, icon, color, description, status, trigger, 
+        accountability, options, operation, date_created, user_created
+    ) VALUES (
+        '53a5b81e-ace6-41b7-b0cb-dfc9938e3b72',
+        'valida-campos-usuario',
+        'bolt',
+        '#F8E45C',
+        'Validar los campos first_name y last_name para que solo acepten valores en español, permitiendo letras del alfabeto español, vocales acentuadas, la letra eñe (ñ), la letra "ü" y espacios.',
+        'active',
+        'event',
+        NULL,
+        '{"type":"filter","scope":["items.create","items.update"],"collections":["directus_users"]}',
+        '785dac40-bf87-4da9-9a2d-bd6f87b49a4a',
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description,
+        status = EXCLUDED.status,
+        trigger = EXCLUDED.trigger,
+        accountability = EXCLUDED.accountability,
+        options = EXCLUDED.options,
+        operation = EXCLUDED.operation,
+        date_created = EXCLUDED.date_created,
+        user_created = EXCLUDED.user_created;
+
+    -- Insertar la operación de validación
+    INSERT INTO directus_operations (
+        id, name, key, type, position_x, position_y, options,
+        resolve, reject, flow, date_created, user_created
+    ) VALUES (
+        '785dac40-bf87-4da9-9a2d-bd6f87b49a4a',
+        'valida-regex',
+        'valida_regex',
+        'exec',
+        19,
+        1,
+        json_build_object('code', validation_code),
+        NULL,
+        NULL,
+        '53a5b81e-ace6-41b7-b0cb-dfc9938e3b72',
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        name = EXCLUDED.name,
+        key = EXCLUDED.key,
+        type = EXCLUDED.type,
+        position_x = EXCLUDED.position_x,
+        position_y = EXCLUDED.position_y,
+        options = EXCLUDED.options,
+        resolve = EXCLUDED.resolve,
+        reject = EXCLUDED.reject,
+        flow = EXCLUDED.flow,
+        date_created = EXCLUDED.date_created,
+        user_created = EXCLUDED.user_created;
+END $$;
 
 -- Insertar o actualizar la configuración de Directus
 INSERT INTO directus_settings (
