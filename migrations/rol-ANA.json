@@ -1,0 +1,782 @@
+{
+    "roles": [
+        {
+            "id": "41947437-8852-4e5b-adac-ea91d705f732",
+            "name": "API-Interconexión-ANA",
+            "icon": "supervised_user_circle",
+            "description": null,
+            "ip_access": null,
+            "enforce_tfa": false,
+            "admin_access": false,
+            "app_access": false,
+            "users": []
+        }
+    ],
+    "permissions": [
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "datos_generales_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombres",
+                "primerApellido",
+                "segundoApellido",
+                "curp",
+                "rfc",
+                "sexo"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "datos_generales_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombres",
+                "primerApellido",
+                "segundoApellido",
+                "curp",
+                "rfc",
+                "sexo"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "datos_generales_personas_fisicas",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombres",
+                "primerApellido",
+                "segundoApellido",
+                "curp",
+                "rfc",
+                "tipoDomicilio",
+                "domicilioMexico",
+                "domicilioExtranjero"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "datos_generales_personas_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombreRazonSocial",
+                "rfc",
+                "objetoSocial",
+                "tipoDomicilio",
+                "domicilioMexico",
+                "domicilioExtranjero"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "faltas_administrativas_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "date_created",
+                "date_updated",
+                "fecha",
+                "expediente",
+                "datosGenerales",
+                "empleoCargoComision",
+                "origenProcedimiento",
+                "faltaCometida",
+                "resolucion",
+                "tipoSancion",
+                "observaciones"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "faltas_graves_personas_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "id",
+                "date_created",
+                "date_updated",
+                "fecha",
+                "expediente",
+                "datosGenerales",
+                "datosDirGeneralReprLegal",
+                "dondeCometioLaFalta",
+                "origenProcedimiento",
+                "faltaCometida",
+                "resolucion",
+                "tipoSancion",
+                "observaciones"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "domicilio_mexico",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tipoVialidad",
+                "nombreVialidad",
+                "numeroExterior",
+                "numeroInterior",
+                "coloniaLocalidad",
+                "municipioAlcaldia",
+                "codigoPostal",
+                "entidadFederativa"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "empleo_cargo_comision_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "entidadFederativa",
+                "nivelOrdenGobierno",
+                "ambitoPublico",
+                "nombreEntePublico",
+                "siglasEntePublico",
+                "nivelJerarquico",
+                "denominacion",
+                "areaAdscripcion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "empleo_cargo_comision_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "entidadFederativa",
+                "nivelOrdenGobierno",
+                "ambitoPublico",
+                "nombreEntePublico",
+                "siglasEntePublico",
+                "nivelJerarquico",
+                "denominacion",
+                "areaAdscripcion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "faltas_administrativas_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "date_created",
+                "date_updated",
+                "fecha",
+                "expediente",
+                "datosGenerales",
+                "empleoCargoComision",
+                "origenProcedimiento",
+                "faltaCometida",
+                "resolucion",
+                "tipoSancion",
+                "observaciones",
+                "id"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "faltas_graves_personas_fisicas",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "id",
+                "date_created",
+                "date_updated",
+                "fecha",
+                "expediente",
+                "datosGenerales",
+                "dondeCometioLaFalta",
+                "origenProcedimiento",
+                "faltaCometida",
+                "resolucion",
+                "tipoSancion",
+                "observaciones"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "resolucion_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tituloResolucion",
+                "fechaResolucion",
+                "fechaNotificacion",
+                "urlResolucion",
+                "fechaResolucionFirme",
+                "fechaNotificacionFirme",
+                "urlResolucionFirme",
+                "fechaEjecucion",
+                "ordenJurisdiccional",
+                "autoridadResolutora",
+                "autoridadInvestigadora",
+                "autoridadSusbstanciadora"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "domicilio_extranjero",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "ciudad",
+                "provincia",
+                "calle",
+                "numeroExterior",
+                "numeroInterior",
+                "codigoPostal",
+                "pais"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "donde_cometio_falta",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "entidadFederativa",
+                "nivelOrdenGobierno",
+                "ambitoPublico",
+                "nombreEntePublico",
+                "siglasEntePublico"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "nivel_jerarquico_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "nivel_jerarquico_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "origen_procedimiento",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "tipo_sancion_personas_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "inhabilitacion",
+                "indemnizacion",
+                "sancionEconomica",
+                "suspensionActividades",
+                "disolucionSociedad",
+                "otro"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "amonestacion_sancion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tipo"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "datos_dg_rp",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "directorGeneral",
+                "representanteLegal"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "falta_cometida_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor",
+                "normatividadInfringida",
+                "descripcionHechos"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "falta_cometida_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor",
+                "normatividadInfringida",
+                "descripcionHechos"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "falta_cometida_particulares",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor",
+                "normatividadInfringida",
+                "descripcionHechos"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "inhabilitacion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "plazoAnios",
+                "plazoMeses",
+                "plazoDias",
+                "fechaInicial",
+                "fechaFinal"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "datos_representante",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombre",
+                "primerApellido",
+                "segundoApellido",
+                "rfc",
+                "curp"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "normatividad_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "normatividad_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "normatividad_particulares",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "sancion_economica",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "monto",
+                "moneda",
+                "plazoPago",
+                "efectivamenteCobrado",
+                "fechaPagoTotal"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "suspension_empleo",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "plazoMeses",
+                "plazoDias",
+                "fechaInicial",
+                "fechaFinal"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "destitucion_empleo",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "fechaDestitucion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "domicilio_mexico_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tipoVialidad",
+                "nombreVialidad",
+                "numeroExterior",
+                "numeroInterior",
+                "coloniaLocalidad",
+                "municipioAlcaldia",
+                "codigoPostal",
+                "entidadFederativa"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "efectivamente_cobrado",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "monto",
+                "moneda",
+                "fechaCobro"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "resolucion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tituloResolucion",
+                "fechaResolucion",
+                "fechaNotificacion",
+                "urlResolucion",
+                "fechaResolucionFirme",
+                "fechaNotificacionFirme",
+                "urlResolucionFirme",
+                "fechaEjecucion",
+                "ordenJurisdiccional",
+                "autoridadResolutora",
+                "autoridadInvestigadora",
+                "autoridadSusbstanciadora"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "resolucion_fisica",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tituloResolucion",
+                "fechaResolucion",
+                "fechaNotificacion",
+                "urlResolucion",
+                "fechaResolucionFirme",
+                "fechaNotificacionFirme",
+                "urlResolucionFirme",
+                "fechaEjecucion",
+                "ordenJurisdiccional",
+                "autoridadResolutora",
+                "autoridadInvestigadora",
+                "autoridadSusbstanciadora"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "resolucion_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "tituloResolucion",
+                "fechaResolucion",
+                "fechaNotificacion",
+                "fechaResolucionFirme",
+                "fechaNotificacionFirme",
+                "fechaEjecucion",
+                "autoridadResolutora",
+                "autoridadInvestigadora",
+                "autoridadSusbstanciadora"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "domicilio_extranjero_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "ciudad",
+                "provincia",
+                "calle",
+                "numeroExterior",
+                "numeroInterior",
+                "codigoPostal",
+                "pais"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "plazo_pago",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "anios",
+                "meses",
+                "dias"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "tipo_sancion_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "suspensionEmpleo",
+                "destitucionEmpleo",
+                "sancionEconomica",
+                "inhabilitacion",
+                "otro"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "tipo_sancion_no_graves",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "amonestacion",
+                "suspensionEmpleo",
+                "destitucionEmpleo",
+                "inhabilitacion",
+                "otro"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "tipo_sancion_personas_fisicas",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "inhabilitacion",
+                "indemnizacion",
+                "sancionEconomica",
+                "otro"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "falta_cometida_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "clave",
+                "valor",
+                "normatividadInfringida",
+                "descripcionHechos"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "indemnizacion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "monto",
+                "moneda",
+                "plazoPago",
+                "efectivamenteCobrado",
+                "fechaPagoTotal"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "efectivamente_cobrado_indemnizacion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "monto",
+                "moneda",
+                "fechaCobro"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "normatividad_morales",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "nombreNormatividad",
+                "articulo",
+                "fraccion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "disolucion_sociedad",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "fechaDisolucion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "otro_sancion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "denominacionSancion"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "suspension_actividades",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "plazoSuspensioAnios",
+                "plazoSuspensionMeses",
+                "plazoSuspensionDias",
+                "fechaInicial",
+                "fechaFinal"
+            ]
+        },
+        {
+            "role": "41947437-8852-4e5b-adac-ea91d705f732",
+            "collection": "plazo_pago_indemnizacion",
+            "action": "read",
+            "permissions": {},
+            "validation": {},
+            "presets": null,
+            "fields": [
+                "anios",
+                "meses",
+                "dias"
+            ]
+        }
+    ]
+}
