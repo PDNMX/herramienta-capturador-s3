@@ -56,7 +56,7 @@ BEGIN
 
     -- Definir el código de validación
     RAISE NOTICE '📝 Configurando código de validación...';
-    validation_code := 'module.exports=async function(data){const{first_name,last_name}=data.$trigger.payload;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;const validateNameField=(fieldName,value)=>{if(!value)return true;if(!nameRegex.test(value)){const invalidChars=[...new Set(value.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw{message:`El campo ${fieldName.toUpperCase()} contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino (con o sin acento), Ñ/ñ, Ü/ü, espacios, apóstrofes ('') y guiones (-).`,extensions:{code:"FAILED_VALIDATION",field:fieldName,type:"regex",invalid:value}};}return true;};try{validateNameField("Nombre",first_name);validateNameField("Apellido",last_name);return data;}catch(error){throw error;}};';
+    validation_code := 'module.exports=async function(data){const{first_name,last_name,location,title}=data.$trigger.payload;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;const validateNameField=(fieldName,value)=>{if(!value)return true;if(!nameRegex.test(value)){const invalidChars=[...new Set(value.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw{message:`El campo ${fieldName.toUpperCase()} contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino (con o sin acento), Ñ/ñ, Ü/ü, espacios, apóstrofes ('') y guiones (-).`,extensions:{code:"FAILED_VALIDATION",field:fieldName,type:"regex",invalid:value}};}return true;};try{validateNameField("Nombre",first_name);validateNameField("Apellido",last_name);validateNameField("Ubicación",location);validateNameField("Título",title);return data;}catch(error){throw error;}};';
     RAISE NOTICE '✅ Código de validación configurado';
 
     -- Insertar el flow de validación
@@ -77,7 +77,7 @@ BEGIN
         '785dac40-bf87-4da9-9a2d-bd6f87b49a4a',
         CURRENT_TIMESTAMP,
         admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
+    ) ON CONFLICT (id) DO UPDATE SET1
         name = EXCLUDED.name,
         icon = EXCLUDED.icon,
         color = EXCLUDED.color,
