@@ -77,7 +77,7 @@ BEGIN
         '785dac40-bf87-4da9-9a2d-bd6f87b49a4a',
         CURRENT_TIMESTAMP,
         admin_id
-    ) ON CONFLICT (id) DO UPDATE SET1
+    ) ON CONFLICT (id) DO UPDATE SET
         name = EXCLUDED.name,
         icon = EXCLUDED.icon,
         color = EXCLUDED.color,
