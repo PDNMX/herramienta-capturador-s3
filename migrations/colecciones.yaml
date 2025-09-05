@@ -1,5 +1,5 @@
 version: 1
-directus: 10.13.2
+directus: 10.13.4
 vendor: postgres
 collections:
   - collection: Faltas_de_Particulares
@@ -1599,8 +1599,11 @@ fields:
       translations:
         - language: es-MX
           translation: Nombre (s)
-      validation: null
-      validation_message: null
+      validation:
+        _and:
+          - nombres:
+              _regex: ^[a-zA-ZÀ-ÿñÑ\s]+$
+      validation_message: Solo se permiten letras, espacios y caracteres con acentos
       width: full
     schema:
       name: nombres
