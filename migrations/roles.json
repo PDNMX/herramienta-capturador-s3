@@ -42,7 +42,8 @@
                 "faltaCometida",
                 "resolucion",
                 "tipoSancion",
-                "id"
+                "id",
+                "status"
             ]
         },
         {
@@ -265,7 +266,8 @@
                 "resolucion",
                 "tipoSancion",
                 "observaciones",
-                "id"
+                "id",
+                "status"
             ]
         },
         {
@@ -373,7 +375,8 @@
                 "tipoSancion",
                 "date_created",
                 "date_updated",
-                "id"
+                "id",
+                "status"
             ]
         },
         {
@@ -480,7 +483,8 @@
                 "tipoSancion",
                 "date_created",
                 "date_updated",
-                "id"
+                "id",
+                "status"
             ]
         },
         {
