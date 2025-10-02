@@ -1,5 +1,5 @@
 version: 1
-directus: 10.13.2
+directus: 10.13.4
 vendor: postgres
 collections:
   - collection: Faltas_de_Particulares
@@ -9580,7 +9580,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 10
+      sort: 11
       special: null
       translations:
         - language: es-MX
@@ -9621,7 +9621,7 @@ fields:
         placeholder: Registrar el número de expediente en el que recae la resolución.
       readonly: false
       required: true
-      sort: 11
+      sort: 12
       special: null
       translations:
         - language: es-MX
@@ -9665,7 +9665,7 @@ fields:
         placeholder: null
       readonly: false
       required: false
-      sort: 18
+      sort: 19
       special: null
       translations:
         - language: es-MX
@@ -9709,7 +9709,7 @@ fields:
         template: '{{clave}} '
       readonly: false
       required: true
-      sort: 15
+      sort: 16
       special:
         - o2m
       translations:
@@ -9740,7 +9740,7 @@ fields:
         template: '{{tituloResolucion}}, {{autoridadResolutora}}'
       readonly: false
       required: true
-      sort: 16
+      sort: 17
       special:
         - m2o
       translations:
@@ -9788,7 +9788,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 17
+      sort: 18
       special:
         - o2m
       translations:
@@ -9849,7 +9849,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 14
+      sort: 15
       special:
         - m2o
       translations:
@@ -9993,7 +9993,7 @@ fields:
         template: '{{nombres}} {{primerApellido}} {{segundoApellido}}'
       readonly: false
       required: true
-      sort: 12
+      sort: 13
       special:
         - m2o
       translations:
@@ -10039,7 +10039,7 @@ fields:
         template: '{{nombreEntePublico}}'
       readonly: false
       required: true
-      sort: 13
+      sort: 14
       special:
         - m2o
       translations:
@@ -10066,6 +10066,63 @@ fields:
       has_auto_increment: false
       foreign_key_table: empleo_cargo_comision_graves
       foreign_key_column: id
+  - collection: faltas_administrativas_graves
+    field: status
+    type: string
+    meta:
+      collection: faltas_administrativas_graves
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+            foreground: '#E35169'
+            background: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+            foreground: '#2ECDA7'
+            background: '#2ECDA7'
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: faltas_administrativas_graves
+      data_type: character varying
+      default_value: NO_FIRME
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: faltas_administrativas_no_graves
     field: id
     type: uuid
@@ -10281,7 +10338,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 10
+      sort: 11
       special: null
       translations:
         - language: es-MX
@@ -10322,7 +10379,7 @@ fields:
         placeholder: null
       readonly: false
       required: true
-      sort: 11
+      sort: 12
       special: null
       translations:
         - language: es-MX
@@ -10366,7 +10423,7 @@ fields:
         placeholder: null
       readonly: false
       required: false
-      sort: 18
+      sort: 19
       special: null
       translations:
         - language: es-MX
@@ -10410,7 +10467,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 15
+      sort: 16
       special:
         - o2m
       translations:
@@ -10442,7 +10499,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 14
+      sort: 15
       special:
         - m2o
       translations:
@@ -10487,7 +10544,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 17
+      sort: 18
       special:
         - o2m
       translations:
@@ -10647,7 +10704,7 @@ fields:
         template: '{{tituloResolucion}}'
       readonly: false
       required: true
-      sort: 16
+      sort: 17
       special:
         - m2o
       translations:
@@ -10695,7 +10752,7 @@ fields:
         template: '{{nombreEntePublico}}'
       readonly: false
       required: false
-      sort: 13
+      sort: 14
       special:
         - m2o
       translations:
@@ -10742,7 +10799,7 @@ fields:
         template: '{{nombres}} {{primerApellido}} {{segundoApellido}}'
       readonly: false
       required: true
-      sort: 12
+      sort: 13
       special:
         - m2o
       translations:
@@ -10768,6 +10825,63 @@ fields:
       has_auto_increment: false
       foreign_key_table: datos_generales_no_graves
       foreign_key_column: id
+  - collection: faltas_administrativas_no_graves
+    field: status
+    type: string
+    meta:
+      collection: faltas_administrativas_no_graves
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+            foreground: '#E35169'
+            background: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+            foreground: '#2ECDA7'
+            background: '#2ECDA7'
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: faltas_administrativas_no_graves
+      data_type: character varying
+      default_value: NO_FIRME
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: faltas_graves_personas_fisicas
     field: id
     type: uuid
@@ -10983,7 +11097,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 10
+      sort: 11
       special: null
       translations:
         - language: es-MX
@@ -11024,7 +11138,7 @@ fields:
         placeholder: null
       readonly: false
       required: true
-      sort: 11
+      sort: 12
       special: null
       translations:
         - language: es-MX
@@ -11069,7 +11183,7 @@ fields:
         template: "{{nombres}}\_{{primerApellido}}"
       readonly: false
       required: true
-      sort: 12
+      sort: 13
       special:
         - m2o
       translations:
@@ -11114,7 +11228,7 @@ fields:
         template: '{{nombreEntePublico}}'
       readonly: false
       required: true
-      sort: 13
+      sort: 14
       special:
         - m2o
       translations:
@@ -11159,7 +11273,7 @@ fields:
         placeholder: null
       readonly: false
       required: false
-      sort: 18
+      sort: 19
       special: null
       translations:
         - language: es-MX
@@ -11204,7 +11318,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 17
+      sort: 18
       special:
         - o2m
       translations:
@@ -11234,7 +11348,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 15
+      sort: 16
       special:
         - o2m
       translations:
@@ -11264,7 +11378,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 14
+      sort: 15
       special:
         - m2o
       translations:
@@ -11434,7 +11548,7 @@ fields:
         template: '{{tituloResolucion}}'
       readonly: false
       required: true
-      sort: 16
+      sort: 17
       special:
         - m2o
       translations:
@@ -11461,6 +11575,63 @@ fields:
       has_auto_increment: false
       foreign_key_table: resolucion_fisica
       foreign_key_column: id
+  - collection: faltas_graves_personas_fisicas
+    field: status
+    type: string
+    meta:
+      collection: faltas_graves_personas_fisicas
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+            foreground: '#E35169'
+            background: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+            foreground: '#2ECDA7'
+            background: '#2ECDA7'
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: faltas_graves_personas_fisicas
+      data_type: character varying
+      default_value: NO_FIRME
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: faltas_graves_personas_morales
     field: id
     type: uuid
@@ -11681,7 +11852,7 @@ fields:
         template: '{{nombreRazonSocial}}'
       readonly: false
       required: true
-      sort: 12
+      sort: 13
       special:
         - m2o
       translations:
@@ -11730,7 +11901,7 @@ fields:
           {{representanteLegal.segundoApellido}}
       readonly: false
       required: true
-      sort: 13
+      sort: 14
       special:
         - m2o
       translations:
@@ -11777,7 +11948,7 @@ fields:
         template: '{{nombreEntePublico}}'
       readonly: false
       required: true
-      sort: 14
+      sort: 15
       special:
         - m2o
       translations:
@@ -11818,7 +11989,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 10
+      sort: 11
       special: null
       translations:
         - language: es-MX
@@ -11858,7 +12029,7 @@ fields:
       options: null
       readonly: false
       required: true
-      sort: 11
+      sort: 12
       special: null
       translations:
         - language: es-MX
@@ -11903,7 +12074,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 18
+      sort: 19
       special:
         - o2m
       translations:
@@ -11932,7 +12103,7 @@ fields:
         placeholder: null
       readonly: false
       required: false
-      sort: 19
+      sort: 20
       special: null
       translations:
         - language: es-MX
@@ -11977,7 +12148,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 15
+      sort: 16
       special:
         - m2o
       translations:
@@ -12154,7 +12325,7 @@ fields:
         template: '{{tituloResolucion}}'
       readonly: false
       required: true
-      sort: 17
+      sort: 18
       special:
         - m2o
       translations:
@@ -12202,7 +12373,7 @@ fields:
         template: '{{clave}}'
       readonly: false
       required: true
-      sort: 16
+      sort: 17
       special:
         - o2m
       translations:
@@ -12211,6 +12382,63 @@ fields:
       validation: null
       validation_message: null
       width: full
+  - collection: faltas_graves_personas_morales
+    field: status
+    type: string
+    meta:
+      collection: faltas_graves_personas_morales
+      conditions: null
+      display: labels
+      display_options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+            foreground: '#E35169'
+            background: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+            foreground: '#2ECDA7'
+            background: '#2ECDA7'
+        showAsDot: true
+      field: status
+      group: null
+      hidden: false
+      interface: select-dropdown
+      note: null
+      options:
+        choices:
+          - text: No Firme
+            value: NO_FIRME
+            color: '#E35169'
+          - text: Firme
+            value: FIRME
+            color: '#2ECDA7'
+      readonly: false
+      required: false
+      sort: 10
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: status
+      table: faltas_graves_personas_morales
+      data_type: character varying
+      default_value: NO_FIRME
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: indemnizacion
     field: id
     type: integer
