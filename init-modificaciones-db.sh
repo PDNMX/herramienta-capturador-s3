@@ -352,6 +352,260 @@ BEGIN
 
     RAISE NOTICE '✅ Flow para datos_generales_personas_fisicas configurado';
 END $$;
+
+-- FLOWS PARA VALIDACIÓN DE DUPLICADOS EN LAS CUATRO COLECCIONES
+
+-- FLOW PARA faltas_graves_personas_morales
+\echo '🔄 Configurando flow de validación de duplicados para faltas_graves_personas_morales...'
+DO $$
+DECLARE
+    admin_id uuid;
+    validation_code_morales text;
+    flow_id_morales uuid := '77777777-7777-7777-7777-777777777777';
+    operation_id_morales uuid := '88888888-8888-8888-8888-888888888888';
+BEGIN
+    -- Obtener ID del administrador
+    SELECT u.id INTO admin_id 
+    FROM directus_users u
+    JOIN directus_roles r ON u.role = r.id
+    WHERE r.name = 'Administrator'
+    LIMIT 1;
+
+    -- Código de validación para faltas_graves_personas_morales
+    validation_code_morales := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_personas_morales",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;if(!rfc)return data;const faltasService=new ItemsService("faltas_graves_personas_morales",{schema,accountability:data.$accountability});const filtros={_and:[{expediente:{_eq:expediente}},{datosGenerales:{rfc:{_eq:rfc}}}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){throw new Error(`Ya existe un registro de sanción para este RFC (${rfc}) y expediente (${expediente})`);}return data;};';
+
+    -- Insertar flow para faltas_graves_personas_morales
+    INSERT INTO directus_flows (
+        id, name, icon, color, description, status, trigger, 
+        accountability, options, operation, date_created, user_created
+    ) VALUES (
+        flow_id_morales,
+        'validar-duplicados-morales',
+        'content_copy',
+        '#FF9800',
+        'Validar duplicados en faltas_graves_personas_morales por expediente y RFC',
+        'active',
+        'event',
+        NULL,
+        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_graves_personas_morales"]}',
+        operation_id_morales,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options,
+        status = EXCLUDED.status;
+
+    -- Insertar operación para faltas_graves_personas_morales
+    INSERT INTO directus_operations (
+        id, name, key, type, position_x, position_y, options,
+        resolve, reject, flow, date_created, user_created
+    ) VALUES (
+        operation_id_morales,
+        'validar-duplicados-morales-op',
+        'validar_duplicados_morales',
+        'exec',
+        19,
+        1,
+        json_build_object('code', validation_code_morales),
+        NULL,
+        NULL,
+        flow_id_morales,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options;
+
+    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_graves_personas_morales configurado';
+END $$;
+
+-- FLOW PARA faltas_graves_personas_fisicas
+\echo '🔄 Configurando flow de validación de duplicados para faltas_graves_personas_fisicas...'
+DO $$
+DECLARE
+    admin_id uuid;
+    validation_code_fisicas_graves text;
+    flow_id_fisicas_graves uuid := '99999999-9999-9999-9999-999999999999';
+    operation_id_fisicas_graves uuid := 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
+BEGIN
+    -- Obtener ID del administrador
+    SELECT u.id INTO admin_id 
+    FROM directus_users u
+    JOIN directus_roles r ON u.role = r.id
+    WHERE r.name = 'Administrator'
+    LIMIT 1;
+
+    -- Código de validación para faltas_graves_personas_fisicas
+    validation_code_fisicas_graves := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_personas_fisicas",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;const curp=datosGenerales?.curp;if(!rfc&&!curp)return data;const faltasService=new ItemsService("faltas_graves_personas_fisicas",{schema,accountability:data.$accountability});const orConditions=[];if(rfc)orConditions.push({datosGenerales:{rfc:{_eq:rfc}}});if(curp)orConditions.push({datosGenerales:{curp:{_eq:curp}}});const filtros={_and:[{expediente:{_eq:expediente}},{_or:orConditions}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){const identificador=rfc||curp;throw new Error(`Ya existe un registro de sanción para este ${rfc?"RFC":"CURP"} (${identificador}) y expediente (${expediente})`);}return data;};';
+
+    -- Insertar flow para faltas_graves_personas_fisicas
+    INSERT INTO directus_flows (
+        id, name, icon, color, description, status, trigger, 
+        accountability, options, operation, date_created, user_created
+    ) VALUES (
+        flow_id_fisicas_graves,
+        'validar-duplicados-fisicas-graves',
+        'content_copy',
+        '#E91E63',
+        'Validar duplicados en faltas_graves_personas_fisicas por expediente, RFC y CURP',
+        'active',
+        'event',
+        NULL,
+        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_graves_personas_fisicas"]}',
+        operation_id_fisicas_graves,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options,
+        status = EXCLUDED.status;
+
+    -- Insertar operación para faltas_graves_personas_fisicas
+    INSERT INTO directus_operations (
+        id, name, key, type, position_x, position_y, options,
+        resolve, reject, flow, date_created, user_created
+    ) VALUES (
+        operation_id_fisicas_graves,
+        'validar-duplicados-fisicas-graves-op',
+        'validar_duplicados_fisicas_graves',
+        'exec',
+        19,
+        1,
+        json_build_object('code', validation_code_fisicas_graves),
+        NULL,
+        NULL,
+        flow_id_fisicas_graves,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options;
+
+    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_graves_personas_fisicas configurado';
+END $$;
+
+-- FLOW PARA faltas_administrativas_graves
+\echo '🔄 Configurando flow de validación de duplicados para faltas_administrativas_graves...'
+DO $$
+DECLARE
+    admin_id uuid;
+    validation_code_admin_graves text;
+    flow_id_admin_graves uuid := 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb';
+    operation_id_admin_graves uuid := 'cccccccc-cccc-cccc-cccc-cccccccccccc';
+BEGIN
+    -- Obtener ID del administrador
+    SELECT u.id INTO admin_id 
+    FROM directus_users u
+    JOIN directus_roles r ON u.role = r.id
+    WHERE r.name = 'Administrator'
+    LIMIT 1;
+
+    -- Código de validación para faltas_administrativas_graves
+    validation_code_admin_graves := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_graves",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;const curp=datosGenerales?.curp;if(!rfc&&!curp)return data;const faltasService=new ItemsService("faltas_administrativas_graves",{schema,accountability:data.$accountability});const orConditions=[];if(rfc)orConditions.push({datosGenerales:{rfc:{_eq:rfc}}});if(curp)orConditions.push({datosGenerales:{curp:{_eq:curp}}});const filtros={_and:[{expediente:{_eq:expediente}},{_or:orConditions}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){const identificador=rfc||curp;throw new Error(`Ya existe un registro de sanción para este ${rfc?"RFC":"CURP"} (${identificador}) y expediente (${expediente})`);}return data;};';
+
+    -- Insertar flow para faltas_administrativas_graves
+    INSERT INTO directus_flows (
+        id, name, icon, color, description, status, trigger, 
+        accountability, options, operation, date_created, user_created
+    ) VALUES (
+        flow_id_admin_graves,
+        'validar-duplicados-admin-graves',
+        'content_copy',
+        '#9C27B0',
+        'Validar duplicados en faltas_administrativas_graves por expediente, RFC y CURP',
+        'active',
+        'event',
+        NULL,
+        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_administrativas_graves"]}',
+        operation_id_admin_graves,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options,
+        status = EXCLUDED.status;
+
+    -- Insertar operación para faltas_administrativas_graves
+    INSERT INTO directus_operations (
+        id, name, key, type, position_x, position_y, options,
+        resolve, reject, flow, date_created, user_created
+    ) VALUES (
+        operation_id_admin_graves,
+        'validar-duplicados-admin-graves-op',
+        'validar_duplicados_admin_graves',
+        'exec',
+        19,
+        1,
+        json_build_object('code', validation_code_admin_graves),
+        NULL,
+        NULL,
+        flow_id_admin_graves,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options;
+
+    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_administrativas_graves configurado';
+END $$;
+
+-- FLOW PARA faltas_administrativas_no_graves
+\echo '🔄 Configurando flow de validación de duplicados para faltas_administrativas_no_graves...'
+DO $$
+DECLARE
+    admin_id uuid;
+    validation_code_admin_no_graves text;
+    flow_id_admin_no_graves uuid := 'dddddddd-dddd-dddd-dddd-dddddddddddd';
+    operation_id_admin_no_graves uuid := 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee';
+BEGIN
+    -- Obtener ID del administrador
+    SELECT u.id INTO admin_id 
+    FROM directus_users u
+    JOIN directus_roles r ON u.role = r.id
+    WHERE r.name = 'Administrator'
+    LIMIT 1;
+
+    -- Código de validación para faltas_administrativas_no_graves
+    validation_code_admin_no_graves := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_no_graves",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;const curp=datosGenerales?.curp;if(!rfc&&!curp)return data;const faltasService=new ItemsService("faltas_administrativas_no_graves",{schema,accountability:data.$accountability});const orConditions=[];if(rfc)orConditions.push({datosGenerales:{rfc:{_eq:rfc}}});if(curp)orConditions.push({datosGenerales:{curp:{_eq:curp}}});const filtros={_and:[{expediente:{_eq:expediente}},{_or:orConditions}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){const identificador=rfc||curp;throw new Error(`Ya existe un registro de sanción para este ${rfc?"RFC":"CURP"} (${identificador}) y expediente (${expediente})`);}return data;};';
+
+    -- Insertar flow para faltas_administrativas_no_graves
+    INSERT INTO directus_flows (
+        id, name, icon, color, description, status, trigger, 
+        accountability, options, operation, date_created, user_created
+    ) VALUES (
+        flow_id_admin_no_graves,
+        'validar-duplicados-admin-no-graves',
+        'content_copy',
+        '#00BCD4',
+        'Validar duplicados en faltas_administrativas_no_graves por expediente, RFC y CURP',
+        'active',
+        'event',
+        NULL,
+        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_administrativas_no_graves"]}',
+        operation_id_admin_no_graves,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options,
+        status = EXCLUDED.status;
+
+    -- Insertar operación para faltas_administrativas_no_graves
+    INSERT INTO directus_operations (
+        id, name, key, type, position_x, position_y, options,
+        resolve, reject, flow, date_created, user_created
+    ) VALUES (
+        operation_id_admin_no_graves,
+        'validar-duplicados-admin-no-graves-op',
+        'validar_duplicados_admin_no_graves',
+        'exec',
+        19,
+        1,
+        json_build_object('code', validation_code_admin_no_graves),
+        NULL,
+        NULL,
+        flow_id_admin_no_graves,
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options;
+
+    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_administrativas_no_graves configurado';
+END $$;
 EOF
 
 # Verifica éxito del comando anterior
