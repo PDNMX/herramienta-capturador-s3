@@ -2,8 +2,8 @@ import Header from "@/components/layout/header";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_NAME || "Cobertura",
-  description: "Sistema de Cobertura",
+  title: process.env.NEXT_PUBLIC_APP_NAME || "S3",
+  description: "Sistema Nacional de Servidores Públicos y Particulares Sancionados",
 };
 
 export default function DashboardLayout({
