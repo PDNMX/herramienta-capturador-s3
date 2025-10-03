@@ -1,51 +1,38 @@
-####################################################################################################
-## Build Packages / EXTENSIONS
+FROM node:22-alpine AS base
 
-# Para crear una nueva extensión:
-# 1. Ejecutar: npx create-directus-extension en la carpeta extensions
-# 2. Seleccionar tipo de extensión (endpoint, panel, etc)
-# 3. Dar nombre a la extensión
-# 4. La extensión se creará en extensions/[nombre-extension]/
-# 5. Modificar el código en src/index.js
-# 6. Reconstruir: docker-compose -p NOMBRE up -d --build
-# Nota: El Dockerfile detectará automáticamente la extensión en la carpeta extensions/, la construirá y la copiará al contenedor
+FROM base AS deps
 
-FROM node:18-alpine AS builder
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
 
-WORKDIR /directus
+COPY package.json ./
 
-COPY extensions/ extensions/
+RUN npm update && npm install
 
-RUN for ext in $(ls extensions); do \
-    echo "Building extension: $ext"; \
-    cd extensions/$ext && \
-    npm install && \
-    npm run build || exit 1; \
-    cd -; \
-done
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-####################################################################################################
-## Create Production Image
-FROM directus/directus:10
+RUN npm run build
 
-USER root
-RUN npm install -g corepack@latest && corepack enable
-RUN apk add --no-cache postgresql-client
+FROM base AS runner
+WORKDIR /app
 
-# Crear directorio para archivos estáticos
-RUN mkdir -p /directus/uploads
+ENV NODE_ENV production
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copiar el logo
-COPY logo-pdn-white.svg /directus/uploads/21cc850a-1c0c-4d15-aeeb-2ec0a8e98c26.svg
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Copiar el script de inicialización
-COPY init-modificaciones-db.sh /directus/init-modificaciones-db.sh
-RUN chmod +x /directus/init-modificaciones-db.sh
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copiar las extensiones construidas
-COPY --from=builder --chown=node:node /directus/extensions /directus/extensions
+USER nextjs
 
-# Instalar módulo de gestión de esquemas para importar
-USER node
-RUN pnpm install directus-extension-schema-management-module@1.5.0
+EXPOSE 3000
 
+ENV PORT 3000
+
+CMD ["node", "server.js"]
