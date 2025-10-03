@@ -1,101 +1,77 @@
-//ts-nocheck
-"use client"
-import { Card } from "@/components/ui/card"
-import { Shield, FileText, Database, CheckCircle } from "lucide-react"
+import { Shield } from "lucide-react"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-background to-secondary/20">
-        <div className="container mx-auto px-4 py-20 md:py-32">
-          <div className="mx-auto max-w-4xl text-center">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
-              <Shield className="h-4 w-4" />
-              Sistema Oficial
-            </div>
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4">
+      {/* Grid de fondo mejorado */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]" />
 
-            <h1 className="mb-6 text-balance font-sans text-4xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
-              Sistema Nacional de Servidores Públicos y Particulares Sancionados
-            </h1>
-          </div>
-        </div>
-      </section>
+      {/* Efectos de luz de fondo mejorados */}
+      <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[500px] w-[500px] rounded-full bg-primary/30 blur-[150px] animate-pulse-glow" />
+      <div className="absolute bottom-0 left-1/4 -z-10 h-[350px] w-[350px] rounded-full bg-primary/20 blur-[120px] animate-pulse-glow" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/4 right-1/4 -z-10 h-[250px] w-[250px] rounded-full bg-primary/15 blur-[100px] animate-pulse-glow" style={{ animationDelay: '2s' }} />
 
-      {/* Features Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="mb-12 text-center text-3xl font-bold text-foreground md:text-4xl">
-            Características del Sistema
-          </h2>
-
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="border-border bg-card p-6 transition-shadow hover:shadow-lg">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <Database className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-card-foreground">Captura de Datos</h3>
-              <p className="text-pretty text-muted-foreground">
-                Registre información de manera estructurada y segura siguiendo los estándares oficiales establecidos.
-              </p>
-            </Card>
-
-            <Card className="border-border bg-card p-6 transition-shadow hover:shadow-lg">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <FileText className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-card-foreground">Gestión Documental</h3>
-              <p className="text-pretty text-muted-foreground">
-                Administre expedientes y documentación relacionada con sanciones de forma organizada y accesible.
-              </p>
-            </Card>
-
-            <Card className="border-border bg-card p-6 transition-shadow hover:shadow-lg">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
-                <CheckCircle className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-card-foreground">Cumplimiento Normativo</h3>
-              <p className="text-pretty text-muted-foreground">
-                Sistema diseñado conforme a la normatividad vigente en materia de responsabilidades administrativas.
-              </p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Getting Started Section */}
-      <section className="border-t border-border bg-secondary/30 py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="mb-6 text-3xl font-bold text-foreground md:text-4xl">Comience a Utilizar el Sistema</h2>
-            <p className="mb-8 text-pretty text-lg text-muted-foreground">
-              Esta herramienta ha sido instalada localmente en su equipo. Para acceder a las funcionalidades del
-              sistema, inicie sesión utilizando sus credenciales oficiales proporcionadas por su institución.
-            </p>
-            <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Shield className="h-5 w-5 text-primary" />
-                <span>Conexión segura y cifrada</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <CheckCircle className="h-5 w-5 text-primary" />
-                <span>Cumplimiento normativo garantizado</span>
-              </div>
+      <div className="mx-auto max-w-5xl text-center">
+        {/* Logo mejorado con animación */}
+        <div className="mb-12 inline-flex items-center justify-center animate-float">
+          <div className="relative">
+            {/* Anillos de pulso múltiples */}
+            <div className="absolute inset-0 animate-ping rounded-full bg-primary/20 blur-xl" style={{ animationDuration: '3s' }} />
+            <div className="absolute inset-0 animate-pulse rounded-full bg-primary/30 blur-2xl" style={{ animationDuration: '4s' }} />
+            
+            {/* Círculo exterior giratorio */}
+            <div className="absolute -inset-4 rounded-full border-2 border-dashed border-primary/30 animate-spin" style={{ animationDuration: '20s' }} />
+            
+            {/* Escudo principal */}
+            <div className="relative flex h-36 w-36 items-center justify-center rounded-full border-4 border-primary/40 bg-gradient-to-br from-primary/30 via-primary/10 to-transparent shadow-2xl shadow-primary/40">
+              {/* Efecto de brillo interno */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-transparent" />
+              
+              {/* Icono del escudo con sombra */}
+              <Shield className="h-20 w-20 text-primary drop-shadow-2xl" strokeWidth={1.5} />
+              
+              {/* Destellos */}
+              <div className="absolute top-1/4 right-1/4 h-2 w-2 rounded-full bg-white/80 blur-sm animate-pulse" />
+              <div className="absolute bottom-1/3 left-1/3 h-1.5 w-1.5 rounded-full bg-white/60 blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border py-8">
-        <div className="container mx-auto px-4">
-          <p className="text-center text-sm text-muted-foreground">
-            Sistema Nacional de Servidores Públicos y Particulares Sancionados
-            <span className="mx-2">•</span>
-            Herramienta Oficial de Captura
-          </p>
+        {/* Título mejorado */}
+        <h1 className="text-balance font-sans text-5xl font-bold tracking-tight text-foreground md:text-6xl lg:text-7xl">
+          <span className="relative inline-block">
+            <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]">
+              Sistema Nacional
+            </span>
+            {/* Línea decorativa debajo */}
+            <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+          </span>
+          <br />
+          <span className="relative inline-block text-4xl md:text-5xl lg:text-6xl mt-2">
+            <span className="bg-gradient-to-r from-foreground/90 via-primary/90 to-foreground/90 bg-clip-text text-transparent">
+              de Servidores Públicos
+            </span>
+          </span>
+          <br />
+          <span className="relative inline-block text-4xl md:text-5xl lg:text-6xl mt-2">
+            <span className="bg-gradient-to-r from-foreground/90 via-primary/90 to-foreground/90 bg-clip-text text-transparent">
+              y Particulares Sancionados
+            </span>
+          </span>
+        </h1>
+
+        {/* Línea decorativa mejorada */}
+        <div className="relative mx-auto mt-12 h-1 w-32 overflow-hidden rounded-full">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-shimmer bg-[length:200%_auto]" />
         </div>
-      </footer>
+
+        {/* Partículas decorativas sutiles */}
+        <div className="absolute top-1/4 left-1/4 h-2 w-2 rounded-full bg-primary/30 blur-sm animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute top-1/3 right-1/3 h-1.5 w-1.5 rounded-full bg-primary/25 blur-sm animate-pulse" style={{ animationDelay: '1.5s' }} />
+        <div className="absolute bottom-1/4 right-1/4 h-2 w-2 rounded-full bg-primary/30 blur-sm animate-pulse" style={{ animationDelay: '2.5s' }} />
+        <div className="absolute bottom-1/3 left-1/3 h-1.5 w-1.5 rounded-full bg-primary/25 blur-sm animate-pulse" style={{ animationDelay: '3.5s' }} />
+      </div>
     </div>
   )
 }
