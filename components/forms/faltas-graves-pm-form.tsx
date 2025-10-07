@@ -216,7 +216,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                     <SelectContent>
                       <SelectItem value="NO_FIRME">No Firme</SelectItem>
                       <SelectItem value="FIRME">Firme</SelectItem>
-                      <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
