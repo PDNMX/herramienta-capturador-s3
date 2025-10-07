@@ -2,18 +2,18 @@
 "use client";
 
 import BreadCrumb from "@/components/breadcrumb";
-import { EntesTable } from "@/components/tables/entes-table/table";
+import { DirectorioTable } from "@/components/tables/directorio-table/table";
 import directus from "@/lib/directus";
 import { readItems, withToken } from "@directus/sdk";
 import { useEffect, useState } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import { signOut } from "next-auth/react";
 
-const breadcrumbItems = [{ title: "Entes Públicos", link: "/dashboard/entes" }];
+const breadcrumbItems = [{ title: "Directorio", link: "/inicio/directorio" }];
 
 export default function Page() {
   const { session, status } = useCurrentSession();
-  const [entes, setEntes] = useState([]);
+  const [directorio, setDirectorio] = useState([]);
   console.log(session)
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function Page() {
           const result = await directus.request(
             withToken(
               session?.access_token,
-              readItems("entes", {
+              readItems("directorio", {
                 sort: ["nombre"],
                 limit: "-1",
                 fields: ["*"],
@@ -33,7 +33,7 @@ export default function Page() {
             ),
           );
 
-          setEntes(result);
+          setDirectorio(result);
         } catch (error) {
           console.error("Error al cargar los datos:", error);
         }
@@ -46,7 +46,7 @@ export default function Page() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <BreadCrumb items={breadcrumbItems} />
-      <EntesTable data={entes} />
+      <DirectorioTable data={directorio} />
     </div>
   );
 }

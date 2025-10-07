@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Page() {
   const breadcrumbItems = [
-    { title: "Crear", link: "/dashboard/directorio/create" }, // Cambiamos el link para el directorio
+    { title: "Crear", link: "/inicio/directorio/create" }, // Cambiamos el link para el directorio
   ];
 
   return (

@@ -3,19 +3,19 @@ import { NavItem } from "@/types";
 export const navItems: NavItem[] = [
   {
     title: "Tablero Estatal",
-    href: "/dashboard",
+    href: "/inicio",
     icon: "dashboard",
-    label: "Dashboard",
+    label: "Inicio",
   },
   {
     title: "Entes Públicos",
-    href: "/dashboard/entes",
+    href: "/inicio/entes",
     icon: "users",
     label: "entes",
   },
   {
     title: "Directorio",
-    href: "/dashboard/directorio",
+    href: "/inicio/directorio",
     icon: "notebook",
     label: "directorio",
   },

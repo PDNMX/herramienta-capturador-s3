@@ -177,7 +177,7 @@ export const EnteForm: React.FC<EnteFormProps> = ({ initialData }) => {
         );
       }
       router.refresh();
-      router.push(`/dashboard/entes`);
+      router.push(`/inicio/entes`);
       toast({
         variant: "default",
         className: "bg-green-600",

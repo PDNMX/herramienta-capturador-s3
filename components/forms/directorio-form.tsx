@@ -235,7 +235,7 @@ export const DirectorioForm: React.FC<DirectorioFormProps> = ({
         );
       }
       router.refresh();
-      router.push(`/dashboard/directorio`);
+      router.push(`/inicio/directorio`);
       toast({
         variant: "default",
         className: "bg-green-600",

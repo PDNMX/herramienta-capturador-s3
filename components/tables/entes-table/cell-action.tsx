@@ -70,7 +70,7 @@ export const CellAction = ({ data, session }: any) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-          <Link href={`/dashboard/entes/${data.id}`}>
+          <Link href={`/inicio/entes/${data.id}`}>
             <DropdownMenuItem className="cursor-pointer">
               <Edit className="mr-2 h-4 w-4" />
               Editar

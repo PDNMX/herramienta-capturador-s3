@@ -47,7 +47,7 @@ export const EntesTable = ({ data }: any) => {
         />
         <Button
           className="text-xs md:text-sm"
-          onClick={() => router.push(`/dashboard/entes/create`)}
+          onClick={() => router.push(`/inicio/entes/create`)}
         >
           <Plus className="mr-2 h-4 w-4" /> Agregar nuevo
         </Button>

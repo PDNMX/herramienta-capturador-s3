@@ -55,14 +55,14 @@ export default function UserAuthForm() {
     const res = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      callbackUrl: callbackUrl ?? "/dashboard",
+      callbackUrl: callbackUrl ?? "/inicio",
       redirect: false,
     });
     if (res?.error) {
       setError(res?.error)
       setIsLoading(false)
     } else {
-      router.push("/dashboard")
+      router.push("/inicio")
     }
   };
 

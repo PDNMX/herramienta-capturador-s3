@@ -1,8 +1,8 @@
 // @ts-nocheck
-"use client"
+"use client";
 
 import BreadCrumb from "@/components/breadcrumb";
-import { EnteForm } from "@/components/forms/ente-form";
+import { DirectorioForm } from "@/components/forms/directorio-form"; // Cambiamos el formulario a DirectorioForm
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import { useEffect, useState } from "react";
@@ -10,12 +10,12 @@ import directus from "@/lib/directus";
 import { readItems, withToken } from "@directus/sdk";
 
 export default function Page({ params }) {
-  const { enteId } = params;
+  const { directorioId } = params; // Cambiamos enteId a directorioId
   const { session, status } = useCurrentSession();
   
-  const [ente, setEnte] = useState([]);
+  const [directorio, setDirectorio] = useState([]);
   const breadcrumbItems = [
-    { title: "Editar", link: `/dashboard/entes/${enteId}` },
+    { title: "Editar", link: `/inicio/directorio/${directorioId}` },
   ];
 
   useEffect(() => {
@@ -25,33 +25,31 @@ export default function Page({ params }) {
           const result = await directus.request(
             withToken(
               session?.access_token, 
-              readItems("entes", {
+              readItems("directorio", {
                 limit: "1",
                 fields: ["*"],
                 filter: {
                   id: {
-                    _eq: enteId,
+                    _eq: directorioId, // Filtramos por directorioId
                   },
                 },
               })
             ),
-            
           );
-          setEnte(result[0]);
-          //console.log(JSON.stringify(result[0]))
+          setDirectorio(result[0]); // Asignamos el primer resultado
         } catch (error) {
           console.error("Error al cargar los datos:", error);
         }
       }
       fetchData();
     }
-  }, [session, status]);
+  }, [session, status, directorioId]);
 
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-4 p-5">
         <BreadCrumb items={breadcrumbItems} />
-        <EnteForm initialData={ente} key={enteId} />
+        <DirectorioForm initialData={directorio} key={directorioId} /> {/* Usamos DirectorioForm */}
       </div>
     </ScrollArea>
   );
