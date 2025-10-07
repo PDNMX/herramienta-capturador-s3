@@ -30,6 +30,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
+import { DatosGeneralesPMSection } from "@/components/forms/sections/DatosGeneralesPMSection";
 
 const formSchema = z.object({
   entePublico: z.string().min(1, {
@@ -46,8 +47,21 @@ const formSchema = z.object({
   }),
   observaciones: z.string().nullable().optional(),
   
+  // Datos Generales de la Persona Moral
+  nombreRazonSocial: z.string().min(3, {
+    message: "La denominación o razón social debe tener al menos 3 caracteres.",
+  }),
+  rfc: z.string().min(12, {
+    message: "El RFC debe tener al menos 12 caracteres (con homoclave).",
+  }).max(13),
+  objetoSocial: z.string().optional(),
+  tipoDomicilio: z.enum(["DOMICILIO_MEXICO", "DOMICILIO_EXTRANJERO"], {
+    message: "Selecciona un tipo de domicilio válido",
+  }),
+  domicilioMexico: z.string().nullable().optional(),
+  domicilioExtranjero: z.string().nullable().optional(),
+  
   // Campos de relaciones - se agregarán después
-  // datosGenerales: z.string().nullable().optional(),
   // datosDirGeneralReprLegal: z.string().nullable().optional(),
   // dondeCometioLaFalta: z.string().nullable().optional(),
   // origenProcedimiento: z.string().nullable().optional(),
@@ -88,6 +102,13 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       fecha: initialData?.fecha ?? new Date().toISOString().split('T')[0],
       expediente: initialData?.expediente ?? "",
       observaciones: initialData?.observaciones ?? "",
+      // Datos Generales
+      nombreRazonSocial: initialData?.datosGenerales?.nombreRazonSocial ?? "",
+      rfc: initialData?.datosGenerales?.rfc ?? "",
+      objetoSocial: initialData?.datosGenerales?.objetoSocial ?? "",
+      tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? "DOMICILIO_MEXICO",
+      domicilioMexico: initialData?.datosGenerales?.domicilioMexico ?? null,
+      domicilioExtranjero: initialData?.datosGenerales?.domicilioExtranjero ?? null,
     }),
     [initialData, session?.user?.entePublico],
   );
@@ -106,6 +127,15 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           form.setValue(key, initialData[key]);
         }
       }
+      // Cargar datos generales si existen
+      if (initialData.datosGenerales) {
+        form.setValue("nombreRazonSocial", initialData.datosGenerales.nombreRazonSocial);
+        form.setValue("rfc", initialData.datosGenerales.rfc);
+        form.setValue("objetoSocial", initialData.datosGenerales.objetoSocial);
+        form.setValue("tipoDomicilio", initialData.datosGenerales.tipoDomicilio);
+        form.setValue("domicilioMexico", initialData.datosGenerales.domicilioMexico);
+        form.setValue("domicilioExtranjero", initialData.datosGenerales.domicilioExtranjero);
+      }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
       if (session && session.user?.entePublico) {
@@ -119,18 +149,61 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       setLoading(true);
       console.log(data);
       
+      // Primero crear/actualizar los datos generales
+      const datosGeneralesData = {
+        nombreRazonSocial: data.nombreRazonSocial,
+        rfc: data.rfc,
+        objetoSocial: data.objetoSocial,
+        tipoDomicilio: data.tipoDomicilio,
+        domicilioMexico: data.domicilioMexico,
+        domicilioExtranjero: data.domicilioExtranjero,
+        entePublico: data.entePublico,
+      };
+
+      let datosGeneralesId;
+
+      if (initialData?.datosGenerales?.id) {
+        // Actualizar datos generales existentes
+        await directus.request(
+          withToken(
+            session?.access_token,
+            updateItem("datos_generales_personas_morales", initialData.datosGenerales.id, datosGeneralesData),
+          ),
+        );
+        datosGeneralesId = initialData.datosGenerales.id;
+      } else {
+        // Crear nuevos datos generales
+        const newDatosGenerales = await directus.request(
+          withToken(
+            session?.access_token,
+            createItem("datos_generales_personas_morales", datosGeneralesData),
+          ),
+        );
+        datosGeneralesId = newDatosGenerales.id;
+      }
+
+      // Preparar los datos del registro principal
+      const mainData = {
+        entePublico: data.entePublico,
+        status: data.status,
+        fecha: data.fecha,
+        expediente: data.expediente,
+        observaciones: data.observaciones,
+        datosGenerales: datosGeneralesId,
+      };
+
       if (initialData) {
         await directus.request(
           withToken(
             session?.access_token,
-            updateItem("faltas_graves_personas_morales", initialData.id, data),
+            updateItem("faltas_graves_personas_morales", initialData.id, mainData),
           ),
         );
       } else {
         await directus.request(
           withToken(
             session?.access_token,
-            createItem("faltas_graves_personas_morales", data),
+            createItem("faltas_graves_personas_morales", mainData),
           ),
         );
       }
@@ -216,6 +289,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                     <SelectContent>
                       <SelectItem value="NO_FIRME">No Firme</SelectItem>
                       <SelectItem value="FIRME">Firme</SelectItem>
+                      <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -300,19 +374,12 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
           <Separator />
 
-          {/* Sección 2: Datos Generales (placeholder para después) */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-muted-foreground">
-              Datos Generales
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Esta sección se configurará en el siguiente paso
-            </p>
-          </div>
+          {/* Sección 2: Datos Generales de la Persona Moral */}
+          <DatosGeneralesPMSection form={form} loading={loading} />
 
           <Separator />
 
-          {/* Sección 3: Director General / Representante Legal (placeholder) */}
+          {/* Sección 3: Datos Generales del Director General / Representante Legal (placeholder para después) */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-muted-foreground">
               Director General / Representante Legal
