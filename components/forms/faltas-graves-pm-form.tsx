@@ -33,7 +33,7 @@ import { createItem, updateItem, withToken } from "@directus/sdk";
 
 const formSchema = z.object({
   entePublico: z.string().min(1, {
-    message: "Debes seleccionar un ente público.",
+    message: "Ente público es requerido.",
   }),
   status: z.enum(["NO_FIRME", "FIRME", "EN_PROCESO"], {
     message: "Selecciona un estatus válido",
@@ -68,15 +68,14 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [entesPublicos, setEntesPublicos] = useState([]);
   const { session } = useCurrentSession();
 
   const title = initialData 
-    ? "Actualizar falta grave" 
-    : "Registrar falta grave";
+    ? "Actualizar falta grave personas morales" 
+    : "Registrar una nueva falta grave personas morales";
   const description = initialData
     ? "Edita la información de la falta administrativa grave"
-    : "Registra una nueva falta administrativa grave de persona moral";
+    : "Formato que indica los datos que se inscribirán en el Sistema Nacional de Servidores Públicos y Particulares Sancionados de la Plataforma Digital Nacional relacionados con las sanciones firmes impuestas a particulares (personas morales) vinculados con faltas administrativas graves en términos de la Ley General de Responsabilidades Administrativas.";
   const toastMessage = initialData
     ? "Falta grave actualizada"
     : "Nueva falta grave registrada.";
@@ -84,13 +83,13 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
   const defaultValues = useMemo(
     () => ({
-      entePublico: initialData?.entePublico ?? "",
+      entePublico: initialData?.entePublico ?? session?.user?.entePublico ?? "",
       status: initialData?.status ?? "NO_FIRME",
       fecha: initialData?.fecha ?? new Date().toISOString().split('T')[0],
       expediente: initialData?.expediente ?? "",
       observaciones: initialData?.observaciones ?? "",
     }),
-    [initialData],
+    [initialData, session?.user?.entePublico],
   );
 
   const form = useForm<FaltasGravesPMFormValues>({
@@ -98,30 +97,22 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
     defaultValues,
   });
 
-  // Cargar entes públicos disponibles según el usuario
+  // Establecer el entePublico desde la sesión cuando carga el componente
   useEffect(() => {
-    if (session) {
-      const fetchEntesPublicos = async () => {
-        try {
-          // Aquí cargarás los entes públicos del usuario
-          // Por ahora un ejemplo básico
-          const mockEntes = [
-            { id: 1, nombre: "Ente Público 1" },
-            { id: 2, nombre: "Ente Público 2" },
-          ];
-          setEntesPublicos(mockEntes);
-          
-          // Si es nuevo registro, pre-seleccionar el ente del usuario
-          if (!initialData && mockEntes.length > 0) {
-            form.setValue("entePublico", mockEntes[0].id.toString());
-          }
-        } catch (error) {
-          console.error("Error al cargar entes públicos:", error);
+    if (initialData) {
+      // Si hay datos iniciales, cargar todos los campos
+      for (const key in initialData) {
+        if (formSchema.shape.hasOwnProperty(key)) {
+          form.setValue(key, initialData[key]);
         }
-      };
-      fetchEntesPublicos();
+      }
+    } else {
+      // Si es nuevo registro, establecer el entePublico del usuario
+      if (session && session.user?.entePublico) {
+        form.setValue("entePublico", session.user.entePublico);
+      }
     }
-  }, [session, initialData, form]);
+  }, [initialData, form.setValue, session]);
 
   const onSubmit = async (data: FaltasGravesPMFormValues) => {
     try {
@@ -145,7 +136,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       }
       
       router.refresh();
-      router.push(`/inicio/faltas-graves-pm`);
+      router.push(`/dashboard/faltas-graves-pm`);
       toast({
         variant: "default",
         className: "bg-green-600",
@@ -176,78 +167,72 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full">
           
-          {/* Sección 1: Información Básica */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Información Básica</h3>
-            
-            <div className="md:grid md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="entePublico"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Ente Público <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <Select
-                      disabled={loading}
-                      onValueChange={field.onChange}
-                      value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona un ente público" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {entesPublicos.map((ente) => (
-                          <SelectItem key={ente.id} value={ente.id.toString()}>
-                            {ente.nombre}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          {/* Campo oculto para entePublico */}
+          <FormField
+            control={form.control}
+            name="entePublico"
+            render={({ field }) => (
+              <FormItem className="hidden">
+                <FormLabel>Ente Público</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled
+                    readOnly
+                    placeholder="Automático del usuario"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-              <FormField
-                control={form.control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      Estatus <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <Select
-                      disabled={loading}
-                      onValueChange={field.onChange}
-                      value={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona un estatus" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="NO_FIRME">No Firme</SelectItem>
-                        <SelectItem value="FIRME">Firme</SelectItem>
-                        <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+          {/* Nota de campos obligatorios */}
+          <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-800 p-4">
+            <p className="text-sm text-blue-800 dark:text-blue-300">
+              <span className="font-semibold">Nota:</span> Todos los campos señalados con un asterisco (*) son de carácter obligatorio.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {/* Estatus - Campo sin enumerar */}
+            <FormField
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Estatus <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Select
+                    disabled={loading}
+                    onValueChange={field.onChange}
+                    value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecciona un estatus" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="NO_FIRME">No Firme</SelectItem>
+                      <SelectItem value="FIRME">Firme</SelectItem>
+                      <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <div className="md:grid md:grid-cols-2 gap-6">
+              {/* Campo 1: Fecha */}
               <FormField
                 control={form.control}
                 name="fecha"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Fecha <span className="text-red-500">*</span>
+                      1. Fecha (DD-MM-AAAA) <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -256,18 +241,22 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                         {...field}
                       />
                     </FormControl>
+                    <FormDescription>
+                      Indicar la fecha en la que se registra la información
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Campo 2: Expediente */}
               <FormField
                 control={form.control}
                 name="expediente"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Número de Expediente <span className="text-red-500">*</span>
+                      2. Expediente <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Input
@@ -276,29 +265,33 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                         {...field}
                       />
                     </FormControl>
+                    <FormDescription>
+                      Registrar el número de expediente en el que recae la resolución
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
 
+            {/* Campo 10: Observaciones */}
             <FormField
               control={form.control}
               name="observaciones"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Observaciones</FormLabel>
+                  <FormLabel>10. Observaciones</FormLabel>
                   <FormControl>
                     <Textarea
                       disabled={loading}
-                      placeholder="Observaciones adicionales..."
+                      placeholder="Ej: Información adicional sobre el caso..."
                       className="min-h-[100px]"
                       {...field}
                       value={field.value || ""}
                     />
                   </FormControl>
                   <FormDescription>
-                    Información adicional relevante sobre el caso
+                    En este espacio podrá realizar las aclaraciones u observaciones que considere pertinentes respecto de alguno o algunos de los apartados del documento.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

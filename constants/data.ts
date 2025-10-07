@@ -2,13 +2,13 @@ import { NavItem } from "@/types";
 
 export const navItems: NavItem[] = [
   {
-    title: "Tablero Estatal",
+    title: "Inicio",
     href: "/inicio",
     icon: "dashboard",
     label: "Inicio",
   },
   {
-    title: "Entes Públicos",
+    title: "Faltas Graves Personas Morales",
     href: "/inicio/entes",
     icon: "users",
     label: "entes",
