@@ -34,7 +34,11 @@ export default function Page({ params }) {
               session?.access_token, 
               readItems("faltas_graves_personas_morales", {
                 limit: 1,
-                fields: ["*"],
+                fields: [
+                  "*",
+                  "datosGenerales.*",
+                  "datosGenerales.domicilioMexico.*"
+                ],
                 filter: {
                   id: {
                     _eq: faltaId,

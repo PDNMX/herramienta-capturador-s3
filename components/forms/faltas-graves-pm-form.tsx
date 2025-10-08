@@ -46,28 +46,35 @@ const formSchema = z.object({
     message: "El número de expediente debe tener al menos 3 caracteres.",
   }),
   observaciones: z.string().nullable().optional(),
-  
+
   // Datos Generales de la Persona Moral
   nombreRazonSocial: z.string().min(3, {
     message: "La denominación o razón social debe tener al menos 3 caracteres.",
   }),
-  rfc: z.string().min(12, {
-    message: "El RFC debe tener al menos 12 caracteres (con homoclave).",
-  }).max(13),
+  rfc: z
+    .string()
+    .min(12, {
+      message: "El RFC debe tener al menos 12 caracteres (con homoclave).",
+    })
+    .max(13),
   objetoSocial: z.string().optional(),
-  tipoDomicilio: z.enum(["DOMICILIO_MEXICO", "DOMICILIO_EXTRANJERO"], {
-    message: "Selecciona un tipo de domicilio válido",
-  }),
-  domicilioMexico: z.string().nullable().optional(),
+  tipoDomicilio: z
+    .enum(["DOMICILIO_MEXICO", "DOMICILIO_EXTRANJERO"])
+    .nullable()
+    .optional(),
+
+  // Campos de Domicilio México (todos opcionales)
+  tipoVialidad: z.string().nullable().optional(),
+  nombreVialidad: z.string().nullable().optional(),
+  numeroExterior: z.string().nullable().optional(),
+  numeroInterior: z.string().nullable().optional(),
+  coloniaLocalidad: z.string().nullable().optional(),
+  municipioAlcaldia: z.string().nullable().optional(),
+  codigoPostal: z.string().nullable().optional(),
+  entidadFederativa: z.string().nullable().optional(),
+
+  // Placeholder para domicilio extranjero
   domicilioExtranjero: z.string().nullable().optional(),
-  
-  // Campos de relaciones - se agregarán después
-  // datosDirGeneralReprLegal: z.string().nullable().optional(),
-  // dondeCometioLaFalta: z.string().nullable().optional(),
-  // origenProcedimiento: z.string().nullable().optional(),
-  // faltaCometida: z.string().nullable().optional(),
-  // resolucion: z.string().nullable().optional(),
-  // tipoSancion: z.string().nullable().optional(),
 });
 
 type FaltasGravesPMFormValues = z.infer<typeof formSchema>;
@@ -76,16 +83,16 @@ interface FaltasGravesPMFormProps {
   initialData: any | null;
 }
 
-export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ 
-  initialData 
+export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
+  initialData,
 }) => {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const { session } = useCurrentSession();
 
-  const title = initialData 
-    ? "Actualizar falta grave personas morales" 
+  const title = initialData
+    ? "Actualizar falta grave personas morales"
     : "Registrar una nueva falta grave personas morales";
   const description = initialData
     ? "Edita la información de la falta administrativa grave"
@@ -99,18 +106,36 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
     () => ({
       entePublico: initialData?.entePublico ?? session?.user?.entePublico ?? "",
       status: initialData?.status ?? "NO_FIRME",
-      fecha: initialData?.fecha ?? new Date().toISOString().split('T')[0],
+      fecha: initialData?.fecha ?? new Date().toISOString().split("T")[0],
       expediente: initialData?.expediente ?? "",
       observaciones: initialData?.observaciones ?? "",
       // Datos Generales
       nombreRazonSocial: initialData?.datosGenerales?.nombreRazonSocial ?? "",
       rfc: initialData?.datosGenerales?.rfc ?? "",
       objetoSocial: initialData?.datosGenerales?.objetoSocial ?? "",
-      tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? "DOMICILIO_MEXICO",
-      domicilioMexico: initialData?.datosGenerales?.domicilioMexico ?? null,
-      domicilioExtranjero: initialData?.datosGenerales?.domicilioExtranjero ?? null,
+      tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? null, // Cambiar a null en lugar de "DOMICILIO_MEXICO"
+      // Domicilio México
+      tipoVialidad:
+        initialData?.datosGenerales?.domicilioMexico?.tipoVialidad ?? null,
+      nombreVialidad:
+        initialData?.datosGenerales?.domicilioMexico?.nombreVialidad ?? null,
+      numeroExterior:
+        initialData?.datosGenerales?.domicilioMexico?.numeroExterior ?? null,
+      numeroInterior:
+        initialData?.datosGenerales?.domicilioMexico?.numeroInterior ?? null,
+      coloniaLocalidad:
+        initialData?.datosGenerales?.domicilioMexico?.coloniaLocalidad ?? null,
+      municipioAlcaldia:
+        initialData?.datosGenerales?.domicilioMexico?.municipioAlcaldia ?? null,
+      codigoPostal:
+        initialData?.datosGenerales?.domicilioMexico?.codigoPostal ?? null,
+      entidadFederativa:
+        initialData?.datosGenerales?.domicilioMexico?.entidadFederativa ?? null,
+      // Domicilio Extranjero (placeholder)
+      domicilioExtranjero:
+        initialData?.datosGenerales?.domicilioExtranjero ?? null,
     }),
-    [initialData, session?.user?.entePublico],
+    [initialData, session?.user?.entePublico]
   );
 
   const form = useForm<FaltasGravesPMFormValues>({
@@ -118,23 +143,41 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
     defaultValues,
   });
 
-  // Establecer el entePublico desde la sesión cuando carga el componente
+  // Establecer los datos cuando carga el componente
   useEffect(() => {
     if (initialData) {
-      // Si hay datos iniciales, cargar todos los campos
+      // Cargar campos principales
       for (const key in initialData) {
         if (formSchema.shape.hasOwnProperty(key)) {
           form.setValue(key, initialData[key]);
         }
       }
+
       // Cargar datos generales si existen
       if (initialData.datosGenerales) {
-        form.setValue("nombreRazonSocial", initialData.datosGenerales.nombreRazonSocial);
+        form.setValue(
+          "nombreRazonSocial",
+          initialData.datosGenerales.nombreRazonSocial
+        );
         form.setValue("rfc", initialData.datosGenerales.rfc);
         form.setValue("objetoSocial", initialData.datosGenerales.objetoSocial);
-        form.setValue("tipoDomicilio", initialData.datosGenerales.tipoDomicilio);
-        form.setValue("domicilioMexico", initialData.datosGenerales.domicilioMexico);
-        form.setValue("domicilioExtranjero", initialData.datosGenerales.domicilioExtranjero);
+        form.setValue(
+          "tipoDomicilio",
+          initialData.datosGenerales.tipoDomicilio
+        );
+
+        // Cargar domicilio México si existe
+        if (initialData.datosGenerales.domicilioMexico) {
+          const domMex = initialData.datosGenerales.domicilioMexico;
+          form.setValue("tipoVialidad", domMex.tipoVialidad);
+          form.setValue("nombreVialidad", domMex.nombreVialidad);
+          form.setValue("numeroExterior", domMex.numeroExterior);
+          form.setValue("numeroInterior", domMex.numeroInterior);
+          form.setValue("coloniaLocalidad", domMex.coloniaLocalidad);
+          form.setValue("municipioAlcaldia", domMex.municipioAlcaldia);
+          form.setValue("codigoPostal", domMex.codigoPostal);
+          form.setValue("entidadFederativa", domMex.entidadFederativa);
+        }
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -142,21 +185,65 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         form.setValue("entePublico", session.user.entePublico);
       }
     }
-  }, [initialData, form.setValue, session]);
+  }, [initialData, form, session]);
 
   const onSubmit = async (data: FaltasGravesPMFormValues) => {
     try {
       setLoading(true);
       console.log(data);
-      
-      // Primero crear/actualizar los datos generales
+
+      let domicilioMexicoId = null;
+
+      // Crear/actualizar domicilio México SOLO si el tipo es DOMICILIO_MEXICO
+      if (data.tipoDomicilio === "DOMICILIO_MEXICO") {
+        const domicilioMexicoData = {
+          tipoVialidad: data.tipoVialidad,
+          nombreVialidad: data.nombreVialidad,
+          numeroExterior: data.numeroExterior,
+          numeroInterior: data.numeroInterior,
+          coloniaLocalidad: data.coloniaLocalidad,
+          municipioAlcaldia: data.municipioAlcaldia,
+          codigoPostal: data.codigoPostal,
+          entidadFederativa: data.entidadFederativa,
+          entePublico: data.entePublico,
+        };
+
+        if (initialData?.datosGenerales?.domicilioMexico?.id) {
+          // Actualizar domicilio México existente
+          await directus.request(
+            withToken(
+              session?.access_token,
+              updateItem(
+                "domicilio_mexico_morales",
+                initialData.datosGenerales.domicilioMexico.id,
+                domicilioMexicoData
+              )
+            )
+          );
+          domicilioMexicoId = initialData.datosGenerales.domicilioMexico.id;
+        } else {
+          // Crear nuevo domicilio México
+          const newDomicilioMexico = await directus.request(
+            withToken(
+              session?.access_token,
+              createItem("domicilio_mexico_morales", domicilioMexicoData)
+            )
+          );
+          domicilioMexicoId = newDomicilioMexico.id;
+        }
+      }
+
+      // Crear/actualizar los datos generales
       const datosGeneralesData = {
         nombreRazonSocial: data.nombreRazonSocial,
         rfc: data.rfc,
         objetoSocial: data.objetoSocial,
         tipoDomicilio: data.tipoDomicilio,
-        domicilioMexico: data.domicilioMexico,
-        domicilioExtranjero: data.domicilioExtranjero,
+        domicilioMexico: domicilioMexicoId,
+        domicilioExtranjero:
+          data.tipoDomicilio === "DOMICILIO_EXTRANJERO"
+            ? data.domicilioExtranjero
+            : null,
         entePublico: data.entePublico,
       };
 
@@ -167,8 +254,12 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         await directus.request(
           withToken(
             session?.access_token,
-            updateItem("datos_generales_personas_morales", initialData.datosGenerales.id, datosGeneralesData),
-          ),
+            updateItem(
+              "datos_generales_personas_morales",
+              initialData.datosGenerales.id,
+              datosGeneralesData
+            )
+          )
         );
         datosGeneralesId = initialData.datosGenerales.id;
       } else {
@@ -176,8 +267,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         const newDatosGenerales = await directus.request(
           withToken(
             session?.access_token,
-            createItem("datos_generales_personas_morales", datosGeneralesData),
-          ),
+            createItem("datos_generales_personas_morales", datosGeneralesData)
+          )
         );
         datosGeneralesId = newDatosGenerales.id;
       }
@@ -196,18 +287,22 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         await directus.request(
           withToken(
             session?.access_token,
-            updateItem("faltas_graves_personas_morales", initialData.id, mainData),
-          ),
+            updateItem(
+              "faltas_graves_personas_morales",
+              initialData.id,
+              mainData
+            )
+          )
         );
       } else {
         await directus.request(
           withToken(
             session?.access_token,
-            createItem("faltas_graves_personas_morales", mainData),
-          ),
+            createItem("faltas_graves_personas_morales", mainData)
+          )
         );
       }
-      
+
       router.refresh();
       router.push(`/dashboard/faltas-graves-pm`);
       toast({
@@ -234,12 +329,12 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         <Heading title={title} description={description} />
       </div>
       <Separator />
-      
+
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full">
-          
+          className="space-y-8 w-full"
+        >
           {/* Campo oculto para entePublico */}
           <FormField
             control={form.control}
@@ -263,7 +358,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           {/* Nota de campos obligatorios */}
           <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-800 p-4">
             <p className="text-sm text-blue-800 dark:text-blue-300">
-              <span className="font-semibold">Nota:</span> Todos los campos señalados con un asterisco (*) son de carácter obligatorio.
+              <span className="font-semibold">Nota:</span> Todos los campos
+              señalados con un asterisco (*) son de carácter obligatorio.
             </p>
           </div>
 
@@ -280,7 +376,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                   <Select
                     disabled={loading}
                     onValueChange={field.onChange}
-                    value={field.value}>
+                    value={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Selecciona un estatus" />
@@ -305,14 +402,11 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      1. Fecha (DD-MM-AAAA) <span className="text-red-500">*</span>
+                      1. Fecha (DD-MM-AAAA){" "}
+                      <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="date"
-                        disabled={loading}
-                        {...field}
-                      />
+                      <Input type="date" disabled={loading} {...field} />
                     </FormControl>
                     <FormDescription>
                       Indicar la fecha en la que se registra la información
@@ -339,7 +433,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                       />
                     </FormControl>
                     <FormDescription>
-                      Registrar el número de expediente en el que recae la resolución
+                      Registrar el número de expediente en el que recae la
+                      resolución
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -364,7 +459,9 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                     />
                   </FormControl>
                   <FormDescription>
-                    En este espacio podrá realizar las aclaraciones u observaciones que considere pertinentes respecto de alguno o algunos de los apartados del documento.
+                    En este espacio podrá realizar las aclaraciones u
+                    observaciones que considere pertinentes respecto de alguno o
+                    algunos de los apartados del documento.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -397,7 +494,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               type="button"
               variant="outline"
               onClick={() => router.back()}
-              disabled={loading}>
+              disabled={loading}
+            >
               Cancelar
             </Button>
             <Button disabled={loading} type="submit">
