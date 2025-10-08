@@ -419,19 +419,183 @@ export const DatosGeneralesPMSection: React.FC<
           </div>
         </div>
       )}
-
-      {/* Domicilio Extranjero - Placeholder */}
+      
+      {/* Domicilio Extranjero - Campos completos */}
       {tipoDomicilio === "DOMICILIO_EXTRANJERO" && (
-        <div className="rounded-lg border border-slate-200 bg-slate-50 dark:bg-slate-900 dark:border-slate-700 p-4">
-          <h4 className="font-semibold mb-2">Domicilio en el extranjero</h4>
-          <p className="text-sm text-muted-foreground">
-            En su caso, indicar los siguientes datos: ciudad/localidad,
-            estado/provincia, calle, número exterior, número interior (si
-            aplica), código postal y país.
-          </p>
-          <p className="text-sm text-amber-600 dark:text-amber-400 mt-2">
-            Esta sección se configurará en el siguiente paso
-          </p>
+        <div className="space-y-6 rounded-lg border border-slate-200 bg-slate-50 dark:bg-slate-900 dark:border-slate-700 p-6">
+          <div>
+            <h4 className="font-semibold mb-2">Domicilio en el extranjero</h4>
+            <p className="text-sm text-muted-foreground">
+              En su caso, indicar los siguientes datos: ciudad/localidad,
+              estado/provincia, calle, número exterior, número interior (si
+              aplica), código postal y país.
+            </p>
+          </div>
+
+          <div className="md:grid md:grid-cols-2 gap-6">
+            {/* Ciudad / Localidad */}
+            <FormField
+              control={form.control}
+              name="ciudad"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Ciudad / Localidad</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: Nueva York"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Escribir el nombre de la ciudad o localidad del domicilio
+                    extranjero
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Estado / Provincia */}
+            <FormField
+              control={form.control}
+              name="provincia"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Estado / Provincia</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: Nueva York"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Escribir el nombre del estado/provincia del domicilio
+                    extranjero
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Calle */}
+            <FormField
+              control={form.control}
+              name="calle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Calle</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: Fifth Avenue"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Escribir el nombre de la calle del domicilio extranjero
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Número exterior */}
+            <FormField
+              control={form.control}
+              name="numeroExteriorExtranjero"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Número exterior</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: 350"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Escribir el número exterior del domicilio extranjero
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Número interior */}
+            <FormField
+              control={form.control}
+              name="numeroInteriorExtranjero"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Número interior</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: Apt 5B (si aplica)"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Escribir el número interior del domicilio extranjero
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Código postal */}
+            <FormField
+              control={form.control}
+              name="codigoPostalExtranjero"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Código postal</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: 10118"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Escribir el código postal del domicilio extranjero
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* País */}
+            <FormField
+              control={form.control}
+              name="pais"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>País</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      placeholder="Ej: Estados Unidos"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Nombre del país especificado en estándar ISO3166
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
       )}
     </div>

@@ -73,8 +73,14 @@ const formSchema = z.object({
   codigoPostal: z.string().nullable().optional(),
   entidadFederativa: z.string().nullable().optional(),
 
-  // Placeholder para domicilio extranjero
-  domicilioExtranjero: z.string().nullable().optional(),
+  // Campos de Domicilio Extranjero (todos opcionales)
+  ciudad: z.string().nullable().optional(),
+  provincia: z.string().nullable().optional(),
+  calle: z.string().nullable().optional(),
+  numeroExteriorExtranjero: z.string().nullable().optional(),
+  numeroInteriorExtranjero: z.string().nullable().optional(),
+  codigoPostalExtranjero: z.string().nullable().optional(),
+  pais: z.string().nullable().optional(),
 });
 
 type FaltasGravesPMFormValues = z.infer<typeof formSchema>;
@@ -113,7 +119,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       nombreRazonSocial: initialData?.datosGenerales?.nombreRazonSocial ?? "",
       rfc: initialData?.datosGenerales?.rfc ?? "",
       objetoSocial: initialData?.datosGenerales?.objetoSocial ?? "",
-      tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? null, // Cambiar a null en lugar de "DOMICILIO_MEXICO"
+      tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? null,
       // Domicilio México
       tipoVialidad:
         initialData?.datosGenerales?.domicilioMexico?.tipoVialidad ?? null,
@@ -131,9 +137,20 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         initialData?.datosGenerales?.domicilioMexico?.codigoPostal ?? null,
       entidadFederativa:
         initialData?.datosGenerales?.domicilioMexico?.entidadFederativa ?? null,
-      // Domicilio Extranjero (placeholder)
-      domicilioExtranjero:
-        initialData?.datosGenerales?.domicilioExtranjero ?? null,
+      // Domicilio Extranjero
+      ciudad: initialData?.datosGenerales?.domicilioExtranjero?.ciudad ?? null,
+      provincia:
+        initialData?.datosGenerales?.domicilioExtranjero?.provincia ?? null,
+      calle: initialData?.datosGenerales?.domicilioExtranjero?.calle ?? null,
+      numeroExteriorExtranjero:
+        initialData?.datosGenerales?.domicilioExtranjero?.numeroExterior ??
+        null,
+      numeroInteriorExtranjero:
+        initialData?.datosGenerales?.domicilioExtranjero?.numeroInterior ??
+        null,
+      codigoPostalExtranjero:
+        initialData?.datosGenerales?.domicilioExtranjero?.codigoPostal ?? null,
+      pais: initialData?.datosGenerales?.domicilioExtranjero?.pais ?? null,
     }),
     [initialData, session?.user?.entePublico]
   );
@@ -178,6 +195,18 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           form.setValue("codigoPostal", domMex.codigoPostal);
           form.setValue("entidadFederativa", domMex.entidadFederativa);
         }
+
+        // Cargar domicilio Extranjero si existe
+        if (initialData.datosGenerales.domicilioExtranjero) {
+          const domExt = initialData.datosGenerales.domicilioExtranjero;
+          form.setValue("ciudad", domExt.ciudad);
+          form.setValue("provincia", domExt.provincia);
+          form.setValue("calle", domExt.calle);
+          form.setValue("numeroExteriorExtranjero", domExt.numeroExterior);
+          form.setValue("numeroInteriorExtranjero", domExt.numeroInterior);
+          form.setValue("codigoPostalExtranjero", domExt.codigoPostal);
+          form.setValue("pais", domExt.pais);
+        }
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -193,8 +222,9 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       console.log(data);
 
       let domicilioMexicoId = null;
+      let domicilioExtranjeroId = null;
 
-      // Crear/actualizar domicilio México SOLO si el tipo es DOMICILIO_MEXICO
+      // Crear/actualizar domicilio México si el tipo es DOMICILIO_MEXICO
       if (data.tipoDomicilio === "DOMICILIO_MEXICO") {
         const domicilioMexicoData = {
           tipoVialidad: data.tipoVialidad,
@@ -209,7 +239,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         };
 
         if (initialData?.datosGenerales?.domicilioMexico?.id) {
-          // Actualizar domicilio México existente
           await directus.request(
             withToken(
               session?.access_token,
@@ -222,7 +251,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           );
           domicilioMexicoId = initialData.datosGenerales.domicilioMexico.id;
         } else {
-          // Crear nuevo domicilio México
           const newDomicilioMexico = await directus.request(
             withToken(
               session?.access_token,
@@ -233,6 +261,46 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         }
       }
 
+      // Crear/actualizar domicilio Extranjero si el tipo es DOMICILIO_EXTRANJERO
+      if (data.tipoDomicilio === "DOMICILIO_EXTRANJERO") {
+        const domicilioExtranjeroData = {
+          ciudad: data.ciudad,
+          provincia: data.provincia,
+          calle: data.calle,
+          numeroExterior: data.numeroExteriorExtranjero,
+          numeroInterior: data.numeroInteriorExtranjero,
+          codigoPostal: data.codigoPostalExtranjero,
+          pais: data.pais,
+          entePublico: data.entePublico,
+        };
+
+        if (initialData?.datosGenerales?.domicilioExtranjero?.id) {
+          await directus.request(
+            withToken(
+              session?.access_token,
+              updateItem(
+                "domicilio_extranjero_morales",
+                initialData.datosGenerales.domicilioExtranjero.id,
+                domicilioExtranjeroData
+              )
+            )
+          );
+          domicilioExtranjeroId =
+            initialData.datosGenerales.domicilioExtranjero.id;
+        } else {
+          const newDomicilioExtranjero = await directus.request(
+            withToken(
+              session?.access_token,
+              createItem(
+                "domicilio_extranjero_morales",
+                domicilioExtranjeroData
+              )
+            )
+          );
+          domicilioExtranjeroId = newDomicilioExtranjero.id;
+        }
+      }
+
       // Crear/actualizar los datos generales
       const datosGeneralesData = {
         nombreRazonSocial: data.nombreRazonSocial,
@@ -240,17 +308,13 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         objetoSocial: data.objetoSocial,
         tipoDomicilio: data.tipoDomicilio,
         domicilioMexico: domicilioMexicoId,
-        domicilioExtranjero:
-          data.tipoDomicilio === "DOMICILIO_EXTRANJERO"
-            ? data.domicilioExtranjero
-            : null,
+        domicilioExtranjero: domicilioExtranjeroId,
         entePublico: data.entePublico,
       };
 
       let datosGeneralesId;
 
       if (initialData?.datosGenerales?.id) {
-        // Actualizar datos generales existentes
         await directus.request(
           withToken(
             session?.access_token,
@@ -263,7 +327,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         );
         datosGeneralesId = initialData.datosGenerales.id;
       } else {
-        // Crear nuevos datos generales
         const newDatosGenerales = await directus.request(
           withToken(
             session?.access_token,
