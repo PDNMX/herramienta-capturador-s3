@@ -31,13 +31,23 @@ import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
 import { DatosGeneralesPMSection } from "@/components/forms/sections/DatosGeneralesPMSection";
+import { DatosDirGeneralPMSection } from "@/components/forms/sections/DatosDirGeneralPMSection";
 import { 
   Accordion, 
   AccordionContent, 
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
-import { AlertCircle, FileText, Calendar, Clipboard } from "lucide-react";
+import { AlertCircle, FileText, Calendar, Clipboard, Users } from "lucide-react";
+
+// Schema para representante
+const datosRepresentanteSchema = z.object({
+  nombre: z.string().min(1, "El nombre es requerido"),
+  primerApellido: z.string().min(1, "El primer apellido es requerido"),
+  segundoApellido: z.string().optional().nullable(),
+  rfc: z.string().optional().nullable(),
+  curp: z.string().optional().nullable(),
+});
 
 const formSchema = z.object({
   entePublico: z.string().min(1, {
@@ -88,6 +98,10 @@ const formSchema = z.object({
   numeroInteriorExtranjero: z.string().nullable().optional(),
   codigoPostalExtranjero: z.string().nullable().optional(),
   pais: z.string().nullable().optional(),
+
+  // Datos del Director General y Representante Legal
+  directorGeneral: datosRepresentanteSchema,
+  representanteLegal: datosRepresentanteSchema,
 });
 
 type FaltasGravesPMFormValues = z.infer<typeof formSchema>;
@@ -158,6 +172,22 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       codigoPostalExtranjero:
         initialData?.datosGenerales?.domicilioExtranjero?.codigoPostal ?? null,
       pais: initialData?.datosGenerales?.domicilioExtranjero?.pais ?? null,
+      // Director General
+      directorGeneral: {
+        nombre: initialData?.datosDirGeneralReprLegal?.directorGeneral?.nombre ?? "",
+        primerApellido: initialData?.datosDirGeneralReprLegal?.directorGeneral?.primerApellido ?? "",
+        segundoApellido: initialData?.datosDirGeneralReprLegal?.directorGeneral?.segundoApellido ?? null,
+        rfc: initialData?.datosDirGeneralReprLegal?.directorGeneral?.rfc ?? null,
+        curp: initialData?.datosDirGeneralReprLegal?.directorGeneral?.curp ?? null,
+      },
+      // Representante Legal
+      representanteLegal: {
+        nombre: initialData?.datosDirGeneralReprLegal?.representanteLegal?.nombre ?? "",
+        primerApellido: initialData?.datosDirGeneralReprLegal?.representanteLegal?.primerApellido ?? "",
+        segundoApellido: initialData?.datosDirGeneralReprLegal?.representanteLegal?.segundoApellido ?? null,
+        rfc: initialData?.datosDirGeneralReprLegal?.representanteLegal?.rfc ?? null,
+        curp: initialData?.datosDirGeneralReprLegal?.representanteLegal?.curp ?? null,
+      },
     }),
     [initialData, session?.user?.entePublico]
   );
@@ -213,6 +243,26 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           form.setValue("numeroInteriorExtranjero", domExt.numeroInterior);
           form.setValue("codigoPostalExtranjero", domExt.codigoPostal);
           form.setValue("pais", domExt.pais);
+        }
+      }
+
+      // Cargar datos del Director General y Representante Legal
+      if (initialData.datosDirGeneralReprLegal) {
+        if (initialData.datosDirGeneralReprLegal.directorGeneral) {
+          const dg = initialData.datosDirGeneralReprLegal.directorGeneral;
+          form.setValue("directorGeneral.nombre", dg.nombre);
+          form.setValue("directorGeneral.primerApellido", dg.primerApellido);
+          form.setValue("directorGeneral.segundoApellido", dg.segundoApellido);
+          form.setValue("directorGeneral.rfc", dg.rfc);
+          form.setValue("directorGeneral.curp", dg.curp);
+        }
+        if (initialData.datosDirGeneralReprLegal.representanteLegal) {
+          const rl = initialData.datosDirGeneralReprLegal.representanteLegal;
+          form.setValue("representanteLegal.nombre", rl.nombre);
+          form.setValue("representanteLegal.primerApellido", rl.primerApellido);
+          form.setValue("representanteLegal.segundoApellido", rl.segundoApellido);
+          form.setValue("representanteLegal.rfc", rl.rfc);
+          form.setValue("representanteLegal.curp", rl.curp);
         }
       }
     } else {
@@ -343,6 +393,105 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         datosGeneralesId = newDatosGenerales.id;
       }
 
+      // Crear/actualizar Director General
+      const directorGeneralData = {
+        nombre: data.directorGeneral.nombre,
+        primerApellido: data.directorGeneral.primerApellido,
+        segundoApellido: data.directorGeneral.segundoApellido,
+        rfc: data.directorGeneral.rfc,
+        curp: data.directorGeneral.curp,
+        entePublico: data.entePublico,
+      };
+
+      let directorGeneralId;
+
+      if (initialData?.datosDirGeneralReprLegal?.directorGeneral?.id) {
+        await directus.request(
+          withToken(
+            session?.access_token,
+            updateItem(
+              "datos_representante",
+              initialData.datosDirGeneralReprLegal.directorGeneral.id,
+              directorGeneralData
+            )
+          )
+        );
+        directorGeneralId = initialData.datosDirGeneralReprLegal.directorGeneral.id;
+      } else {
+        const newDirectorGeneral = await directus.request(
+          withToken(
+            session?.access_token,
+            createItem("datos_representante", directorGeneralData)
+          )
+        );
+        directorGeneralId = newDirectorGeneral.id;
+      }
+
+      // Crear/actualizar Representante Legal
+      const representanteLegalData = {
+        nombre: data.representanteLegal.nombre,
+        primerApellido: data.representanteLegal.primerApellido,
+        segundoApellido: data.representanteLegal.segundoApellido,
+        rfc: data.representanteLegal.rfc,
+        curp: data.representanteLegal.curp,
+        entePublico: data.entePublico,
+      };
+
+      let representanteLegalId;
+
+      if (initialData?.datosDirGeneralReprLegal?.representanteLegal?.id) {
+        await directus.request(
+          withToken(
+            session?.access_token,
+            updateItem(
+              "datos_representante",
+              initialData.datosDirGeneralReprLegal.representanteLegal.id,
+              representanteLegalData
+            )
+          )
+        );
+        representanteLegalId = initialData.datosDirGeneralReprLegal.representanteLegal.id;
+      } else {
+        const newRepresentanteLegal = await directus.request(
+          withToken(
+            session?.access_token,
+            createItem("datos_representante", representanteLegalData)
+          )
+        );
+        representanteLegalId = newRepresentanteLegal.id;
+      }
+
+      // Crear/actualizar datos_dg_rp (wrapper)
+      const datosDgRpData = {
+        directorGeneral: directorGeneralId,
+        representanteLegal: representanteLegalId,
+        entePublico: data.entePublico,
+      };
+
+      let datosDgRpId;
+
+      if (initialData?.datosDirGeneralReprLegal?.id) {
+        await directus.request(
+          withToken(
+            session?.access_token,
+            updateItem(
+              "datos_dg_rp",
+              initialData.datosDirGeneralReprLegal.id,
+              datosDgRpData
+            )
+          )
+        );
+        datosDgRpId = initialData.datosDirGeneralReprLegal.id;
+      } else {
+        const newDatosDgRp = await directus.request(
+          withToken(
+            session?.access_token,
+            createItem("datos_dg_rp", datosDgRpData)
+          )
+        );
+        datosDgRpId = newDatosDgRp.id;
+      }
+
       // Preparar los datos del registro principal
       const mainData = {
         entePublico: data.entePublico,
@@ -351,6 +500,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         expediente: data.expediente,
         observaciones: data.observaciones,
         datosGenerales: datosGeneralesId,
+        datosDirGeneralReprLegal: datosDgRpId,
       };
 
       if (initialData) {
@@ -543,25 +693,32 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               </AccordionContent>
             </AccordionItem>
 
-          </Accordion>
+            {/* Sección 4: Datos Generales del Director General / Representante Legal */}
+            <AccordionItem value="datos-dir-general" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <Users className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    4. Datos generales del director general y del representante legal de la persona moral sancionada
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <DatosDirGeneralPMSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
 
-          {/* Sección 4: Datos Generales del Director General / Representante Legal (placeholder) */}
-          <div className="rounded-xl border-2 border-muted p-6 bg-muted/30">
-            <h3 className="text-lg font-semibold text-muted-foreground">
-              4. Director General / Representante Legal
-            </h3>
-            <p className="text-sm text-muted-foreground mt-2">
-              Esta sección se configurará en el siguiente paso
-            </p>
-          </div>
+          </Accordion>
 
           {/* Campo 10: Observaciones - AL FINAL DE TODO con diseño completo */}
           <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
-            <div className="flex items-center mb-6 pb-4 border-b border-primary/20">
+            <div className="flex items-center mb-6">
               <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                <Clipboard className="h-6 w-6 text-primary" />
+                <Clipboard className="h-5 w-5 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-primary">10. Observaciones</h3>
+              <h3 className="text-lg font-semibold text-primary">10. Observaciones</h3>
             </div>
             
             <FormField

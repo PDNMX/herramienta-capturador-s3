@@ -44,6 +44,9 @@ export default function Page({ params }) {
                   "datosGenerales.*",
                   "datosGenerales.domicilioMexico.*",
                   "datosGenerales.domicilioExtranjero.*",
+                  "datosDirGeneralReprLegal.*",
+                  "datosDirGeneralReprLegal.directorGeneral.*",
+                  "datosDirGeneralReprLegal.representanteLegal.*",
                 ],
                 filter: {
                   id: {
