@@ -32,13 +32,14 @@ import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
 import { DatosGeneralesPMSection } from "@/components/forms/sections/DatosGeneralesPMSection";
 import { DatosDirGeneralPMSection } from "@/components/forms/sections/DatosDirGeneralPMSection";
+import { DondeCometioFaltaSection } from "@/components/forms/sections/DondeCometioFaltaSection";
 import { 
   Accordion, 
   AccordionContent, 
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
-import { AlertCircle, FileText, Calendar, Clipboard, Users } from "lucide-react";
+import { AlertCircle, FileText, Calendar, Clipboard, Users, MapPin } from "lucide-react";
 
 // Schema para representante
 const datosRepresentanteSchema = z.object({
@@ -53,7 +54,7 @@ const formSchema = z.object({
   entePublico: z.string().min(1, {
     message: "Ente público es requerido.",
   }),
-  status: z.enum(["NO_FIRME", "FIRME", "EN_PROCESO"], {
+  status: z.enum(["NO_FIRME", "FIRME"], {
     message: "Selecciona un estatus válido",
   }),
   fecha: z.string().min(1, {
@@ -102,6 +103,15 @@ const formSchema = z.object({
   // Datos del Director General y Representante Legal
   directorGeneral: datosRepresentanteSchema,
   representanteLegal: datosRepresentanteSchema,
+
+  // Donde cometió la falta
+  dondeCometio_entidadFederativa: z.string().min(1, "La entidad federativa es requerida"),
+  dondeCometio_nivelOrdenGobierno: z.enum(["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA"], {
+    message: "Selecciona un nivel de gobierno válido",
+  }),
+  dondeCometio_ambitoPublico: z.enum(["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"]).nullable().optional(),
+  dondeCometio_nombreEntePublico: z.string().nullable().optional(),
+  dondeCometio_siglasEntePublico: z.string().min(1, "Las siglas del ente público son requeridas"),
 });
 
 type FaltasGravesPMFormValues = z.infer<typeof formSchema>;
@@ -188,6 +198,12 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         rfc: initialData?.datosDirGeneralReprLegal?.representanteLegal?.rfc ?? null,
         curp: initialData?.datosDirGeneralReprLegal?.representanteLegal?.curp ?? null,
       },
+      // Donde cometió la falta
+      dondeCometio_entidadFederativa: initialData?.dondeCometioLaFalta?.entidadFederativa ?? "",
+      dondeCometio_nivelOrdenGobierno: initialData?.dondeCometioLaFalta?.nivelOrdenGobierno ?? "FEDERAL",
+      dondeCometio_ambitoPublico: initialData?.dondeCometioLaFalta?.ambitoPublico ?? null,
+      dondeCometio_nombreEntePublico: initialData?.dondeCometioLaFalta?.nombreEntePublico ?? null,
+      dondeCometio_siglasEntePublico: initialData?.dondeCometioLaFalta?.siglasEntePublico ?? "",
     }),
     [initialData, session?.user?.entePublico]
   );
@@ -264,6 +280,16 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           form.setValue("representanteLegal.rfc", rl.rfc);
           form.setValue("representanteLegal.curp", rl.curp);
         }
+      }
+
+      // Cargar datos de donde cometió la falta
+      if (initialData.dondeCometioLaFalta) {
+        const dcf = initialData.dondeCometioLaFalta;
+        form.setValue("dondeCometio_entidadFederativa", dcf.entidadFederativa);
+        form.setValue("dondeCometio_nivelOrdenGobierno", dcf.nivelOrdenGobierno);
+        form.setValue("dondeCometio_ambitoPublico", dcf.ambitoPublico);
+        form.setValue("dondeCometio_nombreEntePublico", dcf.nombreEntePublico);
+        form.setValue("dondeCometio_siglasEntePublico", dcf.siglasEntePublico);
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -492,6 +518,40 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         datosDgRpId = newDatosDgRp.id;
       }
 
+      // Crear/actualizar donde cometió la falta
+      const dondeCometioFaltaData = {
+        entidadFederativa: data.dondeCometio_entidadFederativa,
+        nivelOrdenGobierno: data.dondeCometio_nivelOrdenGobierno,
+        ambitoPublico: data.dondeCometio_ambitoPublico,
+        nombreEntePublico: data.dondeCometio_nombreEntePublico,
+        siglasEntePublico: data.dondeCometio_siglasEntePublico,
+        entePublico: data.entePublico,
+      };
+
+      let dondeCometioFaltaId;
+
+      if (initialData?.dondeCometioLaFalta?.id) {
+        await directus.request(
+          withToken(
+            session?.access_token,
+            updateItem(
+              "donde_cometio_falta",
+              initialData.dondeCometioLaFalta.id,
+              dondeCometioFaltaData
+            )
+          )
+        );
+        dondeCometioFaltaId = initialData.dondeCometioLaFalta.id;
+      } else {
+        const newDondeCometioFalta = await directus.request(
+          withToken(
+            session?.access_token,
+            createItem("donde_cometio_falta", dondeCometioFaltaData)
+          )
+        );
+        dondeCometioFaltaId = newDondeCometioFalta.id;
+      }
+
       // Preparar los datos del registro principal
       const mainData = {
         entePublico: data.entePublico,
@@ -501,6 +561,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         observaciones: data.observaciones,
         datosGenerales: datosGeneralesId,
         datosDirGeneralReprLegal: datosDgRpId,
+        dondeCometioLaFalta: dondeCometioFaltaId,
       };
 
       if (initialData) {
@@ -610,7 +671,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                       <SelectContent>
                         <SelectItem value="NO_FIRME">No Firme</SelectItem>
                         <SelectItem value="FIRME">Firme</SelectItem>
-                        <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -707,6 +767,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
                 <DatosDirGeneralPMSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Sección 5: Datos del Ente público donde se cometió la falta */}
+            <AccordionItem value="donde-cometio-falta" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <MapPin className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    5. Datos del Ente público donde se cometió la falta administrativa
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <DondeCometioFaltaSection form={form} loading={loading} />
               </AccordionContent>
             </AccordionItem>
 
