@@ -37,6 +37,7 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
+import { AlertCircle, FileText, Calendar, Clipboard } from "lucide-react";
 
 const formSchema = z.object({
   entePublico: z.string().min(1, {
@@ -424,100 +425,150 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             )}
           />
 
-          {/* Nota de campos obligatorios */}
-          <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950/20 dark:border-blue-800 p-4">
-            <p className="text-sm text-blue-800 dark:text-blue-300">
-              <span className="font-semibold">Nota:</span> Todos los campos
-              señalados con un asterisco (*) son de carácter obligatorio.
+          {/* Nota de campos obligatorios - Estilo mejorado */}
+          <div className="flex items-center gap-3 p-4 bg-amber-50/50 dark:bg-amber-900/20 rounded-xl border border-amber-200/50 dark:border-amber-700/30 shadow-sm">
+            <div className="bg-amber-100 dark:bg-amber-800/30 rounded-lg p-2">
+              <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+            </div>
+            <p className="text-sm text-amber-800 dark:text-amber-200 font-medium">
+              Los campos marcados con un asterisco (<span className="text-red-500">*</span>) son de carácter obligatorio.
             </p>
           </div>
 
-          <div className="space-y-6">
-            {/* Estatus - Campo sin enumerar */}
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Estatus <span className="text-red-500">*</span>
-                  </FormLabel>
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona un estatus" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="NO_FIRME">No Firme</SelectItem>
-                      <SelectItem value="FIRME">Firme</SelectItem>
-                      <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <div className="md:grid md:grid-cols-2 gap-6">
-              {/* Campo 1: Fecha */}
+          {/* Box con los campos iniciales */}
+          <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
+            <div className="space-y-6">
+              {/* Estatus */}
               <FormField
                 control={form.control}
-                name="fecha"
+                name="status"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      1. Fecha (DD-MM-AAAA){" "}
-                      <span className="text-red-500">*</span>
+                    <FormLabel className="text-sm font-semibold">
+                      Estatus <span className="text-red-500">*</span>
                     </FormLabel>
-                    <FormControl>
-                      <Input type="date" disabled={loading} {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      Indicar la fecha en la que se registra la información
-                    </FormDescription>
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="h-12">
+                          <SelectValue placeholder="Selecciona un estatus" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="NO_FIRME">No Firme</SelectItem>
+                        <SelectItem value="FIRME">Firme</SelectItem>
+                        <SelectItem value="EN_PROCESO">En Proceso</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* Campo 2: Expediente */}
-              <FormField
-                control={form.control}
-                name="expediente"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      2. Expediente <span className="text-red-500">*</span>
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        disabled={loading}
-                        placeholder="Ej: EXP-2025-001"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Registrar el número de expediente en el que recae la
-                      resolución
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Campo 1: Fecha */}
+                <FormField
+                  control={form.control}
+                  name="fecha"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-semibold">
+                        1. Fecha (DD-MM-AAAA) <span className="text-red-500">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-primary" />
+                          <Input type="date" disabled={loading} {...field} className="h-12 pl-10" />
+                        </div>
+                      </FormControl>
+                      <FormDescription className="text-xs text-muted-foreground">
+                        Indicar la fecha en la que se registra la información
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Campo 2: Expediente */}
+                <FormField
+                  control={form.control}
+                  name="expediente"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-semibold">
+                        2. Expediente <span className="text-red-500">*</span>
+                      </FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Clipboard className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-primary" />
+                          <Input
+                            disabled={loading}
+                            placeholder="Ej: EXP-2025-001"
+                            {...field}
+                            className="h-12 pl-10"
+                          />
+                        </div>
+                      </FormControl>
+                      <FormDescription className="text-xs text-muted-foreground">
+                        Registrar el número de expediente en el que recae la resolución
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
+          </div>
 
-            {/* Campo 10: Observaciones */}
+          {/* ACCORDION COMIENZA AQUÍ - desde la sección 3 en adelante */}
+          <Accordion type="multiple" className="w-full space-y-4">
+            
+            {/* Sección 3: Datos Generales de la Persona Moral */}
+            <AccordionItem value="datos-generales" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <FileText className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    3. Datos generales de la persona moral sancionada
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <DatosGeneralesPMSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
+          </Accordion>
+
+          {/* Sección 4: Datos Generales del Director General / Representante Legal (placeholder) */}
+          <div className="rounded-xl border-2 border-muted p-6 bg-muted/30">
+            <h3 className="text-lg font-semibold text-muted-foreground">
+              4. Director General / Representante Legal
+            </h3>
+            <p className="text-sm text-muted-foreground mt-2">
+              Esta sección se configurará en el siguiente paso
+            </p>
+          </div>
+
+          {/* Campo 10: Observaciones - AL FINAL DE TODO con diseño completo */}
+          <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
+            <div className="flex items-center mb-6 pb-4 border-b border-primary/20">
+              <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                <Clipboard className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold text-primary">10. Observaciones</h3>
+            </div>
+            
             <FormField
               control={form.control}
               name="observaciones"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>10. Observaciones</FormLabel>
                   <FormControl>
                     <Textarea
                       disabled={loading}
@@ -527,47 +578,14 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                       value={field.value || ""}
                     />
                   </FormControl>
-                  <FormDescription>
-                    En este espacio podrá realizar las aclaraciones u
-                    observaciones que considere pertinentes respecto de alguno o
-                    algunos de los apartados del documento.
+                  <FormDescription className="text-xs text-muted-foreground">
+                    En este espacio podrá realizar las aclaraciones u observaciones que considere pertinentes respecto de alguno o algunos de los apartados del documento.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
-          <Separator />
-
-          {/* ACCORDION COMIENZA AQUÍ - desde la sección 3 en adelante */}
-          <Accordion type="multiple" className="w-full">
-            
-            {/* Sección 3: Datos Generales de la Persona Moral */}
-            <AccordionItem value="datos-generales">
-              <AccordionTrigger className="text-lg font-medium hover:no-underline">
-                <span className="text-left">3. Datos generales de la persona moral sancionada</span>
-              </AccordionTrigger>
-              <AccordionContent>
-                <DatosGeneralesPMSection form={form} loading={loading} />
-              </AccordionContent>
-            </AccordionItem>
-
-          </Accordion>
-
-          <Separator />
-
-          {/* Sección 4: Datos Generales del Director General / Representante Legal (placeholder para después) */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-muted-foreground">
-              Director General / Representante Legal
-            </h3>
-            <p className="text-sm text-muted-foreground">
-              Esta sección se configurará en el siguiente paso
-            </p>
-          </div>
-
-          <Separator />
 
           {/* Botones de acción */}
           <div className="flex justify-end gap-4">
@@ -576,10 +594,11 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               variant="outline"
               onClick={() => router.back()}
               disabled={loading}
+              className="h-12 px-6"
             >
               Cancelar
             </Button>
-            <Button disabled={loading} type="submit">
+            <Button disabled={loading} type="submit" className="h-12 px-6">
               {action}
             </Button>
           </div>

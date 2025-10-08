@@ -182,7 +182,7 @@ export const DatosGeneralesPMSection: React.FC<
                 <div
                   onClick={() => !loading && handleTipoDomicilioClick("DOMICILIO_MEXICO")}
                   className={`
-                    relative flex cursor-pointer rounded-lg border-2 p-4 hover:bg-accent transition-colors
+                    relative flex cursor-pointer rounded-xl border-2 p-4 hover:bg-accent transition-colors
                     ${tipoDomicilio === "DOMICILIO_MEXICO" 
                       ? "border-primary bg-accent" 
                       : "border-muted"
@@ -217,7 +217,7 @@ export const DatosGeneralesPMSection: React.FC<
                 <div
                   onClick={() => !loading && handleTipoDomicilioClick("DOMICILIO_EXTRANJERO")}
                   className={`
-                    relative flex cursor-pointer rounded-lg border-2 p-4 hover:bg-accent transition-colors
+                    relative flex cursor-pointer rounded-xl border-2 p-4 hover:bg-accent transition-colors
                     ${tipoDomicilio === "DOMICILIO_EXTRANJERO" 
                       ? "border-primary bg-accent" 
                       : "border-muted"
@@ -254,429 +254,433 @@ export const DatosGeneralesPMSection: React.FC<
         )}
       />
 
-      {/* Domicilio México - Campos sin caja */}
+      {/* Domicilio México - CON BOX mismo fondo */}
       {tipoDomicilio === "DOMICILIO_MEXICO" && (
-        <div className="space-y-6">
-          <div>
-            <h4 className="font-semibold text-base mb-1">
-              Domicilio en la República Mexicana
-            </h4>
-            <p className="text-sm text-muted-foreground">
-              Indicar los siguientes datos: tipo de vialidad, nombre de la
-              vialidad, número exterior, número interior (si aplica),
-              colonia/localidad, municipio/alcaldía, código postal y entidad
-              federativa.
-            </p>
-          </div>
+        <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-semibold text-base mb-1">
+                Domicilio en la República Mexicana
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                Indicar los siguientes datos: tipo de vialidad, nombre de la
+                vialidad, número exterior, número interior (si aplica),
+                colonia/localidad, municipio/alcaldía, código postal y entidad
+                federativa.
+              </p>
+            </div>
 
-          <div className="md:grid md:grid-cols-2 gap-6">
-            {/* Tipo de vialidad */}
-            <FormField
-              control={form.control}
-              name="tipoVialidad"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tipo de vialidad</FormLabel>
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value || ""}
-                  >
+            <div className="md:grid md:grid-cols-2 gap-6">
+              {/* Tipo de vialidad */}
+              <FormField
+                control={form.control}
+                name="tipoVialidad"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tipo de vialidad</FormLabel>
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value || ""}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona el tipo de vialidad" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="AVENIDA">Avenida</SelectItem>
+                        <SelectItem value="CALLE">Calle</SelectItem>
+                        <SelectItem value="BOULEVARD">Boulevard</SelectItem>
+                        <SelectItem value="VIADUCTO">Viaducto</SelectItem>
+                        <SelectItem value="CALZADA">Calzada</SelectItem>
+                        <SelectItem value="PRIVADA">Privada</SelectItem>
+                        <SelectItem value="CALLEJON">Callejón</SelectItem>
+                        <SelectItem value="PROLONGACION">Prolongación</SelectItem>
+                        <SelectItem value="CERRADA">Cerrada</SelectItem>
+                        <SelectItem value="CIRCUNVALACION">
+                          Circunvalación
+                        </SelectItem>
+                        <SelectItem value="CIRCUITO">Circuito</SelectItem>
+                        <SelectItem value="CONTINUACION">Continuación</SelectItem>
+                        <SelectItem value="CORREDOR">Corredor</SelectItem>
+                        <SelectItem value="DIAGONAL">Diagonal</SelectItem>
+                        <SelectItem value="AMPLIACION">Ampliación</SelectItem>
+                        <SelectItem value="ANDADOR">Andador</SelectItem>
+                        <SelectItem value="EJE_VIAL">Eje Vial</SelectItem>
+                        <SelectItem value="PASAJE">Pasaje</SelectItem>
+                        <SelectItem value="PEATONAL">Peatonal</SelectItem>
+                        <SelectItem value="PERIFERICO">Periférico</SelectItem>
+                        <SelectItem value="RETORNO">Retorno</SelectItem>
+                        <SelectItem value="NINGUNO">Ninguno</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Nombre de la vialidad */}
+              <FormField
+                control={form.control}
+                name="nombreVialidad"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre de la vialidad</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona el tipo de vialidad" />
-                      </SelectTrigger>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Insurgentes"
+                        {...field}
+                        value={field.value || ""}
+                      />
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="AVENIDA">Avenida</SelectItem>
-                      <SelectItem value="CALLE">Calle</SelectItem>
-                      <SelectItem value="BOULEVARD">Boulevard</SelectItem>
-                      <SelectItem value="VIADUCTO">Viaducto</SelectItem>
-                      <SelectItem value="CALZADA">Calzada</SelectItem>
-                      <SelectItem value="PRIVADA">Privada</SelectItem>
-                      <SelectItem value="CALLEJON">Callejón</SelectItem>
-                      <SelectItem value="PROLONGACION">Prolongación</SelectItem>
-                      <SelectItem value="CERRADA">Cerrada</SelectItem>
-                      <SelectItem value="CIRCUNVALACION">
-                        Circunvalación
-                      </SelectItem>
-                      <SelectItem value="CIRCUITO">Circuito</SelectItem>
-                      <SelectItem value="CONTINUACION">Continuación</SelectItem>
-                      <SelectItem value="CORREDOR">Corredor</SelectItem>
-                      <SelectItem value="DIAGONAL">Diagonal</SelectItem>
-                      <SelectItem value="AMPLIACION">Ampliación</SelectItem>
-                      <SelectItem value="ANDADOR">Andador</SelectItem>
-                      <SelectItem value="EJE_VIAL">Eje Vial</SelectItem>
-                      <SelectItem value="PASAJE">Pasaje</SelectItem>
-                      <SelectItem value="PEATONAL">Peatonal</SelectItem>
-                      <SelectItem value="PERIFERICO">Periférico</SelectItem>
-                      <SelectItem value="RETORNO">Retorno</SelectItem>
-                      <SelectItem value="NINGUNO">Ninguno</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Nombre de la vialidad */}
-            <FormField
-              control={form.control}
-              name="nombreVialidad"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nombre de la vialidad</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Insurgentes"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Número exterior */}
-            <FormField
-              control={form.control}
-              name="numeroExterior"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Número exterior</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: 123"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Número interior */}
-            <FormField
-              control={form.control}
-              name="numeroInterior"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Número interior</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: 4A (si aplica)"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Colonia / Localidad */}
-            <FormField
-              control={form.control}
-              name="coloniaLocalidad"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Colonia / Localidad</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Roma Norte"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Municipio / Alcaldía */}
-            <FormField
-              control={form.control}
-              name="municipioAlcaldia"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Municipio / Alcaldía</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Cuauhtémoc"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Código postal */}
-            <FormField
-              control={form.control}
-              name="codigoPostal"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Código postal</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: 06700"
-                      maxLength={5}
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Entidad federativa */}
-            <FormField
-              control={form.control}
-              name="entidadFederativa"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Entidad federativa</FormLabel>
-                  <Select
-                    disabled={loading}
-                    onValueChange={field.onChange}
-                    value={field.value || ""}
-                  >
+              {/* Número exterior */}
+              <FormField
+                control={form.control}
+                name="numeroExterior"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Número exterior</FormLabel>
                     <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecciona la entidad federativa" />
-                      </SelectTrigger>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: 123"
+                        {...field}
+                        value={field.value || ""}
+                      />
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="01">Aguascalientes</SelectItem>
-                      <SelectItem value="02">Baja California</SelectItem>
-                      <SelectItem value="03">Baja California Sur</SelectItem>
-                      <SelectItem value="04">Campeche</SelectItem>
-                      <SelectItem value="05">Coahuila de Zaragoza</SelectItem>
-                      <SelectItem value="06">Colima</SelectItem>
-                      <SelectItem value="07">Chiapas</SelectItem>
-                      <SelectItem value="08">Chihuahua</SelectItem>
-                      <SelectItem value="09">Ciudad de México</SelectItem>
-                      <SelectItem value="10">Durango</SelectItem>
-                      <SelectItem value="11">Guanajuato</SelectItem>
-                      <SelectItem value="12">Guerrero</SelectItem>
-                      <SelectItem value="13">Hidalgo</SelectItem>
-                      <SelectItem value="14">Jalisco</SelectItem>
-                      <SelectItem value="15">Estado de México</SelectItem>
-                      <SelectItem value="16">Michoacán de Ocampo</SelectItem>
-                      <SelectItem value="17">Morelos</SelectItem>
-                      <SelectItem value="18">Nayarit</SelectItem>
-                      <SelectItem value="19">Nuevo León</SelectItem>
-                      <SelectItem value="20">Oaxaca</SelectItem>
-                      <SelectItem value="21">Puebla</SelectItem>
-                      <SelectItem value="22">Querétaro</SelectItem>
-                      <SelectItem value="23">Quintana Roo</SelectItem>
-                      <SelectItem value="24">San Luis Potosí</SelectItem>
-                      <SelectItem value="25">Sinaloa</SelectItem>
-                      <SelectItem value="26">Sonora</SelectItem>
-                      <SelectItem value="27">Tabasco</SelectItem>
-                      <SelectItem value="28">Tamaulipas</SelectItem>
-                      <SelectItem value="29">Tlaxcala</SelectItem>
-                      <SelectItem value="30">
-                        Veracruz de Ignacio de la Llave
-                      </SelectItem>
-                      <SelectItem value="31">Yucatán</SelectItem>
-                      <SelectItem value="32">Zacatecas</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Número interior */}
+              <FormField
+                control={form.control}
+                name="numeroInterior"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Número interior</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: 4A (si aplica)"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Colonia / Localidad */}
+              <FormField
+                control={form.control}
+                name="coloniaLocalidad"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Colonia / Localidad</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Roma Norte"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Municipio / Alcaldía */}
+              <FormField
+                control={form.control}
+                name="municipioAlcaldia"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Municipio / Alcaldía</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Cuauhtémoc"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Código postal */}
+              <FormField
+                control={form.control}
+                name="codigoPostal"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Código postal</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: 06700"
+                        maxLength={5}
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Entidad federativa */}
+              <FormField
+                control={form.control}
+                name="entidadFederativa"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Entidad federativa</FormLabel>
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value || ""}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona la entidad federativa" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="01">Aguascalientes</SelectItem>
+                        <SelectItem value="02">Baja California</SelectItem>
+                        <SelectItem value="03">Baja California Sur</SelectItem>
+                        <SelectItem value="04">Campeche</SelectItem>
+                        <SelectItem value="05">Coahuila de Zaragoza</SelectItem>
+                        <SelectItem value="06">Colima</SelectItem>
+                        <SelectItem value="07">Chiapas</SelectItem>
+                        <SelectItem value="08">Chihuahua</SelectItem>
+                        <SelectItem value="09">Ciudad de México</SelectItem>
+                        <SelectItem value="10">Durango</SelectItem>
+                        <SelectItem value="11">Guanajuato</SelectItem>
+                        <SelectItem value="12">Guerrero</SelectItem>
+                        <SelectItem value="13">Hidalgo</SelectItem>
+                        <SelectItem value="14">Jalisco</SelectItem>
+                        <SelectItem value="15">Estado de México</SelectItem>
+                        <SelectItem value="16">Michoacán de Ocampo</SelectItem>
+                        <SelectItem value="17">Morelos</SelectItem>
+                        <SelectItem value="18">Nayarit</SelectItem>
+                        <SelectItem value="19">Nuevo León</SelectItem>
+                        <SelectItem value="20">Oaxaca</SelectItem>
+                        <SelectItem value="21">Puebla</SelectItem>
+                        <SelectItem value="22">Querétaro</SelectItem>
+                        <SelectItem value="23">Quintana Roo</SelectItem>
+                        <SelectItem value="24">San Luis Potosí</SelectItem>
+                        <SelectItem value="25">Sinaloa</SelectItem>
+                        <SelectItem value="26">Sonora</SelectItem>
+                        <SelectItem value="27">Tabasco</SelectItem>
+                        <SelectItem value="28">Tamaulipas</SelectItem>
+                        <SelectItem value="29">Tlaxcala</SelectItem>
+                        <SelectItem value="30">
+                          Veracruz de Ignacio de la Llave
+                        </SelectItem>
+                        <SelectItem value="31">Yucatán</SelectItem>
+                        <SelectItem value="32">Zacatecas</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
       )}
       
-      {/* Domicilio Extranjero - Campos sin caja */}
+      {/* Domicilio Extranjero - CON BOX mismo fondo */}
       {tipoDomicilio === "DOMICILIO_EXTRANJERO" && (
-        <div className="space-y-6">
-          <div>
-            <h4 className="font-semibold text-base mb-1">Domicilio en el extranjero</h4>
-            <p className="text-sm text-muted-foreground">
-              En su caso, indicar los siguientes datos: ciudad/localidad,
-              estado/provincia, calle, número exterior, número interior (si
-              aplica), código postal y país.
-            </p>
-          </div>
+        <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
+          <div className="space-y-6">
+            <div>
+              <h4 className="font-semibold text-base mb-1">Domicilio en el extranjero</h4>
+              <p className="text-sm text-muted-foreground">
+                En su caso, indicar los siguientes datos: ciudad/localidad,
+                estado/provincia, calle, número exterior, número interior (si
+                aplica), código postal y país.
+              </p>
+            </div>
 
-          <div className="md:grid md:grid-cols-2 gap-6">
-            {/* Ciudad / Localidad */}
-            <FormField
-              control={form.control}
-              name="ciudad"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ciudad / Localidad</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Nueva York"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Escribir el nombre de la ciudad o localidad del domicilio
-                    extranjero
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="md:grid md:grid-cols-2 gap-6">
+              {/* Ciudad / Localidad */}
+              <FormField
+                control={form.control}
+                name="ciudad"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Ciudad / Localidad</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Nueva York"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Escribir el nombre de la ciudad o localidad del domicilio
+                      extranjero
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Estado / Provincia */}
-            <FormField
-              control={form.control}
-              name="provincia"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Estado / Provincia</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Nueva York"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Escribir el nombre del estado/provincia del domicilio
-                    extranjero
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* Estado / Provincia */}
+              <FormField
+                control={form.control}
+                name="provincia"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Estado / Provincia</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Nueva York"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Escribir el nombre del estado/provincia del domicilio
+                      extranjero
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Calle */}
-            <FormField
-              control={form.control}
-              name="calle"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Calle</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Fifth Avenue"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Escribir el nombre de la calle del domicilio extranjero
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* Calle */}
+              <FormField
+                control={form.control}
+                name="calle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Calle</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Fifth Avenue"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Escribir el nombre de la calle del domicilio extranjero
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Número exterior */}
-            <FormField
-              control={form.control}
-              name="numeroExteriorExtranjero"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Número exterior</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: 350"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Escribir el número exterior del domicilio extranjero
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* Número exterior */}
+              <FormField
+                control={form.control}
+                name="numeroExteriorExtranjero"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Número exterior</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: 350"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Escribir el número exterior del domicilio extranjero
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Número interior */}
-            <FormField
-              control={form.control}
-              name="numeroInteriorExtranjero"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Número interior</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Apt 5B (si aplica)"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Escribir el número interior del domicilio extranjero
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* Número interior */}
+              <FormField
+                control={form.control}
+                name="numeroInteriorExtranjero"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Número interior</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Apt 5B (si aplica)"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Escribir el número interior del domicilio extranjero
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* Código postal */}
-            <FormField
-              control={form.control}
-              name="codigoPostalExtranjero"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Código postal</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: 10118"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Escribir el código postal del domicilio extranjero
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* Código postal */}
+              <FormField
+                control={form.control}
+                name="codigoPostalExtranjero"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Código postal</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: 10118"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Escribir el código postal del domicilio extranjero
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            {/* País */}
-            <FormField
-              control={form.control}
-              name="pais"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>País</FormLabel>
-                  <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Ej: Estados Unidos"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Nombre del país especificado en estándar ISO3166
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+              {/* País */}
+              <FormField
+                control={form.control}
+                name="pais"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>País</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Ej: Estados Unidos"
+                        {...field}
+                        value={field.value || ""}
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Nombre del país especificado en estándar ISO3166
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
         </div>
       )}
