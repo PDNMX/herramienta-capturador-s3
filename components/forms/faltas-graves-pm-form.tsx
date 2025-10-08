@@ -31,6 +31,12 @@ import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
 import { DatosGeneralesPMSection } from "@/components/forms/sections/DatosGeneralesPMSection";
+import { 
+  Accordion, 
+  AccordionContent, 
+  AccordionItem, 
+  AccordionTrigger 
+} from "@/components/ui/accordion";
 
 const formSchema = z.object({
   entePublico: z.string().min(1, {
@@ -534,12 +540,24 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
           <Separator />
 
-          {/* Sección 2: Datos Generales de la Persona Moral */}
-          <DatosGeneralesPMSection form={form} loading={loading} />
+          {/* ACCORDION COMIENZA AQUÍ - desde la sección 3 en adelante */}
+          <Accordion type="multiple" className="w-full">
+            
+            {/* Sección 3: Datos Generales de la Persona Moral */}
+            <AccordionItem value="datos-generales">
+              <AccordionTrigger className="text-lg font-medium hover:no-underline">
+                <span className="text-left">3. Datos generales de la persona moral sancionada</span>
+              </AccordionTrigger>
+              <AccordionContent>
+                <DatosGeneralesPMSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
+          </Accordion>
 
           <Separator />
 
-          {/* Sección 3: Datos Generales del Director General / Representante Legal (placeholder para después) */}
+          {/* Sección 4: Datos Generales del Director General / Representante Legal (placeholder para después) */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold text-muted-foreground">
               Director General / Representante Legal

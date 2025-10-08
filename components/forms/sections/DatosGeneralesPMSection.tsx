@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
 interface DatosGeneralesPMSectionProps {
@@ -29,20 +30,66 @@ export const DatosGeneralesPMSection: React.FC<
   DatosGeneralesPMSectionProps
 > = ({ form, loading }) => {
   const [tipoDomicilio, setTipoDomicilio] = useState(
-    form.watch("tipoDomicilio") ?? null // Cambiar a null en lugar de "DOMICILIO_MEXICO"
+    form.watch("tipoDomicilio") ?? null
   );
+
+  const handleTipoDomicilioClick = (value: string) => {
+    // Si se hace clic en la opción ya seleccionada, se deselecciona
+    if (tipoDomicilio === value) {
+      setTipoDomicilio(null);
+      form.setValue("tipoDomicilio", null);
+      
+      // Limpiar todos los campos de domicilio
+      form.setValue("tipoVialidad", null);
+      form.setValue("nombreVialidad", null);
+      form.setValue("numeroExterior", null);
+      form.setValue("numeroInterior", null);
+      form.setValue("coloniaLocalidad", null);
+      form.setValue("municipioAlcaldia", null);
+      form.setValue("codigoPostal", null);
+      form.setValue("entidadFederativa", null);
+      form.setValue("ciudad", null);
+      form.setValue("provincia", null);
+      form.setValue("calle", null);
+      form.setValue("numeroExteriorExtranjero", null);
+      form.setValue("numeroInteriorExtranjero", null);
+      form.setValue("codigoPostalExtranjero", null);
+      form.setValue("pais", null);
+    } else {
+      setTipoDomicilio(value);
+      form.setValue("tipoDomicilio", value);
+      
+      // Limpiar campos según el tipo de domicilio seleccionado
+      if (value === "DOMICILIO_MEXICO") {
+        // Limpiar campos de extranjero
+        form.setValue("ciudad", null);
+        form.setValue("provincia", null);
+        form.setValue("calle", null);
+        form.setValue("numeroExteriorExtranjero", null);
+        form.setValue("numeroInteriorExtranjero", null);
+        form.setValue("codigoPostalExtranjero", null);
+        form.setValue("pais", null);
+      } else if (value === "DOMICILIO_EXTRANJERO") {
+        // Limpiar campos de México
+        form.setValue("tipoVialidad", null);
+        form.setValue("nombreVialidad", null);
+        form.setValue("numeroExterior", null);
+        form.setValue("numeroInterior", null);
+        form.setValue("coloniaLocalidad", null);
+        form.setValue("municipioAlcaldia", null);
+        form.setValue("codigoPostal", null);
+        form.setValue("entidadFederativa", null);
+      }
+    }
+  };
 
   return (
     <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-semibold">
-          3. Datos generales de la persona moral sancionada
-        </h3>
-        <p className="text-sm text-muted-foreground mt-1">
-          En el presente apartado se establecen los datos concernientes a la
-          persona moral sancionada
-        </p>
-      </div>
+      {/* Descripción de la sección */}
+      <p className="text-sm text-muted-foreground">
+        En el presente apartado se establecen los datos concernientes a la
+        persona moral sancionada
+      </p>
 
       <div className="md:grid md:grid-cols-2 gap-6">
         {/* Denominación o razón social */}
@@ -122,61 +169,96 @@ export const DatosGeneralesPMSection: React.FC<
         )}
       />
 
-      {/* Tipo de domicilio */}
+      {/* Tipo de domicilio con boxes */}
       <FormField
         control={form.control}
         name="tipoDomicilio"
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>
-              Tipo de domicilio {/* Remover el asterisco */}
-            </FormLabel>
-            <Select
-              disabled={loading}
-              onValueChange={(value) => {
-                setTipoDomicilio(value);
-                field.onChange(value);
-                // Limpiar campos según el tipo de domicilio seleccionado
-                if (value === "DOMICILIO_MEXICO") {
-                  form.setValue("domicilioExtranjero", null);
-                } else if (value === "DOMICILIO_EXTRANJERO") {
-                  // Limpiar todos los campos de domicilio México
-                  form.setValue("tipoVialidad", null);
-                  form.setValue("nombreVialidad", null);
-                  form.setValue("numeroExterior", null);
-                  form.setValue("numeroInterior", null);
-                  form.setValue("coloniaLocalidad", null);
-                  form.setValue("municipioAlcaldia", null);
-                  form.setValue("codigoPostal", null);
-                  form.setValue("entidadFederativa", null);
-                }
-              }}
-              value={field.value || ""}
-            >
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecciona el tipo de domicilio" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="DOMICILIO_MEXICO">
-                  Domicilio en la República Mexicana
-                </SelectItem>
-                <SelectItem value="DOMICILIO_EXTRANJERO">
-                  Domicilio en el extranjero
-                </SelectItem>
-              </SelectContent>
-            </Select>
+          <FormItem className="space-y-3">
+            <FormLabel>Tipo de domicilio</FormLabel>
+            <FormControl>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Box Domicilio México */}
+                <div
+                  onClick={() => !loading && handleTipoDomicilioClick("DOMICILIO_MEXICO")}
+                  className={`
+                    relative flex cursor-pointer rounded-lg border-2 p-4 hover:bg-accent transition-colors
+                    ${tipoDomicilio === "DOMICILIO_MEXICO" 
+                      ? "border-primary bg-accent" 
+                      : "border-muted"
+                    }
+                    ${loading ? "opacity-50 cursor-not-allowed" : ""}
+                  `}
+                >
+                  <div className="flex items-start space-x-3 w-full">
+                    <div className={`
+                      mt-0.5 h-4 w-4 rounded-full border-2 flex items-center justify-center
+                      ${tipoDomicilio === "DOMICILIO_MEXICO" 
+                        ? "border-primary" 
+                        : "border-muted-foreground"
+                      }
+                    `}>
+                      {tipoDomicilio === "DOMICILIO_MEXICO" && (
+                        <div className="h-2 w-2 rounded-full bg-primary" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <Label className="font-medium cursor-pointer">
+                        Domicilio en la República Mexicana
+                      </Label>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Selecciona si el domicilio está en México
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Box Domicilio Extranjero */}
+                <div
+                  onClick={() => !loading && handleTipoDomicilioClick("DOMICILIO_EXTRANJERO")}
+                  className={`
+                    relative flex cursor-pointer rounded-lg border-2 p-4 hover:bg-accent transition-colors
+                    ${tipoDomicilio === "DOMICILIO_EXTRANJERO" 
+                      ? "border-primary bg-accent" 
+                      : "border-muted"
+                    }
+                    ${loading ? "opacity-50 cursor-not-allowed" : ""}
+                  `}
+                >
+                  <div className="flex items-start space-x-3 w-full">
+                    <div className={`
+                      mt-0.5 h-4 w-4 rounded-full border-2 flex items-center justify-center
+                      ${tipoDomicilio === "DOMICILIO_EXTRANJERO" 
+                        ? "border-primary" 
+                        : "border-muted-foreground"
+                      }
+                    `}>
+                      {tipoDomicilio === "DOMICILIO_EXTRANJERO" && (
+                        <div className="h-2 w-2 rounded-full bg-primary" />
+                      )}
+                    </div>
+                    <div className="flex-1">
+                      <Label className="font-medium cursor-pointer">
+                        Domicilio en el extranjero
+                      </Label>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Selecciona si el domicilio está fuera de México
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
 
-      {/* Domicilio México - Campos completos */}
+      {/* Domicilio México - Campos sin caja */}
       {tipoDomicilio === "DOMICILIO_MEXICO" && (
-        <div className="space-y-6 rounded-lg border border-slate-200 bg-slate-50 dark:bg-slate-900 dark:border-slate-700 p-6">
+        <div className="space-y-6">
           <div>
-            <h4 className="font-semibold mb-2">
+            <h4 className="font-semibold text-base mb-1">
               Domicilio en la República Mexicana
             </h4>
             <p className="text-sm text-muted-foreground">
@@ -420,11 +502,11 @@ export const DatosGeneralesPMSection: React.FC<
         </div>
       )}
       
-      {/* Domicilio Extranjero - Campos completos */}
+      {/* Domicilio Extranjero - Campos sin caja */}
       {tipoDomicilio === "DOMICILIO_EXTRANJERO" && (
-        <div className="space-y-6 rounded-lg border border-slate-200 bg-slate-50 dark:bg-slate-900 dark:border-slate-700 p-6">
+        <div className="space-y-6">
           <div>
-            <h4 className="font-semibold mb-2">Domicilio en el extranjero</h4>
+            <h4 className="font-semibold text-base mb-1">Domicilio en el extranjero</h4>
             <p className="text-sm text-muted-foreground">
               En su caso, indicar los siguientes datos: ciudad/localidad,
               estado/provincia, calle, número exterior, número interior (si
