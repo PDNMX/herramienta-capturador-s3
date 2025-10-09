@@ -48,6 +48,7 @@ export default function Page({ params }) {
                   "datosDirGeneralReprLegal.directorGeneral.*",
                   "datosDirGeneralReprLegal.representanteLegal.*",
                   "dondeCometioLaFalta.*",
+                  "origenProcedimiento.*",
                 ],
                 filter: {
                   id: {

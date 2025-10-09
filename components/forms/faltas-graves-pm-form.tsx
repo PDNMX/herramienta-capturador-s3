@@ -33,13 +33,14 @@ import { createItem, updateItem, withToken } from "@directus/sdk";
 import { DatosGeneralesPMSection } from "@/components/forms/sections/DatosGeneralesPMSection";
 import { DatosDirGeneralPMSection } from "@/components/forms/sections/DatosDirGeneralPMSection";
 import { DondeCometioFaltaSection } from "@/components/forms/sections/DondeCometioFaltaSection";
+import { OrigenProcedimientoSection } from "@/components/forms/sections/OrigenProcedimientoSection";
 import { 
   Accordion, 
   AccordionContent, 
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
-import { AlertCircle, FileText, Calendar, Clipboard, Users, MapPin } from "lucide-react";
+import { AlertCircle, FileText, Calendar, Clipboard, Users, MapPin, Search } from "lucide-react";
 
 // Schema para representante
 const datosRepresentanteSchema = z.object({
@@ -111,7 +112,13 @@ const formSchema = z.object({
   }),
   dondeCometio_ambitoPublico: z.enum(["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"]).nullable().optional(),
   dondeCometio_nombreEntePublico: z.string().nullable().optional(),
-  dondeCometio_siglasEntePublico: z.string().min(1, "Las siglas del ente público son requeridas"),
+  dondeCometio_siglasEntePublico: z.string().nullable().optional(),
+
+  // Origen del procedimiento
+  origenProcedimiento_clave: z.enum(["ASF_ENTIDADES_FISCALIZACION", "AUDITORIA_OIC", "DENUNCIA", "DE_OFICIO", "OTRO"], {
+    message: "Selecciona un origen válido",
+  }),
+  origenProcedimiento_valor: z.string().nullable().optional(),
 });
 
 type FaltasGravesPMFormValues = z.infer<typeof formSchema>;
@@ -204,6 +211,9 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       dondeCometio_ambitoPublico: initialData?.dondeCometioLaFalta?.ambitoPublico ?? null,
       dondeCometio_nombreEntePublico: initialData?.dondeCometioLaFalta?.nombreEntePublico ?? null,
       dondeCometio_siglasEntePublico: initialData?.dondeCometioLaFalta?.siglasEntePublico ?? "",
+      // Origen del procedimiento
+      origenProcedimiento_clave: initialData?.origenProcedimiento?.clave ?? "DENUNCIA",
+      origenProcedimiento_valor: initialData?.origenProcedimiento?.valor ?? null,
     }),
     [initialData, session?.user?.entePublico]
   );
@@ -290,6 +300,13 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         form.setValue("dondeCometio_ambitoPublico", dcf.ambitoPublico);
         form.setValue("dondeCometio_nombreEntePublico", dcf.nombreEntePublico);
         form.setValue("dondeCometio_siglasEntePublico", dcf.siglasEntePublico);
+      }
+
+      // Cargar datos del origen del procedimiento
+      if (initialData.origenProcedimiento) {
+        const op = initialData.origenProcedimiento;
+        form.setValue("origenProcedimiento_clave", op.clave);
+        form.setValue("origenProcedimiento_valor", op.valor);
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -552,6 +569,37 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         dondeCometioFaltaId = newDondeCometioFalta.id;
       }
 
+      // Crear/actualizar origen del procedimiento
+      const origenProcedimientoData = {
+        clave: data.origenProcedimiento_clave,
+        valor: data.origenProcedimiento_clave === "OTRO" ? data.origenProcedimiento_valor : null,
+        entePublico: data.entePublico,
+      };
+
+      let origenProcedimientoId;
+
+      if (initialData?.origenProcedimiento?.id) {
+        await directus.request(
+          withToken(
+            session?.access_token,
+            updateItem(
+              "origen_procedimiento",
+              initialData.origenProcedimiento.id,
+              origenProcedimientoData
+            )
+          )
+        );
+        origenProcedimientoId = initialData.origenProcedimiento.id;
+      } else {
+        const newOrigenProcedimiento = await directus.request(
+          withToken(
+            session?.access_token,
+            createItem("origen_procedimiento", origenProcedimientoData)
+          )
+        );
+        origenProcedimientoId = newOrigenProcedimiento.id;
+      }
+
       // Preparar los datos del registro principal
       const mainData = {
         entePublico: data.entePublico,
@@ -562,6 +610,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         datosGenerales: datosGeneralesId,
         datosDirGeneralReprLegal: datosDgRpId,
         dondeCometioLaFalta: dondeCometioFaltaId,
+        origenProcedimiento: origenProcedimientoId,
       };
 
       if (initialData) {
@@ -636,7 +685,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             )}
           />
 
-          {/* Nota de campos obligatorios - Estilo mejorado */}
+          {/* Nota de campos obligatorios */}
           <div className="flex items-center gap-3 p-4 bg-amber-50/50 dark:bg-amber-900/20 rounded-xl border border-amber-200/50 dark:border-amber-700/30 shadow-sm">
             <div className="bg-amber-100 dark:bg-amber-800/30 rounded-lg p-2">
               <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
@@ -733,7 +782,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </div>
           </div>
 
-          {/* ACCORDION COMIENZA AQUÍ - desde la sección 3 en adelante */}
+          {/* ACCORDION COMIENZA AQUÍ */}
           <Accordion type="multiple" className="w-full space-y-4">
             
             {/* Sección 3: Datos Generales de la Persona Moral */}
@@ -787,9 +836,26 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               </AccordionContent>
             </AccordionItem>
 
+            {/* Sección 6: Origen del procedimiento */}
+            <AccordionItem value="origen-procedimiento" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <Search className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    6. Origen del procedimiento
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <OrigenProcedimientoSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
           </Accordion>
 
-          {/* Campo 10: Observaciones - AL FINAL DE TODO con diseño completo */}
+          {/* Campo 10: Observaciones */}
           <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
             <div className="flex items-center mb-6">
               <div className="bg-primary/10 rounded-lg p-2 mr-4">
