@@ -2,7 +2,7 @@
 "use client";
 
 import BreadCrumb from "@/components/breadcrumb";
-import { FaltasGravesPMForm } from "@/components/forms/faltas-graves-pm-form";
+import { FaltasGravesPMForm } from "@/components/forms/faltasPM/faltas-graves-pm-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import { useEffect, useState } from "react";

@@ -24,16 +24,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
-import * as z from "zod";
 import { useToast } from "@/components/ui/use-toast";
 import { useState, useEffect, useMemo } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
-import directus from "@/lib/directus";
-import { createItem, updateItem, withToken } from "@directus/sdk";
-import { DatosGeneralesPMSection } from "@/components/forms/sections/DatosGeneralesPMSection";
-import { DatosDirGeneralPMSection } from "@/components/forms/sections/DatosDirGeneralPMSection";
-import { DondeCometioFaltaSection } from "@/components/forms/sections/DondeCometioFaltaSection";
-import { OrigenProcedimientoSection } from "@/components/forms/sections/OrigenProcedimientoSection";
 import { 
   Accordion, 
   AccordionContent, 
@@ -42,86 +35,16 @@ import {
 } from "@/components/ui/accordion";
 import { AlertCircle, FileText, Calendar, Clipboard, Users, MapPin, Search } from "lucide-react";
 
-// Schema para representante
-const datosRepresentanteSchema = z.object({
-  nombre: z.string().min(1, "El nombre es requerido"),
-  primerApellido: z.string().min(1, "El primer apellido es requerido"),
-  segundoApellido: z.string().optional().nullable(),
-  rfc: z.string().optional().nullable(),
-  curp: z.string().optional().nullable(),
-});
+// Imports de archivos separados
+import { faltasGravesPMSchema, type FaltasGravesPMFormValues } from "./schema";
+import { getFaltasGravesPMDefaults } from "./defaults";
+import { saveFaltaGravePM } from "./handler";
 
-const formSchema = z.object({
-  entePublico: z.string().min(1, {
-    message: "Ente público es requerido.",
-  }),
-  status: z.enum(["NO_FIRME", "FIRME"], {
-    message: "Selecciona un estatus válido",
-  }),
-  fecha: z.string().min(1, {
-    message: "La fecha es requerida.",
-  }),
-  expediente: z.string().min(3, {
-    message: "El número de expediente debe tener al menos 3 caracteres.",
-  }),
-  observaciones: z.string().nullable().optional(),
-
-  // Datos Generales de la Persona Moral
-  nombreRazonSocial: z.string().min(3, {
-    message: "La denominación o razón social debe tener al menos 3 caracteres.",
-  }),
-  rfc: z
-    .string()
-    .min(12, {
-      message: "El RFC debe tener al menos 12 caracteres (con homoclave).",
-    })
-    .max(13),
-  objetoSocial: z.string().optional(),
-  tipoDomicilio: z
-    .enum(["DOMICILIO_MEXICO", "DOMICILIO_EXTRANJERO"])
-    .nullable()
-    .optional(),
-
-  // Campos de Domicilio México (todos opcionales)
-  tipoVialidad: z.string().nullable().optional(),
-  nombreVialidad: z.string().nullable().optional(),
-  numeroExterior: z.string().nullable().optional(),
-  numeroInterior: z.string().nullable().optional(),
-  coloniaLocalidad: z.string().nullable().optional(),
-  municipioAlcaldia: z.string().nullable().optional(),
-  codigoPostal: z.string().nullable().optional(),
-  entidadFederativa: z.string().nullable().optional(),
-
-  // Campos de Domicilio Extranjero (todos opcionales)
-  ciudad: z.string().nullable().optional(),
-  provincia: z.string().nullable().optional(),
-  calle: z.string().nullable().optional(),
-  numeroExteriorExtranjero: z.string().nullable().optional(),
-  numeroInteriorExtranjero: z.string().nullable().optional(),
-  codigoPostalExtranjero: z.string().nullable().optional(),
-  pais: z.string().nullable().optional(),
-
-  // Datos del Director General y Representante Legal
-  directorGeneral: datosRepresentanteSchema,
-  representanteLegal: datosRepresentanteSchema,
-
-  // Donde cometió la falta
-  dondeCometio_entidadFederativa: z.string().min(1, "La entidad federativa es requerida"),
-  dondeCometio_nivelOrdenGobierno: z.enum(["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA"], {
-    message: "Selecciona un nivel de gobierno válido",
-  }),
-  dondeCometio_ambitoPublico: z.enum(["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"]).nullable().optional(),
-  dondeCometio_nombreEntePublico: z.string().nullable().optional(),
-  dondeCometio_siglasEntePublico: z.string().nullable().optional(),
-
-  // Origen del procedimiento
-  origenProcedimiento_clave: z.enum(["ASF_ENTIDADES_FISCALIZACION", "AUDITORIA_OIC", "DENUNCIA", "DE_OFICIO", "OTRO"], {
-    message: "Selecciona un origen válido",
-  }),
-  origenProcedimiento_valor: z.string().nullable().optional(),
-});
-
-type FaltasGravesPMFormValues = z.infer<typeof formSchema>;
+// Imports de secciones
+import { DatosGeneralesPMSection } from "./sections/DatosGeneralesPMSection";
+import { DatosDirGeneralPMSection } from "./sections/DatosDirGeneralPMSection";
+import { DondeCometioFaltaSection } from "./sections/DondeCometioFaltaSection";
+import { OrigenProcedimientoSection } from "./sections/OrigenProcedimientoSection";
 
 interface FaltasGravesPMFormProps {
   initialData: any | null;
@@ -146,80 +69,14 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
     : "Nueva falta grave registrada.";
   const action = initialData ? "Actualizar" : "Guardar";
 
+  // Valores por defecto usando la función separada
   const defaultValues = useMemo(
-    () => ({
-      entePublico: initialData?.entePublico ?? session?.user?.entePublico ?? "",
-      status: initialData?.status ?? "NO_FIRME",
-      fecha: initialData?.fecha ?? new Date().toISOString().split("T")[0],
-      expediente: initialData?.expediente ?? "",
-      observaciones: initialData?.observaciones ?? "",
-      // Datos Generales
-      nombreRazonSocial: initialData?.datosGenerales?.nombreRazonSocial ?? "",
-      rfc: initialData?.datosGenerales?.rfc ?? "",
-      objetoSocial: initialData?.datosGenerales?.objetoSocial ?? "",
-      tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? null,
-      // Domicilio México
-      tipoVialidad:
-        initialData?.datosGenerales?.domicilioMexico?.tipoVialidad ?? null,
-      nombreVialidad:
-        initialData?.datosGenerales?.domicilioMexico?.nombreVialidad ?? null,
-      numeroExterior:
-        initialData?.datosGenerales?.domicilioMexico?.numeroExterior ?? null,
-      numeroInterior:
-        initialData?.datosGenerales?.domicilioMexico?.numeroInterior ?? null,
-      coloniaLocalidad:
-        initialData?.datosGenerales?.domicilioMexico?.coloniaLocalidad ?? null,
-      municipioAlcaldia:
-        initialData?.datosGenerales?.domicilioMexico?.municipioAlcaldia ?? null,
-      codigoPostal:
-        initialData?.datosGenerales?.domicilioMexico?.codigoPostal ?? null,
-      entidadFederativa:
-        initialData?.datosGenerales?.domicilioMexico?.entidadFederativa ?? null,
-      // Domicilio Extranjero
-      ciudad: initialData?.datosGenerales?.domicilioExtranjero?.ciudad ?? null,
-      provincia:
-        initialData?.datosGenerales?.domicilioExtranjero?.provincia ?? null,
-      calle: initialData?.datosGenerales?.domicilioExtranjero?.calle ?? null,
-      numeroExteriorExtranjero:
-        initialData?.datosGenerales?.domicilioExtranjero?.numeroExterior ??
-        null,
-      numeroInteriorExtranjero:
-        initialData?.datosGenerales?.domicilioExtranjero?.numeroInterior ??
-        null,
-      codigoPostalExtranjero:
-        initialData?.datosGenerales?.domicilioExtranjero?.codigoPostal ?? null,
-      pais: initialData?.datosGenerales?.domicilioExtranjero?.pais ?? null,
-      // Director General
-      directorGeneral: {
-        nombre: initialData?.datosDirGeneralReprLegal?.directorGeneral?.nombre ?? "",
-        primerApellido: initialData?.datosDirGeneralReprLegal?.directorGeneral?.primerApellido ?? "",
-        segundoApellido: initialData?.datosDirGeneralReprLegal?.directorGeneral?.segundoApellido ?? null,
-        rfc: initialData?.datosDirGeneralReprLegal?.directorGeneral?.rfc ?? null,
-        curp: initialData?.datosDirGeneralReprLegal?.directorGeneral?.curp ?? null,
-      },
-      // Representante Legal
-      representanteLegal: {
-        nombre: initialData?.datosDirGeneralReprLegal?.representanteLegal?.nombre ?? "",
-        primerApellido: initialData?.datosDirGeneralReprLegal?.representanteLegal?.primerApellido ?? "",
-        segundoApellido: initialData?.datosDirGeneralReprLegal?.representanteLegal?.segundoApellido ?? null,
-        rfc: initialData?.datosDirGeneralReprLegal?.representanteLegal?.rfc ?? null,
-        curp: initialData?.datosDirGeneralReprLegal?.representanteLegal?.curp ?? null,
-      },
-      // Donde cometió la falta
-      dondeCometio_entidadFederativa: initialData?.dondeCometioLaFalta?.entidadFederativa ?? "",
-      dondeCometio_nivelOrdenGobierno: initialData?.dondeCometioLaFalta?.nivelOrdenGobierno ?? "FEDERAL",
-      dondeCometio_ambitoPublico: initialData?.dondeCometioLaFalta?.ambitoPublico ?? null,
-      dondeCometio_nombreEntePublico: initialData?.dondeCometioLaFalta?.nombreEntePublico ?? null,
-      dondeCometio_siglasEntePublico: initialData?.dondeCometioLaFalta?.siglasEntePublico ?? "",
-      // Origen del procedimiento
-      origenProcedimiento_clave: initialData?.origenProcedimiento?.clave ?? "DENUNCIA",
-      origenProcedimiento_valor: initialData?.origenProcedimiento?.valor ?? null,
-    }),
+    () => getFaltasGravesPMDefaults(initialData, session?.user?.entePublico),
     [initialData, session?.user?.entePublico]
   );
 
   const form = useForm<FaltasGravesPMFormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(faltasGravesPMSchema),
     defaultValues,
   });
 
@@ -228,23 +85,17 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
     if (initialData) {
       // Cargar campos principales
       for (const key in initialData) {
-        if (formSchema.shape.hasOwnProperty(key)) {
+        if (faltasGravesPMSchema.shape.hasOwnProperty(key)) {
           form.setValue(key, initialData[key]);
         }
       }
 
       // Cargar datos generales si existen
       if (initialData.datosGenerales) {
-        form.setValue(
-          "nombreRazonSocial",
-          initialData.datosGenerales.nombreRazonSocial
-        );
+        form.setValue("nombreRazonSocial", initialData.datosGenerales.nombreRazonSocial);
         form.setValue("rfc", initialData.datosGenerales.rfc);
         form.setValue("objetoSocial", initialData.datosGenerales.objetoSocial);
-        form.setValue(
-          "tipoDomicilio",
-          initialData.datosGenerales.tipoDomicilio
-        );
+        form.setValue("tipoDomicilio", initialData.datosGenerales.tipoDomicilio);
 
         // Cargar domicilio México si existe
         if (initialData.datosGenerales.domicilioMexico) {
@@ -321,317 +172,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       setLoading(true);
       console.log(data);
 
-      let domicilioMexicoId = null;
-      let domicilioExtranjeroId = null;
-
-      // Crear/actualizar domicilio México si el tipo es DOMICILIO_MEXICO
-      if (data.tipoDomicilio === "DOMICILIO_MEXICO") {
-        const domicilioMexicoData = {
-          tipoVialidad: data.tipoVialidad,
-          nombreVialidad: data.nombreVialidad,
-          numeroExterior: data.numeroExterior,
-          numeroInterior: data.numeroInterior,
-          coloniaLocalidad: data.coloniaLocalidad,
-          municipioAlcaldia: data.municipioAlcaldia,
-          codigoPostal: data.codigoPostal,
-          entidadFederativa: data.entidadFederativa,
-          entePublico: data.entePublico,
-        };
-
-        if (initialData?.datosGenerales?.domicilioMexico?.id) {
-          await directus.request(
-            withToken(
-              session?.access_token,
-              updateItem(
-                "domicilio_mexico_morales",
-                initialData.datosGenerales.domicilioMexico.id,
-                domicilioMexicoData
-              )
-            )
-          );
-          domicilioMexicoId = initialData.datosGenerales.domicilioMexico.id;
-        } else {
-          const newDomicilioMexico = await directus.request(
-            withToken(
-              session?.access_token,
-              createItem("domicilio_mexico_morales", domicilioMexicoData)
-            )
-          );
-          domicilioMexicoId = newDomicilioMexico.id;
-        }
-      }
-
-      // Crear/actualizar domicilio Extranjero si el tipo es DOMICILIO_EXTRANJERO
-      if (data.tipoDomicilio === "DOMICILIO_EXTRANJERO") {
-        const domicilioExtranjeroData = {
-          ciudad: data.ciudad,
-          provincia: data.provincia,
-          calle: data.calle,
-          numeroExterior: data.numeroExteriorExtranjero,
-          numeroInterior: data.numeroInteriorExtranjero,
-          codigoPostal: data.codigoPostalExtranjero,
-          pais: data.pais,
-          entePublico: data.entePublico,
-        };
-
-        if (initialData?.datosGenerales?.domicilioExtranjero?.id) {
-          await directus.request(
-            withToken(
-              session?.access_token,
-              updateItem(
-                "domicilio_extranjero_morales",
-                initialData.datosGenerales.domicilioExtranjero.id,
-                domicilioExtranjeroData
-              )
-            )
-          );
-          domicilioExtranjeroId =
-            initialData.datosGenerales.domicilioExtranjero.id;
-        } else {
-          const newDomicilioExtranjero = await directus.request(
-            withToken(
-              session?.access_token,
-              createItem(
-                "domicilio_extranjero_morales",
-                domicilioExtranjeroData
-              )
-            )
-          );
-          domicilioExtranjeroId = newDomicilioExtranjero.id;
-        }
-      }
-
-      // Crear/actualizar los datos generales
-      const datosGeneralesData = {
-        nombreRazonSocial: data.nombreRazonSocial,
-        rfc: data.rfc,
-        objetoSocial: data.objetoSocial,
-        tipoDomicilio: data.tipoDomicilio,
-        domicilioMexico: domicilioMexicoId,
-        domicilioExtranjero: domicilioExtranjeroId,
-        entePublico: data.entePublico,
-      };
-
-      let datosGeneralesId;
-
-      if (initialData?.datosGenerales?.id) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "datos_generales_personas_morales",
-              initialData.datosGenerales.id,
-              datosGeneralesData
-            )
-          )
-        );
-        datosGeneralesId = initialData.datosGenerales.id;
-      } else {
-        const newDatosGenerales = await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("datos_generales_personas_morales", datosGeneralesData)
-          )
-        );
-        datosGeneralesId = newDatosGenerales.id;
-      }
-
-      // Crear/actualizar Director General
-      const directorGeneralData = {
-        nombre: data.directorGeneral.nombre,
-        primerApellido: data.directorGeneral.primerApellido,
-        segundoApellido: data.directorGeneral.segundoApellido,
-        rfc: data.directorGeneral.rfc,
-        curp: data.directorGeneral.curp,
-        entePublico: data.entePublico,
-      };
-
-      let directorGeneralId;
-
-      if (initialData?.datosDirGeneralReprLegal?.directorGeneral?.id) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "datos_representante",
-              initialData.datosDirGeneralReprLegal.directorGeneral.id,
-              directorGeneralData
-            )
-          )
-        );
-        directorGeneralId = initialData.datosDirGeneralReprLegal.directorGeneral.id;
-      } else {
-        const newDirectorGeneral = await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("datos_representante", directorGeneralData)
-          )
-        );
-        directorGeneralId = newDirectorGeneral.id;
-      }
-
-      // Crear/actualizar Representante Legal
-      const representanteLegalData = {
-        nombre: data.representanteLegal.nombre,
-        primerApellido: data.representanteLegal.primerApellido,
-        segundoApellido: data.representanteLegal.segundoApellido,
-        rfc: data.representanteLegal.rfc,
-        curp: data.representanteLegal.curp,
-        entePublico: data.entePublico,
-      };
-
-      let representanteLegalId;
-
-      if (initialData?.datosDirGeneralReprLegal?.representanteLegal?.id) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "datos_representante",
-              initialData.datosDirGeneralReprLegal.representanteLegal.id,
-              representanteLegalData
-            )
-          )
-        );
-        representanteLegalId = initialData.datosDirGeneralReprLegal.representanteLegal.id;
-      } else {
-        const newRepresentanteLegal = await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("datos_representante", representanteLegalData)
-          )
-        );
-        representanteLegalId = newRepresentanteLegal.id;
-      }
-
-      // Crear/actualizar datos_dg_rp (wrapper)
-      const datosDgRpData = {
-        directorGeneral: directorGeneralId,
-        representanteLegal: representanteLegalId,
-        entePublico: data.entePublico,
-      };
-
-      let datosDgRpId;
-
-      if (initialData?.datosDirGeneralReprLegal?.id) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "datos_dg_rp",
-              initialData.datosDirGeneralReprLegal.id,
-              datosDgRpData
-            )
-          )
-        );
-        datosDgRpId = initialData.datosDirGeneralReprLegal.id;
-      } else {
-        const newDatosDgRp = await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("datos_dg_rp", datosDgRpData)
-          )
-        );
-        datosDgRpId = newDatosDgRp.id;
-      }
-
-      // Crear/actualizar donde cometió la falta
-      const dondeCometioFaltaData = {
-        entidadFederativa: data.dondeCometio_entidadFederativa,
-        nivelOrdenGobierno: data.dondeCometio_nivelOrdenGobierno,
-        ambitoPublico: data.dondeCometio_ambitoPublico,
-        nombreEntePublico: data.dondeCometio_nombreEntePublico,
-        siglasEntePublico: data.dondeCometio_siglasEntePublico,
-        entePublico: data.entePublico,
-      };
-
-      let dondeCometioFaltaId;
-
-      if (initialData?.dondeCometioLaFalta?.id) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "donde_cometio_falta",
-              initialData.dondeCometioLaFalta.id,
-              dondeCometioFaltaData
-            )
-          )
-        );
-        dondeCometioFaltaId = initialData.dondeCometioLaFalta.id;
-      } else {
-        const newDondeCometioFalta = await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("donde_cometio_falta", dondeCometioFaltaData)
-          )
-        );
-        dondeCometioFaltaId = newDondeCometioFalta.id;
-      }
-
-      // Crear/actualizar origen del procedimiento
-      const origenProcedimientoData = {
-        clave: data.origenProcedimiento_clave,
-        valor: data.origenProcedimiento_clave === "OTRO" ? data.origenProcedimiento_valor : null,
-        entePublico: data.entePublico,
-      };
-
-      let origenProcedimientoId;
-
-      if (initialData?.origenProcedimiento?.id) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "origen_procedimiento",
-              initialData.origenProcedimiento.id,
-              origenProcedimientoData
-            )
-          )
-        );
-        origenProcedimientoId = initialData.origenProcedimiento.id;
-      } else {
-        const newOrigenProcedimiento = await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("origen_procedimiento", origenProcedimientoData)
-          )
-        );
-        origenProcedimientoId = newOrigenProcedimiento.id;
-      }
-
-      // Preparar los datos del registro principal
-      const mainData = {
-        entePublico: data.entePublico,
-        status: data.status,
-        fecha: data.fecha,
-        expediente: data.expediente,
-        observaciones: data.observaciones,
-        datosGenerales: datosGeneralesId,
-        datosDirGeneralReprLegal: datosDgRpId,
-        dondeCometioLaFalta: dondeCometioFaltaId,
-        origenProcedimiento: origenProcedimientoId,
-      };
-
-      if (initialData) {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            updateItem(
-              "faltas_graves_personas_morales",
-              initialData.id,
-              mainData
-            )
-          )
-        );
-      } else {
-        await directus.request(
-          withToken(
-            session?.access_token,
-            createItem("faltas_graves_personas_morales", mainData)
-          )
-        );
-      }
+      await saveFaltaGravePM(data, initialData, session?.access_token);
 
       router.refresh();
       router.push(`/dashboard/faltas-graves-pm`);
@@ -782,7 +323,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </div>
           </div>
 
-          {/* ACCORDION COMIENZA AQUÍ */}
+          {/* ACCORDION - Secciones 3 a 6 */}
           <Accordion type="multiple" className="w-full space-y-4">
             
             {/* Sección 3: Datos Generales de la Persona Moral */}
