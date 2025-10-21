@@ -72,5 +72,30 @@ export function getFaltasGravesPMDefaults(
     // Origen del procedimiento
     origenProcedimiento_clave: initialData?.origenProcedimiento?.clave ?? "DENUNCIA",
     origenProcedimiento_valor: initialData?.origenProcedimiento?.valor ?? null,
+
+    // Punto 7: Falta Cometida (O2M con normatividades anidadas)
+    faltaCometida: initialData?.faltaCometida?.map((falta: any) => ({
+      clave: falta.clave ?? "",
+      valor: falta.valor ?? null,
+      descripcionHechos: falta.descripcionHechos ?? "",
+      normatividadInfringida: falta.normatividadInfringida?.map((norm: any) => ({
+        nombreNormatividad: norm.nombreNormatividad ?? "",
+        articulo: norm.articulo ?? "",
+        fraccion: norm.fraccion ?? null,
+      })) ?? [{
+        nombreNormatividad: "",
+        articulo: "",
+        fraccion: null,
+      }],
+    })) ?? [{
+      clave: "",
+      valor: null,
+      descripcionHechos: "",
+      normatividadInfringida: [{
+        nombreNormatividad: "",
+        articulo: "",
+        fraccion: null,
+      }],
+    }],
   };
 }

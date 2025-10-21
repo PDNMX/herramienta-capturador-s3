@@ -79,6 +79,61 @@ export const faltasGravesPMSchema = z.object({
     message: "Selecciona un origen válido",
   }),
   origenProcedimiento_valor: z.string().nullable().optional(),
+
+  // Punto 7: Falta Cometida (O2M con normatividades anidadas)
+  faltaCometida: z.array(
+    z.object({
+      clave: z.enum([
+        "SOBORNO",
+        "PARTICIPACION_ILICITA",
+        "TRAFICO_INFLUENCIAS",
+        "UTILIZACION_INFORMACION_FALSA",
+        "COLUSION",
+        "OBSTRUCCION_FACULTADES",
+        "CONTRATACION_INDEBIDA",
+        "USO_INDEBIDO_RECURSOS_PUBLICOS",
+        "OTRO"
+      ], {
+        message: "Selecciona un tipo de falta válido",
+      }),
+      valor: z.string().nullable().optional(),
+      descripcionHechos: z.string().min(10, "La descripción debe tener al menos 10 caracteres"),
+      normatividadInfringida: z.array(
+        z.object({
+          nombreNormatividad: z.enum([
+            "LRACDMX",
+            "LRAAGS",
+            "LRABC",
+            "LRABCS",
+            "LRACHP",
+            "LRAHGO",
+            "LRAEMM",
+            "LRAEMOR",
+            "LRANAY",
+            "LRAEMMOAX",
+            "LRAQRO",
+            "LRAQR",
+            "LRASIN",
+            "LRASON",
+            "LRATAM",
+            "LRAYUC",
+            "LRAGTO",
+            "LRAMICH",
+            "LRANL",
+            "LRASLP",
+            "LRAVER",
+            "LRPAEJ",
+            "LGRA",
+            "LRAEGR465"
+          ], {
+            message: "Selecciona una normatividad válida",
+          }),
+          articulo: z.string().min(1, "El artículo es requerido"),
+          fraccion: z.string().nullable().optional(),
+        })
+      ).min(1, "Debe agregar al menos una normatividad infringida"),
+    })
+  ).min(1, "Debe agregar al menos una falta cometida"),
 });
 
 // Type inference

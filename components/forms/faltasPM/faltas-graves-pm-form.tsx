@@ -45,6 +45,7 @@ import { DatosGeneralesPMSection } from "./sections/DatosGeneralesPMSection";
 import { DatosDirGeneralPMSection } from "./sections/DatosDirGeneralPMSection";
 import { DondeCometioFaltaSection } from "./sections/DondeCometioFaltaSection";
 import { OrigenProcedimientoSection } from "./sections/OrigenProcedimientoSection";
+import { FaltaCometidaSection } from "./sections/FaltaCometidaSection";
 
 interface FaltasGravesPMFormProps {
   initialData: any | null;
@@ -158,6 +159,21 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         const op = initialData.origenProcedimiento;
         form.setValue("origenProcedimiento_clave", op.clave);
         form.setValue("origenProcedimiento_valor", op.valor);
+      }
+
+      // Cargar datos de falta cometida (O2M con normatividades anidadas)
+      if (initialData.faltaCometida && initialData.faltaCometida.length > 0) {
+        const faltasFormateadas = initialData.faltaCometida.map((falta: any) => ({
+          clave: falta.clave,
+          valor: falta.valor,
+          descripcionHechos: falta.descripcionHechos,
+          normatividadInfringida: falta.normatividadInfringida?.map((norm: any) => ({
+            nombreNormatividad: norm.nombreNormatividad,
+            articulo: norm.articulo,
+            fraccion: norm.fraccion,
+          })) || [],
+        }));
+        form.setValue("faltaCometida", faltasFormateadas);
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -391,6 +407,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
                 <OrigenProcedimientoSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Sección 7: Tipo de falta cometida */}
+            <AccordionItem value="falta-cometida" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <AlertCircle className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    7. Tipo de falta cometida por la persona moral sancionada
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <FaltaCometidaSection form={form} loading={loading} />
               </AccordionContent>
             </AccordionItem>
 

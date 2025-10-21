@@ -49,6 +49,8 @@ export default function Page({ params }) {
                   "datosDirGeneralReprLegal.representanteLegal.*",
                   "dondeCometioLaFalta.*",
                   "origenProcedimiento.*",
+                  "faltaCometida.*",
+                  "faltaCometida.normatividadInfringida.*",
                 ],
                 filter: {
                   id: {

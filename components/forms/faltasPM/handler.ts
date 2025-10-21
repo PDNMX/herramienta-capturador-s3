@@ -323,6 +323,8 @@ export async function saveFaltaGravePM(
     origenProcedimiento: origenProcedimientoId,
   };
 
+  let registroPrincipalId;
+
   if (initialData) {
     await directus.request(
       withToken(
@@ -334,11 +336,60 @@ export async function saveFaltaGravePM(
         )
       )
     );
+    registroPrincipalId = initialData.id;
   } else {
-    await directus.request(
+    const newRegistro = await directus.request(
       withToken(
         accessToken,
         createItem("faltas_graves_personas_morales", mainData)
+      )
+    );
+    registroPrincipalId = newRegistro.id;
+  }
+
+  // ============================================
+  // 10. FALTA COMETIDA (O2M con normatividades anidadas)
+  // ============================================
+  // Guardamos cada falta con sus normatividades
+  for (const falta of data.faltaCometida) {
+    // Primero guardamos todas las normatividades de esta falta
+    const normatividadesIds: number[] = [];
+    
+    for (const normatividad of falta.normatividadInfringida) {
+      const normatividadData = {
+        nombreNormatividad: normatividad.nombreNormatividad,
+        articulo: normatividad.articulo,
+        fraccion: normatividad.fraccion,
+        entePublico: data.entePublico,
+      };
+
+      // Por simplicidad, siempre creamos nuevas normatividades
+      // En producción podrías implementar lógica de update si tienes IDs
+      const newNormatividad = await directus.request(
+        withToken(
+          accessToken,
+          createItem("normatividad_morales", normatividadData)
+        )
+      );
+      normatividadesIds.push(newNormatividad.id);
+    }
+
+    // Ahora guardamos la falta con las referencias a normatividades
+    const faltaData = {
+      clave: falta.clave,
+      valor: falta.clave === "OTRO" ? falta.valor : null,
+      descripcionHechos: falta.descripcionHechos,
+      fk_morales: registroPrincipalId,
+      entePublico: data.entePublico,
+      normatividadInfringida: normatividadesIds,
+    };
+
+    // Por simplicidad, siempre creamos nuevas faltas
+    // En producción podrías implementar lógica de update si tienes IDs
+    await directus.request(
+      withToken(
+        accessToken,
+        createItem("falta_cometida_morales", faltaData)
       )
     );
   }
