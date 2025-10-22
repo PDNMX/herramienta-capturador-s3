@@ -97,5 +97,19 @@ export function getFaltasGravesPMDefaults(
         fraccion: null,
       }],
     }],
+
+    // Punto 8: Resolución Sancionatoria
+    resolucion_tituloResolucion: initialData?.resolucion?.tituloResolucion ?? "",
+    resolucion_fechaResolucion: initialData?.resolucion?.fechaResolucion ?? "",
+    resolucion_fechaNotificacion: initialData?.resolucion?.fechaNotificacion ?? "",
+    resolucion_urlResolucion: initialData?.resolucion?.urlResolucion ?? "",
+    resolucion_fechaResolucionFirme: initialData?.resolucion?.fechaResolucionFirme ?? "",
+    resolucion_fechaNotificacionFirme: initialData?.resolucion?.fechaNotificacionFirme ?? "",
+    resolucion_urlResolucionFirme: initialData?.resolucion?.urlResolucionFirme ?? "",
+    resolucion_fechaEjecucion: initialData?.resolucion?.fechaEjecucion ?? null,
+    resolucion_ordenJurisdiccional: initialData?.resolucion?.ordenJurisdiccional ?? "FEDERAL",
+    resolucion_autoridadResolutora: initialData?.resolucion?.autoridadResolutora ?? "",
+    resolucion_autoridadInvestigadora: initialData?.resolucion?.autoridadInvestigadora ?? "",
+    resolucion_autoridadSustanciadora: initialData?.resolucion?.autoridadSustanciadora ?? "",
   };
 }

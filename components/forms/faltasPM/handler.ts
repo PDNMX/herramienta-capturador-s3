@@ -309,7 +309,50 @@ export async function saveFaltaGravePM(
   }
 
   // ============================================
-  // 9. REGISTRO PRINCIPAL
+  // 9. RESOLUCIÓN SANCIONATORIA
+  // ============================================
+  const resolucionData = {
+    tituloResolucion: data.resolucion_tituloResolucion,
+    fechaResolucion: data.resolucion_fechaResolucion,
+    fechaNotificacion: data.resolucion_fechaNotificacion,
+    urlResolucion: data.resolucion_urlResolucion,
+    fechaResolucionFirme: data.resolucion_fechaResolucionFirme,
+    fechaNotificacionFirme: data.resolucion_fechaNotificacionFirme,
+    urlResolucionFirme: data.resolucion_urlResolucionFirme,
+    fechaEjecucion: data.resolucion_fechaEjecucion,
+    ordenJurisdiccional: data.resolucion_ordenJurisdiccional,
+    autoridadResolutora: data.resolucion_autoridadResolutora,
+    autoridadInvestigadora: data.resolucion_autoridadInvestigadora,
+    autoridadSustanciadora: data.resolucion_autoridadSustanciadora,
+    entePublico: data.entePublico,
+  };
+
+  let resolucionId;
+
+  if (initialData?.resolucion?.id) {
+    await directus.request(
+      withToken(
+        accessToken,
+        updateItem(
+          "resolucion_morales",
+          initialData.resolucion.id,
+          resolucionData
+        )
+      )
+    );
+    resolucionId = initialData.resolucion.id;
+  } else {
+    const newResolucion = await directus.request(
+      withToken(
+        accessToken,
+        createItem("resolucion_morales", resolucionData)
+      )
+    );
+    resolucionId = newResolucion.id;
+  }
+
+  // ============================================
+  // 10. REGISTRO PRINCIPAL
   // ============================================
   const mainData = {
     entePublico: data.entePublico,
@@ -321,6 +364,7 @@ export async function saveFaltaGravePM(
     datosDirGeneralReprLegal: datosDgRpId,
     dondeCometioLaFalta: dondeCometioFaltaId,
     origenProcedimiento: origenProcedimientoId,
+    resolucion: resolucionId,
   };
 
   let registroPrincipalId;
@@ -348,7 +392,7 @@ export async function saveFaltaGravePM(
   }
 
   // ============================================
-  // 10. FALTA COMETIDA (O2M con normatividades anidadas)
+  // 11. FALTA COMETIDA (O2M con normatividades anidadas)
   // ============================================
   // Guardamos cada falta con sus normatividades
   for (const falta of data.faltaCometida) {

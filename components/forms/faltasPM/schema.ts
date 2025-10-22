@@ -134,6 +134,22 @@ export const faltasGravesPMSchema = z.object({
       ).min(1, "Debe agregar al menos una normatividad infringida"),
     })
   ).min(1, "Debe agregar al menos una falta cometida"),
+
+  // Punto 8: Resolución Sancionatoria
+  resolucion_tituloResolucion: z.string().min(3, "El título debe tener al menos 3 caracteres"),
+  resolucion_fechaResolucion: z.string().min(1, "La fecha de resolución es requerida"),
+  resolucion_fechaNotificacion: z.string().min(1, "La fecha de notificación es requerida"),
+  resolucion_urlResolucion: z.string().url("Debe ser una URL válida").min(1, "La URL de resolución es requerida"),
+  resolucion_fechaResolucionFirme: z.string().min(1, "La fecha de resolución firme es requerida"),
+  resolucion_fechaNotificacionFirme: z.string().min(1, "La fecha de notificación firme es requerida"),
+  resolucion_urlResolucionFirme: z.string().url("Debe ser una URL válida").min(1, "La URL de resolución firme es requerida"),
+  resolucion_fechaEjecucion: z.string().nullable().optional(),
+  resolucion_ordenJurisdiccional: z.enum(["FEDERAL", "ESTATAL"], {
+    message: "Selecciona un orden jurisdiccional válido",
+  }),
+  resolucion_autoridadResolutora: z.string().min(3, "La autoridad resolutora es requerida"),
+  resolucion_autoridadInvestigadora: z.string().min(3, "La autoridad investigadora es requerida"),
+  resolucion_autoridadSustanciadora: z.string().min(3, "La autoridad sustanciadora es requerida"),
 });
 
 // Type inference

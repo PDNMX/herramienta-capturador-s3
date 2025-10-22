@@ -51,6 +51,7 @@ export default function Page({ params }) {
                   "origenProcedimiento.*",
                   "faltaCometida.*",
                   "faltaCometida.normatividadInfringida.*",
+                  "resolucion.*",
                 ],
                 filter: {
                   id: {

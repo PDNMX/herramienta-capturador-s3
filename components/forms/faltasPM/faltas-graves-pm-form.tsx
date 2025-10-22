@@ -46,6 +46,7 @@ import { DatosDirGeneralPMSection } from "./sections/DatosDirGeneralPMSection";
 import { DondeCometioFaltaSection } from "./sections/DondeCometioFaltaSection";
 import { OrigenProcedimientoSection } from "./sections/OrigenProcedimientoSection";
 import { FaltaCometidaSection } from "./sections/FaltaCometidaSection";
+import { ResolucionSection } from "./sections/ResolucionSection";
 
 interface FaltasGravesPMFormProps {
   initialData: any | null;
@@ -174,6 +175,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           })) || [],
         }));
         form.setValue("faltaCometida", faltasFormateadas);
+      }
+
+      // Cargar datos de resolución
+      if (initialData.resolucion) {
+        const res = initialData.resolucion;
+        form.setValue("resolucion_tituloResolucion", res.tituloResolucion);
+        form.setValue("resolucion_fechaResolucion", res.fechaResolucion);
+        form.setValue("resolucion_fechaNotificacion", res.fechaNotificacion);
+        form.setValue("resolucion_urlResolucion", res.urlResolucion);
+        form.setValue("resolucion_fechaResolucionFirme", res.fechaResolucionFirme);
+        form.setValue("resolucion_fechaNotificacionFirme", res.fechaNotificacionFirme);
+        form.setValue("resolucion_urlResolucionFirme", res.urlResolucionFirme);
+        form.setValue("resolucion_fechaEjecucion", res.fechaEjecucion);
+        form.setValue("resolucion_ordenJurisdiccional", res.ordenJurisdiccional);
+        form.setValue("resolucion_autoridadResolutora", res.autoridadResolutora);
+        form.setValue("resolucion_autoridadInvestigadora", res.autoridadInvestigadora);
+        form.setValue("resolucion_autoridadSustanciadora", res.autoridadSustanciadora);
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -424,6 +442,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
                 <FaltaCometidaSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Sección 8: Resolución sancionatoria */}
+            <AccordionItem value="resolucion" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <FileText className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    8. Resolución sancionatoria de la falta cometida por la persona moral
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <ResolucionSection form={form} loading={loading} />
               </AccordionContent>
             </AccordionItem>
 
