@@ -41,17 +41,41 @@ export default function Page({ params }) {
                 limit: 1,
                 fields: [
                   "*",
+                  // Punto 3: Datos Generales
                   "datosGenerales.*",
                   "datosGenerales.domicilioMexico.*",
                   "datosGenerales.domicilioExtranjero.*",
+
+                  // Punto 4: Director General y Representante Legal
                   "datosDirGeneralReprLegal.*",
                   "datosDirGeneralReprLegal.directorGeneral.*",
                   "datosDirGeneralReprLegal.representanteLegal.*",
+
+                  // Punto 5: Donde cometió la falta
                   "dondeCometioLaFalta.*",
+
+                  // Punto 6: Origen del procedimiento
                   "origenProcedimiento.*",
+
+                  // Punto 7: Falta Cometida
                   "faltaCometida.*",
                   "faltaCometida.normatividadInfringida.*",
+
+                  // Punto 8: Resolución
                   "resolucion.*",
+
+                  // Punto 9: Tipo de Sanción (complejo)
+                  "tipoSancion.*",
+                  "tipoSancion.inhabilitacion.*",
+                  "tipoSancion.indemnizacion.*",
+                  "tipoSancion.indemnizacion.plazoPago.*",
+                  "tipoSancion.indemnizacion.efectivamenteCobrado.*",
+                  "tipoSancion.sancionEconomica.*",
+                  "tipoSancion.sancionEconomica.plazoPago.*",
+                  "tipoSancion.sancionEconomica.efectivamenteCobrado.*",
+                  "tipoSancion.suspensionActividades.*",
+                  "tipoSancion.disolucionSociedad.*",
+                  "tipoSancion.otro.*",
                 ],
                 filter: {
                   id: {

@@ -407,8 +407,6 @@ export async function saveFaltaGravePM(
         entePublico: data.entePublico,
       };
 
-      // Por simplicidad, siempre creamos nuevas normatividades
-      // En producción podrías implementar lógica de update si tienes IDs
       const newNormatividad = await directus.request(
         withToken(
           accessToken,
@@ -428,13 +426,196 @@ export async function saveFaltaGravePM(
       normatividadInfringida: normatividadesIds,
     };
 
-    // Por simplicidad, siempre creamos nuevas faltas
-    // En producción podrías implementar lógica de update si tienes IDs
     await directus.request(
       withToken(
         accessToken,
         createItem("falta_cometida_morales", faltaData)
       )
+    );
+  }
+
+  // ============================================
+  // 12. TIPO DE SANCIÓN (O2M complejo con estructuras condicionales)
+  // ============================================
+  for (const sancion of data.tipoSancion) {
+    let sancionEspecificaId = null;
+
+    // Guardar según el tipo de sanción
+    switch (sancion.clave) {
+      case "INHABILITACION":
+        if (sancion.inhabilitacion) {
+          const inhabilitacionData = {
+            plazoAnios: sancion.inhabilitacion.plazoAnios,
+            plazoMeses: sancion.inhabilitacion.plazoMeses,
+            plazoDias: sancion.inhabilitacion.plazoDias,
+            fechaInicial: sancion.inhabilitacion.fechaInicial,
+            fechaFinal: sancion.inhabilitacion.fechaFinal,
+            entePublico: data.entePublico,
+          };
+          const newInhabilitacion = await directus.request(
+            withToken(accessToken, createItem("inhabilitacion", inhabilitacionData))
+          );
+          sancionEspecificaId = newInhabilitacion.id;
+        }
+        break;
+
+      case "INDEMNIZACION":
+        if (sancion.indemnizacion) {
+          // Guardar plazoPago si existe
+          let plazoPagoId = null;
+          if (sancion.indemnizacion.plazoPago) {
+            const plazoPagoData = {
+              anios: sancion.indemnizacion.plazoPago.anios,
+              meses: sancion.indemnizacion.plazoPago.meses,
+              dias: sancion.indemnizacion.plazoPago.dias,
+              entePublico: data.entePublico,
+            };
+            const newPlazoPago = await directus.request(
+              withToken(accessToken, createItem("plazo_pago_indemnizacion", plazoPagoData))
+            );
+            plazoPagoId = newPlazoPago.id;
+          }
+
+          // Guardar efectivamenteCobrado si existe
+          let efectivamenteCobradoId = null;
+          if (sancion.indemnizacion.efectivamenteCobrado) {
+            const cobradoData = {
+              monto: sancion.indemnizacion.efectivamenteCobrado.monto,
+              moneda: sancion.indemnizacion.efectivamenteCobrado.moneda,
+              fechaCobro: sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
+              entePublico: data.entePublico,
+            };
+            const newCobrado = await directus.request(
+              withToken(accessToken, createItem("efectivamente_cobrado_indemnizacion", cobradoData))
+            );
+            efectivamenteCobradoId = newCobrado.id;
+          }
+
+          // Guardar indemnización
+          const indemnizacionData = {
+            monto: sancion.indemnizacion.monto,
+            moneda: sancion.indemnizacion.moneda,
+            fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
+            plazoPago: plazoPagoId,
+            efectivamenteCobrado: efectivamenteCobradoId,
+            entePublico: data.entePublico,
+          };
+          const newIndemnizacion = await directus.request(
+            withToken(accessToken, createItem("indemnizacion", indemnizacionData))
+          );
+          sancionEspecificaId = newIndemnizacion.id;
+        }
+        break;
+
+      case "SANCION_ECONOMICA":
+        if (sancion.sancionEconomica) {
+          // Guardar plazoPago si existe
+          let plazoPagoSEId = null;
+          if (sancion.sancionEconomica.plazoPago) {
+            const plazoPagoSEData = {
+              anios: sancion.sancionEconomica.plazoPago.anios,
+              meses: sancion.sancionEconomica.plazoPago.meses,
+              dias: sancion.sancionEconomica.plazoPago.dias,
+              entePublico: data.entePublico,
+            };
+            const newPlazoPagoSE = await directus.request(
+              withToken(accessToken, createItem("plazo_pago", plazoPagoSEData))
+            );
+            plazoPagoSEId = newPlazoPagoSE.id;
+          }
+
+          // Guardar efectivamenteCobrado si existe
+          let efectivamenteCobradoSEId = null;
+          if (sancion.sancionEconomica.efectivamenteCobrado) {
+            const cobradoSEData = {
+              monto: sancion.sancionEconomica.efectivamenteCobrado.monto,
+              moneda: sancion.sancionEconomica.efectivamenteCobrado.moneda,
+              fechaCobro: sancion.sancionEconomica.efectivamenteCobrado.fechaCobro,
+              entePublico: data.entePublico,
+            };
+            const newCobradoSE = await directus.request(
+              withToken(accessToken, createItem("efectivamente_cobrado", cobradoSEData))
+            );
+            efectivamenteCobradoSEId = newCobradoSE.id;
+          }
+
+          // Guardar sanción económica
+          const sancionEconomicaData = {
+            monto: sancion.sancionEconomica.monto,
+            moneda: sancion.sancionEconomica.moneda,
+            fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
+            plazoPago: plazoPagoSEId,
+            efectivamenteCobrado: efectivamenteCobradoSEId,
+            entePublico: data.entePublico,
+          };
+          const newSancionEconomica = await directus.request(
+            withToken(accessToken, createItem("sancion_economica", sancionEconomicaData))
+          );
+          sancionEspecificaId = newSancionEconomica.id;
+        }
+        break;
+
+      case "SUSPENSION_ACTIVIDADES":
+        if (sancion.suspensionActividades) {
+          const suspensionData = {
+            plazoSuspensionAnios: sancion.suspensionActividades.plazoSuspensionAnios,
+            plazoSuspensionMeses: sancion.suspensionActividades.plazoSuspensionMeses,
+            plazoSuspensionDias: sancion.suspensionActividades.plazoSuspensionDias,
+            fechaInicial: sancion.suspensionActividades.fechaInicial,
+            fechaFinal: sancion.suspensionActividades.fechaFinal,
+            entePublico: data.entePublico,
+          };
+          const newSuspension = await directus.request(
+            withToken(accessToken, createItem("suspension_actividades", suspensionData))
+          );
+          sancionEspecificaId = newSuspension.id;
+        }
+        break;
+
+      case "DISOLUCION_SOCIEDAD":
+        if (sancion.disolucionSociedad) {
+          const disolucionData = {
+            fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
+            entePublico: data.entePublico,
+          };
+          const newDisolucion = await directus.request(
+            withToken(accessToken, createItem("disolucion_sociedad", disolucionData))
+          );
+          sancionEspecificaId = newDisolucion.id;
+        }
+        break;
+
+      case "OTRO":
+        if (sancion.otro) {
+          const otroData = {
+            denominacionSancion: sancion.otro.denominacionSancion,
+            entePublico: data.entePublico,
+          };
+          const newOtro = await directus.request(
+            withToken(accessToken, createItem("otro_sancion", otroData))
+          );
+          sancionEspecificaId = newOtro.id;
+        }
+        break;
+    }
+
+    // Guardar el registro tipo_sancion con la referencia correspondiente
+    const tipoSancionData: any = {
+      clave: sancion.clave,
+      fk_id: registroPrincipalId,
+      entePublico: data.entePublico, // ✅ AGREGADO
+    };
+
+    // Asignar el ID correspondiente según la clave
+    if (sancion.clave === "INHABILITACION") tipoSancionData.inhabilitacion = sancionEspecificaId;
+    else if (sancion.clave === "INDEMNIZACION") tipoSancionData.indemnizacion = sancionEspecificaId;
+    else if (sancion.clave === "SANCION_ECONOMICA") tipoSancionData.sancionEconomica = sancionEspecificaId;
+    else if (sancion.clave === "SUSPENSION_ACTIVIDADES") tipoSancionData.suspensionActividades = sancionEspecificaId;
+    else if (sancion.clave === "DISOLUCION_SOCIEDAD") tipoSancionData.disolucionSociedad = sancionEspecificaId;
+    else if (sancion.clave === "OTRO") tipoSancionData.otro = sancionEspecificaId;
+
+    await directus.request(
+      withToken(accessToken, createItem("tipo_sancion_personas_morales", tipoSancionData))
     );
   }
 

@@ -150,6 +150,76 @@ export const faltasGravesPMSchema = z.object({
   resolucion_autoridadResolutora: z.string().min(3, "La autoridad resolutora es requerida"),
   resolucion_autoridadInvestigadora: z.string().min(3, "La autoridad investigadora es requerida"),
   resolucion_autoridadSustanciadora: z.string().min(3, "La autoridad sustanciadora es requerida"),
+
+  // Punto 9: Tipo de Sanción (O2M con estructuras condicionales)
+  tipoSancion: z.array(
+    z.object({
+      clave: z.enum([
+        "INHABILITACION",
+        "INDEMNIZACION",
+        "SANCION_ECONOMICA",
+        "SUSPENSION_ACTIVIDADES",
+        "DISOLUCION_SOCIEDAD",
+        "OTRO"
+      ]),
+      // Inhabilitación
+      inhabilitacion: z.object({
+        plazoAnios: z.number().min(0),
+        plazoMeses: z.number().min(0).max(11),
+        plazoDias: z.number().min(0).max(30),
+        fechaInicial: z.string().min(1),
+        fechaFinal: z.string().min(1),
+      }).nullable().optional(),
+      // Indemnización
+      indemnizacion: z.object({
+        monto: z.number().min(0),
+        moneda: z.enum(["MXN", "USD", "EUR"]),
+        fechaPagoTotal: z.string().nullable().optional(),
+        plazoPago: z.object({
+          anios: z.number().min(0),
+          meses: z.number().min(0).max(11),
+          dias: z.number().min(0).max(30),
+        }).nullable().optional(),
+        efectivamenteCobrado: z.object({
+          monto: z.number().min(0),
+          moneda: z.enum(["MXN", "USD", "EUR"]),
+          fechaCobro: z.string().min(1),
+        }).nullable().optional(),
+      }).nullable().optional(),
+      // Sanción Económica
+      sancionEconomica: z.object({
+        monto: z.number().min(0),
+        moneda: z.enum(["MXN", "USD", "EUR"]),
+        fechaPagoTotal: z.string().nullable().optional(),
+        plazoPago: z.object({
+          anios: z.number().min(0),
+          meses: z.number().min(0).max(11),
+          dias: z.number().min(0).max(30),
+        }).nullable().optional(),
+        efectivamenteCobrado: z.object({
+          monto: z.number().min(0),
+          moneda: z.enum(["MXN", "USD", "EUR"]),
+          fechaCobro: z.string().min(1),
+        }).nullable().optional(),
+      }).nullable().optional(),
+      // Suspensión de Actividades
+      suspensionActividades: z.object({
+        plazoSuspensionAnios: z.number().min(0),
+        plazoSuspensionMeses: z.number().min(0).max(11),
+        plazoSuspensionDias: z.number().min(0).max(30),
+        fechaInicial: z.string().min(1),
+        fechaFinal: z.string().min(1),
+      }).nullable().optional(),
+      // Disolución de Sociedad
+      disolucionSociedad: z.object({
+        fechaDisolucion: z.string().min(1),
+      }).nullable().optional(),
+      // Otro
+      otro: z.object({
+        denominacionSancion: z.string().min(3),
+      }).nullable().optional(),
+    })
+  ).min(1, "Debe agregar al menos un tipo de sanción"),
 });
 
 // Type inference

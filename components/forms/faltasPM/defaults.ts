@@ -111,5 +111,68 @@ export function getFaltasGravesPMDefaults(
     resolucion_autoridadResolutora: initialData?.resolucion?.autoridadResolutora ?? "",
     resolucion_autoridadInvestigadora: initialData?.resolucion?.autoridadInvestigadora ?? "",
     resolucion_autoridadSustanciadora: initialData?.resolucion?.autoridadSustanciadora ?? "",
+
+    // Punto 9: Tipo de Sanción (O2M)
+    tipoSancion: initialData?.tipoSancion?.map((sancion: any) => ({
+      clave: sancion.clave ?? "",
+      inhabilitacion: sancion.inhabilitacion ? {
+        plazoAnios: sancion.inhabilitacion.plazoAnios ?? 0,
+        plazoMeses: sancion.inhabilitacion.plazoMeses ?? 0,
+        plazoDias: sancion.inhabilitacion.plazoDias ?? 0,
+        fechaInicial: sancion.inhabilitacion.fechaInicial ?? "",
+        fechaFinal: sancion.inhabilitacion.fechaFinal ?? "",
+      } : null,
+      indemnizacion: sancion.indemnizacion ? {
+        monto: sancion.indemnizacion.monto ?? 0,
+        moneda: sancion.indemnizacion.moneda ?? "MXN",
+        fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal ?? null,
+        plazoPago: sancion.indemnizacion.plazoPago ? {
+          anios: sancion.indemnizacion.plazoPago.anios ?? 0,
+          meses: sancion.indemnizacion.plazoPago.meses ?? 0,
+          dias: sancion.indemnizacion.plazoPago.dias ?? 0,
+        } : null,
+        efectivamenteCobrado: sancion.indemnizacion.efectivamenteCobrado ? {
+          monto: sancion.indemnizacion.efectivamenteCobrado.monto ?? 0,
+          moneda: sancion.indemnizacion.efectivamenteCobrado.moneda ?? "MXN",
+          fechaCobro: sancion.indemnizacion.efectivamenteCobrado.fechaCobro ?? "",
+        } : null,
+      } : null,
+      sancionEconomica: sancion.sancionEconomica ? {
+        monto: sancion.sancionEconomica.monto ?? 0,
+        moneda: sancion.sancionEconomica.moneda ?? "MXN",
+        fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal ?? null,
+        plazoPago: sancion.sancionEconomica.plazoPago ? {
+          anios: sancion.sancionEconomica.plazoPago.anios ?? 0,
+          meses: sancion.sancionEconomica.plazoPago.meses ?? 0,
+          dias: sancion.sancionEconomica.plazoPago.dias ?? 0,
+        } : null,
+        efectivamenteCobrado: sancion.sancionEconomica.efectivamenteCobrado ? {
+          monto: sancion.sancionEconomica.efectivamenteCobrado.monto ?? 0,
+          moneda: sancion.sancionEconomica.efectivamenteCobrado.moneda ?? "MXN",
+          fechaCobro: sancion.sancionEconomica.efectivamenteCobrado.fechaCobro ?? "",
+        } : null,
+      } : null,
+      suspensionActividades: sancion.suspensionActividades ? {
+        plazoSuspensionAnios: sancion.suspensionActividades.plazoSuspensionAnios ?? 0,
+        plazoSuspensionMeses: sancion.suspensionActividades.plazoSuspensionMeses ?? 0,
+        plazoSuspensionDias: sancion.suspensionActividades.plazoSuspensionDias ?? 0,
+        fechaInicial: sancion.suspensionActividades.fechaInicial ?? "",
+        fechaFinal: sancion.suspensionActividades.fechaFinal ?? "",
+      } : null,
+      disolucionSociedad: sancion.disolucionSociedad ? {
+        fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion ?? "",
+      } : null,
+      otro: sancion.otro ? {
+        denominacionSancion: sancion.otro.denominacionSancion ?? "",
+      } : null,
+    })) ?? [{
+      clave: "",
+      inhabilitacion: null,
+      indemnizacion: null,
+      sancionEconomica: null,
+      suspensionActividades: null,
+      disolucionSociedad: null,
+      otro: null,
+    }],
   };
 }

@@ -47,6 +47,7 @@ import { DondeCometioFaltaSection } from "./sections/DondeCometioFaltaSection";
 import { OrigenProcedimientoSection } from "./sections/OrigenProcedimientoSection";
 import { FaltaCometidaSection } from "./sections/FaltaCometidaSection";
 import { ResolucionSection } from "./sections/ResolucionSection";
+import { TipoSancionSection } from "./sections/TipoSancionSection";
 
 interface FaltasGravesPMFormProps {
   initialData: any | null;
@@ -192,6 +193,64 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         form.setValue("resolucion_autoridadResolutora", res.autoridadResolutora);
         form.setValue("resolucion_autoridadInvestigadora", res.autoridadInvestigadora);
         form.setValue("resolucion_autoridadSustanciadora", res.autoridadSustanciadora);
+      }
+
+      // Cargar datos de tipo de sanción (O2M complejo)
+      if (initialData.tipoSancion && initialData.tipoSancion.length > 0) {
+        const sancionesFormateadas = initialData.tipoSancion.map((sancion: any) => ({
+          clave: sancion.clave,
+          inhabilitacion: sancion.inhabilitacion ? {
+            plazoAnios: sancion.inhabilitacion.plazoAnios,
+            plazoMeses: sancion.inhabilitacion.plazoMeses,
+            plazoDias: sancion.inhabilitacion.plazoDias,
+            fechaInicial: sancion.inhabilitacion.fechaInicial,
+            fechaFinal: sancion.inhabilitacion.fechaFinal,
+          } : null,
+          indemnizacion: sancion.indemnizacion ? {
+            monto: sancion.indemnizacion.monto,
+            moneda: sancion.indemnizacion.moneda,
+            fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
+            plazoPago: sancion.indemnizacion.plazoPago ? {
+              anios: sancion.indemnizacion.plazoPago.anios,
+              meses: sancion.indemnizacion.plazoPago.meses,
+              dias: sancion.indemnizacion.plazoPago.dias,
+            } : null,
+            efectivamenteCobrado: sancion.indemnizacion.efectivamenteCobrado ? {
+              monto: sancion.indemnizacion.efectivamenteCobrado.monto,
+              moneda: sancion.indemnizacion.efectivamenteCobrado.moneda,
+              fechaCobro: sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
+            } : null,
+          } : null,
+          sancionEconomica: sancion.sancionEconomica ? {
+            monto: sancion.sancionEconomica.monto,
+            moneda: sancion.sancionEconomica.moneda,
+            fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
+            plazoPago: sancion.sancionEconomica.plazoPago ? {
+              anios: sancion.sancionEconomica.plazoPago.anios,
+              meses: sancion.sancionEconomica.plazoPago.meses,
+              dias: sancion.sancionEconomica.plazoPago.dias,
+            } : null,
+            efectivamenteCobrado: sancion.sancionEconomica.efectivamenteCobrado ? {
+              monto: sancion.sancionEconomica.efectivamenteCobrado.monto,
+              moneda: sancion.sancionEconomica.efectivamenteCobrado.moneda,
+              fechaCobro: sancion.sancionEconomica.efectivamenteCobrado.fechaCobro,
+            } : null,
+          } : null,
+          suspensionActividades: sancion.suspensionActividades ? {
+            plazoSuspensionAnios: sancion.suspensionActividades.plazoSuspensionAnios,
+            plazoSuspensionMeses: sancion.suspensionActividades.plazoSuspensionMeses,
+            plazoSuspensionDias: sancion.suspensionActividades.plazoSuspensionDias,
+            fechaInicial: sancion.suspensionActividades.fechaInicial,
+            fechaFinal: sancion.suspensionActividades.fechaFinal,
+          } : null,
+          disolucionSociedad: sancion.disolucionSociedad ? {
+            fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
+          } : null,
+          otro: sancion.otro ? {
+            denominacionSancion: sancion.otro.denominacionSancion,
+          } : null,
+        }));
+        form.setValue("tipoSancion", sancionesFormateadas);
       }
     } else {
       // Si es nuevo registro, establecer el entePublico del usuario
@@ -459,6 +518,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
                 <ResolucionSection form={form} loading={loading} />
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Sección 9: Tipo de sanción */}
+            <AccordionItem value="tipo-sancion" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+              <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
+                <div className="flex items-center w-full">
+                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
+                    <AlertCircle className="h-5 w-5 text-primary" />
+                  </div>
+                  <span className="text-left text-lg font-semibold text-primary">
+                    9. Tipo de sanción impuesta a la persona moral
+                  </span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="px-6 pb-6 pt-2">
+                <TipoSancionSection form={form} loading={loading} />
               </AccordionContent>
             </AccordionItem>
 
