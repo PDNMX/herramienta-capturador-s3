@@ -264,4 +264,4 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
       />
     </div>
   );
-};mn  
+};
