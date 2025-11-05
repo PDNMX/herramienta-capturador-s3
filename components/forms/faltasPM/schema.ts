@@ -162,13 +162,26 @@ export const faltasGravesPMSchema = z.object({
         "DISOLUCION_SOCIEDAD",
         "OTRO"
       ]),
-      // Inhabilitación
+      // Inhabilitación - AHORA CON VALIDACIÓN OBLIGATORIA
       inhabilitacion: z.object({
-        plazoAnios: z.number().min(0),
-        plazoMeses: z.number().min(0).max(11),
-        plazoDias: z.number().min(0).max(30),
-        fechaInicial: z.string().min(1),
-        fechaFinal: z.string().min(1),
+        plazoAnios: z.number({
+          required_error: "El campo Año(s) es obligatorio",
+          invalid_type_error: "Debe ingresar un número válido",
+        }).min(0, "El valor no puede ser negativo"),
+        plazoMeses: z.number({
+          required_error: "El campo Mes(es) es obligatorio",
+          invalid_type_error: "Debe ingresar un número válido",
+        }).min(0, "El valor no puede ser negativo").max(11, "El valor máximo es 11 meses"),
+        plazoDias: z.number({
+          required_error: "El campo Día(s) es obligatorio",
+          invalid_type_error: "Debe ingresar un número válido",
+        }).min(0, "El valor no puede ser negativo").max(30, "El valor máximo es 30 días"),
+        fechaInicial: z.string({
+          required_error: "La fecha inicial es obligatoria",
+        }).min(1, "La fecha inicial es obligatoria"),
+        fechaFinal: z.string({
+          required_error: "La fecha final es obligatoria",
+        }).min(1, "La fecha final es obligatoria"),
       }).nullable().optional(),
       // Indemnización
       indemnizacion: z.object({
@@ -218,6 +231,110 @@ export const faltasGravesPMSchema = z.object({
       otro: z.object({
         denominacionSancion: z.string().min(3),
       }).nullable().optional(),
+    })
+    // ⭐ VALIDACIÓN CONDICIONAL: Si clave es INHABILITACION, inhabilitacion es obligatorio
+    .superRefine((data, ctx) => {
+      if (data.clave === "INHABILITACION") {
+        if (!data.inhabilitacion) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Los datos de inhabilitación son obligatorios cuando se selecciona este tipo de sanción",
+            path: ["inhabilitacion"],
+          });
+        } else {
+          // Validar que todos los campos numéricos tengan valor
+          if (data.inhabilitacion.plazoAnios === null || data.inhabilitacion.plazoAnios === undefined) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "El campo Año(s) es obligatorio",
+              path: ["inhabilitacion", "plazoAnios"],
+            });
+          }
+          if (data.inhabilitacion.plazoMeses === null || data.inhabilitacion.plazoMeses === undefined) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "El campo Mes(es) es obligatorio",
+              path: ["inhabilitacion", "plazoMeses"],
+            });
+          }
+          if (data.inhabilitacion.plazoDias === null || data.inhabilitacion.plazoDias === undefined) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "El campo Día(s) es obligatorio",
+              path: ["inhabilitacion", "plazoDias"],
+            });
+          }
+          if (!data.inhabilitacion.fechaInicial || data.inhabilitacion.fechaInicial.trim() === "") {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "La fecha inicial es obligatoria",
+              path: ["inhabilitacion", "fechaInicial"],
+            });
+          }
+          if (!data.inhabilitacion.fechaFinal || data.inhabilitacion.fechaFinal.trim() === "") {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "La fecha final es obligatoria",
+              path: ["inhabilitacion", "fechaFinal"],
+            });
+          }
+          
+          // Validación adicional: la fecha final debe ser posterior o igual a la inicial
+          if (data.inhabilitacion.fechaInicial && data.inhabilitacion.fechaFinal) {
+            const fechaInicial = new Date(data.inhabilitacion.fechaInicial);
+            const fechaFinal = new Date(data.inhabilitacion.fechaFinal);
+            
+            if (fechaFinal < fechaInicial) {
+              ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "La fecha final debe ser posterior o igual a la fecha inicial",
+                path: ["inhabilitacion", "fechaFinal"],
+              });
+            }
+          }
+        }
+      }
+      
+      // Validaciones similares para otros tipos de sanción si es necesario
+      if (data.clave === "INDEMNIZACION" && !data.indemnizacion) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Los datos de indemnización son obligatorios cuando se selecciona este tipo de sanción",
+          path: ["indemnizacion"],
+        });
+      }
+      
+      if (data.clave === "SANCION_ECONOMICA" && !data.sancionEconomica) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Los datos de sanción económica son obligatorios cuando se selecciona este tipo de sanción",
+          path: ["sancionEconomica"],
+        });
+      }
+      
+      if (data.clave === "SUSPENSION_ACTIVIDADES" && !data.suspensionActividades) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Los datos de suspensión de actividades son obligatorios cuando se selecciona este tipo de sanción",
+          path: ["suspensionActividades"],
+        });
+      }
+      
+      if (data.clave === "DISOLUCION_SOCIEDAD" && !data.disolucionSociedad) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Los datos de disolución de sociedad son obligatorios cuando se selecciona este tipo de sanción",
+          path: ["disolucionSociedad"],
+        });
+      }
+      
+      if (data.clave === "OTRO" && !data.otro) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Los datos de la sanción son obligatorios cuando se selecciona 'Otro'",
+          path: ["otro"],
+        });
+      }
     })
   ).min(1, "Debe agregar al menos un tipo de sanción"),
 });

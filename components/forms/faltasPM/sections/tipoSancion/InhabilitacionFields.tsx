@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "lucide-react";
+import { Form } from "react-hook-form";
 
 interface InhabilitacionFieldsProps {
   form: any;
@@ -41,13 +42,15 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoAnios`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Años</FormLabel>
+              <FormLabel>
+                Año (s) <span className="text-red-500">*</span>
+              </FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min="0"
                   disabled={loading}
-                  placeholder="0"
+                  placeholder="El valor minimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -63,14 +66,16 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoMeses`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Meses</FormLabel>
+              <FormLabel>
+                Mes (es) <span className="text-red-500">*</span>
+              </FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min="0"
                   max="11"
                   disabled={loading}
-                  placeholder="0"
+                  placeholder="El valor minimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -86,14 +91,16 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoDias`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Días</FormLabel>
+              <FormLabel>
+                Día (s) <span className="text-red-500">*</span>
+              </FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min="0"
                   max="30"
                   disabled={loading}
-                  placeholder="0"
+                  placeholder="El valor minimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -111,7 +118,9 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
           name={`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha inicial de inhabilitación</FormLabel>
+              <FormLabel>
+                Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span>
+              </FormLabel>
               <FormControl>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -123,6 +132,9 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   />
                 </div>
               </FormControl>
+              <FormDescription>
+                Indicar la fecha en que inició la inhabilitación
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -134,7 +146,9 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
           name={`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha final de inhabilitación</FormLabel>
+              <FormLabel>
+                Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span>
+              </FormLabel>
               <FormControl>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -146,6 +160,9 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   />
                 </div>
               </FormControl>
+              <FormDescription>
+                Indicar la fecha en la que se concluyó la inhabilitación
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
