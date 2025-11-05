@@ -27,8 +27,11 @@ export const DisolucionSociedadFields: React.FC<DisolucionSociedadFieldsProps> =
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          Datos de Disolución de la Sociedad
+          E. Disolución de la Sociedad
         </h5>
+        <p className="text-xs text-muted-foreground">
+          Llenar este apartado si en la resolución se sancionó con la disolución de la sociedad
+        </p>
       </div>
 
       <FormField

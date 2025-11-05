@@ -27,10 +27,10 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          Datos de Inhabilitación
+          A. Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas
         </h5>
         <p className="text-xs text-muted-foreground">
-          Complete la información sobre el plazo de inhabilitación
+          Se deberá llenar si en la resolución se determinó sancionar con una inhabilitación
         </p>
       </div>
 

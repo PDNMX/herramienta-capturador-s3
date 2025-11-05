@@ -27,10 +27,10 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          Datos de Suspensión de Actividades
+          D. Suspensión de Actividades
         </h5>
         <p className="text-xs text-muted-foreground">
-          Complete la información sobre el plazo de suspensión
+          Llenar este apartado si en la resolución se sancionó con la suspensión de actividades
         </p>
       </div>
 

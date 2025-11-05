@@ -26,8 +26,11 @@ export const OtroSancionFields: React.FC<OtroSancionFieldsProps> = ({
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          Otra Sanción
+          F. Otro
         </h5>
+        <p className="text-xs text-muted-foreground">
+          Llenar este apartado en caso de que la persona moral sea acreedora a otro tipo de sanción prevista en las leyes locales anticorrupción de las entidades federativas
+        </p>
       </div>
 
       <FormField

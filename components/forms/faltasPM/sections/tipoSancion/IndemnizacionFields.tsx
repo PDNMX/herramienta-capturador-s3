@@ -34,8 +34,9 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          Datos de Indemnización
+          B. Indemnización
         </h5>
+        <p className="text-xs text-muted-foreground">Se deberá llenar si en la resolución definitiva se impuso indemnización</p>
       </div>
 
       <div className="md:grid md:grid-cols-2 gap-6">

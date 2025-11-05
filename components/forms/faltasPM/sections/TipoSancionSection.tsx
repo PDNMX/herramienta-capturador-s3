@@ -32,12 +32,12 @@ interface TipoSancionSectionProps {
 }
 
 const TIPOS_SANCION = [
-  { value: "INHABILITACION", label: "Inhabilitación" },
+  { value: "INHABILITACION", label: "Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas" },
   { value: "INDEMNIZACION", label: "Indemnización" },
   { value: "SANCION_ECONOMICA", label: "Sanción Económica" },
   { value: "SUSPENSION_ACTIVIDADES", label: "Suspensión de Actividades" },
   { value: "DISOLUCION_SOCIEDAD", label: "Disolución de la Sociedad" },
-  { value: "OTRO", label: "Otro" },
+  { value: "OTRO", label: "Otro (especifique)" },
 ];
 
 export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
@@ -65,7 +65,7 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
     <div className="space-y-6">
       {/* Descripción de la sección */}
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos concernientes al tipo de sanción impuesta
+        Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona moral
       </p>
 
       {fields.map((field, index) => {
@@ -110,7 +110,7 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Tipo de sanción <span className="text-red-500">*</span>
+                      Tipo de sanción: elegir la sanción, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva <span className="text-red-500">*</span>
                     </FormLabel>
                     <Select
                       disabled={loading}
@@ -130,9 +130,6 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormDescription>
-                      Seleccionar el tipo de sanción impuesta a la persona moral
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
