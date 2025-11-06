@@ -205,10 +205,16 @@ export const faltasGravesPMSchema = z.object({
           fechaCobro: z.string().min(1),
         }).nullable().optional(),
       }).nullable().optional(),
-      // Sanción Económica
+      // Sanción Económica - SOLO MONTO Y MONEDA OBLIGATORIOS
       sancionEconomica: z.object({
-        monto: z.number().min(0),
-        moneda: z.enum(["MXN", "USD", "EUR"]),
+        monto: z.number({
+          required_error: "El monto es obligatorio",
+          invalid_type_error: "Debe ingresar un monto válido",
+        }).min(0, "El monto no puede ser negativo"),
+        moneda: z.enum(["MXN", "USD", "EUR"], {
+          required_error: "La moneda es obligatoria",
+          invalid_type_error: "Seleccione una moneda válida",
+        }),
         fechaPagoTotal: z.string().nullable().optional(),
         plazoPago: z.object({
           anios: z.number().min(0),
@@ -329,13 +335,31 @@ export const faltasGravesPMSchema = z.object({
         }
       }
       
-      // SANCIÓN ECONÓMICA
-      if (data.clave === "SANCION_ECONOMICA" && !data.sancionEconomica) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Los datos de sanción económica son obligatorios cuando se selecciona este tipo de sanción",
-          path: ["sancionEconomica"],
-        });
+      // SANCIÓN ECONÓMICA - SOLO MONTO Y MONEDA OBLIGATORIOS
+      if (data.clave === "SANCION_ECONOMICA") {
+        if (!data.sancionEconomica) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Los datos de sanción económica son obligatorios cuando se selecciona este tipo de sanción",
+            path: ["sancionEconomica"],
+          });
+        } else {
+          // Validar solo monto y moneda
+          if (data.sancionEconomica.monto === null || data.sancionEconomica.monto === undefined) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "El monto es obligatorio",
+              path: ["sancionEconomica", "monto"],
+            });
+          }
+          if (!data.sancionEconomica.moneda) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "La moneda es obligatoria",
+              path: ["sancionEconomica", "moneda"],
+            });
+          }
+        }
       }
       
       // SUSPENSIÓN DE ACTIVIDADES
