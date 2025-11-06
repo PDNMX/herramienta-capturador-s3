@@ -39,7 +39,7 @@ export const DisolucionSociedadFields: React.FC<DisolucionSociedadFieldsProps> =
         name={`tipoSancion.${sancionIndex}.disolucionSociedad.fechaDisolucion`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Fecha de disolución</FormLabel>
+            <FormLabel>Fecha de la disolución</FormLabel>
             <FormControl>
               <div className="relative">
                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -52,7 +52,7 @@ export const DisolucionSociedadFields: React.FC<DisolucionSociedadFieldsProps> =
               </div>
             </FormControl>
             <FormDescription>
-              Indicar la fecha en que se ejecutó la disolución de la sociedad
+              Especificar la fecha a partir de la cual se disuelve la sociedad de la persona moral
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -41,13 +41,13 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionAnios`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Años</FormLabel>
+              <FormLabel>Año (s)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min="0"
                   disabled={loading}
-                  placeholder="0"
+                  placeholder="El valor minimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -63,14 +63,14 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionMeses`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Meses</FormLabel>
+              <FormLabel>Mes (es)</FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   min="0"
                   max="11"
                   disabled={loading}
-                  placeholder="0"
+                  placeholder="El valor minimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -93,7 +93,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
                   min="0"
                   max="30"
                   disabled={loading}
-                  placeholder="0"
+                  placeholder="El valor minimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -111,7 +111,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.fechaInicial`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha inicial de suspensión</FormLabel>
+              <FormLabel>Fecha inicial (DD/MM/AAAA)</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -123,6 +123,9 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
                   />
                 </div>
               </FormControl>
+              <FormDescription>
+                Indicar la fecha en que inicia la suspensión de actividades
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -134,7 +137,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha final de suspensión</FormLabel>
+              <FormLabel>Fecha final (DD/MM/AAAA)</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -146,6 +149,9 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
                   />
                 </div>
               </FormControl>
+              <FormDescription>
+                Indicar la fecha en que concluye la suspensión de actividades
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
