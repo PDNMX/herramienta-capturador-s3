@@ -122,15 +122,12 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                 Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que inició la inhabilitación
@@ -150,15 +147,12 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                 Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en la que se concluyó la inhabilitación

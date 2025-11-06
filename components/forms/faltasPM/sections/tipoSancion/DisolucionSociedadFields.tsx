@@ -41,16 +41,13 @@ export const DisolucionSociedadFields: React.FC<DisolucionSociedadFieldsProps> =
           <FormItem>
             <FormLabel>Fecha de la disolución</FormLabel>
             <FormControl>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="date"
                   disabled={loading}
-                  className="pl-10"
                   {...field}
+                  className="h-10"
                 />
-              </div>
-            </FormControl>
+              </FormControl>
             <FormDescription>
               Especificar la fecha a partir de la cual se disuelve la sociedad de la persona moral
             </FormDescription>

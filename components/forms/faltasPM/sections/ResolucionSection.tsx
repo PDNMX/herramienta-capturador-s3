@@ -48,7 +48,8 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
     <div className="space-y-6">
       {/* Descripción de la sección */}
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos concernientes a la resolución firme
+        En el presente apartado se establecen los datos concernientes a la
+        resolución firme
       </p>
 
       {/* Título del documento */}
@@ -69,8 +70,8 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
             </FormControl>
             <FormDescription>
               Escribir el nombre del documento que resuelve el procedimiento de
-              responsabilidad administrativa y que ha quedado firme, sin abreviaturas,
-              sin acentos ni signos especiales
+              responsabilidad administrativa y que ha quedado firme, sin
+              abreviaturas, sin acentos ni signos especiales
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -85,18 +86,16 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fecha de la resolución (DD-MM-AAAA) <span className="text-red-500">*</span>
+                Fecha de la resolución (DD-MM-AAAA){" "}
+                <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
                 Colocar la fecha en la que se emite la resolución sancionatoria
@@ -113,21 +112,20 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fecha de notificación (DD-MM-AAAA) <span className="text-red-500">*</span>
+                Fecha de notificación (DD-MM-AAAA){" "}
+                <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
-                Indicar la fecha en que se notifica la resolución a la persona moral sancionada
+                Indicar la fecha en que se notifica la resolución a la persona
+                moral sancionada
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -142,7 +140,8 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              URL de la versión pública de la resolución de sanción <span className="text-red-500">*</span>
+              URL de la versión pública de la resolución de sanción{" "}
+              <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <div className="relative">
@@ -157,7 +156,8 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
               </div>
             </FormControl>
             <FormDescription>
-              Colocar el enlace de la versión pública de la resolución emitida por la autoridad a la que corresponde la sanción
+              Colocar el enlace de la versión pública de la resolución emitida
+              por la autoridad a la que corresponde la sanción
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -172,21 +172,20 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fecha en que adquirió firmeza (DD-MM-AAAA) <span className="text-red-500">*</span>
+                Fecha en que adquirió firmeza (DD-MM-AAAA){" "}
+                <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
-                Colocar la fecha en que adquirió firmeza la resolución de la persona moral
+                Colocar la fecha en que adquirió firmeza la resolución de la
+                persona moral
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -200,21 +199,20 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fecha de notificación de la resolución firme (DD-MM-AAAA) <span className="text-red-500">*</span>
+                Fecha de notificación de la resolución firme (DD-MM-AAAA){" "}
+                <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
-                Indicar la fecha en que se notifica a la persona moral que la resolución ha quedado firme
+                Indicar la fecha en que se notifica a la persona moral que la
+                resolución ha quedado firme
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -229,7 +227,8 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              URL de la versión pública del acuerdo que declara firme la resolución <span className="text-red-500">*</span>
+              URL de la versión pública del acuerdo que declara firme la
+              resolución <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <div className="relative">
@@ -244,7 +243,9 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
               </div>
             </FormControl>
             <FormDescription>
-              Colocar el enlace de la versión pública del acuerdo o determinación que dicte la autoridad competente en la que declara que la resolución definitiva ha quedado firme
+              Colocar el enlace de la versión pública del acuerdo o
+              determinación que dicte la autoridad competente en la que declara
+              que la resolución definitiva ha quedado firme
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -257,25 +258,20 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         name="resolucion_fechaEjecucion"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>
-              Fecha de ejecución de la sanción (DD-MM-AAAA)
-            </FormLabel>
-            <FormControl>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
+           <FormControl>
                 <Input
                   type="date"
                   disabled={loading}
-                  className="pl-10"
                   {...field}
-                  value={field.value || ""}
+                  className="h-10"
                 />
-              </div>
-            </FormControl>
+              </FormControl>
             <FormDescription>
-              Anotar la fecha en la que se ejecutó la sanción de la persona moral. 
-              Si al momento de registrar la información la autoridad no cuenta con el dato señalado, 
-              este podrá registrarse posteriormente mediante una actualización de su registro
+              Anotar la fecha en la que se ejecutó la sanción de la persona
+              moral. Si al momento de registrar la información la autoridad no
+              cuenta con el dato señalado, este podrá registrarse posteriormente
+              mediante una actualización de su registro
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -314,7 +310,9 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                       )}
                     </div>
                     <div className="flex-1">
-                      <Label className="font-medium cursor-pointer">Federal</Label>
+                      <Label className="font-medium cursor-pointer">
+                        Federal
+                      </Label>
                     </div>
                   </div>
                 </div>
@@ -340,14 +338,17 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                       )}
                     </div>
                     <div className="flex-1">
-                      <Label className="font-medium cursor-pointer">Estatal</Label>
+                      <Label className="font-medium cursor-pointer">
+                        Estatal
+                      </Label>
                     </div>
                   </div>
                 </div>
               </div>
             </FormControl>
             <FormDescription>
-              Seleccionar la opción correspondiente al orden jurisdiccional del Ente público que emitió la resolución
+              Seleccionar la opción correspondiente al orden jurisdiccional del
+              Ente público que emitió la resolución
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -395,7 +396,8 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa
+              Especificar el nombre de la autoridad encargada de la
+              investigación de la falta administrativa
             </FormDescription>
             <FormMessage />
           </FormItem>

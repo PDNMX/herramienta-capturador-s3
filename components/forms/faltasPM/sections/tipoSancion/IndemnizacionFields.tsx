@@ -244,15 +244,12 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
             <FormItem>
               <FormLabel>Fecha de cobro de la indemnización</FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription> Especificar la fecha en que se realizó el cobro </FormDescription>
               <FormMessage />
@@ -277,17 +274,13 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
           <FormItem>
             <FormLabel>Fecha en que se realizó el pago total de la indemnización (DD-MM-AAAA)</FormLabel>
             <FormControl>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   type="date"
                   disabled={loading}
-                  className="pl-10"
                   {...field}
-                  value={field.value || ""}
+                  className="h-10"
                 />
-              </div>
-            </FormControl>
+              </FormControl>
             <FormMessage />
             <FormDescription>Especificar la fecha en que se cubrió el pago total de la indemnización.</FormDescription>
             <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-900 mt-2">

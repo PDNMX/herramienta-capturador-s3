@@ -27,13 +27,21 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { useState, useEffect, useMemo } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
-import { 
-  Accordion, 
-  AccordionContent, 
-  AccordionItem, 
-  AccordionTrigger 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
-import { AlertCircle, FileText, Calendar, Clipboard, Users, MapPin, Search } from "lucide-react";
+import {
+  AlertCircle,
+  FileText,
+  Calendar,
+  Clipboard,
+  Users,
+  MapPin,
+  Search,
+} from "lucide-react";
 
 // Imports de archivos separados
 import { faltasGravesPMSchema, type FaltasGravesPMFormValues } from "./schema";
@@ -95,10 +103,16 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
       // Cargar datos generales si existen
       if (initialData.datosGenerales) {
-        form.setValue("nombreRazonSocial", initialData.datosGenerales.nombreRazonSocial);
+        form.setValue(
+          "nombreRazonSocial",
+          initialData.datosGenerales.nombreRazonSocial
+        );
         form.setValue("rfc", initialData.datosGenerales.rfc);
         form.setValue("objetoSocial", initialData.datosGenerales.objetoSocial);
-        form.setValue("tipoDomicilio", initialData.datosGenerales.tipoDomicilio);
+        form.setValue(
+          "tipoDomicilio",
+          initialData.datosGenerales.tipoDomicilio
+        );
 
         // Cargar domicilio México si existe
         if (initialData.datosGenerales.domicilioMexico) {
@@ -140,7 +154,10 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           const rl = initialData.datosDirGeneralReprLegal.representanteLegal;
           form.setValue("representanteLegal.nombre", rl.nombre);
           form.setValue("representanteLegal.primerApellido", rl.primerApellido);
-          form.setValue("representanteLegal.segundoApellido", rl.segundoApellido);
+          form.setValue(
+            "representanteLegal.segundoApellido",
+            rl.segundoApellido
+          );
           form.setValue("representanteLegal.rfc", rl.rfc);
           form.setValue("representanteLegal.curp", rl.curp);
         }
@@ -150,7 +167,10 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       if (initialData.dondeCometioLaFalta) {
         const dcf = initialData.dondeCometioLaFalta;
         form.setValue("dondeCometio_entidadFederativa", dcf.entidadFederativa);
-        form.setValue("dondeCometio_nivelOrdenGobierno", dcf.nivelOrdenGobierno);
+        form.setValue(
+          "dondeCometio_nivelOrdenGobierno",
+          dcf.nivelOrdenGobierno
+        );
         form.setValue("dondeCometio_ambitoPublico", dcf.ambitoPublico);
         form.setValue("dondeCometio_nombreEntePublico", dcf.nombreEntePublico);
         form.setValue("dondeCometio_siglasEntePublico", dcf.siglasEntePublico);
@@ -165,16 +185,19 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
       // Cargar datos de falta cometida (O2M con normatividades anidadas)
       if (initialData.faltaCometida && initialData.faltaCometida.length > 0) {
-        const faltasFormateadas = initialData.faltaCometida.map((falta: any) => ({
-          clave: falta.clave,
-          valor: falta.valor,
-          descripcionHechos: falta.descripcionHechos,
-          normatividadInfringida: falta.normatividadInfringida?.map((norm: any) => ({
-            nombreNormatividad: norm.nombreNormatividad,
-            articulo: norm.articulo,
-            fraccion: norm.fraccion,
-          })) || [],
-        }));
+        const faltasFormateadas = initialData.faltaCometida.map(
+          (falta: any) => ({
+            clave: falta.clave,
+            valor: falta.valor,
+            descripcionHechos: falta.descripcionHechos,
+            normatividadInfringida:
+              falta.normatividadInfringida?.map((norm: any) => ({
+                nombreNormatividad: norm.nombreNormatividad,
+                articulo: norm.articulo,
+                fraccion: norm.fraccion,
+              })) || [],
+          })
+        );
         form.setValue("faltaCometida", faltasFormateadas);
       }
 
@@ -185,71 +208,122 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
         form.setValue("resolucion_fechaResolucion", res.fechaResolucion);
         form.setValue("resolucion_fechaNotificacion", res.fechaNotificacion);
         form.setValue("resolucion_urlResolucion", res.urlResolucion);
-        form.setValue("resolucion_fechaResolucionFirme", res.fechaResolucionFirme);
-        form.setValue("resolucion_fechaNotificacionFirme", res.fechaNotificacionFirme);
+        form.setValue(
+          "resolucion_fechaResolucionFirme",
+          res.fechaResolucionFirme
+        );
+        form.setValue(
+          "resolucion_fechaNotificacionFirme",
+          res.fechaNotificacionFirme
+        );
         form.setValue("resolucion_urlResolucionFirme", res.urlResolucionFirme);
         form.setValue("resolucion_fechaEjecucion", res.fechaEjecucion);
-        form.setValue("resolucion_ordenJurisdiccional", res.ordenJurisdiccional);
-        form.setValue("resolucion_autoridadResolutora", res.autoridadResolutora);
-        form.setValue("resolucion_autoridadInvestigadora", res.autoridadInvestigadora);
-        form.setValue("resolucion_autoridadSustanciadora", res.autoridadSustanciadora);
+        form.setValue(
+          "resolucion_ordenJurisdiccional",
+          res.ordenJurisdiccional
+        );
+        form.setValue(
+          "resolucion_autoridadResolutora",
+          res.autoridadResolutora
+        );
+        form.setValue(
+          "resolucion_autoridadInvestigadora",
+          res.autoridadInvestigadora
+        );
+        form.setValue(
+          "resolucion_autoridadSustanciadora",
+          res.autoridadSustanciadora
+        );
       }
 
       // Cargar datos de tipo de sanción (O2M complejo)
       if (initialData.tipoSancion && initialData.tipoSancion.length > 0) {
-        const sancionesFormateadas = initialData.tipoSancion.map((sancion: any) => ({
-          clave: sancion.clave,
-          inhabilitacion: sancion.inhabilitacion ? {
-            plazoAnios: sancion.inhabilitacion.plazoAnios,
-            plazoMeses: sancion.inhabilitacion.plazoMeses,
-            plazoDias: sancion.inhabilitacion.plazoDias,
-            fechaInicial: sancion.inhabilitacion.fechaInicial,
-            fechaFinal: sancion.inhabilitacion.fechaFinal,
-          } : null,
-          indemnizacion: sancion.indemnizacion ? {
-            monto: sancion.indemnizacion.monto,
-            moneda: sancion.indemnizacion.moneda,
-            fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
-            plazoPago: sancion.indemnizacion.plazoPago ? {
-              anios: sancion.indemnizacion.plazoPago.anios,
-              meses: sancion.indemnizacion.plazoPago.meses,
-              dias: sancion.indemnizacion.plazoPago.dias,
-            } : null,
-            efectivamenteCobrado: sancion.indemnizacion.efectivamenteCobrado ? {
-              monto: sancion.indemnizacion.efectivamenteCobrado.monto,
-              moneda: sancion.indemnizacion.efectivamenteCobrado.moneda,
-              fechaCobro: sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
-            } : null,
-          } : null,
-          sancionEconomica: sancion.sancionEconomica ? {
-            monto: sancion.sancionEconomica.monto,
-            moneda: sancion.sancionEconomica.moneda,
-            fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
-            plazoPago: sancion.sancionEconomica.plazoPago ? {
-              anios: sancion.sancionEconomica.plazoPago.anios,
-              meses: sancion.sancionEconomica.plazoPago.meses,
-              dias: sancion.sancionEconomica.plazoPago.dias,
-            } : null,
-            efectivamenteCobrado: sancion.sancionEconomica.efectivamenteCobrado ? {
-              monto: sancion.sancionEconomica.efectivamenteCobrado.monto,
-              moneda: sancion.sancionEconomica.efectivamenteCobrado.moneda,
-              fechaCobro: sancion.sancionEconomica.efectivamenteCobrado.fechaCobro,
-            } : null,
-          } : null,
-          suspensionActividades: sancion.suspensionActividades ? {
-            plazoSuspensionAnios: sancion.suspensionActividades.plazoSuspensionAnios,
-            plazoSuspensionMeses: sancion.suspensionActividades.plazoSuspensionMeses,
-            plazoSuspensionDias: sancion.suspensionActividades.plazoSuspensionDias,
-            fechaInicial: sancion.suspensionActividades.fechaInicial,
-            fechaFinal: sancion.suspensionActividades.fechaFinal,
-          } : null,
-          disolucionSociedad: sancion.disolucionSociedad ? {
-            fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
-          } : null,
-          otro: sancion.otro ? {
-            denominacionSancion: sancion.otro.denominacionSancion,
-          } : null,
-        }));
+        const sancionesFormateadas = initialData.tipoSancion.map(
+          (sancion: any) => ({
+            clave: sancion.clave,
+            inhabilitacion: sancion.inhabilitacion
+              ? {
+                  plazoAnios: sancion.inhabilitacion.plazoAnios,
+                  plazoMeses: sancion.inhabilitacion.plazoMeses,
+                  plazoDias: sancion.inhabilitacion.plazoDias,
+                  fechaInicial: sancion.inhabilitacion.fechaInicial,
+                  fechaFinal: sancion.inhabilitacion.fechaFinal,
+                }
+              : null,
+            indemnizacion: sancion.indemnizacion
+              ? {
+                  monto: sancion.indemnizacion.monto,
+                  moneda: sancion.indemnizacion.moneda,
+                  fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
+                  plazoPago: sancion.indemnizacion.plazoPago
+                    ? {
+                        anios: sancion.indemnizacion.plazoPago.anios,
+                        meses: sancion.indemnizacion.plazoPago.meses,
+                        dias: sancion.indemnizacion.plazoPago.dias,
+                      }
+                    : null,
+                  efectivamenteCobrado: sancion.indemnizacion
+                    .efectivamenteCobrado
+                    ? {
+                        monto: sancion.indemnizacion.efectivamenteCobrado.monto,
+                        moneda:
+                          sancion.indemnizacion.efectivamenteCobrado.moneda,
+                        fechaCobro:
+                          sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
+                      }
+                    : null,
+                }
+              : null,
+            sancionEconomica: sancion.sancionEconomica
+              ? {
+                  monto: sancion.sancionEconomica.monto,
+                  moneda: sancion.sancionEconomica.moneda,
+                  fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
+                  plazoPago: sancion.sancionEconomica.plazoPago
+                    ? {
+                        anios: sancion.sancionEconomica.plazoPago.anios,
+                        meses: sancion.sancionEconomica.plazoPago.meses,
+                        dias: sancion.sancionEconomica.plazoPago.dias,
+                      }
+                    : null,
+                  efectivamenteCobrado: sancion.sancionEconomica
+                    .efectivamenteCobrado
+                    ? {
+                        monto:
+                          sancion.sancionEconomica.efectivamenteCobrado.monto,
+                        moneda:
+                          sancion.sancionEconomica.efectivamenteCobrado.moneda,
+                        fechaCobro:
+                          sancion.sancionEconomica.efectivamenteCobrado
+                            .fechaCobro,
+                      }
+                    : null,
+                }
+              : null,
+            suspensionActividades: sancion.suspensionActividades
+              ? {
+                  plazoSuspensionAnios:
+                    sancion.suspensionActividades.plazoSuspensionAnios,
+                  plazoSuspensionMeses:
+                    sancion.suspensionActividades.plazoSuspensionMeses,
+                  plazoSuspensionDias:
+                    sancion.suspensionActividades.plazoSuspensionDias,
+                  fechaInicial: sancion.suspensionActividades.fechaInicial,
+                  fechaFinal: sancion.suspensionActividades.fechaFinal,
+                }
+              : null,
+            disolucionSociedad: sancion.disolucionSociedad
+              ? {
+                  fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
+                }
+              : null,
+            otro: sancion.otro
+              ? {
+                  denominacionSancion: sancion.otro.denominacionSancion,
+                }
+              : null,
+          })
+        );
         form.setValue("tipoSancion", sancionesFormateadas);
       }
     } else {
@@ -325,7 +399,9 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
             </div>
             <p className="text-sm text-amber-800 dark:text-amber-200 font-medium">
-              Los campos marcados con un asterisco (<span className="text-red-500">*</span>) son de carácter obligatorio.
+              Los campos marcados con un asterisco (
+              <span className="text-red-500">*</span>) son de carácter
+              obligatorio.
             </p>
           </div>
 
@@ -369,13 +445,16 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-semibold">
-                        1. Fecha (DD-MM-AAAA) <span className="text-red-500">*</span>
+                        1. Fecha (DD-MM-AAAA){" "}
+                        <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <div className="relative">
-                          <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-primary" />
-                          <Input type="date" disabled={loading} {...field} className="h-12 pl-10" />
-                        </div>
+                        <Input
+                          type="date"
+                          disabled={loading}
+                          {...field}
+                          className="h-12"
+                        />
                       </FormControl>
                       <FormDescription className="text-xs text-muted-foreground">
                         Indicar la fecha en la que se registra la información
@@ -406,7 +485,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                         </div>
                       </FormControl>
                       <FormDescription className="text-xs text-muted-foreground">
-                        Registrar el número de expediente en el que recae la resolución
+                        Registrar el número de expediente en el que recae la
+                        resolución
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -418,9 +498,11 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
           {/* ACCORDION - Secciones 3 a 6 */}
           <Accordion type="multiple" className="w-full space-y-4">
-            
             {/* Sección 3: Datos Generales de la Persona Moral */}
-            <AccordionItem value="datos-generales" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="datos-generales"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
@@ -437,14 +519,18 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </AccordionItem>
 
             {/* Sección 4: Datos Generales del Director General / Representante Legal */}
-            <AccordionItem value="datos-dir-general" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="datos-dir-general"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
                     <Users className="h-5 w-5 text-primary" />
                   </div>
                   <span className="text-left text-lg font-semibold text-primary">
-                    4. Datos generales del director general y del representante legal de la persona moral sancionada
+                    4. Datos generales del director general y del representante
+                    legal de la persona moral sancionada
                   </span>
                 </div>
               </AccordionTrigger>
@@ -454,14 +540,18 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </AccordionItem>
 
             {/* Sección 5: Datos del Ente público donde se cometió la falta */}
-            <AccordionItem value="donde-cometio-falta" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="donde-cometio-falta"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
                     <MapPin className="h-5 w-5 text-primary" />
                   </div>
                   <span className="text-left text-lg font-semibold text-primary">
-                    5. Datos del Ente público donde se cometió la falta administrativa
+                    5. Datos del Ente público donde se cometió la falta
+                    administrativa
                   </span>
                 </div>
               </AccordionTrigger>
@@ -471,7 +561,10 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </AccordionItem>
 
             {/* Sección 6: Origen del procedimiento */}
-            <AccordionItem value="origen-procedimiento" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="origen-procedimiento"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
@@ -488,7 +581,10 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </AccordionItem>
 
             {/* Sección 7: Tipo de falta cometida */}
-            <AccordionItem value="falta-cometida" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="falta-cometida"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
@@ -505,14 +601,18 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </AccordionItem>
 
             {/* Sección 8: Resolución sancionatoria */}
-            <AccordionItem value="resolucion" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="resolucion"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
                     <FileText className="h-5 w-5 text-primary" />
                   </div>
                   <span className="text-left text-lg font-semibold text-primary">
-                    8. Resolución sancionatoria de la falta cometida por la persona moral
+                    8. Resolución sancionatoria de la falta cometida por la
+                    persona moral
                   </span>
                 </div>
               </AccordionTrigger>
@@ -522,7 +622,10 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             </AccordionItem>
 
             {/* Sección 9: Tipo de sanción */}
-            <AccordionItem value="tipo-sancion" className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg">
+            <AccordionItem
+              value="tipo-sancion"
+              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+            >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
                   <div className="bg-primary/10 rounded-lg p-2 mr-4">
@@ -537,7 +640,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                 <TipoSancionSection form={form} loading={loading} />
               </AccordionContent>
             </AccordionItem>
-
           </Accordion>
 
           {/* Campo 10: Observaciones */}
@@ -546,9 +648,11 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
               <div className="bg-primary/10 rounded-lg p-2 mr-4">
                 <Clipboard className="h-5 w-5 text-primary" />
               </div>
-              <h3 className="text-lg font-semibold text-primary">10. Observaciones</h3>
+              <h3 className="text-lg font-semibold text-primary">
+                10. Observaciones
+              </h3>
             </div>
-            
+
             <FormField
               control={form.control}
               name="observaciones"
@@ -564,7 +668,9 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                     />
                   </FormControl>
                   <FormDescription className="text-xs text-muted-foreground">
-                    En este espacio podrá realizar las aclaraciones u observaciones que considere pertinentes respecto de alguno o algunos de los apartados del documento.
+                    En este espacio podrá realizar las aclaraciones u
+                    observaciones que considere pertinentes respecto de alguno o
+                    algunos de los apartados del documento.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

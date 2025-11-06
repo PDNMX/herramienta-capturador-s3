@@ -113,15 +113,12 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
             <FormItem>
               <FormLabel>Fecha inicial (DD/MM/AAAA)</FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que inicia la suspensión de actividades
@@ -139,15 +136,12 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
             <FormItem>
               <FormLabel>Fecha final (DD/MM/AAAA)</FormLabel>
               <FormControl>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="date"
-                    disabled={loading}
-                    className="pl-10"
-                    {...field}
-                  />
-                </div>
+                <Input
+                  type="date"
+                  disabled={loading}
+                  {...field}
+                  className="h-10"
+                />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que concluye la suspensión de actividades
