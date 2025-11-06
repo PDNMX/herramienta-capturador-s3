@@ -56,7 +56,7 @@ BEGIN
 
     -- Definir el código de validación para usuarios
     RAISE NOTICE '🔒 Configurando código de validación para usuarios...';
-    validation_code := 'module.exports=async function(data){const{first_name,last_name,location,title}=data.$trigger.payload;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;const validateNameField=(fieldName,value)=>{if(!value)return true;if(!nameRegex.test(value)){const invalidChars=[...new Set(value.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw{message:`El campo ${fieldName.toUpperCase()} contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino (con o sin acento), Ñ/ñ, Ü/ü, espacios, apóstrofes ('') y guiones (-).`,extensions:{code:"FAILED_VALIDATION",field:fieldName,type:"regex",invalid:value}};}return true;};try{validateNameField("Nombre",first_name);validateNameField("Apellido",last_name);validateNameField("Ubicación",location);validateNameField("Título",title);return data;}catch(error){throw error;}};';
+    validation_code := 'module.exports=async function(data){const{first_name,last_name,location,title}=data.$trigger.payload;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]+$/;const validateNameField=(fieldName,value)=>{if(!value)return true;if(!nameRegex.test(value)){const invalidChars=[...new Set(value.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]/g))];throw{message:`El campo ${fieldName.toUpperCase()} contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino (con o sin acento), Ñ/ñ, Ü/ü, espacios, apóstrofes (''-'') y guiones (-).`,extensions:{code:"FAILED_VALIDATION",field:fieldName,type:"regex",invalid:value}};}return true;};try{validateNameField("Nombre",first_name);validateNameField("Apellido",last_name);validateNameField("Ubicación",location);validateNameField("Título",title);return data;}catch(error){throw error;}};';
     RAISE NOTICE '✅ Código de validación para usuarios configurado';
 
     -- Insertar el flow de validación para usuarios
@@ -181,7 +181,7 @@ BEGIN
     LIMIT 1;
 
     -- Código de validación para datos_generales_graves
-    validation_code_graves := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
+    validation_code_graves := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
 
     -- Insertar flow para datos_generales_graves
     INSERT INTO directus_flows (
@@ -202,7 +202,11 @@ BEGIN
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description;
 
     -- Insertar operación para datos_generales_graves
     INSERT INTO directus_operations (
@@ -222,7 +226,9 @@ BEGIN
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+        options = EXCLUDED.options,
+        name = EXCLUDED.name,
+        key = EXCLUDED.key;
 
     RAISE NOTICE '✅ Flow para datos_generales_graves configurado';
 END $$;
@@ -244,7 +250,7 @@ BEGIN
     LIMIT 1;
 
     -- Código de validación para datos_generales_no_graves
-    validation_code_no_graves := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
+    validation_code_no_graves := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
 
     -- Insertar flow para datos_generales_no_graves
     INSERT INTO directus_flows (
@@ -265,7 +271,11 @@ BEGIN
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description;
 
     -- Insertar operación para datos_generales_no_graves
     INSERT INTO directus_operations (
@@ -285,7 +295,9 @@ BEGIN
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+        options = EXCLUDED.options,
+        name = EXCLUDED.name,
+        key = EXCLUDED.key;
 
     RAISE NOTICE '✅ Flow para datos_generales_no_graves configurado';
 END $$;
@@ -307,7 +319,7 @@ BEGIN
     LIMIT 1;
 
     -- Código de validación para datos_generales_personas_fisicas
-    validation_code_fisicas := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
+    validation_code_fisicas := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
 
     -- Insertar flow para datos_generales_personas_fisicas
     INSERT INTO directus_flows (
@@ -328,7 +340,11 @@ BEGIN
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description;
 
     -- Insertar operación para datos_generales_personas_fisicas
     INSERT INTO directus_operations (
@@ -348,21 +364,34 @@ BEGIN
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+        options = EXCLUDED.options,
+        name = EXCLUDED.name,
+        key = EXCLUDED.key;
 
     RAISE NOTICE '✅ Flow para datos_generales_personas_fisicas configurado';
 END $$;
 
 -- FLOWS PARA VALIDACIÓN DE DUPLICADOS EN LAS CUATRO COLECCIONES
 
--- FLOW PARA faltas_graves_personas_morales
+-- ***** BLOQUE CORREGIDO *****
+-- FLOW PARA validar-duplicados (Personas Morales)
 \echo '🔄 Configurando flow de validación de duplicados para faltas_graves_personas_morales...'
 DO $$
 DECLARE
     admin_id uuid;
-    validation_code_morales text;
     flow_id_morales uuid := '77777777-7777-7777-7777-777777777777';
-    operation_id_morales uuid := '88888888-8888-8888-8888-888888888888';
+    
+    -- IDs de todas las operaciones en la cadena
+    op_id_start_log uuid := '2bffe828-4212-4607-a256-006b66630292';
+    op_id_read_current uuid := 'b7e8dc0e-a475-4338-a7ba-4ad090ddc4e8';
+    op_id_transform_data uuid := '4930d1a0-69e4-4ec7-85fc-365b7a08ee80';
+    op_id_log_debug uuid := '7c5b55f8-b679-43e9-88e3-a4286d59dcd5';
+    op_id_read_duplicate uuid := '75761f42-2f0c-4043-86ed-b238ffa6e81e';
+    op_id_condition uuid := '7e4efa96-f659-49c3-ae4c-471ab839bdfb';
+    op_id_exec_error uuid := 'f6c1e71c-fca8-4270-ac87-3fd01bb2bd31';
+    
+    -- Código para la operación 'exec'
+    code_exec_error text;
 BEGIN
     -- Obtener ID del administrador
     SELECT u.id INTO admin_id 
@@ -371,16 +400,19 @@ BEGIN
     WHERE r.name = 'Administrator'
     LIMIT 1;
 
-    -- Código de validación para faltas_graves_personas_morales
-    validation_code_morales := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_personas_morales",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;if(!rfc)return data;const faltasService=new ItemsService("faltas_graves_personas_morales",{schema,accountability:data.$accountability});const filtros={_and:[{expediente:{_eq:expediente}},{datosGenerales:{rfc:{_eq:rfc}}}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){throw new Error(`Ya existe un registro de sanción para este RFC (${rfc}) y expediente (${expediente})`);}return data;};';
+    -- Código de la operación de error
+    code_exec_error := 'module.exports = async function(data) {
+	console.log("Ya existe una sanción registrada con la misma persona (CURP/RFC) y expediente")
+	return {};
+}';
 
-    -- Insertar flow para faltas_graves_personas_morales
+    -- Insertar flow
     INSERT INTO directus_flows (
         id, name, icon, color, description, status, trigger, 
         accountability, options, operation, date_created, user_created
     ) VALUES (
         flow_id_morales,
-        'validar-duplicados-morales',
+        'validar-duplicados', -- Nombre corregido
         'content_copy',
         '#FF9800',
         'Validar duplicados en faltas_graves_personas_morales por expediente y RFC',
@@ -388,35 +420,58 @@ BEGIN
         'event',
         NULL,
         '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_graves_personas_morales"]}',
-        operation_id_morales,
+        op_id_start_log, -- Operación inicial
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description,
+        operation = EXCLUDED.operation;
 
-    -- Insertar operación para faltas_graves_personas_morales
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_morales,
-        'validar-duplicados-morales-op',
-        'validar_duplicados_morales',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_morales),
-        NULL,
-        NULL,
-        flow_id_morales,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+    -- Insertar TODAS las operaciones de la cadena
+    -- Operación 1: log (Inicio)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_start_log, 'Imprimir todo', 'imprimir_todo', 'log', 6, 21, '{"message":"{{ $trigger }}"}', op_id_read_current, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
 
-    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_graves_personas_morales configurado';
+    -- Operación 2: item-read (Leer registro actual)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_read_current, 'Ejecutar script', 'registroActual', 'item-read', 22, 19, '{"collection":"{{$trigger.collection}}","query":{"filter":{"id":{"_eq":"{{ $trigger.keys[0] }}"}}}}', op_id_transform_data, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
+    
+    -- Operación 3: transform (Unificar datos)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_transform_data, 'leer', 'datosUnificados', 'transform', 40, 19, '{"json":{"expediente":"{{ $trigger.payload.datosGenerales?.expediente || registroActual[0].expediente }}","curp":"{{ $trigger.payload.datosGenerales?.curp || registroActual[0].datosGenerales.curp }}","rfc":"{{ $trigger.payload.datosGenerales?.rfc || registroActual[0].datosGenerales.rfc }}"}}', op_id_log_debug, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
+
+    -- Operación 4: log (Debug)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_log_debug, 'Registrar en la consola', 'log_luqzadfsdfsdf', 'log', 49, 38, '{"message":"👌👌👌👌{{datosUnificados}},{{$registroActual}},{{registroActual}}"}', NULL, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
+
+    -- Operación 5: item-read (Buscar duplicado)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_read_duplicate, 'Registrar en la consola', 'duplicado', 'item-read', 60, 19, '{"collection":"{{ $trigger.collection }}","query":{"filter":{"_and":[{"expediente":{"_eq":"{{ $datosUnificados.expediente }}"}},{"datosGenerales.curp":{"_eq":"{{ $datosUnificados.curp }}"}},{"datosGenerales.rfc":{"_eq":"{{ $datosUnificados.rfc }}"}},{"id":{"_neq":"{{ $trigger.keys[0] }}"}}]}}}', op_id_condition, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
+
+    -- Operación 6: condition (¿Existe duplicado?)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_condition, 'Condición', 'condition_3rmye', 'condition', 75, 19, '{"filter":"{{ $duplicado.length > 0 }}\n"}', op_id_exec_error, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
+
+    -- Operación 7: exec (Lanzar error)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_error, 'Ejecutar script', 'exec_0jaml', 'exec', 95, 22, json_build_object('code', code_exec_error), NULL, NULL, flow_id_morales, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve;
+
+    RAISE NOTICE '✅ Flow de validación de duplicados (7777...) corregido y configurado';
 END $$;
+-- ***** FIN BLOQUE CORREGIDO *****
+
 
 -- FLOW PARA faltas_graves_personas_fisicas
 \echo '🔄 Configurando flow de validación de duplicados para faltas_graves_personas_fisicas...'
@@ -456,7 +511,11 @@ BEGIN
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description;
 
     -- Insertar operación para faltas_graves_personas_fisicas
     INSERT INTO directus_operations (
@@ -476,7 +535,9 @@ BEGIN
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+        options = EXCLUDED.options,
+        name = EXCLUDED.name,
+        key = EXCLUDED.key;
 
     RAISE NOTICE '✅ Flow de validación de duplicados para faltas_graves_personas_fisicas configurado';
 END $$;
@@ -519,7 +580,11 @@ BEGIN
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description;
 
     -- Insertar operación para faltas_administrativas_graves
     INSERT INTO directus_operations (
@@ -539,7 +604,9 @@ BEGIN
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+        options = EXCLUDED.options,
+        name = EXCLUDED.name,
+        key = EXCLUDED.key;
 
     RAISE NOTICE '✅ Flow de validación de duplicados para faltas_administrativas_graves configurado';
 END $$;
@@ -582,7 +649,11 @@ BEGIN
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
         options = EXCLUDED.options,
-        status = EXCLUDED.status;
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description;
 
     -- Insertar operación para faltas_administrativas_no_graves
     INSERT INTO directus_operations (
@@ -602,10 +673,312 @@ BEGIN
         CURRENT_TIMESTAMP,
         admin_id
     ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
+        options = EXCLUDED.options,
+        name = EXCLUDED.name,
+        key = EXCLUDED.key;
 
     RAISE NOTICE '✅ Flow de validación de duplicados para faltas_administrativas_no_graves configurado';
 END $$;
+
+
+-- ***** BLOQUE NUEVO *****
+-- FLOW PARA validar-curp-rfc (Flow encadenado)
+\echo '🔄 Configurando flow para validar-curp-rfc...'
+DO $$
+DECLARE
+    admin_id uuid;
+    flow_id_curp uuid := '21ae8c9b-681f-48bc-8227-6cab1c098c31';
+
+    -- IDs de todas las operaciones en la cadena
+    op_id_log_start uuid := '09ed12df-5114-488b-adac-a298ad976581';
+    op_id_exec_init_c uuid := '2675613c-a1d5-4d55-b463-37f3a520d533';
+    op_id_log_init_c uuid := '48883a6c-0a01-410d-86e3-108ef9932d14';
+    op_id_exec_bool_c uuid := '8d844947-59a8-4c70-9090-332ea8addd6f';
+    op_id_exec_final_c uuid := 'c819fcd7-40dd-49b0-90ae-16cba0ed7c28';
+    op_id_read_update uuid := 'aa93ab3e-e5a9-4a20-8fba-4aa09a8428b4';
+    op_id_log_update uuid := 'c4b16bd4-1dc0-4eeb-a41c-f80383afd519';
+    op_id_exec_init_u uuid := 'c16e2797-1e93-4f3f-9b1c-b32a84752dfc';
+    op_id_log_init_u uuid := 'fa7103dc-a66f-48d9-a453-0cff58b06681';
+    op_id_exec_bool_u uuid := 'e62e97b6-719b-4839-a3f0-65b84a32b00b';
+    op_id_exec_final_u uuid := 'ef574dda-140b-4fc9-9bf8-25db2eb5a46e';
+
+    -- Variables para el código de las operaciones 'exec'
+    code_exec_init_c text;
+    code_exec_bool_c text;
+    code_exec_final_c text;
+    code_exec_init_u text;
+    code_exec_bool_u text;
+    code_exec_final_u text;
+
+BEGIN
+    -- Obtener ID del administrador
+    SELECT u.id INTO admin_id 
+    FROM directus_users u
+    JOIN directus_roles r ON u.role = r.id
+    WHERE r.name = 'Administrator'
+    LIMIT 1;
+
+    -- === Definir CÓDIGOS para la RAMA CREATE ===
+    code_exec_init_c := 'module.exports = async function(data) {
+ 	const p = data.$trigger.payload.datosGenerales;
+ 	const { nombres, primerApellido, segundoApellido } = p;
+
+ 	const primeraVocal = (primerApellido.match(/[AEIOUaeiou]/g) || [])[1] || ''X'';
+ 	const iniciales = (
+ 	 	primerApellido[0] +
+ 	 	primeraVocal +
+ 	 	(segundoApellido ? segundoApellido[0] : ''X'') +
+ 	 	nombres[0]
+ 	).toUpperCase();
+
+ 	return { inicialesEsperadas: iniciales };
+};';
+
+    code_exec_bool_c := 'module.exports = async function(data) {
+ 	const p = data.$trigger.payload.datosGenerales;
+ 	const { curp, rfc, segundoApellido} = p;
+ 	const iniciales = data.inicialesEsperadas.inicialesEsperadas;
+ 	 	
+ 	const expectedPrefix = segundoApellido
+ 		? iniciales.slice(0,4).toUpperCase()
+ 		: (iniciales.slice(0,2) + ''X'' + iniciales.slice(3,4)).toUpperCase();
+
+ 	const curpPrefix = curp.slice(0, 4).toUpperCase();
+ 	const rfcPrefix = rfc.slice(0, 4).toUpperCase();
+
+ 	const curpCoincide = curpPrefix.startsWith(iniciales.slice(0, 3));
+ 	const rfcCoincide = rfcPrefix.startsWith(iniciales.slice(0, 3));
+	console.log(curpCoincide,"es la curp", rfcCoincide,"es el rfc")
+ 	return { curpCoincide, rfcCoincide, curpPrefix, rfcPrefix };
+};';
+
+    code_exec_final_c := 'module.exports = async function (data) {
+ 	const iniciales = data.inicialesEsperadas?.inicialesEsperadas || ''N/A'';
+ 	const { curpPrefix, rfcPrefix, curpCoincide, rfcCoincide } = data.datosBooleanos || {};
+
+ 	-- 🧩 Caso 1: Ambos incorrectos
+ 	if (!curpCoincide && !rfcCoincide) {
+ 	 	throw new Error(
+ 	 	 	`❌ Inconsistencia detectada: 
+ 	 	 	Las iniciales esperadas (${iniciales}) no coinciden ni con la CURP (${curpPrefix}) ni con el RFC (${rfcPrefix}). 
+ 	 	 	Verifica que nombre, apellidos, CURP y RFC correspondan correctamente.`
+ 	 	);
+ 	}
+
+ 	-- 🧩 Caso 2: Solo CURP incorrecta
+ 	if (!curpCoincide && rfcCoincide) {
+ 	 	throw new Error(
+ 	 	 	`⚠️ Inconsistencia parcial:
+ 	 	 	Las iniciales esperadas (${iniciales}) coinciden con el RFC (${rfcPrefix}) pero no con la CURP (${curpPrefix}). 
+ 	 	 	Revisa la CURP, podría haberse capturado de forma incorrecta.`
+ 	 	);
+ 	}
+
+ 	-- 🧩 Caso 3: Solo RFC incorrecta
+ 	if (curpCoincide && !rfcCoincide) {
+ 	 	throw new Error(
+ 	 	 	`⚠️ Inconsistencia parcial:
+ 	 	 	Las iniciales esperadas (${iniciales}) coinciden con la CURP (${curpPrefix}) pero no con el RFC (${rfcPrefix}). 
+ 	 	 	Revisa el RFC, podría haberse capturado de forma incorrecta.`
+ 	 	);
+ 	}
+
+ 	-- ✅ Caso 4: Todo correcto
+ 	return {
+ 	 	message: `✅ Validación CURP/RFC exitosa: las iniciales (${iniciales}) coinciden correctamente con la CURP (${curpPrefix}) y el RFC (${rfcPrefix}).`
+ 	};
+};
+';
+
+    -- === Definir CÓDIGOS para la RAMA UPDATE ===
+    code_exec_init_u := 'module.exports = async function(data) {
+ 	const p = data.leer_datos[0].datosGenerales;
+ 	const d = data.$trigger.payload?.datosGenerales;
+ 	 	console.log(p,"❤️")
+ 	 	console.log(data,"🤣")
+ 
+ 	 	const nombres =
+ 	 	 	d?.nombres ||
+ 	 	 	p.nombres; 	 
+ 
+ 	 	
+ 	 const primerApellido =
+ 	 	 	d?.primerApellido ||
+ 	 	 	p.primerApellido;
+ 	 	
+ const segundoApellido =
+ 	 	d && ''segundoApellido'' in d
+ 	 	 	? d.segundoApellido ?? ''''
+ 	 	 	: p.segundoApellido ?? ''''; 	 	
+ 	 
+
+ 	const primeraVocal = (primerApellido.match(/[AEIOUaeiou]/g) || [])[1] || ''X'';
+ 	const iniciales = (
+ 	 	primerApellido[0] +
+ 	 	primeraVocal +
+ 	 	(segundoApellido ? segundoApellido[0] : ''X'') +
+ 	 	nombres[0]
+ 	).toUpperCase();
+	console.log("llego aqui 🤐")
+ 	return { inicialesEsperadas: iniciales };
+};';
+
+    code_exec_bool_u := 'module.exports = async function(data) {
+ 	const p = data.leer_datos[0].datosGenerales;
+ 	const d = data.$trigger.payload?.datosGenerales;
+ 	 	
+ 	const segundoApellido =
+ 	 	d && ''segundoApellido'' in d
+ 	 	 	? d.segundoApellido ?? ''''
+ 	 	 	: p.segundoApellido ?? '''';
+
+ 	-- curp y rfc seguros
+ 	const curp = d?.curp ?? p?.curp ?? '''';
+ 	const rfc = d?.rfc ?? p?.rfc ?? '''';
+ 	 	
+ 	const iniciales = data.inicialesEsperadasU.inicialesEsperadas;
+ 	 	
+ 	const expectedPrefix = segundoApellido
+ 		? iniciales.slice(0,4).toUpperCase()
+ 		: (iniciales.slice(0,2) + ''X'' + iniciales.slice(3,4)).toUpperCase();
+
+ 	const curpPrefix = curp.slice(0, 4).toUpperCase();
+ 	const rfcPrefix = rfc.slice(0, 4).toUpperCase();
+
+ 	const curpCoincide = curpPrefix.startsWith(iniciales.slice(0, 3));
+ 	const rfcCoincide = rfcPrefix.startsWith(iniciales.slice(0, 3));
+	console.log(curpCoincide,"es la curp", rfcCoincide,"es el rfc")
+ 	return { curpCoincide, rfcCoincide, curpPrefix, rfcPrefix };
+};';
+
+    code_exec_final_u := '
+module.exports = async function (data) {
+ 	const iniciales = data.inicialesEsperadasU?.inicialesEsperadas || ''N/A'';
+ 	const { curpPrefix, rfcPrefix, curpCoincide, rfcCoincide } = data.datosBooleanosU || {};
+
+ 	-- 🧩 Caso 1: Ambos incorrectos
+ 	if (!curpCoincide && !rfcCoincide) {
+ 	 	throw new Error(
+ 	 	 	`❌ Inconsistencia detectada: 
+ 	 	 	Las iniciales esperadas (${iniciales}) no coinciden ni con la CURP (${curpPrefix}) ni con el RFC (${rfcPrefix}). 
+ 	 	 Verifica que nombre, apellidos, CURP y RFC correspondan correctamente.`
+ 	 	);
+ 	}
+
+ 	-- 🧩 Caso 2: Solo CURP incorrecta
+ 	if (!curpCoincide && rfcCoincide) {
+throw new Error(
+ 	 	`⚠️ Inconsistencia parcial:
+ 	 Las iniciales esperadas (${iniciales}) coinciden con el RFC (${rfcPrefix}) pero no con la CURP (${curpPrefix}). 
+ 	 	 	Revisa la CURP, podría haberse capturado de forma incorrecta.`
+ 	 	);
+ 	 	
+ 	}
+
+ 	-- 🧩 Caso 3: Solo RFC incorrecta
+ 	if (curpCoincide && !rfcCoincide) {
+ 	 	throw new Error(
+ 	 	 	`⚠️ Inconsistencia parcial:
+ 	 	 	Las iniciales esperadas (${iniciales}) coinciden con la CURP (${curpPrefix}) pero no con el RFC (${rfcPrefix}). 
+ 	 	 	Revisa el RFC, podría haberse capturado de forma incorrecta.`
+ 	 	);
+ 	}
+
+ 	-- ✅ Caso 4: Todo correcto
+ 	return {
+ 	 	message: `✅ Validación CURP/RFC exitosa: las iniciales (${iniciales}) coinciden correctamente con la CURP (${curpPrefix}) y el RFC (${rfcPrefix}).`
+ 	};
+};
+';
+
+    -- Insertar el Flow principal
+    INSERT INTO directus_flows (
+        id, name, icon, color, description, status, trigger, 
+        accountability, options, operation, date_created, user_created
+    ) VALUES (
+        flow_id_curp,
+        'validar-curp-rfc',
+        'nordic_walking',
+        '#FF0000',
+        'Validar coincidencia entre CURP, RFC y Nombre (s) y Apellidos',
+        'active', -- Lo pongo en 'active' (en tu dump estaba 'inactive')
+        'event',
+        'all',
+        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_administrativas_graves","faltas_administrativas_no_graves","faltas_graves_personas_fisicas"]}',
+        op_id_log_start, -- Esta es la operación inicial
+        CURRENT_TIMESTAMP,
+        admin_id
+    ) ON CONFLICT (id) DO UPDATE SET
+        options = EXCLUDED.options,
+        status = EXCLUDED.status,
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        color = EXCLUDED.color,
+        description = EXCLUDED.description,
+        operation = EXCLUDED.operation,
+        accountability = EXCLUDED.accountability;
+
+    -- Insertar TODAS las operaciones de la cadena
+    
+    -- Op 1: Log (Inicio)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_log_start, 'Registrar en la consola', 'log_iqqit', 'log', 19, 1, '{"message":"{{$trigger}},{{$accountability}}"}', op_id_exec_init_c, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 2: Exec (Rama Create: Iniciales)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_init_c, 'Ejecutar script', 'inicialesEsperadas', 'exec', 36, 1, json_build_object('code', code_exec_init_c), op_id_log_init_c, op_id_read_update, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 3: Log (Rama Create: Log Iniciales)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_log_init_c, 'Registrar en la consola', 'log_9whah', 'log', 52, 1, '{"message":"{{inicialesEsperadas}}"}', op_id_exec_bool_c, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 4: Exec (Rama Create: Booleanos)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_bool_c, 'Ejecutar script', 'datosBooleanos', 'exec', 69, 1, json_build_object('code', code_exec_bool_c), op_id_exec_final_c, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 5: Exec (Rama Create: Final)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_final_c, 'Ejecutar script', 'exec_pj6o2', 'exec', 86, 1, json_build_object('code', code_exec_final_c), NULL, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 6: Read (Rama Update: Leer Datos)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_read_update, 'Leer Datos', 'leer_datos', 'item-read', 19, 17, '{"collection":"{{$trigger.collection}}","query":{"filter":{"id":{"_eq":"{{ $trigger.keys[0] }}"}},"fields":["*","datosGenerales.*"]}}', op_id_log_update, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 7: Log (Rama Update: Log Datos)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_log_update, 'Registrar en la consola', 'log_fkrsg', 'log', 36, 17, '{"message":"😊{{leer_datos}}"}', op_id_exec_init_u, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXcluded.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 8: Exec (Rama Update: Iniciales)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_init_u, 'Ejecutar script', 'inicialesEsperadasU', 'exec', 54, 17, json_build_object('code', code_exec_init_u), op_id_log_init_u, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 9: Log (Rama Update: Log Iniciales)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_log_init_u, 'Registrar en la consola', 'log_pqe1y', 'log', 72, 17, '{"message":"{{inicialesEsperadasU}}"}', op_id_exec_bool_u, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 10: Exec (Rama Update: Booleanos)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_bool_u, 'Ejecutar script', 'datosBooleanosU', 'exec', 89, 17, json_build_object('code', code_exec_bool_u), op_id_exec_final_u, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    -- Op 11: Exec (Rama Update: Final)
+    INSERT INTO directus_operations (id, name, key, type, position_x, position_y, options, resolve, reject, flow, date_created, user_created)
+    VALUES (op_id_exec_final_u, 'Ejecutar script', 'exec_pj6o2_uvddk', 'exec', 105, 17, json_build_object('code', code_exec_final_u), NULL, NULL, flow_id_curp, CURRENT_TIMESTAMP, admin_id)
+    ON CONFLICT (id) DO UPDATE SET options = EXCLUDED.options, name = EXCLUDED.name, key = EXCLUDED.key, resolve = EXCLUDED.resolve, reject = EXCLUDED.reject;
+
+    RAISE NOTICE '✅ Flow para validar-curp-rfc (21ae...) configurado';
+END $$;
+-- ***** FIN BLOQUE NUEVO *****
+
 EOF
 
 # Verifica éxito del comando anterior
