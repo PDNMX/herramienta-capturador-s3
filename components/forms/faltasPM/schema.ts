@@ -162,7 +162,7 @@ export const faltasGravesPMSchema = z.object({
         "DISOLUCION_SOCIEDAD",
         "OTRO"
       ]),
-      // Inhabilitación - AHORA CON VALIDACIÓN OBLIGATORIA
+      // Inhabilitación - CON VALIDACIÓN OBLIGATORIA
       inhabilitacion: z.object({
         plazoAnios: z.number({
           required_error: "El campo Año(s) es obligatorio",
@@ -183,10 +183,16 @@ export const faltasGravesPMSchema = z.object({
           required_error: "La fecha final es obligatoria",
         }).min(1, "La fecha final es obligatoria"),
       }).nullable().optional(),
-      // Indemnización
+      // Indemnización - SOLO MONTO Y MONEDA OBLIGATORIOS
       indemnizacion: z.object({
-        monto: z.number().min(0),
-        moneda: z.enum(["MXN", "USD", "EUR"]),
+        monto: z.number({
+          required_error: "El monto es obligatorio",
+          invalid_type_error: "Debe ingresar un monto válido",
+        }).min(0, "El monto no puede ser negativo"),
+        moneda: z.enum(["MXN", "USD", "EUR"], {
+          required_error: "La moneda es obligatoria",
+          invalid_type_error: "Seleccione una moneda válida",
+        }),
         fechaPagoTotal: z.string().nullable().optional(),
         plazoPago: z.object({
           anios: z.number().min(0),
@@ -232,8 +238,9 @@ export const faltasGravesPMSchema = z.object({
         denominacionSancion: z.string().min(3),
       }).nullable().optional(),
     })
-    // ⭐ VALIDACIÓN CONDICIONAL: Si clave es INHABILITACION, inhabilitacion es obligatorio
+    // ⭐ VALIDACIÓN CONDICIONAL
     .superRefine((data, ctx) => {
+      // INHABILITACIÓN
       if (data.clave === "INHABILITACION") {
         if (!data.inhabilitacion) {
           ctx.addIssue({
@@ -242,7 +249,7 @@ export const faltasGravesPMSchema = z.object({
             path: ["inhabilitacion"],
           });
         } else {
-          // Validar que todos los campos numéricos tengan valor
+          // Validar campos numéricos
           if (data.inhabilitacion.plazoAnios === null || data.inhabilitacion.plazoAnios === undefined) {
             ctx.addIssue({
               code: z.ZodIssueCode.custom,
@@ -279,7 +286,7 @@ export const faltasGravesPMSchema = z.object({
             });
           }
           
-          // Validación adicional: la fecha final debe ser posterior o igual a la inicial
+          // Validación de fechas
           if (data.inhabilitacion.fechaInicial && data.inhabilitacion.fechaFinal) {
             const fechaInicial = new Date(data.inhabilitacion.fechaInicial);
             const fechaFinal = new Date(data.inhabilitacion.fechaFinal);
@@ -295,15 +302,34 @@ export const faltasGravesPMSchema = z.object({
         }
       }
       
-      // Validaciones similares para otros tipos de sanción si es necesario
-      if (data.clave === "INDEMNIZACION" && !data.indemnizacion) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Los datos de indemnización son obligatorios cuando se selecciona este tipo de sanción",
-          path: ["indemnizacion"],
-        });
+      // INDEMNIZACIÓN - SOLO MONTO Y MONEDA OBLIGATORIOS
+      if (data.clave === "INDEMNIZACION") {
+        if (!data.indemnizacion) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: "Los datos de indemnización son obligatorios cuando se selecciona este tipo de sanción",
+            path: ["indemnizacion"],
+          });
+        } else {
+          // Validar solo monto y moneda
+          if (data.indemnizacion.monto === null || data.indemnizacion.monto === undefined) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "El monto es obligatorio",
+              path: ["indemnizacion", "monto"],
+            });
+          }
+          if (!data.indemnizacion.moneda) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              message: "La moneda es obligatoria",
+              path: ["indemnizacion", "moneda"],
+            });
+          }
+        }
       }
       
+      // SANCIÓN ECONÓMICA
       if (data.clave === "SANCION_ECONOMICA" && !data.sancionEconomica) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -312,6 +338,7 @@ export const faltasGravesPMSchema = z.object({
         });
       }
       
+      // SUSPENSIÓN DE ACTIVIDADES
       if (data.clave === "SUSPENSION_ACTIVIDADES" && !data.suspensionActividades) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -320,6 +347,7 @@ export const faltasGravesPMSchema = z.object({
         });
       }
       
+      // DISOLUCIÓN DE SOCIEDAD
       if (data.clave === "DISOLUCION_SOCIEDAD" && !data.disolucionSociedad) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
@@ -328,6 +356,7 @@ export const faltasGravesPMSchema = z.object({
         });
       }
       
+      // OTRO
       if (data.clave === "OTRO" && !data.otro) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
