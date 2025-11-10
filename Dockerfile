@@ -38,6 +38,7 @@ RUN mkdir -p /directus/uploads
 
 # Copiar logo y script de inicialización
 COPY logo-pdn-white.svg /directus/uploads/21cc850a-1c0c-4d15-aeeb-2ec0a8e98c26.svg
+COPY flows.sql /directus/flows.sql
 COPY init-modificaciones-db.sh /directus/init-modificaciones-db.sh
 RUN dos2unix /directus/init-modificaciones-db.sh && chmod +x /directus/init-modificaciones-db.sh
 
