@@ -8,16 +8,24 @@ until nc -z db 5432; do
 done
 echo "✅ Base de datos disponible. Ejecutando configuración..."
 
-# 🧹 Elimina los flujos y operaciones previas
-echo "🧹 Eliminando flujos y operaciones previas..."
-PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -c "DELETE FROM directus_operations;"
-PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -c "DELETE FROM directus_flows;"
+echo "🔎 Verificando si existen flujos en la base de datos..."
+FLOW_COUNT=$(PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -t -c "SELECT COUNT(*) FROM directus_flows;" | tr -d '[:space:]')
 
-if [ -f /directus/flows.sql ]; then
-  echo "📥 Importando flujos desde flows.sql..."
-  PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -f /directus/flows.sql
+if [ "$FLOW_COUNT" -eq 0 ]; then
+  echo "📥 No existen flujos, importando desde flows.sql..."
+  
+  if [ -f /directus/flows.sql ]; then
+    PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -f /directus/flows.sql
+    echo "✅ Flujos importados correctamente."
+
+    # quitamos el archivo flows.sql para evitar sobreescribir al reinciar el contenedor
+    rm -f /directus/flows.sql
+    echo "🧹 Archivo flows.sql eliminado del contenedor."
+  else
+    echo "⚠️ No se encontró el archivo flows.sql. No se realizó la importación."
+  fi
 else
-  echo "⚠️ Archivo flows.sql no encontrado, se omite importación."
+  echo "✅ Ya existen flujos en la base de datos. Se omite la importación."
 fi
 
 echo "🔧 Ejecutando modificaciones estructurales y de configuración..."
