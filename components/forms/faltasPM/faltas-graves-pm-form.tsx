@@ -444,7 +444,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                   name="fecha"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-semibold">
+                      <FormLabel className="text-left text-lg font-semibold text-primary">
                         1. Fecha (DD-MM-AAAA){" "}
                         <span className="text-red-500">*</span>
                       </FormLabel>
@@ -470,7 +470,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
                   name="expediente"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-semibold">
+                      <FormLabel className="text-left text-lg font-semibold text-primary">
                         2. Expediente <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
