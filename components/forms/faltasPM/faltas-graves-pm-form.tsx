@@ -231,8 +231,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
           res.autoridadInvestigadora
         );
         form.setValue(
-          "resolucion_autoridadSustanciadora",
-          res.autoridadSustanciadora
+          "resolucion_autoridadSusbstanciadora",
+          res.autoridadSusbstanciadora
         );
       }
 

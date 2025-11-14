@@ -149,7 +149,7 @@ export const faltasGravesPMSchema = z.object({
   }),
   resolucion_autoridadResolutora: z.string().min(3, "La autoridad resolutora es requerida"),
   resolucion_autoridadInvestigadora: z.string().min(3, "La autoridad investigadora es requerida"),
-  resolucion_autoridadSustanciadora: z.string().min(3, "La autoridad sustanciadora es requerida"),
+  resolucion_autoridadSusbstanciadora: z.string().min(3, "La autoridad substanciadora es requerida"),
 
   // Punto 9: Tipo de Sanción (O2M con estructuras condicionales)
   tipoSancion: z.array(

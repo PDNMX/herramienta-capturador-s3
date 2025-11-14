@@ -404,14 +404,14 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         )}
       />
 
-      {/* Autoridad sustanciadora */}
+      {/* Autoridad substanciadora */}
       <FormField
         control={form.control}
-        name="resolucion_autoridadSustanciadora"
+        name="resolucion_autoridadSusbstanciadora"
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Autoridad sustanciadora <span className="text-red-500">*</span>
+              Autoridad substanciadora <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Input
@@ -421,7 +421,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Señalar el nombre de la autoridad sustanciadora del procedimiento
+              Señalar el nombre de la autoridad substanciadora del procedimiento
             </FormDescription>
             <FormMessage />
           </FormItem>

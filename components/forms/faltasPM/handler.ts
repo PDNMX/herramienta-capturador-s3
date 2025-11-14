@@ -323,7 +323,7 @@ export async function saveFaltaGravePM(
     ordenJurisdiccional: data.resolucion_ordenJurisdiccional,
     autoridadResolutora: data.resolucion_autoridadResolutora,
     autoridadInvestigadora: data.resolucion_autoridadInvestigadora,
-    autoridadSustanciadora: data.resolucion_autoridadSustanciadora,
+    autoridadSusbstanciadora: data.resolucion_autoridadSusbstanciadora,
     entePublico: data.entePublico,
   };
 

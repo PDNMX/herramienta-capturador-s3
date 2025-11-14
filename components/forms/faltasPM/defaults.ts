@@ -110,7 +110,7 @@ export function getFaltasGravesPMDefaults(
     resolucion_ordenJurisdiccional: initialData?.resolucion?.ordenJurisdiccional ?? "FEDERAL",
     resolucion_autoridadResolutora: initialData?.resolucion?.autoridadResolutora ?? "",
     resolucion_autoridadInvestigadora: initialData?.resolucion?.autoridadInvestigadora ?? "",
-    resolucion_autoridadSustanciadora: initialData?.resolucion?.autoridadSustanciadora ?? "",
+    resolucion_autoridadSusbstanciadora: initialData?.resolucion?.autoridadSusbstanciadora ?? "",
 
     // Punto 9: Tipo de Sanción (O2M)
     tipoSancion: initialData?.tipoSancion?.map((sancion: any) => ({
