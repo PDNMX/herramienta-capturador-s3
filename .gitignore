@@ -34,3 +34,22 @@
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ============================================
+# Backend y Docker (Agregar estas líneas)
+# ============================================
+
+# Backend node_modules
+/backend/node_modules
+
+# Docker volumes
+postgres/
+
+# Backups
+*.backup
+*_backup_*
+s3_frontend_backup_*/
+
+# OS
+.DS_Store
+Thumbs.db
