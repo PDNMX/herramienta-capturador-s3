@@ -1,3 +1,4 @@
+name: s3_frontend
 services:
 
   frontend:
@@ -26,6 +27,8 @@ services:
       - 8055:8055
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
