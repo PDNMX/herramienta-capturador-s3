@@ -10123,6 +10123,44 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: faltas_administrativas_graves
+    field: busqueda_personalizada
+    type: string
+    meta:
+      collection: faltas_administrativas_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: busqueda_personalizada
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 20
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: busqueda_personalizada
+      table: faltas_administrativas_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: faltas_administrativas_no_graves
     field: id
     type: uuid
@@ -10882,6 +10920,44 @@ fields:
       has_auto_increment: false
       foreign_key_table: null
       foreign_key_column: null
+  - collection: faltas_administrativas_no_graves
+    field: busqueda_personalizada
+    type: string
+    meta:
+      collection: faltas_administrativas_no_graves
+      conditions: null
+      display: null
+      display_options: null
+      field: busqueda_personalizada
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 20
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: busqueda_personalizada
+      table: faltas_administrativas_no_graves
+      data_type: character varying
+      default_value: null
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
   - collection: faltas_graves_personas_fisicas
     field: id
     type: uuid
@@ -11621,6 +11697,44 @@ fields:
       table: faltas_graves_personas_fisicas
       data_type: character varying
       default_value: NO_FIRME
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: faltas_graves_personas_fisicas
+    field: busqueda_personalizada
+    type: string
+    meta:
+      collection: faltas_graves_personas_fisicas
+      conditions: null
+      display: null
+      display_options: null
+      field: busqueda_personalizada
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 20
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: busqueda_personalizada
+      table: faltas_graves_personas_fisicas
+      data_type: character varying
+      default_value: null
       max_length: 255
       numeric_precision: null
       numeric_scale: null
@@ -12428,6 +12542,44 @@ fields:
       table: faltas_graves_personas_morales
       data_type: character varying
       default_value: NO_FIRME
+      max_length: 255
+      numeric_precision: null
+      numeric_scale: null
+      is_nullable: true
+      is_unique: false
+      is_primary_key: false
+      is_generated: false
+      generation_expression: null
+      has_auto_increment: false
+      foreign_key_table: null
+      foreign_key_column: null
+  - collection: faltas_graves_personas_morales
+    field: busqueda_personalizada
+    type: string
+    meta:
+      collection: faltas_graves_personas_morales
+      conditions: null
+      display: null
+      display_options: null
+      field: busqueda_personalizada
+      group: null
+      hidden: true
+      interface: input
+      note: null
+      options: null
+      readonly: false
+      required: false
+      sort: 21
+      special: null
+      translations: null
+      validation: null
+      validation_message: null
+      width: full
+    schema:
+      name: busqueda_personalizada
+      table: faltas_graves_personas_morales
+      data_type: character varying
+      default_value: null
       max_length: 255
       numeric_precision: null
       numeric_scale: null

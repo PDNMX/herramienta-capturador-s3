@@ -1,15 +1,44 @@
 #!/bin/sh
+set -e
 
 echo "⏳ Esperando que la base de datos esté disponible..."
-
-# Espera hasta que el puerto 5432 esté abierto en el servicio "db"
+# Espera hasta que el servicio "db" esté disponible en el puerto 5432
 until nc -z db 5432; do
   sleep 1
 done
-
 echo "✅ Base de datos disponible. Ejecutando configuración..."
 
-# Ejecuta las modificaciones usando la contraseña de la base de datos
+echo "🔎 Verificando si existen flujos en la base de datos..."
+FLOW_COUNT=$(PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -t -c "SELECT COUNT(*) FROM directus_flows;" | tr -d '[:space:]')
+
+if [ -f /directus/flows.sql ]; then
+  if [ "$FLOW_COUNT" -gt 0 ]; then
+    echo "🔄 Existen $FLOW_COUNT flujos. Eliminando flujos existentes para actualizar..."
+    
+    # Eliminar flujos existentes y sus dependencias
+    PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" <<-EOSQL
+      TRUNCATE TABLE directus_operations CASCADE;
+      TRUNCATE TABLE directus_flows CASCADE;
+EOSQL
+    
+    echo "🗑️ Flujos existentes eliminados."
+  else
+    echo "📥 No existen flujos previos."
+  fi
+  
+  echo "📥 Importando flujos desde flows.sql..."
+  PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -f /directus/flows.sql
+  echo "✅ Flujos importados/actualizados correctamente."
+
+  # Quitamos el archivo flows.sql para evitar sobreescribir al reiniciar el contenedor
+  rm -f /directus/flows.sql
+  echo "🧹 Archivo flows.sql eliminado del contenedor."
+else
+  echo "⚠️ No se encontró el archivo flows.sql. No se realizó la importación."
+fi
+
+echo "🔧 Ejecutando modificaciones estructurales y de configuración..."
+
 PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" <<'EOF'
 
 \echo '🔒 Agregando restricciones NOT NULL a los campos de usuarios...'
@@ -53,76 +82,7 @@ BEGIN
         2334
     ) ON CONFLICT (id) DO NOTHING;
     RAISE NOTICE '✅ Archivo del logo insertado/actualizado';
-
-    -- Definir el código de validación para usuarios
-    RAISE NOTICE '🔒 Configurando código de validación para usuarios...';
-    validation_code := 'module.exports=async function(data){const{first_name,last_name,location,title}=data.$trigger.payload;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;const validateNameField=(fieldName,value)=>{if(!value)return true;if(!nameRegex.test(value)){const invalidChars=[...new Set(value.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw{message:`El campo ${fieldName.toUpperCase()} contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino (con o sin acento), Ñ/ñ, Ü/ü, espacios, apóstrofes ('') y guiones (-).`,extensions:{code:"FAILED_VALIDATION",field:fieldName,type:"regex",invalid:value}};}return true;};try{validateNameField("Nombre",first_name);validateNameField("Apellido",last_name);validateNameField("Ubicación",location);validateNameField("Título",title);return data;}catch(error){throw error;}};';
-    RAISE NOTICE '✅ Código de validación para usuarios configurado';
-
-    -- Insertar el flow de validación para usuarios
-    RAISE NOTICE '🔄 Insertando flow de validación para usuarios...';
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        '53a5b81e-ace6-41b7-b0cb-dfc9938e3b72',
-        'valida-campos-usuario',
-        'bolt',
-        '#F8E45C',
-        'Validar los campos first_name y last_name para que solo acepten valores en español, permitiendo letras del alfabeto español, vocales acentuadas, la letra eñe (ñ), la letra "ü" y espacios.',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["directus_users"]}',
-        '785dac40-bf87-4da9-9a2d-bd6f87b49a4a',
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        name = EXCLUDED.name,
-        icon = EXCLUDED.icon,
-        color = EXCLUDED.color,
-        description = EXCLUDED.description,
-        status = EXCLUDED.status,
-        trigger = EXCLUDED.trigger,
-        accountability = EXCLUDED.accountability,
-        options = EXCLUDED.options,
-        operation = EXCLUDED.operation,
-        date_created = EXCLUDED.date_created,
-        user_created = EXCLUDED.user_created;
-    RAISE NOTICE '✅ Flow de validación para usuarios insertado/actualizado';
-
-    -- Insertar la operación de validación para usuarios
-    RAISE NOTICE '🔄 Insertando operación de validación para usuarios...';
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        '785dac40-bf87-4da9-9a2d-bd6f87b49a4a',
-        'valida-regex',
-        'valida_regex',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code),
-        NULL,
-        NULL,
-        '53a5b81e-ace6-41b7-b0cb-dfc9938e3b72',
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        name = EXCLUDED.name,
-        key = EXCLUDED.key,
-        type = EXCLUDED.type,
-        position_x = EXCLUDED.position_x,
-        position_y = EXCLUDED.position_y,
-        options = EXCLUDED.options,
-        resolve = EXCLUDED.resolve,
-        reject = EXCLUDED.reject,
-        flow = EXCLUDED.flow,
-        date_created = EXCLUDED.date_created,
-        user_created = EXCLUDED.user_created;
-    RAISE NOTICE '✅ Operación de validación para usuarios insertada/actualizada';
-
+    
     -- Insertar o actualizar la configuración de Directus
     RAISE NOTICE '⚙️ Configurando ajustes de Directus...';
     INSERT INTO directus_settings (
@@ -161,457 +121,6 @@ BEGIN
         public_registration_verify_email = EXCLUDED.public_registration_verify_email;
     RAISE NOTICE '✅ Ajustes de Directus configurados';
 END $$;
-
--- FLOWS PARA VALIDACIÓN DE NOMBRES EN LAS TRES COLECCIONES
-
--- FLOW PARA datos_generales_graves
-\echo '🔄 Configurando flow para datos_generales_graves...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_graves text;
-    flow_id_graves uuid := '11111111-1111-1111-1111-111111111111';
-    operation_id_graves uuid := '22222222-2222-2222-2222-222222222222';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para datos_generales_graves
-    validation_code_graves := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
-
-    -- Insertar flow para datos_generales_graves
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_graves,
-        'valida-nombres-graves',
-        'bolt',
-        '#FF6B6B',
-        'Validar campo nombres en datos_generales_graves',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["datos_generales_graves"]}',
-        operation_id_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para datos_generales_graves
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_graves,
-        'validar-nombres-graves',
-        'validar_nombres_graves',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_graves),
-        NULL,
-        NULL,
-        flow_id_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow para datos_generales_graves configurado';
-END $$;
-
--- FLOW PARA datos_generales_no_graves
-\echo '🔄 Configurando flow para datos_generales_no_graves...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_no_graves text;
-    flow_id_no_graves uuid := '33333333-3333-3333-3333-333333333333';
-    operation_id_no_graves uuid := '44444444-4444-4444-4444-444444444444';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para datos_generales_no_graves
-    validation_code_no_graves := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
-
-    -- Insertar flow para datos_generales_no_graves
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_no_graves,
-        'valida-nombres-no-graves',
-        'bolt',
-        '#4ECDC4',
-        'Validar campo nombres en datos_generales_no_graves',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["datos_generales_no_graves"]}',
-        operation_id_no_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para datos_generales_no_graves
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_no_graves,
-        'validar-nombres-no-graves',
-        'validar_nombres_no_graves',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_no_graves),
-        NULL,
-        NULL,
-        flow_id_no_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow para datos_generales_no_graves configurado';
-END $$;
-
--- FLOW PARA datos_generales_personas_fisicas
-\echo '🔄 Configurando flow para datos_generales_personas_fisicas...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_fisicas text;
-    flow_id_fisicas uuid := '55555555-5555-5555-5555-555555555555';
-    operation_id_fisicas uuid := '66666666-6666-6666-6666-666666666666';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para datos_generales_personas_fisicas
-    validation_code_fisicas := 'module.exports=async function(data){const payload=data.$trigger?.payload||data;const nombres=payload.nombres;const nameRegex=/^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]+$/;if(!nombres)return data;if(!nameRegex.test(nombres)){const invalidChars=[...new Set(nombres.match(/[^A-Za-zÁÉÍÓÚÜÑáéíóúüñ\\s''-]/g))];throw new Error(`El campo NOMBRES contiene caracteres no permitidos (${invalidChars.join(", ")}). Solo se aceptan letras del alfabeto latino, Ñ/ñ, Ü/ü, espacios, apóstrofes y guiones.`);}return data;};';
-
-    -- Insertar flow para datos_generales_personas_fisicas
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_fisicas,
-        'valida-nombres-personas-fisicas',
-        'bolt',
-        '#45B7D1',
-        'Validar campo nombres en datos_generales_personas_fisicas',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["datos_generales_personas_fisicas"]}',
-        operation_id_fisicas,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para datos_generales_personas_fisicas
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_fisicas,
-        'validar-nombres-fisicas',
-        'validar_nombres_fisicas',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_fisicas),
-        NULL,
-        NULL,
-        flow_id_fisicas,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow para datos_generales_personas_fisicas configurado';
-END $$;
-
--- FLOWS PARA VALIDACIÓN DE DUPLICADOS EN LAS CUATRO COLECCIONES
-
--- FLOW PARA faltas_graves_personas_morales
-\echo '🔄 Configurando flow de validación de duplicados para faltas_graves_personas_morales...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_morales text;
-    flow_id_morales uuid := '77777777-7777-7777-7777-777777777777';
-    operation_id_morales uuid := '88888888-8888-8888-8888-888888888888';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para faltas_graves_personas_morales
-    validation_code_morales := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_personas_morales",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;if(!rfc)return data;const faltasService=new ItemsService("faltas_graves_personas_morales",{schema,accountability:data.$accountability});const filtros={_and:[{expediente:{_eq:expediente}},{datosGenerales:{rfc:{_eq:rfc}}}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){throw new Error(`Ya existe un registro de sanción para este RFC (${rfc}) y expediente (${expediente})`);}return data;};';
-
-    -- Insertar flow para faltas_graves_personas_morales
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_morales,
-        'validar-duplicados-morales',
-        'content_copy',
-        '#FF9800',
-        'Validar duplicados en faltas_graves_personas_morales por expediente y RFC',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_graves_personas_morales"]}',
-        operation_id_morales,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para faltas_graves_personas_morales
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_morales,
-        'validar-duplicados-morales-op',
-        'validar_duplicados_morales',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_morales),
-        NULL,
-        NULL,
-        flow_id_morales,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_graves_personas_morales configurado';
-END $$;
-
--- FLOW PARA faltas_graves_personas_fisicas
-\echo '🔄 Configurando flow de validación de duplicados para faltas_graves_personas_fisicas...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_fisicas_graves text;
-    flow_id_fisicas_graves uuid := '99999999-9999-9999-9999-999999999999';
-    operation_id_fisicas_graves uuid := 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para faltas_graves_personas_fisicas
-    validation_code_fisicas_graves := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_personas_fisicas",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;const curp=datosGenerales?.curp;if(!rfc&&!curp)return data;const faltasService=new ItemsService("faltas_graves_personas_fisicas",{schema,accountability:data.$accountability});const orConditions=[];if(rfc)orConditions.push({datosGenerales:{rfc:{_eq:rfc}}});if(curp)orConditions.push({datosGenerales:{curp:{_eq:curp}}});const filtros={_and:[{expediente:{_eq:expediente}},{_or:orConditions}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){const identificador=rfc||curp;throw new Error(`Ya existe un registro de sanción para este ${rfc?"RFC":"CURP"} (${identificador}) y expediente (${expediente})`);}return data;};';
-
-    -- Insertar flow para faltas_graves_personas_fisicas
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_fisicas_graves,
-        'validar-duplicados-fisicas-graves',
-        'content_copy',
-        '#E91E63',
-        'Validar duplicados en faltas_graves_personas_fisicas por expediente, RFC y CURP',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_graves_personas_fisicas"]}',
-        operation_id_fisicas_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para faltas_graves_personas_fisicas
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_fisicas_graves,
-        'validar-duplicados-fisicas-graves-op',
-        'validar_duplicados_fisicas_graves',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_fisicas_graves),
-        NULL,
-        NULL,
-        flow_id_fisicas_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_graves_personas_fisicas configurado';
-END $$;
-
--- FLOW PARA faltas_administrativas_graves
-\echo '🔄 Configurando flow de validación de duplicados para faltas_administrativas_graves...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_admin_graves text;
-    flow_id_admin_graves uuid := 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb';
-    operation_id_admin_graves uuid := 'cccccccc-cccc-cccc-cccc-cccccccccccc';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para faltas_administrativas_graves
-    validation_code_admin_graves := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_graves",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;const curp=datosGenerales?.curp;if(!rfc&&!curp)return data;const faltasService=new ItemsService("faltas_administrativas_graves",{schema,accountability:data.$accountability});const orConditions=[];if(rfc)orConditions.push({datosGenerales:{rfc:{_eq:rfc}}});if(curp)orConditions.push({datosGenerales:{curp:{_eq:curp}}});const filtros={_and:[{expediente:{_eq:expediente}},{_or:orConditions}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){const identificador=rfc||curp;throw new Error(`Ya existe un registro de sanción para este ${rfc?"RFC":"CURP"} (${identificador}) y expediente (${expediente})`);}return data;};';
-
-    -- Insertar flow para faltas_administrativas_graves
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_admin_graves,
-        'validar-duplicados-admin-graves',
-        'content_copy',
-        '#9C27B0',
-        'Validar duplicados en faltas_administrativas_graves por expediente, RFC y CURP',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_administrativas_graves"]}',
-        operation_id_admin_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para faltas_administrativas_graves
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_admin_graves,
-        'validar-duplicados-admin-graves-op',
-        'validar_duplicados_admin_graves',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_admin_graves),
-        NULL,
-        NULL,
-        flow_id_admin_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_administrativas_graves configurado';
-END $$;
-
--- FLOW PARA faltas_administrativas_no_graves
-\echo '🔄 Configurando flow de validación de duplicados para faltas_administrativas_no_graves...'
-DO $$
-DECLARE
-    admin_id uuid;
-    validation_code_admin_no_graves text;
-    flow_id_admin_no_graves uuid := 'dddddddd-dddd-dddd-dddd-dddddddddddd';
-    operation_id_admin_no_graves uuid := 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee';
-BEGIN
-    -- Obtener ID del administrador
-    SELECT u.id INTO admin_id 
-    FROM directus_users u
-    JOIN directus_roles r ON u.role = r.id
-    WHERE r.name = 'Administrator'
-    LIMIT 1;
-
-    -- Código de validación para faltas_administrativas_no_graves
-    validation_code_admin_no_graves := 'module.exports=async function(data,{services,database,getSchema}){const{ItemsService}=services;const payload=data.$trigger?.payload||data;const expediente=payload.expediente;const datosGeneralesId=payload.datosGenerales;if(!expediente||!datosGeneralesId)return data;const schema=await getSchema();const datosGeneralesService=new ItemsService("datos_generales_no_graves",{schema,accountability:data.$accountability});let datosGenerales;try{datosGenerales=await datosGeneralesService.readOne(datosGeneralesId);}catch(e){return data;}const rfc=datosGenerales?.rfc;const curp=datosGenerales?.curp;if(!rfc&&!curp)return data;const faltasService=new ItemsService("faltas_administrativas_no_graves",{schema,accountability:data.$accountability});const orConditions=[];if(rfc)orConditions.push({datosGenerales:{rfc:{_eq:rfc}}});if(curp)orConditions.push({datosGenerales:{curp:{_eq:curp}}});const filtros={_and:[{expediente:{_eq:expediente}},{_or:orConditions}]};if(payload.id){filtros._and.push({id:{_neq:payload.id}});}const duplicados=await faltasService.readByQuery({filter:filtros,limit:1});if(duplicados.length>0){const identificador=rfc||curp;throw new Error(`Ya existe un registro de sanción para este ${rfc?"RFC":"CURP"} (${identificador}) y expediente (${expediente})`);}return data;};';
-
-    -- Insertar flow para faltas_administrativas_no_graves
-    INSERT INTO directus_flows (
-        id, name, icon, color, description, status, trigger, 
-        accountability, options, operation, date_created, user_created
-    ) VALUES (
-        flow_id_admin_no_graves,
-        'validar-duplicados-admin-no-graves',
-        'content_copy',
-        '#00BCD4',
-        'Validar duplicados en faltas_administrativas_no_graves por expediente, RFC y CURP',
-        'active',
-        'event',
-        NULL,
-        '{"type":"filter","scope":["items.create","items.update"],"collections":["faltas_administrativas_no_graves"]}',
-        operation_id_admin_no_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options,
-        status = EXCLUDED.status;
-
-    -- Insertar operación para faltas_administrativas_no_graves
-    INSERT INTO directus_operations (
-        id, name, key, type, position_x, position_y, options,
-        resolve, reject, flow, date_created, user_created
-    ) VALUES (
-        operation_id_admin_no_graves,
-        'validar-duplicados-admin-no-graves-op',
-        'validar_duplicados_admin_no_graves',
-        'exec',
-        19,
-        1,
-        json_build_object('code', validation_code_admin_no_graves),
-        NULL,
-        NULL,
-        flow_id_admin_no_graves,
-        CURRENT_TIMESTAMP,
-        admin_id
-    ) ON CONFLICT (id) DO UPDATE SET
-        options = EXCLUDED.options;
-
-    RAISE NOTICE '✅ Flow de validación de duplicados para faltas_administrativas_no_graves configurado';
-END $$;
 EOF
 
-# Verifica éxito del comando anterior
-if [ $? -eq 0 ]; then
-  echo "✅ Configuración aplicada exitosamente."
-else
-  echo "❌ Error al aplicar la configuración." >&2
-  exit 1
-fi
+echo "✅ Script de inicialización completado correctamente."
