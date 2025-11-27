@@ -11,21 +11,30 @@ echo "✅ Base de datos disponible. Ejecutando configuración..."
 echo "🔎 Verificando si existen flujos en la base de datos..."
 FLOW_COUNT=$(PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -t -c "SELECT COUNT(*) FROM directus_flows;" | tr -d '[:space:]')
 
-if [ "$FLOW_COUNT" -eq 0 ]; then
-  echo "📥 No existen flujos, importando desde flows.sql..."
-  
-  if [ -f /directus/flows.sql ]; then
-    PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -f /directus/flows.sql
-    echo "✅ Flujos importados correctamente."
-
-    # quitamos el archivo flows.sql para evitar sobreescribir al reinciar el contenedor
-    rm -f /directus/flows.sql
-    echo "🧹 Archivo flows.sql eliminado del contenedor."
+if [ -f /directus/flows.sql ]; then
+  if [ "$FLOW_COUNT" -gt 0 ]; then
+    echo "🔄 Existen $FLOW_COUNT flujos. Eliminando flujos existentes para actualizar..."
+    
+    # Eliminar flujos existentes y sus dependencias
+    PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" <<-EOSQL
+      TRUNCATE TABLE directus_operations CASCADE;
+      TRUNCATE TABLE directus_flows CASCADE;
+EOSQL
+    
+    echo "🗑️ Flujos existentes eliminados."
   else
-    echo "⚠️ No se encontró el archivo flows.sql. No se realizó la importación."
+    echo "📥 No existen flujos previos."
   fi
+  
+  echo "📥 Importando flujos desde flows.sql..."
+  PGPASSWORD="$DB_PASSWORD" psql -h db -U "$DB_USER" -d "$DB_DATABASE" -f /directus/flows.sql
+  echo "✅ Flujos importados/actualizados correctamente."
+
+  # Quitamos el archivo flows.sql para evitar sobreescribir al reiniciar el contenedor
+  rm -f /directus/flows.sql
+  echo "🧹 Archivo flows.sql eliminado del contenedor."
 else
-  echo "✅ Ya existen flujos en la base de datos. Se omite la importación."
+  echo "⚠️ No se encontró el archivo flows.sql. No se realizó la importación."
 fi
 
 echo "🔧 Ejecutando modificaciones estructurales y de configuración..."
