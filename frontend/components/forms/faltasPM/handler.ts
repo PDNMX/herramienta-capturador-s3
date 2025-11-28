@@ -5,17 +5,25 @@ import type { FaltasGravesPMFormValues } from "./schema";
 
 /**
  * Guarda o actualiza un registro de Falta Grave Persona Moral
- * Maneja todas las relaciones M2O en cascada
+ * Maneja todas las relaciones M2O y O2M en cascada con autenticación
  * @param data - Datos del formulario
  * @param initialData - Datos iniciales (null si es nuevo registro)
- * @param accessToken - Token de acceso del usuario
+ * @param accessToken - Token de acceso del usuario autenticado
+ * @param entePublicoId - ID (número) del ente público del usuario logueado (puede ser null)
  * @returns Promise con el resultado de la operación
  */
 export async function saveFaltaGravePM(
   data: FaltasGravesPMFormValues,
   initialData: any | null,
-  accessToken: string
+  accessToken: string,
+  entePublicoId: number | null = null
 ) {
+  // ============================================
+  // IMPORTANTE: entePublico puede ser null si el usuario no tiene uno asignado
+  // Esto permite que usuarios admin puedan crear registros sin restricción
+  // ============================================
+  const entePublico = entePublicoId || data.entePublico || null;
+
   // ============================================
   // 1. DOMICILIO MÉXICO
   // ============================================
@@ -31,7 +39,7 @@ export async function saveFaltaGravePM(
       municipioAlcaldia: data.municipioAlcaldia,
       codigoPostal: data.codigoPostal,
       entidadFederativa: data.entidadFederativa,
-      entePublico: data.entePublico,
+      entePublico: entePublico,
     };
 
     if (initialData?.datosGenerales?.domicilioMexico?.id) {
@@ -71,7 +79,7 @@ export async function saveFaltaGravePM(
       numeroInterior: data.numeroInteriorExtranjero,
       codigoPostal: data.codigoPostalExtranjero,
       pais: data.pais,
-      entePublico: data.entePublico,
+      entePublico: entePublico,
     };
 
     if (initialData?.datosGenerales?.domicilioExtranjero?.id) {
@@ -107,7 +115,7 @@ export async function saveFaltaGravePM(
     tipoDomicilio: data.tipoDomicilio,
     domicilioMexico: domicilioMexicoId,
     domicilioExtranjero: domicilioExtranjeroId,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
   let datosGeneralesId;
@@ -143,7 +151,7 @@ export async function saveFaltaGravePM(
     segundoApellido: data.directorGeneral.segundoApellido,
     rfc: data.directorGeneral.rfc,
     curp: data.directorGeneral.curp,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
   let directorGeneralId;
@@ -179,7 +187,7 @@ export async function saveFaltaGravePM(
     segundoApellido: data.representanteLegal.segundoApellido,
     rfc: data.representanteLegal.rfc,
     curp: data.representanteLegal.curp,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
   let representanteLegalId;
@@ -212,7 +220,7 @@ export async function saveFaltaGravePM(
   const datosDgRpData = {
     directorGeneral: directorGeneralId,
     representanteLegal: representanteLegalId,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
   let datosDgRpId;
@@ -242,16 +250,16 @@ export async function saveFaltaGravePM(
   // ============================================
   // 7. DONDE COMETIÓ LA FALTA
   // ============================================
-  const dondeCometioFaltaData = {
+  const dondeCometioData = {
     entidadFederativa: data.dondeCometio_entidadFederativa,
     nivelOrdenGobierno: data.dondeCometio_nivelOrdenGobierno,
     ambitoPublico: data.dondeCometio_ambitoPublico,
     nombreEntePublico: data.dondeCometio_nombreEntePublico,
     siglasEntePublico: data.dondeCometio_siglasEntePublico,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
-  let dondeCometioFaltaId;
+  let dondeCometioId;
 
   if (initialData?.dondeCometioLaFalta?.id) {
     await directus.request(
@@ -260,19 +268,19 @@ export async function saveFaltaGravePM(
         updateItem(
           "donde_cometio_falta",
           initialData.dondeCometioLaFalta.id,
-          dondeCometioFaltaData
+          dondeCometioData
         )
       )
     );
-    dondeCometioFaltaId = initialData.dondeCometioLaFalta.id;
+    dondeCometioId = initialData.dondeCometioLaFalta.id;
   } else {
-    const newDondeCometioFalta = await directus.request(
+    const newDondeCometio = await directus.request(
       withToken(
         accessToken,
-        createItem("donde_cometio_falta", dondeCometioFaltaData)
+        createItem("donde_cometio_falta", dondeCometioData)
       )
     );
-    dondeCometioFaltaId = newDondeCometioFalta.id;
+    dondeCometioId = newDondeCometio.id;
   }
 
   // ============================================
@@ -281,7 +289,7 @@ export async function saveFaltaGravePM(
   const origenProcedimientoData = {
     clave: data.origenProcedimiento_clave,
     valor: data.origenProcedimiento_clave === "OTRO" ? data.origenProcedimiento_valor : null,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
   let origenProcedimientoId;
@@ -324,7 +332,7 @@ export async function saveFaltaGravePM(
     autoridadResolutora: data.resolucion_autoridadResolutora,
     autoridadInvestigadora: data.resolucion_autoridadInvestigadora,
     autoridadSusbstanciadora: data.resolucion_autoridadSusbstanciadora,
-    entePublico: data.entePublico,
+    entePublico: entePublico,
   };
 
   let resolucionId;
@@ -333,68 +341,60 @@ export async function saveFaltaGravePM(
     await directus.request(
       withToken(
         accessToken,
-        updateItem(
-          "resolucion_morales",
-          initialData.resolucion.id,
-          resolucionData
-        )
+        updateItem("resolucion", initialData.resolucion.id, resolucionData)
       )
     );
     resolucionId = initialData.resolucion.id;
   } else {
     const newResolucion = await directus.request(
-      withToken(
-        accessToken,
-        createItem("resolucion_morales", resolucionData)
-      )
+      withToken(accessToken, createItem("resolucion", resolucionData))
     );
     resolucionId = newResolucion.id;
   }
 
   // ============================================
-  // 10. REGISTRO PRINCIPAL
+  // 10. REGISTRO PRINCIPAL (FALTAS GRAVES PM)
   // ============================================
-  const mainData = {
-    entePublico: data.entePublico,
+  const registroPrincipalData = {
+    entePublico: entePublico,
     status: data.status,
     fecha: data.fecha,
     expediente: data.expediente,
     observaciones: data.observaciones,
     datosGenerales: datosGeneralesId,
     datosDirGeneralReprLegal: datosDgRpId,
-    dondeCometioLaFalta: dondeCometioFaltaId,
+    dondeCometioLaFalta: dondeCometioId,
     origenProcedimiento: origenProcedimientoId,
     resolucion: resolucionId,
   };
 
   let registroPrincipalId;
 
-  if (initialData) {
+  if (initialData?.id) {
     await directus.request(
       withToken(
         accessToken,
         updateItem(
           "faltas_graves_personas_morales",
           initialData.id,
-          mainData
+          registroPrincipalData
         )
       )
     );
     registroPrincipalId = initialData.id;
   } else {
-    const newRegistro = await directus.request(
+    const newRegistroPrincipal = await directus.request(
       withToken(
         accessToken,
-        createItem("faltas_graves_personas_morales", mainData)
+        createItem("faltas_graves_personas_morales", registroPrincipalData)
       )
     );
-    registroPrincipalId = newRegistro.id;
+    registroPrincipalId = newRegistroPrincipal.id;
   }
 
   // ============================================
   // 11. FALTA COMETIDA (O2M con normatividades anidadas)
   // ============================================
-  // Guardamos cada falta con sus normatividades
   for (const falta of data.faltaCometida) {
     // Primero guardamos todas las normatividades de esta falta
     const normatividadesIds: number[] = [];
@@ -404,7 +404,7 @@ export async function saveFaltaGravePM(
         nombreNormatividad: normatividad.nombreNormatividad,
         articulo: normatividad.articulo,
         fraccion: normatividad.fraccion,
-        entePublico: data.entePublico,
+        entePublico: entePublico,
       };
 
       const newNormatividad = await directus.request(
@@ -422,7 +422,7 @@ export async function saveFaltaGravePM(
       valor: falta.clave === "OTRO" ? falta.valor : null,
       descripcionHechos: falta.descripcionHechos,
       fk_morales: registroPrincipalId,
-      entePublico: data.entePublico,
+      entePublico: entePublico,
       normatividadInfringida: normatividadesIds,
     };
 
@@ -450,7 +450,7 @@ export async function saveFaltaGravePM(
             plazoDias: sancion.inhabilitacion.plazoDias,
             fechaInicial: sancion.inhabilitacion.fechaInicial,
             fechaFinal: sancion.inhabilitacion.fechaFinal,
-            entePublico: data.entePublico,
+            entePublico: entePublico,
           };
           const newInhabilitacion = await directus.request(
             withToken(accessToken, createItem("inhabilitacion", inhabilitacionData))
@@ -468,7 +468,7 @@ export async function saveFaltaGravePM(
               anios: sancion.indemnizacion.plazoPago.anios,
               meses: sancion.indemnizacion.plazoPago.meses,
               dias: sancion.indemnizacion.plazoPago.dias,
-              entePublico: data.entePublico,
+              entePublico: entePublico,
             };
             const newPlazoPago = await directus.request(
               withToken(accessToken, createItem("plazo_pago_indemnizacion", plazoPagoData))
@@ -483,7 +483,7 @@ export async function saveFaltaGravePM(
               monto: sancion.indemnizacion.efectivamenteCobrado.monto,
               moneda: sancion.indemnizacion.efectivamenteCobrado.moneda,
               fechaCobro: sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
-              entePublico: data.entePublico,
+              entePublico: entePublico,
             };
             const newCobrado = await directus.request(
               withToken(accessToken, createItem("efectivamente_cobrado_indemnizacion", cobradoData))
@@ -498,7 +498,7 @@ export async function saveFaltaGravePM(
             fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
             plazoPago: plazoPagoId,
             efectivamenteCobrado: efectivamenteCobradoId,
-            entePublico: data.entePublico,
+            entePublico: entePublico,
           };
           const newIndemnizacion = await directus.request(
             withToken(accessToken, createItem("indemnizacion", indemnizacionData))
@@ -516,7 +516,7 @@ export async function saveFaltaGravePM(
               anios: sancion.sancionEconomica.plazoPago.anios,
               meses: sancion.sancionEconomica.plazoPago.meses,
               dias: sancion.sancionEconomica.plazoPago.dias,
-              entePublico: data.entePublico,
+              entePublico: entePublico,
             };
             const newPlazoPagoSE = await directus.request(
               withToken(accessToken, createItem("plazo_pago", plazoPagoSEData))
@@ -531,7 +531,7 @@ export async function saveFaltaGravePM(
               monto: sancion.sancionEconomica.efectivamenteCobrado.monto,
               moneda: sancion.sancionEconomica.efectivamenteCobrado.moneda,
               fechaCobro: sancion.sancionEconomica.efectivamenteCobrado.fechaCobro,
-              entePublico: data.entePublico,
+              entePublico: entePublico,
             };
             const newCobradoSE = await directus.request(
               withToken(accessToken, createItem("efectivamente_cobrado", cobradoSEData))
@@ -546,7 +546,7 @@ export async function saveFaltaGravePM(
             fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
             plazoPago: plazoPagoSEId,
             efectivamenteCobrado: efectivamenteCobradoSEId,
-            entePublico: data.entePublico,
+            entePublico: entePublico,
           };
           const newSancionEconomica = await directus.request(
             withToken(accessToken, createItem("sancion_economica", sancionEconomicaData))
@@ -563,7 +563,7 @@ export async function saveFaltaGravePM(
             plazoSuspensionDias: sancion.suspensionActividades.plazoSuspensionDias,
             fechaInicial: sancion.suspensionActividades.fechaInicial,
             fechaFinal: sancion.suspensionActividades.fechaFinal,
-            entePublico: data.entePublico,
+            entePublico: entePublico,
           };
           const newSuspension = await directus.request(
             withToken(accessToken, createItem("suspension_actividades", suspensionData))
@@ -576,7 +576,7 @@ export async function saveFaltaGravePM(
         if (sancion.disolucionSociedad) {
           const disolucionData = {
             fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
-            entePublico: data.entePublico,
+            entePublico: entePublico,
           };
           const newDisolucion = await directus.request(
             withToken(accessToken, createItem("disolucion_sociedad", disolucionData))
@@ -589,7 +589,7 @@ export async function saveFaltaGravePM(
         if (sancion.otro) {
           const otroData = {
             denominacionSancion: sancion.otro.denominacionSancion,
-            entePublico: data.entePublico,
+            entePublico: entePublico,
           };
           const newOtro = await directus.request(
             withToken(accessToken, createItem("otro_sancion", otroData))
@@ -603,7 +603,7 @@ export async function saveFaltaGravePM(
     const tipoSancionData: any = {
       clave: sancion.clave,
       fk_id: registroPrincipalId,
-      entePublico: data.entePublico, // ✅ AGREGADO
+      entePublico: entePublico,
     };
 
     // Asignar el ID correspondiente según la clave
@@ -619,5 +619,5 @@ export async function saveFaltaGravePM(
     );
   }
 
-  return { success: true };
+  return { success: true, id: registroPrincipalId };
 }

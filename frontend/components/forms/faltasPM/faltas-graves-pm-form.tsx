@@ -243,84 +243,84 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
             clave: sancion.clave,
             inhabilitacion: sancion.inhabilitacion
               ? {
-                  plazoAnios: sancion.inhabilitacion.plazoAnios,
-                  plazoMeses: sancion.inhabilitacion.plazoMeses,
-                  plazoDias: sancion.inhabilitacion.plazoDias,
-                  fechaInicial: sancion.inhabilitacion.fechaInicial,
-                  fechaFinal: sancion.inhabilitacion.fechaFinal,
-                }
+                plazoAnios: sancion.inhabilitacion.plazoAnios,
+                plazoMeses: sancion.inhabilitacion.plazoMeses,
+                plazoDias: sancion.inhabilitacion.plazoDias,
+                fechaInicial: sancion.inhabilitacion.fechaInicial,
+                fechaFinal: sancion.inhabilitacion.fechaFinal,
+              }
               : null,
             indemnizacion: sancion.indemnizacion
               ? {
-                  monto: sancion.indemnizacion.monto,
-                  moneda: sancion.indemnizacion.moneda,
-                  fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
-                  plazoPago: sancion.indemnizacion.plazoPago
-                    ? {
-                        anios: sancion.indemnizacion.plazoPago.anios,
-                        meses: sancion.indemnizacion.plazoPago.meses,
-                        dias: sancion.indemnizacion.plazoPago.dias,
-                      }
-                    : null,
-                  efectivamenteCobrado: sancion.indemnizacion
-                    .efectivamenteCobrado
-                    ? {
-                        monto: sancion.indemnizacion.efectivamenteCobrado.monto,
-                        moneda:
-                          sancion.indemnizacion.efectivamenteCobrado.moneda,
-                        fechaCobro:
-                          sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
-                      }
-                    : null,
-                }
+                monto: sancion.indemnizacion.monto,
+                moneda: sancion.indemnizacion.moneda,
+                fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal,
+                plazoPago: sancion.indemnizacion.plazoPago
+                  ? {
+                    anios: sancion.indemnizacion.plazoPago.anios,
+                    meses: sancion.indemnizacion.plazoPago.meses,
+                    dias: sancion.indemnizacion.plazoPago.dias,
+                  }
+                  : null,
+                efectivamenteCobrado: sancion.indemnizacion
+                  .efectivamenteCobrado
+                  ? {
+                    monto: sancion.indemnizacion.efectivamenteCobrado.monto,
+                    moneda:
+                      sancion.indemnizacion.efectivamenteCobrado.moneda,
+                    fechaCobro:
+                      sancion.indemnizacion.efectivamenteCobrado.fechaCobro,
+                  }
+                  : null,
+              }
               : null,
             sancionEconomica: sancion.sancionEconomica
               ? {
-                  monto: sancion.sancionEconomica.monto,
-                  moneda: sancion.sancionEconomica.moneda,
-                  fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
-                  plazoPago: sancion.sancionEconomica.plazoPago
-                    ? {
-                        anios: sancion.sancionEconomica.plazoPago.anios,
-                        meses: sancion.sancionEconomica.plazoPago.meses,
-                        dias: sancion.sancionEconomica.plazoPago.dias,
-                      }
-                    : null,
-                  efectivamenteCobrado: sancion.sancionEconomica
-                    .efectivamenteCobrado
-                    ? {
-                        monto:
-                          sancion.sancionEconomica.efectivamenteCobrado.monto,
-                        moneda:
-                          sancion.sancionEconomica.efectivamenteCobrado.moneda,
-                        fechaCobro:
-                          sancion.sancionEconomica.efectivamenteCobrado
-                            .fechaCobro,
-                      }
-                    : null,
-                }
+                monto: sancion.sancionEconomica.monto,
+                moneda: sancion.sancionEconomica.moneda,
+                fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
+                plazoPago: sancion.sancionEconomica.plazoPago
+                  ? {
+                    anios: sancion.sancionEconomica.plazoPago.anios,
+                    meses: sancion.sancionEconomica.plazoPago.meses,
+                    dias: sancion.sancionEconomica.plazoPago.dias,
+                  }
+                  : null,
+                efectivamenteCobrado: sancion.sancionEconomica
+                  .efectivamenteCobrado
+                  ? {
+                    monto:
+                      sancion.sancionEconomica.efectivamenteCobrado.monto,
+                    moneda:
+                      sancion.sancionEconomica.efectivamenteCobrado.moneda,
+                    fechaCobro:
+                      sancion.sancionEconomica.efectivamenteCobrado
+                        .fechaCobro,
+                  }
+                  : null,
+              }
               : null,
             suspensionActividades: sancion.suspensionActividades
               ? {
-                  plazoSuspensionAnios:
-                    sancion.suspensionActividades.plazoSuspensionAnios,
-                  plazoSuspensionMeses:
-                    sancion.suspensionActividades.plazoSuspensionMeses,
-                  plazoSuspensionDias:
-                    sancion.suspensionActividades.plazoSuspensionDias,
-                  fechaInicial: sancion.suspensionActividades.fechaInicial,
-                  fechaFinal: sancion.suspensionActividades.fechaFinal,
-                }
+                plazoSuspensionAnios:
+                  sancion.suspensionActividades.plazoSuspensionAnios,
+                plazoSuspensionMeses:
+                  sancion.suspensionActividades.plazoSuspensionMeses,
+                plazoSuspensionDias:
+                  sancion.suspensionActividades.plazoSuspensionDias,
+                fechaInicial: sancion.suspensionActividades.fechaInicial,
+                fechaFinal: sancion.suspensionActividades.fechaFinal,
+              }
               : null,
             disolucionSociedad: sancion.disolucionSociedad
               ? {
-                  fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
-                }
+                fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion,
+              }
               : null,
             otro: sancion.otro
               ? {
-                  denominacionSancion: sancion.otro.denominacionSancion,
-                }
+                denominacionSancion: sancion.otro.denominacionSancion,
+              }
               : null,
           })
         );
@@ -334,18 +334,24 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
     }
   }, [initialData, form, session]);
 
+
   const onSubmit = async (data: FaltasGravesPMFormValues) => {
     try {
       setLoading(true);
-      console.log(data);
 
-      await saveFaltaGravePM(data, initialData, session?.access_token);
+      // ✅ Pasar el entePublico del usuario (puede ser null si no lo tiene)
+      // session.user.entePublico es el ID numérico (1, 2, 3...) del ente público
+      // Esto NO generará un error, simplemente guardará null en los registros
+      await saveFaltaGravePM(
+        data,
+        initialData,
+        session!.access_token,
+        session?.user?.entePublico || null
+      );
 
       router.refresh();
-      router.push(`/dashboard/faltas-graves-pm`);
+      router.push(`/faltas-graves-personas-morales`);
       toast({
-        variant: "default",
-        className: "bg-green-600",
         title: "Éxito",
         description: toastMessage,
       });
@@ -354,7 +360,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Error al intentar guardar el registro",
+        description: error.message || "Error al intentar guardar el registro",
       });
     } finally {
       setLoading(false);
@@ -370,7 +376,14 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({
 
       <FormProvider {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit, (errors) => {
+            console.error("Errores de validación:", errors);
+            toast({
+              variant: "destructive",
+              title: "Formulario incompleto",
+              description: "Por favor revise los campos marcados en rojo en todas las secciones.",
+            });
+          })}
           className="space-y-8 w-full"
         >
           {/* Campo oculto para entePublico */}

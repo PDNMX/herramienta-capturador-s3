@@ -64,13 +64,13 @@ export function getFaltasGravesPMDefaults(
 
     // Donde cometió la falta
     dondeCometio_entidadFederativa: initialData?.dondeCometioLaFalta?.entidadFederativa ?? "",
-    dondeCometio_nivelOrdenGobierno: initialData?.dondeCometioLaFalta?.nivelOrdenGobierno ?? "FEDERAL",
+    dondeCometio_nivelOrdenGobierno: initialData?.dondeCometioLaFalta?.nivelOrdenGobierno ?? "",
     dondeCometio_ambitoPublico: initialData?.dondeCometioLaFalta?.ambitoPublico ?? null,
     dondeCometio_nombreEntePublico: initialData?.dondeCometioLaFalta?.nombreEntePublico ?? null,
     dondeCometio_siglasEntePublico: initialData?.dondeCometioLaFalta?.siglasEntePublico ?? "",
 
     // Origen del procedimiento
-    origenProcedimiento_clave: initialData?.origenProcedimiento?.clave ?? "DENUNCIA",
+    origenProcedimiento_clave: initialData?.origenProcedimiento?.clave ?? "",
     origenProcedimiento_valor: initialData?.origenProcedimiento?.valor ?? null,
 
     // Punto 7: Falta Cometida (O2M con normatividades anidadas)

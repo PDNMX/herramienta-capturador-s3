@@ -12,9 +12,8 @@ export const datosRepresentanteSchema = z.object({
 
 // Schema principal del formulario
 export const faltasGravesPMSchema = z.object({
-  entePublico: z.string().min(1, {
-    message: "Ente público es requerido.",
-  }),
+  // ✅ MODIFICADO: entePublico ahora es opcional - se tomará automáticamente del usuario
+  entePublico: z.string().optional(),
   status: z.enum(["NO_FIRME", "FIRME"], {
     message: "Selecciona un estatus válido",
   }),
