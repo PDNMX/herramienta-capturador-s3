@@ -9,13 +9,13 @@ declare module "next-auth" {
     access_token: string
     expires: number
     refresh_token: string
-    entidad: string
+    entePublico: string
   }
 
   interface Session {
     user: DefaultSession["user"] & {
       id?: string
-      entidad?: string
+      entePublico?: string
     }
     access_token?: string
     expires_at?: number
@@ -33,6 +33,8 @@ declare module "next-auth/jwt" {
     refresh_token?: string
     error?: string | null
     tokenIsRefreshed?: boolean | null
+    user?: UserParams  // IMPORTANTE: Agregar esto para mantener los datos del usuario en el token
+    forceLogout?: boolean
   }
 }
 
@@ -50,7 +52,7 @@ export type UserSession = {
   access_token?: string;
   expires?: number;
   refresh_token?: string;
-  entidad?: string;
+  entePublico?: string;
 }
 
 export type UserParams = {
@@ -59,7 +61,5 @@ export type UserParams = {
   first_name?: string;
   last_name?: string;
   email?: string;
-  entidad?: string;
+  entePublico?: string;
 }
-
-

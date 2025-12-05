@@ -18,14 +18,14 @@ export const FaltasGravesPMTable = ({ data }: any) => {
         <>
             <div className="flex items-start justify-between">
                 <Heading
-                    title={`Faltas Graves Personas Morales`}
+                    title="Faltas Graves Personas Morales"
                     description={`Gestión de ${data.length} registro${data.length !== 1 ? 's' : ''}`}
                 />
                 <Button
                     className="text-xs md:text-sm"
-                    onClick={() => router.push(`/inicio/faltas-graves-pm/create`)}
+                    onClick={() => router.push(`/inicio/faltas-graves-pm/nueva`)}
                 >
-                    <Plus className="mr-2 h-4 w-4" /> Agregar nuevo
+                    <Plus className="mr-2 h-4 w-4" /> Agregar nueva
                 </Button>
             </div>
             <Separator />

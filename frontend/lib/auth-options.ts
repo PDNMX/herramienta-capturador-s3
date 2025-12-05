@@ -13,7 +13,7 @@ const userParams = (user: UserSession): UserParams => {
     first_name: user.first_name,
     last_name: user.last_name,
     name: `${user.first_name} ${user.last_name}`,
-    entidad: user.entidad
+    entePublico: user.entePublico || ""
   }
 }
 
@@ -43,19 +43,25 @@ export const authOptions: NextAuthOptions = {
           const apiAuth = directus(auth.access_token ?? "")
           const loggedInUser = await apiAuth.request(
             readMe({
-              fields: ["id", "email", "first_name", "last_name", "entidad"],
+              fields: ["id", "email", "first_name", "last_name", "entePublico"],
             })
           )
+          
+          // Log para debugging
+          console.log("Logged in user data:", loggedInUser)
+          
           const user: Awaitable<User> = {
             id: loggedInUser.id,
             first_name: loggedInUser.first_name ?? "",
             last_name: loggedInUser.last_name ?? "",
             email: loggedInUser.email ?? "",
-            entidad: loggedInUser.entidad ?? "",
+            entePublico: loggedInUser.entePublico ?? "",
             access_token: auth.access_token ?? "",
             expires: Math.floor(Date.now() + (auth.expires ?? 0)),
             refresh_token: auth.refresh_token ?? "",
           }
+          
+          console.log("User object to return:", user)
           return user
         } catch (error: any) {
           handleError(error)
@@ -70,6 +76,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, account, user, trigger, session }): Promise<JWT> {
+      // Manejar actualizaciones del token
       if (trigger === "update" && !session?.tokenIsRefreshed) {
         token.access_token = session.access_token
         token.refresh_token = session.refresh_token
@@ -77,22 +84,30 @@ export const authOptions: NextAuthOptions = {
         token.tokenIsRefreshed = false
       }
 
-      if (account) {
+      // Primera vez que se crea el token (después del login)
+      if (account && user) {
+        console.log("Creating initial token with user:", user)
         return {
           access_token: user.access_token,
           expires_at: user.expires,
           refresh_token: user.refresh_token,
-          user: userParams(user),
+          user: userParams(user as UserSession),
           error: null,
         }
-      } else if (Date.now() < (token.expires_at ?? 0)) {
+      } 
+      // Token aún válido
+      else if (Date.now() < (token.expires_at ?? 0)) {
         return { ...token, error: null }
-      } else {
+      } 
+      // Token expirado, necesita refresh
+      else {
         try {
           const api = directus()
           const result: AuthRefresh = await api.request(
-            refresh("json", user?.refresh_token ?? token?.refresh_token ?? "")
+            refresh("json", token?.refresh_token ?? "")
           )
+          
+          // Después del refresh, mantener la información del usuario
           const resultToken = {
             ...token,
             access_token: result.access_token ?? "",
@@ -100,9 +115,12 @@ export const authOptions: NextAuthOptions = {
             refresh_token: result.refresh_token ?? "",
             error: null,
             tokenIsRefreshed: true,
+            // Importante: mantener los datos del usuario incluyendo entePublico
+            user: token.user
           }
           return resultToken
         } catch (error) {
+          console.error("Error refreshing token:", error)
           return { ...token, error: "RefreshAccessTokenError" as const, forceLogout: true }
         }
       }
@@ -115,8 +133,17 @@ export const authOptions: NextAuthOptions = {
           new Date().setDate(new Date().getDate() - 1)
         ).toISOString()
       } else {
-        const { id, name, email, entidad } = token.user as UserParams
-        session.user = { id, name, email, entidad }
+        // Asegurarse de que token.user existe antes de desestructurar
+        if (token.user) {
+          const { id, name, email, entePublico } = token.user as UserParams
+          console.log("Session callback - entePublico:", entePublico)
+          session.user = { 
+            id, 
+            name, 
+            email, 
+            entePublico: entePublico || "" 
+          }
+        }
         session.access_token = token.access_token
         session.tokenIsRefreshed = token?.tokenIsRefreshed ?? false
         session.expires_at = token.expires_at
