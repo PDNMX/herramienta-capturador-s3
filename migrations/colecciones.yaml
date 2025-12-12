@@ -16094,7 +16094,7 @@ fields:
         sin acentos ni signos especiales
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 2
       special: null
       translations:
@@ -16134,7 +16134,7 @@ fields:
       note: Colocar la fecha en la que se emite la resolución definitiva
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 3
       special: null
       translations:
@@ -16176,7 +16176,7 @@ fields:
         persona servidora pública sancionada
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 4
       special: null
       translations:
@@ -16218,7 +16218,7 @@ fields:
         autoridad a la que corresponde la sanción
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 5
       special: null
       translations:
@@ -16266,7 +16266,7 @@ fields:
         servidora pública
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 6
       special: null
       translations:
@@ -16308,7 +16308,7 @@ fields:
         la resolución ha quedado firme
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 7
       special: null
       translations:
@@ -16351,7 +16351,7 @@ fields:
         definitiva ha quedado firme
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 8
       special: null
       translations:
@@ -16397,7 +16397,7 @@ fields:
       note: Indicar el nombre de la autoridad facultada para dictar la sanción
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 11
       special: null
       translations:
@@ -16439,7 +16439,7 @@ fields:
         la falta administrativa grave
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 12
       special: null
       translations:
@@ -16479,7 +16479,7 @@ fields:
       note: Señalar el nombre de la autoridad substanciadora del procedimiento
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 13
       special: null
       translations:
@@ -16570,7 +16570,7 @@ fields:
           - text: Estatal
             value: ESTATAL
       readonly: false
-      required: true
+      required: false
       sort: 10
       special: null
       translations: null
@@ -16689,7 +16689,7 @@ fields:
         sin acentos ni signos especiales
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 2
       special: null
       translations:
@@ -16729,7 +16729,7 @@ fields:
       note: Colocar la fecha en la que se emite la resolución sancionatoria
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 3
       special: null
       translations:
@@ -16771,7 +16771,7 @@ fields:
         sancionada
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 4
       special: null
       translations:
@@ -16813,7 +16813,7 @@ fields:
         autoridad a la que corresponde la sanción
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 5
       special: null
       translations:
@@ -16861,7 +16861,7 @@ fields:
         física
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 6
       special: null
       translations:
@@ -16903,7 +16903,7 @@ fields:
         resolución ha quedado firme
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 7
       special: null
       translations:
@@ -16946,7 +16946,7 @@ fields:
         definitiva ha quedado firme
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 8
       special: null
       translations:
@@ -17043,7 +17043,7 @@ fields:
           - text: Estatal
             value: ESTATAL
       readonly: false
-      required: true
+      required: false
       sort: 10
       special: null
       translations: null
@@ -17081,7 +17081,7 @@ fields:
       note: Indicar el nombre de la autoridad facultada para dictar la sanción
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 11
       special: null
       translations:
@@ -17123,7 +17123,7 @@ fields:
         la falta administrativa
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 12
       special: null
       translations:
@@ -17163,7 +17163,7 @@ fields:
       note: Señalar el nombre de la autoridad substanciadora del procedimiento
       options: null
       readonly: false
-      required: true
+      required: false
       sort: 13
       special: null
       translations:
