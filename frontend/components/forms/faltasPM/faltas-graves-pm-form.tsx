@@ -327,56 +327,91 @@ function getFaltasGravesPMDefaults(
   initialData: any | null,
   entePublico?: string
 ): Partial<FaltasGravesPMFormValues> {
+  return {
+    // Campos principales
+    entePublico: initialData?.entePublico ?? entePublico ?? "",
+    status: initialData?.status ?? "NO_FIRME",
+    fecha: initialData?.fecha ?? new Date().toISOString().split("T")[0],
+    expediente: initialData?.expediente ?? "",
+    observaciones: initialData?.observaciones ?? "",
 
-  // Si no hay initialData, devolver valores por defecto para crear
-  if (!initialData) {
-    return {
-      entePublico: entePublico ?? "",
-      status: "NO_FIRME",
-      fecha: new Date().toISOString().split("T")[0],
-      expediente: "",
-      observaciones: "",
-      nombreRazonSocial: "",
-      rfc: "",
-      objetoSocial: "",
-      tipoDomicilio: null,
-      tipoVialidad: null,
-      nombreVialidad: null,
-      numeroExterior: null,
-      numeroInterior: null,
-      coloniaLocalidad: null,
-      municipioAlcaldia: null,
-      codigoPostal: null,
-      entidadFederativa: null,
-      ciudad: null,
-      provincia: null,
-      calle: null,
-      numeroExteriorExtranjero: null,
-      numeroInteriorExtranjero: null,
-      codigoPostalExtranjero: null,
-      pais: null,
-      directorGeneral: {
-        nombre: "",
-        primerApellido: "",
-        segundoApellido: null,
-        rfc: null,
-        curp: null,
-      },
-      representanteLegal: {
-        nombre: "",
-        primerApellido: "",
-        segundoApellido: null,
-        rfc: null,
-        curp: null,
-      },
-      dondeCometio_entidadFederativa: "",
-      dondeCometio_nivelOrdenGobierno: "FEDERAL",
-      dondeCometio_ambitoPublico: null,
-      dondeCometio_nombreEntePublico: null,
-      dondeCometio_siglasEntePublico: null,
-      origenProcedimiento_clave: "DE_OFICIO",
-      origenProcedimiento_valor: null,
-      faltaCometida: [
+    // Datos Generales
+    nombreRazonSocial: initialData?.datosGenerales?.nombreRazonSocial ?? "",
+    rfc: initialData?.datosGenerales?.rfc ?? "",
+    objetoSocial: initialData?.datosGenerales?.objetoSocial ?? "",
+    tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? null,
+
+    // Domicilio México
+    tipoVialidad: initialData?.datosGenerales?.domicilioMexico?.tipoVialidad ?? null,
+    nombreVialidad: initialData?.datosGenerales?.domicilioMexico?.nombreVialidad ?? null,
+    numeroExterior: initialData?.datosGenerales?.domicilioMexico?.numeroExterior ?? null,
+    numeroInterior: initialData?.datosGenerales?.domicilioMexico?.numeroInterior ?? null,
+    coloniaLocalidad: initialData?.datosGenerales?.domicilioMexico?.coloniaLocalidad ?? null,
+    municipioAlcaldia: initialData?.datosGenerales?.domicilioMexico?.municipioAlcaldia ?? null,
+    codigoPostal: initialData?.datosGenerales?.domicilioMexico?.codigoPostal ?? null,
+    entidadFederativa: initialData?.datosGenerales?.domicilioMexico?.entidadFederativa ?? null,
+
+    // Domicilio Extranjero
+    ciudad: initialData?.datosGenerales?.domicilioExtranjero?.ciudad ?? null,
+    provincia: initialData?.datosGenerales?.domicilioExtranjero?.provincia ?? null,
+    calle: initialData?.datosGenerales?.domicilioExtranjero?.calle ?? null,
+    numeroExteriorExtranjero: initialData?.datosGenerales?.domicilioExtranjero?.numeroExterior ?? null,
+    numeroInteriorExtranjero: initialData?.datosGenerales?.domicilioExtranjero?.numeroInterior ?? null,
+    codigoPostalExtranjero: initialData?.datosGenerales?.domicilioExtranjero?.codigoPostal ?? null,
+    pais: initialData?.datosGenerales?.domicilioExtranjero?.pais ?? null,
+
+    // Director General
+    directorGeneral: {
+      nombre: initialData?.datosDirGeneralReprLegal?.directorGeneral?.nombre ?? "",
+      primerApellido: initialData?.datosDirGeneralReprLegal?.directorGeneral?.primerApellido ?? "",
+      segundoApellido: initialData?.datosDirGeneralReprLegal?.directorGeneral?.segundoApellido ?? null,
+      rfc: initialData?.datosDirGeneralReprLegal?.directorGeneral?.rfc ?? null,
+      curp: initialData?.datosDirGeneralReprLegal?.directorGeneral?.curp ?? null,
+    },
+
+    // Representante Legal
+    representanteLegal: {
+      nombre: initialData?.datosDirGeneralReprLegal?.representanteLegal?.nombre ?? "",
+      primerApellido:
+        initialData?.datosDirGeneralReprLegal?.representanteLegal?.primerApellido ?? "",
+      segundoApellido:
+        initialData?.datosDirGeneralReprLegal?.representanteLegal?.segundoApellido ?? null,
+      rfc: initialData?.datosDirGeneralReprLegal?.representanteLegal?.rfc ?? null,
+      curp: initialData?.datosDirGeneralReprLegal?.representanteLegal?.curp ?? null,
+    },
+
+    // Donde cometió la falta
+    dondeCometio_entidadFederativa: initialData?.dondeCometioLaFalta?.entidadFederativa ?? "",
+    dondeCometio_nivelOrdenGobierno: initialData?.dondeCometioLaFalta?.nivelOrdenGobierno ?? "",
+    dondeCometio_ambitoPublico: initialData?.dondeCometioLaFalta?.ambitoPublico ?? null,
+    dondeCometio_nombreEntePublico: initialData?.dondeCometioLaFalta?.nombreEntePublico ?? null,
+    dondeCometio_siglasEntePublico: initialData?.dondeCometioLaFalta?.siglasEntePublico ?? "",
+
+    // Origen del procedimiento
+    origenProcedimiento_clave: initialData?.origenProcedimiento?.clave ?? "",
+    origenProcedimiento_valor: initialData?.origenProcedimiento?.valor ?? null,
+
+    // Falta Cometida
+    faltaCometida:
+      initialData?.faltaCometida?.map((falta: any) => ({
+        clave: falta.clave ?? "",
+        valor: falta.valor ?? null,
+        descripcionHechos: falta.descripcionHechos ?? "",
+        normatividadInfringida:
+          falta.normatividadInfringida?.map((norm: any) => ({
+            nombreNormatividad: norm.nombreNormatividad ?? "",
+            articulo: norm.articulo ?? "",
+            fraccion: norm.fraccion ?? null,
+          })) ??
+          [
+            {
+              nombreNormatividad: "",
+              articulo: "",
+              fraccion: null,
+            },
+          ],
+      })) ??
+      [
         {
           clave: "",
           valor: null,
@@ -390,19 +425,97 @@ function getFaltasGravesPMDefaults(
           ],
         },
       ],
-      resolucion_tituloResolucion: "",
-      resolucion_fechaResolucion: "",
-      resolucion_fechaNotificacion: "",
-      resolucion_urlResolucion: "",
-      resolucion_fechaResolucionFirme: "",
-      resolucion_fechaNotificacionFirme: "",
-      resolucion_urlResolucionFirme: "",
-      resolucion_fechaEjecucion: null,
-      resolucion_ordenJurisdiccional: "FEDERAL",
-      resolucion_autoridadResolutora: "",
-      resolucion_autoridadInvestigadora: "",
-      resolucion_autoridadSusbstanciadora: "",
-      tipoSancion: [
+
+    // Resolución
+    resolucion_tituloResolucion: initialData?.resolucion?.tituloResolucion ?? "",
+    resolucion_fechaResolucion: initialData?.resolucion?.fechaResolucion ?? "",
+    resolucion_fechaNotificacion: initialData?.resolucion?.fechaNotificacion ?? "",
+    resolucion_urlResolucion: initialData?.resolucion?.urlResolucion ?? "",
+    resolucion_fechaResolucionFirme: initialData?.resolucion?.fechaResolucionFirme ?? "",
+    resolucion_fechaNotificacionFirme: initialData?.resolucion?.fechaNotificacionFirme ?? "",
+    resolucion_urlResolucionFirme: initialData?.resolucion?.urlResolucionFirme ?? "",
+    resolucion_fechaEjecucion: initialData?.resolucion?.fechaEjecucion ?? null,
+    resolucion_ordenJurisdiccional: initialData?.resolucion?.ordenJurisdiccional ?? "",
+    resolucion_autoridadResolutora: initialData?.resolucion?.autoridadResolutora ?? "",
+    resolucion_autoridadInvestigadora: initialData?.resolucion?.autoridadInvestigadora ?? "",
+    resolucion_autoridadSusbstanciadora: initialData?.resolucion?.autoridadSusbstanciadora ?? "",
+
+    // Tipo de Sanción
+    tipoSancion:
+      initialData?.tipoSancion?.map((sancion: any) => ({
+        clave: sancion.clave ?? "",
+        inhabilitacion: sancion.inhabilitacion
+          ? {
+            plazoAnios: sancion.inhabilitacion.plazoAnios ?? 0,
+            plazoMeses: sancion.inhabilitacion.plazoMeses ?? 0,
+            plazoDias: sancion.inhabilitacion.plazoDias ?? 0,
+            fechaInicial: sancion.inhabilitacion.fechaInicial ?? "",
+            fechaFinal: sancion.inhabilitacion.fechaFinal ?? "",
+          }
+          : null,
+        indemnizacion: sancion.indemnizacion
+          ? {
+            monto: sancion.indemnizacion.monto ?? 0,
+            moneda: sancion.indemnizacion.moneda ?? "MXN",
+            fechaPagoTotal: sancion.indemnizacion.fechaPagoTotal ?? null,
+            plazoPago: sancion.indemnizacion.plazoPago
+              ? {
+                anios: sancion.indemnizacion.plazoPago.anios ?? 0,
+                meses: sancion.indemnizacion.plazoPago.meses ?? 0,
+                dias: sancion.indemnizacion.plazoPago.dias ?? 0,
+              }
+              : null,
+            efectivamenteCobrado: sancion.indemnizacion.efectivamenteCobrado
+              ? {
+                monto: sancion.indemnizacion.efectivamenteCobrado.monto ?? 0,
+                moneda: sancion.indemnizacion.efectivamenteCobrado.moneda ?? "MXN",
+                fechaCobro: sancion.indemnizacion.efectivamenteCobrado.fechaCobro ?? "",
+              }
+              : null,
+          }
+          : null,
+        sancionEconomica: sancion.sancionEconomica
+          ? {
+            monto: sancion.sancionEconomica.monto ?? 0,
+            moneda: sancion.sancionEconomica.moneda ?? "MXN",
+            fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal ?? null,
+            plazoPago: sancion.sancionEconomica.plazoPago
+              ? {
+                anios: sancion.sancionEconomica.plazoPago.anios ?? 0,
+                meses: sancion.sancionEconomica.plazoPago.meses ?? 0,
+                dias: sancion.sancionEconomica.plazoPago.dias ?? 0,
+              }
+              : null,
+            efectivamenteCobrado: sancion.sancionEconomica.efectivamenteCobrado
+              ? {
+                monto: sancion.sancionEconomica.efectivamenteCobrado.monto ?? 0,
+                moneda: sancion.sancionEconomica.efectivamenteCobrado.moneda ?? "MXN",
+                fechaCobro: sancion.sancionEconomica.efectivamenteCobrado.fechaCobro ?? "",
+              }
+              : null,
+          }
+          : null,
+        suspensionActividades: sancion.suspensionActividades
+          ? {
+            plazoSuspensionAnios: sancion.suspensionActividades.plazoSuspensionAnios ?? 0,
+            plazoSuspensionMeses: sancion.suspensionActividades.plazoSuspensionMeses ?? 0,
+            plazoSuspensionDias: sancion.suspensionActividades.plazoSuspensionDias ?? 0,
+            fechaInicial: sancion.suspensionActividades.fechaInicial ?? "",
+            fechaFinal: sancion.suspensionActividades.fechaFinal ?? "",
+          }
+          : null,
+        disolucionSociedad: sancion.disolucionSociedad
+          ? {
+            fechaDisolucion: sancion.disolucionSociedad.fechaDisolucion ?? "",
+          }
+          : null,
+        otro: sancion.otro
+          ? {
+            denominacionSancion: sancion.otro.denominacionSancion ?? "",
+          }
+          : null,
+      })) ??
+      [
         {
           clave: "",
           inhabilitacion: null,
@@ -413,312 +526,7 @@ function getFaltasGravesPMDefaults(
           otro: null,
         },
       ],
-    };
-  }
-
-  // ============================================
-  // SI HAY initialData - MODO EDICIÓN
-  // ============================================
-
-  console.log("📝 Cargando datos para edición:", initialData);
-
-  return {
-    // ============================================
-    // CAMPOS PRINCIPALES (nivel raíz)
-    // ============================================
-    entePublico: initialData.entePublico ?? entePublico ?? "",
-    status: initialData.status ?? "NO_FIRME",
-    fecha: initialData.fecha ?? new Date().toISOString().split("T")[0],
-    expediente: initialData.expediente ?? "",
-    observaciones: initialData.observaciones ?? "",
-
-    // ============================================
-    // DATOS GENERALES (ya vienen "aplanados" en initialData)
-    // ============================================
-    nombreRazonSocial: initialData.nombreRazonSocial ?? "",
-    rfc: initialData.rfc ?? "",
-    objetoSocial: initialData.objetoSocial ?? "",
-    tipoDomicilio: initialData.tipoDomicilio ?? null,
-
-    // Domicilio México (directamente en initialData)
-    tipoVialidad: initialData.tipoVialidad ?? null,
-    nombreVialidad: initialData.nombreVialidad ?? null,
-    numeroExterior: initialData.numeroExterior ?? null,
-    numeroInterior: initialData.numeroInterior ?? null,
-    coloniaLocalidad: initialData.coloniaLocalidad ?? null,
-    municipioAlcaldia: initialData.municipioAlcaldia ?? null,
-    codigoPostal: initialData.codigoPostal ?? null,
-    entidadFederativa: initialData.entidadFederativa ?? null,
-
-    // Domicilio Extranjero (directamente en initialData)
-    ciudad: initialData.ciudad ?? null,
-    provincia: initialData.provincia ?? null,
-    calle: initialData.calle ?? null,
-    numeroExteriorExtranjero: initialData.numeroExteriorExtranjero ?? null,
-    numeroInteriorExtranjero: initialData.numeroInteriorExtranjero ?? null,
-    codigoPostalExtranjero: initialData.codigoPostalExtranjero ?? null,
-    pais: initialData.pais ?? null,
-
-    // ============================================
-    // DIRECTOR GENERAL (ya viene "aplanado" con prefijo)
-    // ============================================
-    directorGeneral: {
-      nombre: initialData.directorGeneral_nombre ?? "",
-      primerApellido: initialData.directorGeneral_primerApellido ?? "",
-      segundoApellido: initialData.directorGeneral_segundoApellido ?? null,
-      rfc: initialData.directorGeneral_rfc ?? null,
-      curp: initialData.directorGeneral_curp ?? null,
-    },
-
-    // ============================================
-    // REPRESENTANTE LEGAL (ya viene "aplanado" con prefijo)
-    // ============================================
-    representanteLegal: {
-      nombre: initialData.representanteLegal_nombre ?? "",
-      primerApellido: initialData.representanteLegal_primerApellido ?? "",
-      segundoApellido: initialData.representanteLegal_segundoApellido ?? null,
-      rfc: initialData.representanteLegal_rfc ?? null,
-      curp: initialData.representanteLegal_curp ?? null,
-    },
-
-    // ============================================
-    // DONDE COMETIÓ LA FALTA (ya viene "aplanado" con prefijo)
-    // ============================================
-    dondeCometio_entidadFederativa: initialData.dondeCometio_entidadFederativa ?? "",
-    dondeCometio_nivelOrdenGobierno: initialData.dondeCometio_nivelOrdenGobierno ?? "FEDERAL",
-    dondeCometio_ambitoPublico: initialData.dondeCometio_ambitoPublico ?? null,
-    dondeCometio_nombreEntePublico: initialData.dondeCometio_nombreEntePublico ?? null,
-    dondeCometio_siglasEntePublico: initialData.dondeCometio_siglasEntePublico ?? null,
-
-    // ============================================
-    // ORIGEN DEL PROCEDIMIENTO (ya viene "aplanado" con prefijo)
-    // ============================================
-    origenProcedimiento_clave: initialData.origenProcedimiento_clave ?? "DE_OFICIO",
-    origenProcedimiento_valor: initialData.origenProcedimiento_valor ?? null,
-
-    // ============================================
-    // FALTA COMETIDA (array - ya viene transformado)
-    // ============================================
-    faltaCometida:
-      initialData.faltasCometidas && Array.isArray(initialData.faltasCometidas)
-        ? initialData.faltasCometidas.map((falta: any) => ({
-          clave: falta.clave ?? "",
-          valor: falta.valor ?? null,
-          descripcionHechos: falta.descripcionHechos ?? "",
-          normatividadInfringida:
-            falta.normatividadInfringida && Array.isArray(falta.normatividadInfringida)
-              ? falta.normatividadInfringida.map((norm: any) => ({
-                nombreNormatividad: norm.nombreNormatividad ?? "",
-                articulo: norm.articulo ?? "",
-                fraccion: norm.fraccion ?? null,
-              }))
-              : [
-                {
-                  nombreNormatividad: "",
-                  articulo: "",
-                  fraccion: null,
-                },
-              ],
-        }))
-        : [
-          {
-            clave: "",
-            valor: null,
-            descripcionHechos: "",
-            normatividadInfringida: [
-              {
-                nombreNormatividad: "",
-                articulo: "",
-                fraccion: null,
-              },
-            ],
-          },
-        ],
-
-    // ============================================
-    // RESOLUCIÓN (ya viene "aplanado" con prefijo)
-    // ============================================
-    resolucion_tituloResolucion: initialData.resolucion_tituloResolucion ?? "",
-    resolucion_fechaResolucion: initialData.resolucion_fechaResolucion ?? "",
-    resolucion_fechaNotificacion: initialData.resolucion_fechaNotificacion ?? "",
-    resolucion_urlResolucion: initialData.resolucion_urlResolucion ?? "",
-    resolucion_fechaResolucionFirme: initialData.resolucion_fechaResolucionFirme ?? "",
-    resolucion_fechaNotificacionFirme: initialData.resolucion_fechaNotificacionFirme ?? "",
-    resolucion_urlResolucionFirme: initialData.resolucion_urlResolucionFirme ?? "",
-    resolucion_fechaEjecucion: initialData.resolucion_fechaEjecucion ?? null,
-    resolucion_ordenJurisdiccional: initialData.resolucion_ordenJurisdiccional ?? "FEDERAL",
-    resolucion_autoridadResolutora: initialData.resolucion_autoridadResolutora ?? "",
-    resolucion_autoridadInvestigadora: initialData.resolucion_autoridadInvestigadora ?? "",
-    resolucion_autoridadSusbstanciadora: initialData.resolucion_autoridadSusbstanciadora ?? "",
-
-    // ============================================
-    // TIPO DE SANCIÓN (array complejo)
-    // ============================================
-    tipoSancion: getTipoSancionDefaults(initialData),
   };
-}
-
-function getTipoSancionDefaults(initialData: any) {
-  const sanciones: any[] = [];
-
-  // 1. MULTAS (sancionEconomica en el schema del form)
-  if (initialData.multas && Array.isArray(initialData.multas) && initialData.multas.length > 0) {
-    initialData.multas.forEach((multa: any) => {
-      sanciones.push({
-        clave: "SANCION_ECONOMICA",
-        inhabilitacion: null,
-        indemnizacion: null,
-        sancionEconomica: {
-          monto: multa.monto ?? 0,
-          moneda: multa.moneda ?? "MXN",
-          fechaPagoTotal: null,
-          plazoPago: multa.plazoPago
-            ? {
-              anios: multa.plazoPago.anios ?? 0,
-              meses: multa.plazoPago.meses ?? 0,
-              dias: multa.plazoPago.dias ?? 0,
-            }
-            : null,
-          efectivamenteCobrado: multa.efectivamenteCobrado
-            ? {
-              monto: multa.efectivamenteCobrado.monto ?? 0,
-              moneda: multa.efectivamenteCobrado.moneda ?? "MXN",
-              fechaCobro: null,
-            }
-            : null,
-        },
-        suspensionActividades: null,
-        disolucionSociedad: null,
-        otro: null,
-      });
-    });
-  }
-
-  // 2. INHABILITACIONES
-  if (initialData.inhabilitaciones && Array.isArray(initialData.inhabilitaciones) && initialData.inhabilitaciones.length > 0) {
-    initialData.inhabilitaciones.forEach((inh: any) => {
-      sanciones.push({
-        clave: "INHABILITACION",
-        inhabilitacion: {
-          plazoAnios: inh.plazo?.anios ?? 0,
-          plazoMeses: inh.plazo?.meses ?? 0,
-          plazoDias: inh.plazo?.dias ?? 0,
-          fechaInicial: inh.fechaInicialSancion ?? "",
-          fechaFinal: inh.fechaFinalSancion ?? "",
-        },
-        indemnizacion: null,
-        sancionEconomica: null,
-        suspensionActividades: null,
-        disolucionSociedad: null,
-        otro: null,
-      });
-    });
-  }
-
-  // 3. SUSPENSIONES DE ACTIVIDADES
-  if (initialData.suspensionesActividades && Array.isArray(initialData.suspensionesActividades) && initialData.suspensionesActividades.length > 0) {
-    initialData.suspensionesActividades.forEach((susp: any) => {
-      sanciones.push({
-        clave: "SUSPENSION_ACTIVIDADES",
-        inhabilitacion: null,
-        indemnizacion: null,
-        sancionEconomica: null,
-        suspensionActividades: {
-          plazoSuspensionAnios: susp.plazo?.anios ?? 0,
-          plazoSuspensionMeses: susp.plazo?.meses ?? 0,
-          plazoSuspensionDias: susp.plazo?.dias ?? 0,
-          fechaInicial: susp.fechaInicialSancion ?? "",
-          fechaFinal: susp.fechaFinalSancion ?? "",
-        },
-        disolucionSociedad: null,
-        otro: null,
-      });
-    });
-  }
-
-  // 4. DISOLUCIONES
-  if (initialData.disoluciones && Array.isArray(initialData.disoluciones) && initialData.disoluciones.length > 0) {
-    initialData.disoluciones.forEach((dis: any) => {
-      sanciones.push({
-        clave: "DISOLUCION_SOCIEDAD",
-        inhabilitacion: null,
-        indemnizacion: null,
-        sancionEconomica: null,
-        suspensionActividades: null,
-        disolucionSociedad: {
-          fechaDisolucion: dis.fechaSancion ?? "",
-        },
-        otro: null,
-      });
-    });
-  }
-
-  // 5. INDEMNIZACIONES
-  if (initialData.indemnizaciones && Array.isArray(initialData.indemnizaciones) && initialData.indemnizaciones.length > 0) {
-    initialData.indemnizaciones.forEach((indem: any) => {
-      sanciones.push({
-        clave: "INDEMNIZACION",
-        inhabilitacion: null,
-        indemnizacion: {
-          monto: indem.monto ?? 0,
-          moneda: indem.moneda ?? "MXN",
-          fechaPagoTotal: null,
-          plazoPago: indem.plazoPago
-            ? {
-              anios: indem.plazoPago.anios ?? 0,
-              meses: indem.plazoPago.meses ?? 0,
-              dias: indem.plazoPago.dias ?? 0,
-            }
-            : null,
-          efectivamenteCobrado: indem.efectivamenteCobrado
-            ? {
-              monto: indem.efectivamenteCobrado.monto ?? 0,
-              moneda: indem.efectivamenteCobrado.moneda ?? "MXN",
-              fechaCobro: null,
-            }
-            : null,
-        },
-        sancionEconomica: null,
-        suspensionActividades: null,
-        disolucionSociedad: null,
-        otro: null,
-      });
-    });
-  }
-
-  // 6. OTRAS SANCIONES
-  if (initialData.otrasSanciones && Array.isArray(initialData.otrasSanciones) && initialData.otrasSanciones.length > 0) {
-    initialData.otrasSanciones.forEach((otra: any) => {
-      sanciones.push({
-        clave: "OTRO",
-        inhabilitacion: null,
-        indemnizacion: null,
-        sancionEconomica: null,
-        suspensionActividades: null,
-        disolucionSociedad: null,
-        otro: {
-          denominacionSancion: otra.descripcion ?? "",
-        },
-      });
-    });
-  }
-
-  // Si no hay sanciones, devolver una vacía
-  if (sanciones.length === 0) {
-    return [
-      {
-        clave: "",
-        inhabilitacion: null,
-        indemnizacion: null,
-        sancionEconomica: null,
-        suspensionActividades: null,
-        disolucionSociedad: null,
-        otro: null,
-      },
-    ];
-  }
-
-  return sanciones;
 }
 
 // ============================================
@@ -1395,6 +1203,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
                   <FormItem className="space-y-3">
                     <div className="flex items-start justify-between gap-4">
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
                         Estatus de la resolución <span className="text-destructive">*</span>
                       </FormLabel>
                       <FormDescription className="text-xs text-muted-foreground italic text-right">
@@ -1516,6 +1325,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
                         1. Fecha de registro (DD-MM-AAAA) <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
@@ -1533,6 +1343,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
+                        <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
                         2. Número de expediente <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
