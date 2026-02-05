@@ -2,6 +2,7 @@
 "use client";
 
 import { useFieldArray } from "react-hook-form";
+import { useRef, useCallback } from "react";
 import {
   FormControl,
   FormField,
@@ -18,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Plus, Trash2, AlertCircle } from "lucide-react";
+import { Plus, Trash2, Layers } from "lucide-react";
 import { InhabilitacionFields } from "./tipoSancion/InhabilitacionFields";
 import { IndemnizacionFields } from "./tipoSancion/IndemnizacionFields";
 import { SancionEconomicaFields } from "./tipoSancion/SancionEconomicaFields";
@@ -49,6 +50,9 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
     name: "tipoSancion",
   });
 
+  const containerRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const lastAddedIdRef = useRef<string | null>(null);
+
   const handleAddSancion = () => {
     append({
       clave: "",
@@ -59,22 +63,85 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
       disolucionSociedad: null,
       otro: null,
     });
+    lastAddedIdRef.current = "pending";
   };
+
+  const handleRemoveSancion = useCallback((index: number, fieldId: string) => {
+    const el = containerRefs.current.get(fieldId);
+    if (el) {
+      el.classList.add("array-item-removing");
+      el.addEventListener("animationend", () => {
+        remove(index);
+      }, { once: true });
+    } else {
+      remove(index);
+    }
+  }, [remove]);
 
   return (
     <div className="space-y-6">
-      {/* Descripción de la sección */}
-      <p className="text-sm text-muted-foreground">
-        Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona moral
-      </p>
+      {/* Section header with counter badge */}
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground flex-1">
+          Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona moral
+        </p>
+        <div className="flex items-center gap-2 ml-4">
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+            <Layers className="h-3.5 w-3.5 text-primary" />
+            <span className={`text-sm font-semibold text-primary ${fields.length > 1 ? "animate-badge-pulse" : ""}`}>
+              {fields.length}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {fields.length === 1 ? "sanción" : "sanciones"}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Botón para agregar otra sanción - al inicio para mayor visibilidad */}
+      <Button
+        type="button"
+        variant="outline"
+        onClick={handleAddSancion}
+        disabled={loading}
+        className="w-full border-dashed border-2 h-14 group hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-7 h-7 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300">
+            <Plus className="h-4 w-4 text-primary" />
+          </div>
+          <div className="flex flex-col items-start">
+            <span className="text-sm font-medium">Agregar otro tipo de sanción</span>
+            <span className="text-xs text-muted-foreground">
+              Se pueden registrar múltiples sanciones para una misma persona moral
+            </span>
+          </div>
+        </div>
+      </Button>
 
       {fields.map((field, index) => {
         const claveValue = form.watch(`tipoSancion.${index}.clave`);
 
+        // Determine if this item was just added
+        const isNewItem = lastAddedIdRef.current === "pending" && index === fields.length - 1;
+        if (isNewItem) {
+          lastAddedIdRef.current = field.id;
+        }
+        const shouldAnimate = lastAddedIdRef.current === field.id;
+
         return (
           <div
             key={field.id}
-            className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg relative"
+            ref={(el) => {
+              if (el) containerRefs.current.set(field.id, el);
+              else containerRefs.current.delete(field.id);
+            }}
+            className={`
+              rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg relative
+              border-l-4 border-l-primary/60
+              transition-all duration-300 hover:shadow-xl hover:border-primary/30
+              ${shouldAnimate ? "animate-array-item-enter" : ""}
+            `}
           >
             {/* Botón eliminar (solo si hay más de una sanción) */}
             {fields.length > 1 && (
@@ -82,8 +149,8 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
                 type="button"
                 variant="destructive"
                 size="sm"
-                className="absolute top-4 right-4"
-                onClick={() => remove(index)}
+                className="absolute top-4 right-4 transition-opacity duration-200"
+                onClick={() => handleRemoveSancion(index, field.id)}
                 disabled={loading}
               >
                 <Trash2 className="h-4 w-4 mr-2" />
@@ -92,15 +159,26 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
             )}
 
             <div className="space-y-6">
-              <div className="border-b pb-3">
-                <h4 className="font-semibold text-lg text-primary mb-1">
-                  Tipo de Sanción {index + 1}
-                </h4>
-                <p className="text-xs text-muted-foreground">
-                  {fields.length > 1
-                    ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar según sea necesario.`
-                    : "Puede agregar múltiples sanciones usando el botón al final de esta sección."}
-                </p>
+              <div className="border-b pb-3 flex items-center gap-3">
+                {/* Numbered circle indicator */}
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center border border-primary/30">
+                  <span className="text-sm font-bold text-primary">{index + 1}</span>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg text-primary mb-0.5">
+                    Tipo de Sanción {index + 1}
+                    {fields.length > 1 && (
+                      <span className="text-xs font-normal text-muted-foreground ml-2">
+                        de {fields.length}
+                      </span>
+                    )}
+                  </h4>
+                  <p className="text-xs text-muted-foreground">
+                    {fields.length > 1
+                      ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar según sea necesario.`
+                      : "Puede agregar múltiples sanciones usando el botón de arriba."}
+                  </p>
+                </div>
               </div>
 
               {/* Selector de tipo de sanción */}
@@ -188,32 +266,6 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
         );
       })}
 
-      {/* Botón para agregar otra sanción */}
-      <Button
-        type="button"
-        variant="outline"
-        onClick={handleAddSancion}
-        disabled={loading}
-        className="w-full border-dashed border-2 h-12"
-      >
-        <Plus className="h-4 w-4 mr-2" />
-        Agregar otro tipo de sanción
-      </Button>
-
-      {/* Ayuda adicional */}
-      {fields.length === 1 && (
-        <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-700/30">
-          <div className="bg-blue-100 dark:bg-blue-800/30 rounded p-1 mt-0.5">
-            <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-          </div>
-          <div className="flex-1">
-            <p className="text-xs text-blue-800 dark:text-blue-200">
-              <strong>¿Múltiples sanciones?</strong> Si se impusieron diferentes tipos de sanciones a la persona moral,
-              puede agregar cada una de ellas utilizando el botón de arriba.
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

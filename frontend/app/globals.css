@@ -135,4 +135,73 @@
   .animate-shimmer {
     animation: shimmer 3s linear infinite;
   }
+
+  /* Array field animations */
+  @keyframes array-item-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.98);
+      max-height: 0;
+    }
+    50% {
+      opacity: 0.5;
+      max-height: 1000px;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      max-height: 2000px;
+    }
+  }
+
+  @keyframes array-item-highlight {
+    0% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 4px hsl(var(--primary) / 0.15);
+    }
+    100% {
+      box-shadow: 0 0 0 0 hsl(var(--primary) / 0);
+    }
+  }
+
+  @keyframes badge-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+  .animate-array-item-enter {
+    animation: array-item-enter 0.4s ease-out forwards, array-item-highlight 1s ease-out 0.3s forwards;
+  }
+
+  .animate-badge-pulse {
+    animation: badge-pulse 0.3s ease-out;
+  }
+
+  /* Smooth remove transition - applied via JS before removal */
+  .array-item-removing {
+    animation: array-item-exit 0.3s ease-in forwards;
+  }
+
+  @keyframes array-item-exit {
+    0% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      max-height: 2000px;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-8px) scale(0.97);
+      max-height: 0;
+      padding: 0;
+      margin: 0;
+      border-width: 0;
+      overflow: hidden;
+    }
+  }
 }
