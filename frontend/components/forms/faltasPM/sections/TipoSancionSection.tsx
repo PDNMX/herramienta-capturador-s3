@@ -11,13 +11,7 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Combobox } from "@/components/ui/combobox";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash2, Layers } from "lucide-react";
 import { InhabilitacionFields } from "./tipoSancion/InhabilitacionFields";
@@ -190,24 +184,16 @@ export const TipoSancionSection: React.FC<TipoSancionSectionProps> = ({
                     <FormLabel>
                       Tipo de sanción: elegir la sanción, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva <span className="text-red-500">*</span>
                     </FormLabel>
-                    <Select
-                      disabled={loading}
-                      onValueChange={field.onChange}
-                      value={field.value || ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona el tipo de sanción" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {TIPOS_SANCION.map((tipo) => (
-                          <SelectItem key={tipo.value} value={tipo.value}>
-                            {tipo.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Combobox
+                        options={TIPOS_SANCION}
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Selecciona el tipo de sanción"
+                        disabled={loading}
+                        searchPlaceholder="Buscar tipo de sanción..."
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

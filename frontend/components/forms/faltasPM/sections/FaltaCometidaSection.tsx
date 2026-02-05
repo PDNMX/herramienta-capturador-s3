@@ -11,13 +11,7 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Combobox } from "@/components/ui/combobox";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -193,24 +187,16 @@ export const FaltaCometidaSection: React.FC<FaltaCometidaSectionProps> = ({
                     <FormLabel>
                       Tipo de falta <span className="text-red-500">*</span>
                     </FormLabel>
-                    <Select
-                      disabled={loading}
-                      onValueChange={field.onChange}
-                      value={field.value || ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona el tipo de falta" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {TIPOS_FALTA.map((tipo) => (
-                          <SelectItem key={tipo.value} value={tipo.value}>
-                            {tipo.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Combobox
+                        options={TIPOS_FALTA}
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Selecciona el tipo de falta"
+                        disabled={loading}
+                        searchPlaceholder="Buscar tipo de falta..."
+                      />
+                    </FormControl>
                     <FormDescription>
                       Seleccionar el (los) tipo (s) de falta (s) cometida (s) por la persona moral sancionada
                     </FormDescription>

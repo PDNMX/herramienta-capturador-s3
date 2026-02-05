@@ -10,15 +10,44 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Combobox } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+
+const ENTIDADES_FEDERATIVAS = [
+  { value: "01", label: "Aguascalientes" },
+  { value: "02", label: "Baja California" },
+  { value: "03", label: "Baja California Sur" },
+  { value: "04", label: "Campeche" },
+  { value: "05", label: "Coahuila de Zaragoza" },
+  { value: "06", label: "Colima" },
+  { value: "07", label: "Chiapas" },
+  { value: "08", label: "Chihuahua" },
+  { value: "09", label: "Ciudad de México" },
+  { value: "10", label: "Durango" },
+  { value: "11", label: "Guanajuato" },
+  { value: "12", label: "Guerrero" },
+  { value: "13", label: "Hidalgo" },
+  { value: "14", label: "Jalisco" },
+  { value: "15", label: "Estado de México" },
+  { value: "16", label: "Michoacán de Ocampo" },
+  { value: "17", label: "Morelos" },
+  { value: "18", label: "Nayarit" },
+  { value: "19", label: "Nuevo León" },
+  { value: "20", label: "Oaxaca" },
+  { value: "21", label: "Puebla" },
+  { value: "22", label: "Querétaro" },
+  { value: "23", label: "Quintana Roo" },
+  { value: "24", label: "San Luis Potosí" },
+  { value: "25", label: "Sinaloa" },
+  { value: "26", label: "Sonora" },
+  { value: "27", label: "Tabasco" },
+  { value: "28", label: "Tamaulipas" },
+  { value: "29", label: "Tlaxcala" },
+  { value: "30", label: "Veracruz de Ignacio de la Llave" },
+  { value: "31", label: "Yucatán" },
+  { value: "32", label: "Zacatecas" },
+];
 
 interface DondeCometioFaltaSectionProps {
   form: any;
@@ -70,51 +99,16 @@ export const DondeCometioFaltaSection: React.FC<
             <FormLabel>
               Entidad federativa <span className="text-red-500">*</span>
             </FormLabel>
-            <Select
-              disabled={loading}
-              onValueChange={field.onChange}
-              value={field.value || ""}
-            >
-              <FormControl>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecciona la entidad federativa" />
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                <SelectItem value="01">Aguascalientes</SelectItem>
-                <SelectItem value="02">Baja California</SelectItem>
-                <SelectItem value="03">Baja California Sur</SelectItem>
-                <SelectItem value="04">Campeche</SelectItem>
-                <SelectItem value="05">Coahuila de Zaragoza</SelectItem>
-                <SelectItem value="06">Colima</SelectItem>
-                <SelectItem value="07">Chiapas</SelectItem>
-                <SelectItem value="08">Chihuahua</SelectItem>
-                <SelectItem value="09">Ciudad de México</SelectItem>
-                <SelectItem value="10">Durango</SelectItem>
-                <SelectItem value="11">Guanajuato</SelectItem>
-                <SelectItem value="12">Guerrero</SelectItem>
-                <SelectItem value="13">Hidalgo</SelectItem>
-                <SelectItem value="14">Jalisco</SelectItem>
-                <SelectItem value="15">Estado de México</SelectItem>
-                <SelectItem value="16">Michoacán de Ocampo</SelectItem>
-                <SelectItem value="17">Morelos</SelectItem>
-                <SelectItem value="18">Nayarit</SelectItem>
-                <SelectItem value="19">Nuevo León</SelectItem>
-                <SelectItem value="20">Oaxaca</SelectItem>
-                <SelectItem value="21">Puebla</SelectItem>
-                <SelectItem value="22">Querétaro</SelectItem>
-                <SelectItem value="23">Quintana Roo</SelectItem>
-                <SelectItem value="24">San Luis Potosí</SelectItem>
-                <SelectItem value="25">Sinaloa</SelectItem>
-                <SelectItem value="26">Sonora</SelectItem>
-                <SelectItem value="27">Tabasco</SelectItem>
-                <SelectItem value="28">Tamaulipas</SelectItem>
-                <SelectItem value="29">Tlaxcala</SelectItem>
-                <SelectItem value="30">Veracruz de Ignacio de la Llave</SelectItem>
-                <SelectItem value="31">Yucatán</SelectItem>
-                <SelectItem value="32">Zacatecas</SelectItem>
-              </SelectContent>
-            </Select>
+            <FormControl>
+              <Combobox
+                options={ENTIDADES_FEDERATIVAS}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Selecciona la entidad federativa"
+                disabled={loading}
+                searchPlaceholder="Buscar entidad federativa..."
+              />
+            </FormControl>
             <FormDescription>
               Seleccionar la entidad federativa donde se ubique el Ente
               público donde se cometió la falta administrativa

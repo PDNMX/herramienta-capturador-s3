@@ -11,13 +11,7 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Combobox } from "@/components/ui/combobox";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, X, BookOpen } from "lucide-react";
@@ -184,24 +178,16 @@ export const NormatividadFields: React.FC<NormatividadFieldsProps> = ({
                     <FormLabel>
                       Normatividad infringida <span className="text-red-500">*</span>
                     </FormLabel>
-                    <Select
-                      disabled={loading}
-                      onValueChange={field.onChange}
-                      value={field.value || ""}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona la normatividad" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {NORMATIVIDADES.map((norm) => (
-                          <SelectItem key={norm.value} value={norm.value}>
-                            {norm.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <FormControl>
+                      <Combobox
+                        options={NORMATIVIDADES}
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Selecciona la normatividad"
+                        disabled={loading}
+                        searchPlaceholder="Buscar normatividad..."
+                      />
+                    </FormControl>
                     <FormDescription>
                       Escribir el nombre de la normatividad infringida por la persona moral, sin abreviaturas, sin acentos, ni signos especiales
                     </FormDescription>
