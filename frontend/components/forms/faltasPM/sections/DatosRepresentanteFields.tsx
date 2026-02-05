@@ -105,7 +105,7 @@ export const DatosRepresentanteFields: React.FC<
             name={`${fieldPrefix}.rfc`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>RFC con homoclave</FormLabel>
+                <FormLabel>RFC con homoclave <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <Input
                     disabled={loading}

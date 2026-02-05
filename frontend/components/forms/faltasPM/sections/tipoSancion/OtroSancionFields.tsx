@@ -38,7 +38,7 @@ export const OtroSancionFields: React.FC<OtroSancionFieldsProps> = ({
         name={`tipoSancion.${sancionIndex}.otro.denominacionSancion`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Denominación de la sanción</FormLabel>
+            <FormLabel>Denominación de la sanción <span className="text-red-500">*</span></FormLabel>
             <FormControl>
               <Input
                 disabled={loading}

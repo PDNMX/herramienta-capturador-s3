@@ -41,7 +41,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionAnios`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Año (s)</FormLabel>
+              <FormLabel>Año (s) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -63,7 +63,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionMeses`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mes (es)</FormLabel>
+              <FormLabel>Mes (es) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input
                   type="number"
@@ -86,7 +86,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionDias`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Días</FormLabel>
+              <FormLabel>Días <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input
                   type="number"

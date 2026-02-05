@@ -27,7 +27,7 @@ import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import { Badge } from "@/components/ui/badge";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
@@ -70,8 +70,8 @@ const datosGeneralesSchema = z.object({
     .min(3, "La denominación o razón social debe tener al menos 3 caracteres"),
   rfc: z
     .string()
-    .min(12, "El RFC debe tener al menos 12 caracteres (con homoclave)")
-    .max(13),
+    .min(12, "El RFC debe tener al menos 12 caracteres incluyendo la homoclave")
+    .max(13, "El RFC no puede tener más de 13 caracteres"),
   objetoSocial: z.string().optional(),
   tipoDomicilio: z
     .enum(["DOMICILIO_MEXICO", "DOMICILIO_EXTRANJERO"])
@@ -98,8 +98,8 @@ const datosGeneralesSchema = z.object({
 
 // 2. Schema para Representantes (Director General y Representante Legal)
 const datosRepresentanteSchema = z.object({
-  nombre: z.string().min(1, "El nombre es requerido"),
-  primerApellido: z.string().min(1, "El primer apellido es requerido"),
+  nombre: z.string().min(1, "Ingresa el nombre de la persona"),
+  primerApellido: z.string().min(1, "Ingresa el primer apellido de la persona"),
   segundoApellido: z.string().nullable().optional(),
   rfc: z.string().nullable().optional(),
   curp: z.string().nullable().optional(),
@@ -107,9 +107,9 @@ const datosRepresentanteSchema = z.object({
 
 // 3. Schema para Donde Cometió la Falta
 const dondeCometioFaltaSchema = z.object({
-  dondeCometio_entidadFederativa: z.string().min(1, "La entidad federativa es requerida"),
+  dondeCometio_entidadFederativa: z.string().min(1, "Selecciona la entidad federativa donde se cometió la falta"),
   dondeCometio_nivelOrdenGobierno: z.enum(["FEDERAL", "ESTATAL", "MUNICIPAL_ALCALDIA"], {
-    message: "Selecciona un nivel de gobierno válido",
+    message: "Selecciona el nivel u orden de gobierno correspondiente",
   }),
   dondeCometio_ambitoPublico: z
     .enum(["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"])
@@ -124,7 +124,7 @@ const origenProcedimientoSchema = z.object({
   origenProcedimiento_clave: z.enum(
     ["ASF_ENTIDADES_FISCALIZACION", "AUDITORIA_OIC", "DENUNCIA", "DE_OFICIO", "OTRO"],
     {
-      message: "Selecciona un origen válido",
+      message: "Selecciona el origen del procedimiento que dio inicio a la investigación",
     }
   ),
   origenProcedimiento_valor: z.string().nullable().optional(),
@@ -132,8 +132,8 @@ const origenProcedimientoSchema = z.object({
 
 // 5. Schema para Normatividad (parte de Falta Cometida)
 const normatividadSchema = z.object({
-  nombreNormatividad: z.string().min(1, "La normatividad es requerida"),
-  articulo: z.string().min(1, "El artículo es requerido"),
+  nombreNormatividad: z.string().min(1, "Selecciona la normatividad infringida del catálogo"),
+  articulo: z.string().min(1, "Indica el o los artículos infringidos"),
   fraccion: z.string().nullable().optional(),
 });
 
@@ -152,30 +152,32 @@ const faltaCometidaItemSchema = z.object({
       "OTRO",
     ],
     {
-      message: "Selecciona un tipo de falta válido",
+      message: "Selecciona el tipo de falta cometida por la persona moral",
     }
   ),
   valor: z.string().nullable().optional(),
-  descripcionHechos: z.string().min(10, "La descripción debe tener al menos 10 caracteres"),
+  descripcionHechos: z.string().min(10, "La descripción de los hechos debe tener al menos 10 caracteres"),
   normatividadInfringida: z
     .array(normatividadSchema)
-    .min(1, "Debes agregar al menos una normatividad"),
+    .min(1, "Debes agregar al menos una normatividad infringida"),
 });
 
 // 7. Schema para Resolución
 const resolucionSchema = z.object({
-  resolucion_tituloResolucion: z.string().min(1, "El título es requerido"),
-  resolucion_fechaResolucion: z.string().min(1, "La fecha es requerida"),
-  resolucion_fechaNotificacion: z.string().min(1, "La fecha es requerida"),
-  resolucion_urlResolucion: z.string().url("Debe ser una URL válida"),
-  resolucion_fechaResolucionFirme: z.string().min(1, "La fecha es requerida"),
-  resolucion_fechaNotificacionFirme: z.string().min(1, "La fecha es requerida"),
-  resolucion_urlResolucionFirme: z.string().url("Debe ser una URL válida"),
+  resolucion_tituloResolucion: z.string().min(1, "Ingresa el título del documento de resolución"),
+  resolucion_fechaResolucion: z.string().min(1, "Selecciona la fecha de la resolución sancionatoria"),
+  resolucion_fechaNotificacion: z.string().min(1, "Selecciona la fecha de notificación de la resolución"),
+  resolucion_urlResolucion: z.string().url("Ingresa una URL válida (ej: https://ejemplo.gob.mx/resolucion.pdf)"),
+  resolucion_fechaResolucionFirme: z.string().min(1, "Selecciona la fecha en que la resolución adquirió firmeza"),
+  resolucion_fechaNotificacionFirme: z.string().min(1, "Selecciona la fecha de notificación de la resolución firme"),
+  resolucion_urlResolucionFirme: z.string().url("Ingresa una URL válida (ej: https://ejemplo.gob.mx/acuerdo-firme.pdf)"),
   resolucion_fechaEjecucion: z.string().nullable().optional(),
-  resolucion_ordenJurisdiccional: z.enum(["FEDERAL", "ESTATAL"]),
-  resolucion_autoridadResolutora: z.string().min(1, "La autoridad es requerida"),
-  resolucion_autoridadInvestigadora: z.string().min(1, "La autoridad es requerida"),
-  resolucion_autoridadSusbstanciadora: z.string().min(1, "La autoridad es requerida"),
+  resolucion_ordenJurisdiccional: z.enum(["FEDERAL", "ESTATAL"], {
+    message: "Selecciona el orden jurisdiccional (Federal o Estatal)",
+  }),
+  resolucion_autoridadResolutora: z.string().min(1, "Ingresa el nombre de la autoridad resolutora"),
+  resolucion_autoridadInvestigadora: z.string().min(1, "Ingresa el nombre de la autoridad investigadora"),
+  resolucion_autoridadSusbstanciadora: z.string().min(1, "Ingresa el nombre de la autoridad substanciadora"),
 });
 
 // 8. Schemas para Tipos de Sanción
@@ -199,19 +201,21 @@ const efectivamenteCobradoSchema = z
 
 const inhabilitacionSchema = z
   .object({
-    plazoAnios: z.number().min(0),
-    plazoMeses: z.number().min(0).max(11),
-    plazoDias: z.number().min(0).max(30),
-    fechaInicial: z.string().min(1, "La fecha inicial es requerida"),
-    fechaFinal: z.string().min(1, "La fecha final es requerida"),
+    plazoAnios: z.number().min(0, "Ingresa los años del plazo de inhabilitación"),
+    plazoMeses: z.number().min(0, "Ingresa los meses del plazo").max(11, "Los meses no pueden ser mayor a 11"),
+    plazoDias: z.number().min(0, "Ingresa los días del plazo").max(30, "Los días no pueden ser mayor a 30"),
+    fechaInicial: z.string().min(1, "Selecciona la fecha de inicio de la inhabilitación"),
+    fechaFinal: z.string().min(1, "Selecciona la fecha de término de la inhabilitación"),
   })
   .nullable()
   .optional();
 
 const indemnizacionSchema = z
   .object({
-    monto: z.number().min(0, "El monto es requerido"),
-    moneda: z.enum(["MXN", "USD", "EUR"]),
+    monto: z.number().min(0, "Ingresa el monto de la indemnización"),
+    moneda: z.enum(["MXN", "USD", "EUR"], {
+      message: "Selecciona la moneda de la indemnización",
+    }),
     fechaPagoTotal: z.string().nullable().optional(),
     plazoPago: plazoPagoSchema,
     efectivamenteCobrado: efectivamenteCobradoSchema,
@@ -221,8 +225,10 @@ const indemnizacionSchema = z
 
 const sancionEconomicaSchema = z
   .object({
-    monto: z.number().min(0, "El monto es requerido"),
-    moneda: z.enum(["MXN", "USD", "EUR"]),
+    monto: z.number().min(0, "Ingresa el monto de la sanción económica"),
+    moneda: z.enum(["MXN", "USD", "EUR"], {
+      message: "Selecciona la moneda de la sanción económica",
+    }),
     fechaPagoTotal: z.string().nullable().optional(),
     plazoPago: plazoPagoSchema,
     efectivamenteCobrado: efectivamenteCobradoSchema,
@@ -232,9 +238,9 @@ const sancionEconomicaSchema = z
 
 const suspensionActividadesSchema = z
   .object({
-    plazoSuspensionAnios: z.number().min(0),
-    plazoSuspensionMeses: z.number().min(0).max(11),
-    plazoSuspensionDias: z.number().min(0).max(30),
+    plazoSuspensionAnios: z.number().min(0, "Ingresa los años del plazo de suspensión"),
+    plazoSuspensionMeses: z.number().min(0, "Ingresa los meses del plazo").max(11, "Los meses no pueden ser mayor a 11"),
+    plazoSuspensionDias: z.number().min(0, "Ingresa los días del plazo").max(30, "Los días no pueden ser mayor a 30"),
     fechaInicial: z.string().nullable().optional(),
     fechaFinal: z.string().nullable().optional(),
   })
@@ -250,7 +256,7 @@ const disolucionSociedadSchema = z
 
 const otroSancionSchema = z
   .object({
-    denominacionSancion: z.string().min(1, "La denominación es requerida"),
+    denominacionSancion: z.string().min(1, "Ingresa la denominación de la sanción aplicada"),
   })
   .nullable()
   .optional();
@@ -266,7 +272,7 @@ const tipoSancionItemSchema = z.object({
       "OTRO",
     ],
     {
-      message: "Selecciona un tipo de sanción válido",
+      message: "Selecciona el tipo de sanción impuesta a la persona moral",
     }
   ),
   inhabilitacion: inhabilitacionSchema,
@@ -286,13 +292,13 @@ const faltasGravesPMSchema = z
     // Campos principales
     entePublico: z.string().optional(),
     status: z.enum(["NO_FIRME", "FIRME"], {
-      message: "Selecciona un estatus válido",
+      message: "Indica si la resolución es Firme o No firme",
     }),
     fecha: z.string().min(1, {
-      message: "La fecha es requerida.",
+      message: "Selecciona la fecha de registro del expediente",
     }),
     expediente: z.string().min(3, {
-      message: "El número de expediente debe tener al menos 3 caracteres.",
+      message: "Ingresa el número de expediente (mínimo 3 caracteres)",
     }),
     observaciones: z.string().nullable().optional(),
 
@@ -301,12 +307,12 @@ const faltasGravesPMSchema = z
     representanteLegal: datosRepresentanteSchema,
 
     // Falta Cometida (array)
-    faltaCometida: z.array(faltaCometidaItemSchema).min(1, "Debes agregar al menos una falta"),
+    faltaCometida: z.array(faltaCometidaItemSchema).min(1, "Debes registrar al menos una falta cometida"),
 
     // Tipo de Sanción (array)
     tipoSancion: z
       .array(tipoSancionItemSchema)
-      .min(1, "Debes agregar al menos un tipo de sanción"),
+      .min(1, "Debes registrar al menos un tipo de sanción"),
   })
   .merge(datosGeneralesSchema)
   .merge(dondeCometioFaltaSchema)
@@ -533,11 +539,92 @@ function getFaltasGravesPMDefaults(
 // COMPONENTE PRINCIPAL
 // ============================================
 
+// ============================================
+// MAPEO DE CAMPOS A SECCIONES DEL ACORDEÓN
+// ============================================
+
+const FIELD_TO_SECTION_MAP: Record<string, { accordionValue: string; sectionLabel: string }> = {
+  // Sección 3: Datos Generales
+  nombreRazonSocial: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  rfc: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  objetoSocial: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  tipoDomicilio: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  tipoVialidad: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  nombreVialidad: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  entidadFederativa: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
+  // Sección 4: Director General / Representante Legal
+  directorGeneral: { accordionValue: "datos-dir-general", sectionLabel: "4. Director general y representante legal" },
+  representanteLegal: { accordionValue: "datos-dir-general", sectionLabel: "4. Director general y representante legal" },
+  // Sección 5: Donde cometió la falta
+  dondeCometio_entidadFederativa: { accordionValue: "donde-cometio-falta", sectionLabel: "5. Donde se cometió la falta" },
+  dondeCometio_nivelOrdenGobierno: { accordionValue: "donde-cometio-falta", sectionLabel: "5. Donde se cometió la falta" },
+  dondeCometio_ambitoPublico: { accordionValue: "donde-cometio-falta", sectionLabel: "5. Donde se cometió la falta" },
+  // Sección 6: Origen del procedimiento
+  origenProcedimiento_clave: { accordionValue: "origen-procedimiento", sectionLabel: "6. Origen del procedimiento" },
+  origenProcedimiento_valor: { accordionValue: "origen-procedimiento", sectionLabel: "6. Origen del procedimiento" },
+  // Sección 7: Falta cometida
+  faltaCometida: { accordionValue: "falta-cometida", sectionLabel: "7. Falta cometida" },
+  // Sección 8: Resolución
+  resolucion_tituloResolucion: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_fechaResolucion: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_fechaNotificacion: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_urlResolucion: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_fechaResolucionFirme: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_fechaNotificacionFirme: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_urlResolucionFirme: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_ordenJurisdiccional: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_autoridadResolutora: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_autoridadInvestigadora: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  resolucion_autoridadSusbstanciadora: { accordionValue: "resolucion", sectionLabel: "8. Resolución" },
+  // Sección 9: Tipo de sanción
+  tipoSancion: { accordionValue: "tipo-sancion", sectionLabel: "9. Tipo de sanción" },
+};
+
+function getErrorSummary(errors: Record<string, any>): { sectionLabel: string; accordionValue: string; count: number }[] {
+  const sectionErrors = new Map<string, { sectionLabel: string; accordionValue: string; count: number }>();
+
+  function countFieldErrors(obj: any, prefix = ""): number {
+    let count = 0;
+    if (!obj) return 0;
+    if (obj.message) return 1;
+    for (const key of Object.keys(obj)) {
+      if (key === "ref" || key === "type") continue;
+      const val = obj[key];
+      if (typeof val === "object" && val !== null) {
+        count += countFieldErrors(val, prefix ? `${prefix}.${key}` : key);
+      }
+    }
+    return count;
+  }
+
+  for (const fieldName of Object.keys(errors)) {
+    const mapping = FIELD_TO_SECTION_MAP[fieldName];
+    if (mapping) {
+      const errCount = countFieldErrors(errors[fieldName]);
+      const existing = sectionErrors.get(mapping.accordionValue);
+      if (existing) {
+        existing.count += errCount;
+      } else {
+        sectionErrors.set(mapping.accordionValue, {
+          sectionLabel: mapping.sectionLabel,
+          accordionValue: mapping.accordionValue,
+          count: errCount,
+        });
+      }
+    }
+  }
+
+  return Array.from(sectionErrors.values());
+}
+
 export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialData }) => {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const { session } = useCurrentSession();
+  const [openSections, setOpenSections] = useState<string[]>([]);
+  const [errorSummary, setErrorSummary] = useState<{ sectionLabel: string; accordionValue: string; count: number }[]>([]);
+  const errorBannerRef = useRef<HTMLDivElement>(null);
 
   const title = initialData
     ? "Actualizar falta grave personas morales"
@@ -559,6 +646,47 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
     resolver: zodResolver(faltasGravesPMSchema),
     defaultValues,
   });
+
+  // Manejar errores de validación al hacer submit
+  const onInvalid = (errors: any) => {
+    const summary = getErrorSummary(errors);
+    setErrorSummary(summary);
+
+    // Auto-abrir secciones con errores
+    const sectionsWithErrors = summary.map((s) => s.accordionValue);
+    setOpenSections((prev) => {
+      const combined = new Set([...prev, ...sectionsWithErrors]);
+      return Array.from(combined);
+    });
+
+    // Contar errores totales
+    const totalErrors = summary.reduce((acc, s) => acc + s.count, 0);
+
+    // Scroll al banner de errores
+    setTimeout(() => {
+      errorBannerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+
+    toast({
+      variant: "destructive",
+      title: "Formulario incompleto",
+      description: `Se encontraron ${totalErrors} campo(s) con errores. Revisa las secciones marcadas.`,
+    });
+  };
+
+  // Limpiar errores cuando el usuario corrige campos
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      if (errorSummary.length > 0) {
+        const currentErrors = form.formState.errors;
+        const newSummary = getErrorSummary(currentErrors);
+        if (newSummary.length === 0) {
+          setErrorSummary([]);
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form, errorSummary.length]);
 
   // Establecer entePublico del usuario logueado
   useEffect(() => {
@@ -1191,7 +1319,72 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
       <Separator className="my-6" />
 
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} className="space-y-6">
+          {/* Leyenda de campos obligatorios */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/30 rounded-lg px-4 py-2.5 border border-muted">
+            <AlertCircle className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+            <span>Los campos marcados con <span className="text-destructive font-semibold">*</span> son obligatorios.</span>
+          </div>
+
+          {/* Banner de resumen de errores */}
+          {errorSummary.length > 0 && (
+            <div
+              ref={errorBannerRef}
+              className="rounded-xl border-2 border-destructive/30 bg-destructive/5 p-5 shadow-md animate-in fade-in-0 slide-in-from-top-2 duration-300"
+              role="alert"
+              aria-live="assertive"
+            >
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 mt-0.5">
+                  <div className="h-8 w-8 rounded-full bg-destructive/15 flex items-center justify-center">
+                    <XCircle className="h-5 w-5 text-destructive" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-semibold text-destructive mb-1">
+                    No se pudo guardar el formulario
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Revisa y completa los campos obligatorios en las siguientes secciones:
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {errorSummary.map((section) => (
+                      <button
+                        key={section.accordionValue}
+                        type="button"
+                        onClick={() => {
+                          setOpenSections((prev) => {
+                            const combined = new Set([...prev, section.accordionValue]);
+                            return Array.from(combined);
+                          });
+                          // Scroll to section
+                          setTimeout(() => {
+                            const el = document.querySelector(`[data-section="${section.accordionValue}"]`);
+                            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }, 150);
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive border border-destructive/20 hover:bg-destructive/20 transition-colors cursor-pointer"
+                      >
+                        <span>{section.sectionLabel}</span>
+                        <span className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold">
+                          {section.count}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setErrorSummary([])}
+                  className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="Cerrar"
+                >
+                  <XCircle className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Campos: Estatus, Fecha y Expediente */}
           <div className="rounded-xl border-2 border-primary/20 p-6 bg-card/95 backdrop-blur shadow-lg">
             <div className="space-y-6">
@@ -1361,22 +1554,30 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
           {/* Acordeón con todas las secciones */}
           <Accordion
             type="multiple"
-            defaultValue={[]}
+            value={openSections}
+            onValueChange={setOpenSections}
             className="w-full space-y-4"
           >
             {/* Sección 3: Datos Generales */}
             <AccordionItem
               value="datos-generales"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="datos-generales"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "datos-generales") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <FileText className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "datos-generales") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <FileText className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "datos-generales") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "datos-generales") ? "text-destructive" : "text-primary"}`}>
                     3. Datos generales de la persona moral sancionada
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "datos-generales") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "datos-generales")?.count} {errorSummary.find(s => s.accordionValue === "datos-generales")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
@@ -1387,17 +1588,24 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             {/* Sección 4: Datos Director General / Representante Legal */}
             <AccordionItem
               value="datos-dir-general"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="datos-dir-general"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "datos-dir-general") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <Users className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "datos-dir-general") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <Users className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "datos-dir-general") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "datos-dir-general") ? "text-destructive" : "text-primary"}`}>
                     4. Datos generales del director general y del representante legal de la persona
                     moral sancionada
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "datos-dir-general") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "datos-dir-general")?.count} {errorSummary.find(s => s.accordionValue === "datos-dir-general")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
@@ -1408,16 +1616,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             {/* Sección 5: Donde cometió la falta */}
             <AccordionItem
               value="donde-cometio-falta"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="donde-cometio-falta"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "donde-cometio-falta") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <MapPin className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "donde-cometio-falta") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <MapPin className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "donde-cometio-falta") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "donde-cometio-falta") ? "text-destructive" : "text-primary"}`}>
                     5. Datos del Ente público donde se cometió la falta administrativa
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "donde-cometio-falta") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "donde-cometio-falta")?.count} {errorSummary.find(s => s.accordionValue === "donde-cometio-falta")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
@@ -1428,16 +1643,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             {/* Sección 6: Origen del procedimiento */}
             <AccordionItem
               value="origen-procedimiento"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="origen-procedimiento"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "origen-procedimiento") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <Search className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "origen-procedimiento") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <Search className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "origen-procedimiento") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "origen-procedimiento") ? "text-destructive" : "text-primary"}`}>
                     6. Origen del procedimiento
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "origen-procedimiento") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "origen-procedimiento")?.count} {errorSummary.find(s => s.accordionValue === "origen-procedimiento")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
@@ -1448,16 +1670,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             {/* Sección 7: Falta cometida */}
             <AccordionItem
               value="falta-cometida"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="falta-cometida"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "falta-cometida") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <AlertCircle className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "falta-cometida") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <AlertCircle className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "falta-cometida") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "falta-cometida") ? "text-destructive" : "text-primary"}`}>
                     7. Tipo de falta cometida por la persona moral sancionada
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "falta-cometida") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "falta-cometida")?.count} {errorSummary.find(s => s.accordionValue === "falta-cometida")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
@@ -1468,16 +1697,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             {/* Sección 8: Resolución */}
             <AccordionItem
               value="resolucion"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="resolucion"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "resolucion") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <FileText className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "resolucion") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <FileText className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "resolucion") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "resolucion") ? "text-destructive" : "text-primary"}`}>
                     8. Resolución sancionatoria de la falta cometida por la persona moral
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "resolucion") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "resolucion")?.count} {errorSummary.find(s => s.accordionValue === "resolucion")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
@@ -1488,16 +1724,23 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             {/* Sección 9: Tipo de sanción */}
             <AccordionItem
               value="tipo-sancion"
-              className="rounded-xl border-2 border-primary/20 overflow-hidden bg-card/95 backdrop-blur shadow-lg"
+              data-section="tipo-sancion"
+              className={`rounded-xl border-2 overflow-hidden bg-card/95 backdrop-blur shadow-lg transition-colors ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "border-destructive/40" : "border-primary/20"}`}
             >
               <AccordionTrigger className="px-6 py-4 hover:no-underline hover:bg-primary/5 transition-colors">
                 <div className="flex items-center w-full">
-                  <div className="bg-primary/10 rounded-lg p-2 mr-4">
-                    <AlertCircle className="h-5 w-5 text-primary" />
+                  <div className={`rounded-lg p-2 mr-4 ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "bg-destructive/10" : "bg-primary/10"}`}>
+                    <AlertCircle className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "text-destructive" : "text-primary"}`} />
                   </div>
-                  <span className="text-left text-lg font-semibold text-primary">
+                  <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "text-destructive" : "text-primary"}`}>
                     9. Tipo de sanción impuesta a la persona moral
                   </span>
+                  {errorSummary.some(s => s.accordionValue === "tipo-sancion") && (
+                    <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
+                      <AlertCircle className="h-3 w-3" />
+                      {errorSummary.find(s => s.accordionValue === "tipo-sancion")?.count} {errorSummary.find(s => s.accordionValue === "tipo-sancion")?.count === 1 ? "error" : "errores"}
+                    </span>
+                  )}
                 </div>
               </AccordionTrigger>
               <AccordionContent className="px-6 pb-6 pt-2">
