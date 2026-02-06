@@ -3,7 +3,6 @@
 
 import { useEffect, useState } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
-import { signOut } from "next-auth/react";
 import directus from "@/lib/directus";
 import { readItems, withToken } from "@directus/sdk";
 import {
@@ -30,9 +29,8 @@ export default function Page() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (session?.forceLogout) {
-      signOut({ callbackUrl: "/" });
-    } else if (status === "authenticated") {
+    // forceLogout is now handled globally by SessionGuard
+    if (status === "authenticated" && !session?.forceLogout) {
       async function fetchData() {
         try {
           // Aquí conectarías con tu colección de Directus para el S3
