@@ -12,4 +12,10 @@ export const navItems: NavItem[] = [
     href: "/inicio/faltas-graves-pm",
     icon: "users",
     label: "entes",
+  },
+  {
+    title: "Faltas Graves Personas Físicas",
+    href: "/inicio/faltas-graves-pf",
+    icon: "user",
+    label: "personas",
   }];
