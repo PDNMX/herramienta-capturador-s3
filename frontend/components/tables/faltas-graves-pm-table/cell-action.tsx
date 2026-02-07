@@ -83,14 +83,14 @@ export const CellAction = ({ data, session }: any) => {
                             Editar
                         </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuSeparator />
+                    {/* <DropdownMenuSeparator />
                     <DropdownMenuItem
                         onClick={() => setOpen(true)}
                         className="cursor-pointer text-destructive focus:text-destructive"
                     >
                         <Trash className="mr-2 h-4 w-4" />
                         Eliminar
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
                 </DropdownMenuContent>
             </DropdownMenu>
         </>

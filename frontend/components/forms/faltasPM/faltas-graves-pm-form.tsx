@@ -647,6 +647,15 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
     defaultValues,
   });
 
+  // Resetear el formulario cuando initialData cambia (ej: datos cargados async)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (initialData) {
+      const newDefaults = getFaltasGravesPMDefaults(initialData, session?.user?.entePublico);
+      form.reset(newDefaults);
+    }
+  }, [initialData]);
+
   // Manejar errores de validación al hacer submit
   const onInvalid = (errors: any) => {
     const summary = getErrorSummary(errors);
