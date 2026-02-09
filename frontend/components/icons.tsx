@@ -32,6 +32,7 @@ import {
   Hotel,
   Users,
   Notebook, // Nuevo import para el icono Book
+  Shield,
 } from "lucide-react";
 
 export const Icons = {
@@ -83,4 +84,5 @@ export const Icons = {
   company: Hotel,
   users: Users,
   notebook: Notebook, // Nuevo icono agregado
+  shield: Shield,
 };

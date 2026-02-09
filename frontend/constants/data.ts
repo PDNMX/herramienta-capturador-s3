@@ -18,4 +18,10 @@ export const navItems: NavItem[] = [
     href: "/inicio/faltas-graves-pf",
     icon: "user",
     label: "personas",
+  },
+  {
+    title: "Faltas Administrativas Graves",
+    href: "/inicio/faltas-administrativas-graves",
+    icon: "shield",
+    label: "servidores",
   }];
