@@ -24,4 +24,10 @@ export const navItems: NavItem[] = [
     href: "/inicio/faltas-administrativas-graves",
     icon: "shield",
     label: "servidores",
+  },
+  {
+    title: "Faltas No Graves",
+    href: "/inicio/faltas-administrativas-no-graves",
+    icon: "notebook",
+    label: "no graves",
   }];
