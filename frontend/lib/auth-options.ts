@@ -58,10 +58,10 @@ export const authOptions: NextAuthOptions = {
             entePublico: loggedInUser.entePublico ?? "",
             access_token: auth.access_token ?? "",
             // Configuración de expiración
-            expires: Date.now() + (10 * 60 * 1000), // ⬅️ 10 minutos
+            // expires: Date.now() + (10 * 60 * 1000), // ⬅️ 10 minutos
             // expires: Date.now() + (30 * 60 * 1000), // 30 minutos
             // expires: Date.now() + (60 * 60 * 1000), // 1 hora
-            // expires: Date.now() + (2 * 60 * 60 * 1000), // 2 horas
+            expires: Date.now() + (2 * 60 * 60 * 1000), // 2 horas
             // expires: Date.now() + (8 * 60 * 60 * 1000), // 8 horas (recomendado producción)
             refresh_token: auth.refresh_token ?? "",
           }
