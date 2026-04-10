@@ -25,9 +25,9 @@ interface TipoSancionPFSectionProps {
 }
 
 const TIPOS_SANCION_PF = [
-  { value: "INHABILITACION", label: "Inhabilitacion temporal para participar en adquisiciones, arrendamientos, servicios u obras publicas" },
-  { value: "INDEMNIZACION", label: "Indemnizacion" },
-  { value: "SANCION_ECONOMICA", label: "Sancion Economica" },
+  { value: "INHABILITACION", label: "Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas" },
+  { value: "INDEMNIZACION", label: "Indemnización" },
+  { value: "SANCION_ECONOMICA", label: "Sanción económica" },
   { value: "OTRO", label: "Otro (especifique)" },
 ];
 

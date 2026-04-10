@@ -26,10 +26,10 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          A. Inhabilitacion temporal para participar en adquisiciones, arrendamientos, servicios u obras publicas
+          A. Inhabilitación temporal para participar en adquisiciones, arrendamientos, servicios u obras públicas
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolucion se determino sancionar con una inhabilitacion
+          Se deberá llenar si en la resolución se determinó sancionar con una inhabilitación
         </p>
       </div>
 
@@ -128,7 +128,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                 />
               </FormControl>
               <FormDescription>
-                Indicar la fecha en que inicio la inhabilitacion
+                Indicar la fecha en que inició la inhabilitación
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -153,7 +153,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                 />
               </FormControl>
               <FormDescription>
-                Indicar la fecha en la que se concluyo la inhabilitacion
+                Indicar la fecha en la que se concluyó la inhabilitación
               </FormDescription>
               <FormMessage />
             </FormItem>

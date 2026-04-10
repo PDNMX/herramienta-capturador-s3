@@ -224,8 +224,7 @@ export const FaltaCometidaPFSection: React.FC<FaltaCometidaPFSectionProps> = ({
                         />
                       </FormControl>
                       <FormDescription>
-                        En caso de seleccionar la opción "OTRO", se deberá especificar el tipo de falta cometida.
-                        Puede escribir "FALTAS_PARTICULARES_ESPECIAL" o un texto libre.
+                        En caso de seleccionar la opción "OTRO", se deberá especificar el el tipo de falta cometida
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

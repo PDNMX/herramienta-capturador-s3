@@ -50,11 +50,16 @@ const ENTIDADES_FEDERATIVAS = [
 ];
 
 const NIVELES_JERARQUICO = [
-  { value: "SERVIDOR_PUBLICO_BASE", label: "Servidor(a) público(a) de base" },
-  { value: "SERVIDOR_PUBLICO_CONFIANZA", label: "Servidor(a) público(a) de confianza" },
-  { value: "SERVIDOR_PUBLICO_MANDO_MEDIO", label: "Servidor(a) público(a) de mando medio" },
-  { value: "SERVIDOR_PUBLICO_MANDO_SUPERIOR", label: "Servidor(a) público(a) de mando superior" },
-  { value: "OTRO", label: "Otro (especifique)" },
+  { value: "OPERATIVO_HOMOLOGO", label: "Operativo u homólogo" },
+  { value: "ENLACE_HOMOLOGO", label: "Enlace u homólogo" },
+  { value: "JEFATURA_DEPTO_HOMOLOGO", label: "Jefatura de departamento u homólogo" },
+  { value: "SUBDIRECCION_HOMOLOGO", label: "Subdirección de área u homólogo" },
+  { value: "DIRECCION_HOMOLOGO", label: "Dirección de área u homólogo" },
+  { value: "DG_HOMOLOGO", label: "Dirección general u homólogo" },
+  { value: "JEFATURA_UNIDAD_HOMOLOGO", label: "Jefatura de unidad u homólogo" },
+  { value: "SUBSECRETARIA_HOMOLOGO", label: "Subsecretaría de estado oficialía mayor u homólogo" },
+  { value: "SECRETARIA_HOMOLOGO", label: "Secretaría de estado u homólogo" },
+  { value: "OTRO", label: "Otro (especifique):" },
 ];
 
 interface EmpleoCargoComisionGravesSectionProps {
@@ -121,7 +126,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
               />
             </FormControl>
             <FormDescription>
-              Seleccionar la entidad federativa donde se ubique el Ente publico
+              Seleccionar la entidad federativa donde se ubica el Ente público donde labora o laboraba la persona servidora pública sancionada, al momento de cometer la falta administrativa
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -162,7 +167,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
               </div>
             </FormControl>
             <FormDescription>
-              Seleccionar el nivel u orden de gobierno al que pertenece el Ente publico
+              Seleccionar el nivel u orden de gobierno
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -201,7 +206,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
                 ))}
               </div>
             </FormControl>
-            <FormDescription>Seleccionar el ambito publico</FormDescription>
+            <FormDescription>Seleccionar el ámbito público</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -226,7 +231,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
                 />
               </FormControl>
               <FormDescription>
-                Indicar el nombre completo del Ente publico
+                Indicar el nombre completo del Ente público, sin abreviaturas, sin acentos, ni signos especiales
               </FormDescription>
               <FormMessage />
             </FormItem>

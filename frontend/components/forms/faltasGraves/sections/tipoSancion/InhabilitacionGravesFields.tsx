@@ -87,7 +87,7 @@ export const InhabilitacionGravesFields: React.FC<InhabilitacionGravesFieldsProp
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Indicar la fecha en que inicio la inhabilitacion</FormDescription>
+              <FormDescription>Indicar la fecha en que inició la inhabilitación</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -102,7 +102,7 @@ export const InhabilitacionGravesFields: React.FC<InhabilitacionGravesFieldsProp
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Indicar la fecha en la que se concluyo la inhabilitacion</FormDescription>
+              <FormDescription>Indicar la fecha en la que se concluyó la inhabilitación</FormDescription>
               <FormMessage />
             </FormItem>
           )}

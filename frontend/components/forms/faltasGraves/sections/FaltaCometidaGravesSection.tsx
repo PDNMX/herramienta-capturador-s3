@@ -24,18 +24,20 @@ interface FaltaCometidaGravesSectionProps {
 }
 
 const TIPOS_FALTA = [
+  { value: "ABUSO_FUNCIONES", label: "Abuso de funciones" },
   { value: "COHECHO", label: "Cohecho" },
   { value: "PECULADO", label: "Peculado" },
-  { value: "DESVIO_RECURSOS", label: "Desvío de recursos públicos" },
+  { value: "DESVIO_RECURSOS_PUBLICOS", label: "Desvío de recursos públicos" },
   { value: "UTILIZACION_INDEBIDA_INFORMACION", label: "Utilización indebida de información" },
-  { value: "ABUSO_FUNCIONES", label: "Abuso de funciones" },
-  { value: "ACTUACION_CONFLICTO_INTERES", label: "Actuación bajo conflicto de interés" },
+  { value: "CONFLICTO_INTERES", label: "Actuación bajo conflicto de interés" },
   { value: "CONTRATACION_INDEBIDA", label: "Contratación indebida" },
-  { value: "ENRIQUECIMIENTO_OCULTAR_CONFLICTO_INTERES", label: "Enriquecimiento oculto u ocultar conflicto de interés" },
+  { value: "ENRIQUECIMIENTO_OCULTO", label: "Enriquecimiento oculto" },
   { value: "TRAFICO_INFLUENCIAS", label: "Tráfico de influencias" },
+  { value: "SIMULACION_ACTO_JURIDICO", label: "Simulación de acto jurídico" },
   { value: "ENCUBRIMIENTO", label: "Encubrimiento" },
   { value: "DESACATO", label: "Desacato" },
-  { value: "OBSTRUCCION", label: "Obstrucción" },
+  { value: "NEPOTISMO", label: "Nepotismo" },
+  { value: "OBSTRUCCION", label: "Obstrucción de la justicia" },
   { value: "OTRO", label: "Otro (especifique)" },
 ];
 

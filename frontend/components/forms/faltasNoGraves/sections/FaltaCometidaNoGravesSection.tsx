@@ -24,10 +24,15 @@ interface FaltaCometidaNoGravesSectionProps {
 }
 
 const TIPOS_FALTA = [
-  { value: "NEGLIGENCIA", label: "Negligencia administrativa" },
-  { value: "ABUSO_FUNCIONES", label: "Abuso de funciones" },
-  { value: "ACTUACION_CONFLICTO_INTERES", label: "Actuación bajo conflicto de interés" },
-  { value: "DESACATO", label: "Desacato" },
+  { value: "CUMPLIR_FUNCIONES_DISCIPLINA_RESPETO", label: "Incumplir con las funciones, atribuciones y comisiones encomendadas, observando en todo momento las instrucciones que les indique el superior jerárquico, salvo que estas sean contrarias a derecho; así como no observar las medidas disciplinarias establecidas en las disposiciones aplicables y las que regulen el funcionamiento del ente público" },
+  { value: "DENUNCIAR_FALTAS_ADMINISTRATIVAS", label: "No denunciar por escrito al superior jerárquico o al Órgano interno de control las faltas administrativas de que tenga conocimiento" },
+  { value: "ATENDER_INSTRUCCIONES_EVITAR_CONFLICTO_INTERES", label: "No atender las instrucciones del superior jerárquico respecto a su deber de abstención para evitar conflictos de intereses" },
+  { value: "PRESENTAR_DECLARACIONES_PATRIMONIALES", label: "No presentar en tiempo y forma las declaraciones de situación patrimonial y de intereses, en los términos establecidos en el Título Tercero de la presente Ley, así como presentar dichas declaraciones con información falsa o sin incluir la información relevante" },
+  { value: "SUPERVISAR_ACCIONES_INFERIORES_JERARQUICOS", label: "No supervisar las acciones de los servidores públicos bajo su mando, con la finalidad de que desempeñen sus empleos, cargos o comisiones conforme a las disposiciones de esta Ley" },
+  { value: "RENDIR_CUENTAS_INFORMES", label: "No rendir cuentas sobre el ejercicio de las funciones que tenga encomendadas y no proporcionar la documentación e información que le sea requerida, en los plazos que establezca la ley" },
+  { value: "COLABORAR_PROCEDIMIENTOS_AUDITORIA", label: "No colaborar en los procedimientos de responsabilidades administrativas, de control y de auditoría" },
+  { value: "CAUSAR_DANO_PATRIMONIO_PUBLICO", label: "Causar daños y perjuicios al patrimonio público o privado de las personas, por negligencia o imprudencia en el desempeño del empleo, cargo o comisión" },
+  { value: "INCUMPLIR_DISPOSICIONES_DECLARACIONES", label: "Incumplir con las disposiciones establecidas en la presente Ley en materia de evolución patrimonial, declaración de intereses y constancia de presentación de declaración fiscal" },
   { value: "OTRO", label: "Otro (especifique)" },
 ];
 

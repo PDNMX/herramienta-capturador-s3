@@ -39,10 +39,10 @@ export const AmonestacionNoGravesFields: React.FC<AmonestacionNoGravesFieldsProp
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          A. Amonestacion
+          A. Amonestación
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolucion se determino sancionar con una amonestacion publica o privada
+          Se deberá llenar si en la resolución se determinó sancionar con una amonestación pública o privada
         </p>
       </div>
 
@@ -52,7 +52,7 @@ export const AmonestacionNoGravesFields: React.FC<AmonestacionNoGravesFieldsProp
         render={({ field }) => (
           <FormItem className="space-y-3">
             <FormLabel>
-              Tipo de amonestacion <span className="text-red-500">*</span>
+              Tipo de amonestación <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -69,8 +69,8 @@ export const AmonestacionNoGravesFields: React.FC<AmonestacionNoGravesFieldsProp
                       {tipo === "PUBLICA" && <div className="h-2 w-2 rounded-full bg-primary" />}
                     </div>
                     <div className="flex-1">
-                      <Label className="font-medium cursor-pointer">Publica</Label>
-                      <p className="text-xs text-muted-foreground mt-1">Amonestacion de caracter publico</p>
+                      <Label className="font-medium cursor-pointer">Pública</Label>
+                      <p className="text-xs text-muted-foreground mt-1">Amonestación de carácter público</p>
                     </div>
                   </div>
                 </div>
@@ -89,14 +89,14 @@ export const AmonestacionNoGravesFields: React.FC<AmonestacionNoGravesFieldsProp
                     </div>
                     <div className="flex-1">
                       <Label className="font-medium cursor-pointer">Privada</Label>
-                      <p className="text-xs text-muted-foreground mt-1">Amonestacion de caracter privado</p>
+                      <p className="text-xs text-muted-foreground mt-1">Amonestación de carácter privado</p>
                     </div>
                   </div>
                 </div>
               </div>
             </FormControl>
             <FormDescription>
-              Indicar si la amonestacion es publica o privada, segun lo determine la resolucion
+              Seleccionar el tipo de amonestación
             </FormDescription>
             <FormMessage />
           </FormItem>

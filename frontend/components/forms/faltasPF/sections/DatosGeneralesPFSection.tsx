@@ -161,7 +161,7 @@ export const DatosGeneralesPFSection: React.FC<
                 />
               </FormControl>
               <FormDescription>
-                Se deberá proporcionar el nombre o nombres de la persona física
+                Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -185,7 +185,7 @@ export const DatosGeneralesPFSection: React.FC<
                 />
               </FormControl>
               <FormDescription>
-                Se deberá proporcionar el primer apellido de la persona física
+                Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -210,7 +210,7 @@ export const DatosGeneralesPFSection: React.FC<
                 />
               </FormControl>
               <FormDescription>
-                Se deberá proporcionar el segundo apellido de la persona física (si aplica)
+                Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -235,7 +235,7 @@ export const DatosGeneralesPFSection: React.FC<
                 />
               </FormControl>
               <FormDescription>
-                Escribir los 18 caracteres de la CURP
+                Escribir los dieciocho caracteres alfanuméricos como aparece en el documento que emite la Secretaría de Gobernación.  En caso de no contar con ese dato, podrá consultarlo en la siguiente página: https://www.gob.mx/curp/
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -260,7 +260,7 @@ export const DatosGeneralesPFSection: React.FC<
                 />
               </FormControl>
               <FormDescription>
-                Escribir los 12 o 13 caracteres del RFC con homoclave
+                Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave
               </FormDescription>
               <FormMessage />
             </FormItem>

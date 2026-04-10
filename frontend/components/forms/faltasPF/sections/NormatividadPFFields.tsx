@@ -215,7 +215,7 @@ export const NormatividadPFFields: React.FC<NormatividadPFFieldsProps> = ({
                         />
                       </FormControl>
                       <FormDescription>
-                        Escribir el (los) artículo(s) infringido(s)
+                        Escribir el (los) artículo (s) infringido (s)
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -238,7 +238,7 @@ export const NormatividadPFFields: React.FC<NormatividadPFFieldsProps> = ({
                         />
                       </FormControl>
                       <FormDescription>
-                        En su caso, escribir la(s) fracción(es) infringida(s)
+                        En su caso, escribir la (s) fracción (es) infringida (s)
                       </FormDescription>
                       <FormMessage />
                     </FormItem>

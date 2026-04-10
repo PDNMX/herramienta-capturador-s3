@@ -52,7 +52,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
               <FormControl>
                 <Input disabled={loading} placeholder="Ej: Juan Carlos" {...field} />
               </FormControl>
-              <FormDescription>Escribir el nombre o los nombres del servidor publico sancionado</FormDescription>
+              <FormDescription>Se deberá escribir el o los nombres del servidor público sancionado</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -103,7 +103,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
               <FormControl>
                 <Input disabled={loading} placeholder="Ej: GARL850101HDFRPN09" maxLength={18} {...field} />
               </FormControl>
-              <FormDescription>Escribir la Clave Unica de Registro de Poblacion (CURP) del servidor publico (18 caracteres)</FormDescription>
+              <FormDescription>Escribir los dieciocho caracteres alfanuméricos que componen la CURP del servidor público</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -120,7 +120,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
               <FormControl>
                 <Input disabled={loading} placeholder="Ej: GARL850101AB1" maxLength={13} {...field} />
               </FormControl>
-              <FormDescription>Escribir el Registro Federal de Contribuyentes (RFC) del servidor publico incluyendo la homoclave</FormDescription>
+              <FormDescription>Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -138,37 +138,37 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
             <FormControl>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div
-                  onClick={() => !loading && handleSexoClick("MASCULINO")}
+                  onClick={() => !loading && handleSexoClick("MUJER")}
                   className={`relative flex cursor-pointer rounded-xl border-2 p-4 hover:bg-accent transition-colors ${
-                    sexo === "MASCULINO" ? "border-primary bg-accent" : "border-muted"
+                    sexo === "MUJER" ? "border-primary bg-accent" : "border-muted"
                   } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
                   <div className="flex items-start space-x-3 w-full">
                     <div className={`mt-0.5 h-4 w-4 rounded-full border-2 flex items-center justify-center ${
-                      sexo === "MASCULINO" ? "border-primary" : "border-muted-foreground"
+                      sexo === "MUJER" ? "border-primary" : "border-muted-foreground"
                     }`}>
-                      {sexo === "MASCULINO" && <div className="h-2 w-2 rounded-full bg-primary" />}
+                      {sexo === "MUJER" && <div className="h-2 w-2 rounded-full bg-primary" />}
                     </div>
                     <div className="flex-1">
-                      <Label className="font-medium cursor-pointer">Masculino</Label>
+                      <Label className="font-medium cursor-pointer">Mujer</Label>
                     </div>
                   </div>
                 </div>
 
                 <div
-                  onClick={() => !loading && handleSexoClick("FEMENINO")}
+                  onClick={() => !loading && handleSexoClick("HOMBRE")}
                   className={`relative flex cursor-pointer rounded-xl border-2 p-4 hover:bg-accent transition-colors ${
-                    sexo === "FEMENINO" ? "border-primary bg-accent" : "border-muted"
+                    sexo === "HOMBRE" ? "border-primary bg-accent" : "border-muted"
                   } ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
                 >
                   <div className="flex items-start space-x-3 w-full">
                     <div className={`mt-0.5 h-4 w-4 rounded-full border-2 flex items-center justify-center ${
-                      sexo === "FEMENINO" ? "border-primary" : "border-muted-foreground"
+                      sexo === "HOMBRE" ? "border-primary" : "border-muted-foreground"
                     }`}>
-                      {sexo === "FEMENINO" && <div className="h-2 w-2 rounded-full bg-primary" />}
+                      {sexo === "HOMBRE" && <div className="h-2 w-2 rounded-full bg-primary" />}
                     </div>
                     <div className="flex-1">
-                      <Label className="font-medium cursor-pointer">Femenino</Label>
+                      <Label className="font-medium cursor-pointer">Hombre</Label>
                     </div>
                   </div>
                 </div>

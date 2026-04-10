@@ -29,7 +29,7 @@ const TIPOS_SANCION = [
   { value: "AMONESTACION", label: "Amonestación pública o privada" },
   { value: "SUSPENSION", label: "Suspensión del empleo, cargo o comisión" },
   { value: "DESTITUCION", label: "Destitución del empleo, cargo o comisión" },
-  { value: "INHABILITACION", label: "Inhabilitación temporal para desempeñar empleos, cargos o comisiones en el servicio público" },
+  { value: "INHABILITACION", label: "Inhabilitación temporal para desempeñar empleos, cargos o comisiones en el servicio público y para participar en adquisiciones, arrendamientos, servicios u obras públicas" },
   { value: "OTRO", label: "Otro (especifique)" },
 ];
 

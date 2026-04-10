@@ -91,7 +91,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
                 />
               </FormControl>
               <FormDescription>
-                Colocar la fecha en la que se emite la resolucion sancionatoria
+                Colocar la fecha en la que se emite la resolución sancionatoria
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -117,8 +117,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
                 />
               </FormControl>
               <FormDescription>
-                Indicar la fecha en que se notifica la resolucion a la persona
-                fisica sancionada
+                Indicar la fecha en que se notifica la resolución a la persona física sancionada
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -149,8 +148,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               </div>
             </FormControl>
             <FormDescription>
-              Colocar el enlace de la version publica de la resolucion emitida
-              por la autoridad a la que corresponde la sancion
+              Colocar el enlace de la versión pública de la resolución emitida por la autoridad a la que corresponde la sanción
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -177,8 +175,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
                 />
               </FormControl>
               <FormDescription>
-                Colocar la fecha en que adquirio firmeza la resolucion de la
-                persona fisica
+                Colocar la fecha en que adquirió firmeza la resolución de la persona física
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -204,8 +201,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
                 />
               </FormControl>
               <FormDescription>
-                Indicar la fecha en que se notifica a la persona fisica que la
-                resolucion ha quedado firme
+                Indicar la fecha en que se notifica a la persona física que la resolución ha quedado firme
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -236,9 +232,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               </div>
             </FormControl>
             <FormDescription>
-              Colocar el enlace de la version publica del acuerdo o
-              determinacion que dicte la autoridad competente en la que declara
-              que la resolucion definitiva ha quedado firme
+              Colocar el enlace de la versión pública del acuerdo o determinación que dicte la autoridad competente en la que declara que la resolución definitiva ha quedado firme
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -261,10 +255,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Anotar la fecha en la que se ejecuto la sancion de la persona
-              fisica. Si al momento de registrar la informacion la autoridad no
-              cuenta con el dato senalado, este podra registrarse posteriormente
-              mediante una actualizacion de su registro
+              Anotar la fecha en la que se ejecutó la sanción a la persona física. &lt;p&gt; Si al momento de registrar la información la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -340,8 +331,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               </div>
             </FormControl>
             <FormDescription>
-              Seleccionar la opcion correspondiente al orden jurisdiccional del
-              Ente publico que emitio la resolucion
+              Seleccionar la opción correspondiente al orden jurisdiccional del Ente público que emitió la resolución
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -365,7 +355,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Indicar el nombre de la autoridad facultada para dictar la sancion
+              Indicar el nombre de la autoridad facultada para dictar la sanción
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -389,8 +379,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Especificar el nombre de la autoridad encargada de la
-              investigacion de la falta administrativa
+              Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -400,7 +389,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
       {/* Autoridad substanciadora */}
       <FormField
         control={form.control}
-        name="resolucion_autoridadSubstanciadora"
+        name="resolucion_autoridadSusbstanciadora"
         render={({ field }) => (
           <FormItem>
             <FormLabel>
@@ -414,7 +403,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Senalar el nombre de la autoridad substanciadora del procedimiento
+              Señalar el nombre de la autoridad substanciadora del procedimiento
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -252,7 +252,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
 
       <FormField
         control={form.control}
-        name="resolucion_autoridadSubstanciadora"
+        name="resolucion_autoridadSusbstanciadora"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Autoridad substanciadora <span className="text-red-500">*</span></FormLabel>

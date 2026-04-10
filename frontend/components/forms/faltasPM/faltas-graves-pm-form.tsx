@@ -49,6 +49,7 @@ import {
   Search,
 } from "lucide-react";
 import * as z from "zod";
+import { sanitizePayload } from "@/lib/utils";
 
 // Imports de secciones
 import { DatosGeneralesPMSection } from "./sections/DatosGeneralesPMSection";
@@ -643,7 +644,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
   );
 
   const form = useForm<FaltasGravesPMFormValues>({
-    resolver: zodResolver(faltasGravesPMSchema),
+    // resolver: zodResolver(faltasGravesPMSchema), // validaciones desactivadas temporalmente
     defaultValues,
   });
 
@@ -708,7 +709,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
   // FUNCIÓN DE GUARDADO - CORREGIDA CON NOMBRES DE COLECCIONES DEL JSON
   // ============================================
 
-  const onSubmit = async (data: FaltasGravesPMFormValues) => {
+  const onSubmit = async (rawData: FaltasGravesPMFormValues) => {
+    const data = sanitizePayload(rawData) as FaltasGravesPMFormValues;
     try {
       setLoading(true);
 
@@ -1052,11 +1054,13 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
       // ============================================
       // 11. FALTAS COMETIDAS (O2M con normatividades anidadas)
       // ============================================
-      for (const falta of data.faltaCometida) {
+      const faltasFiltradas = (data.faltaCometida ?? []).filter((f: any) => f?.clave);
+      for (const falta of faltasFiltradas) {
         const normatividadesIds = [];
 
         // Guardar cada normatividad infringida
-        for (const normatividad of falta.normatividadInfringida) {
+        const normsConDatos = (falta.normatividadInfringida ?? []).filter((n: any) => n?.nombreNormatividad || n?.articulo);
+        for (const normatividad of normsConDatos) {
           const normatividadData = {
             nombreNormatividad: normatividad.nombreNormatividad,
             articulo: normatividad.articulo,
@@ -1089,7 +1093,8 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
       // ============================================
       // 12. TIPO DE SANCIÓN (O2M complejo)
       // ============================================
-      for (const sancion of data.tipoSancion) {
+      const sancionesFiltradas = (data.tipoSancion ?? []).filter((s: any) => s?.clave);
+      for (const sancion of sancionesFiltradas) {
         let sancionEspecificaId = null;
 
         switch (sancion.clave) {

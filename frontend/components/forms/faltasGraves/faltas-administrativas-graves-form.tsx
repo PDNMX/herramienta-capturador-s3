@@ -44,6 +44,7 @@ import {
   Shield,
 } from "lucide-react";
 import * as z from "zod";
+import { sanitizePayload } from "@/lib/utils";
 
 // Imports de secciones
 import { DatosGeneralesGravesSection } from "./sections/DatosGeneralesGravesSection";
@@ -75,7 +76,7 @@ const datosGeneralesSchema = z.object({
     .min(12, "El RFC debe tener al menos 12 caracteres incluyendo la homoclave")
     .max(13, "El RFC no puede tener mas de 13 caracteres"),
   sexo: z.enum(
-    ["MASCULINO", "FEMENINO"],
+    ["MUJER", "HOMBRE"],
     { message: "Selecciona el sexo del servidor publico" }
   ),
 });
@@ -159,7 +160,7 @@ const resolucionSchema = z.object({
   }),
   resolucion_autoridadResolutora: z.string().min(1, "Ingresa el nombre de la autoridad resolutora"),
   resolucion_autoridadInvestigadora: z.string().min(1, "Ingresa el nombre de la autoridad investigadora"),
-  resolucion_autoridadSubstanciadora: z.string().min(1, "Ingresa el nombre de la autoridad substanciadora"),
+  resolucion_autoridadSusbstanciadora: z.string().min(1, "Ingresa el nombre de la autoridad substanciadora"),
 });
 
 // 7. Schemas para Tipos de Sancion
@@ -359,7 +360,7 @@ function getFaltasAdministrativasGravesDefaults(
     resolucion_ordenJurisdiccional: initialData?.resolucion?.ordenJurisdiccional ?? "",
     resolucion_autoridadResolutora: initialData?.resolucion?.autoridadResolutora ?? "",
     resolucion_autoridadInvestigadora: initialData?.resolucion?.autoridadInvestigadora ?? "",
-    resolucion_autoridadSubstanciadora: initialData?.resolucion?.autoridadSubstanciadora ?? "",
+    resolucion_autoridadSusbstanciadora: initialData?.resolucion?.autoridadSusbstanciadora ?? "",
 
     // Tipo de Sancion
     tipoSancion:
@@ -460,7 +461,7 @@ const FIELD_TO_SECTION_MAP: Record<string, { accordionValue: string; sectionLabe
   resolucion_ordenJurisdiccional: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   resolucion_autoridadResolutora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   resolucion_autoridadInvestigadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
-  resolucion_autoridadSubstanciadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
+  resolucion_autoridadSusbstanciadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   // Seccion 8: Tipo de sancion
   tipoSancion: { accordionValue: "tipo-sancion", sectionLabel: "8. Tipo de sancion" },
 };
@@ -532,7 +533,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
   );
 
   const form = useForm<FaltasAdministrativasGravesFormValues>({
-    resolver: zodResolver(faltasAdministrativasGravesSchema),
+    // resolver: zodResolver(faltasAdministrativasGravesSchema), // validaciones desactivadas temporalmente
     defaultValues,
   });
 
@@ -589,7 +590,8 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
   // FUNCION DE GUARDADO
   // ============================================
 
-  const onSubmit = async (data: FaltasAdministrativasGravesFormValues) => {
+  const onSubmit = async (rawData: FaltasAdministrativasGravesFormValues) => {
+    const data = sanitizePayload(rawData) as FaltasAdministrativasGravesFormValues;
     try {
       setLoading(true);
 
@@ -719,7 +721,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
         ordenJurisdiccional: data.resolucion_ordenJurisdiccional,
         autoridadResolutora: data.resolucion_autoridadResolutora,
         autoridadInvestigadora: data.resolucion_autoridadInvestigadora,
-        autoridadSubstanciadora: data.resolucion_autoridadSubstanciadora,
+        autoridadSusbstanciadora: data.resolucion_autoridadSusbstanciadora,
         entePublico: entePublico,
       };
 
@@ -769,10 +771,12 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
       // ============================================
       // 7. FALTAS COMETIDAS (O2M con normatividades anidadas)
       // ============================================
-      for (const falta of data.faltaCometida) {
+      const faltasFiltradas = (data.faltaCometida ?? []).filter((f: any) => f?.clave);
+      for (const falta of faltasFiltradas) {
         const normatividadesIds = [];
 
-        for (const normatividad of falta.normatividadInfringida) {
+        const normsConDatos = (falta.normatividadInfringida ?? []).filter((n: any) => n?.nombreNormatividad || n?.articulo);
+        for (const normatividad of normsConDatos) {
           const normatividadData = {
             nombreNormatividad: normatividad.nombreNormatividad,
             articulo: normatividad.articulo,
@@ -804,7 +808,8 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
       // ============================================
       // 8. TIPO DE SANCION (O2M complejo)
       // ============================================
-      for (const sancion of data.tipoSancion) {
+      const sancionesFiltradas = (data.tipoSancion ?? []).filter((s: any) => s?.clave);
+      for (const sancion of sancionesFiltradas) {
         let suspensionEmpleoId = null;
         let destitucionEmpleoId = null;
         let sancionEconomicaId = null;
@@ -876,7 +881,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                 moneda: sancion.sancionEconomica.moneda,
                 fechaPagoTotal: sancion.sancionEconomica.fechaPagoTotal,
                 plazoPago: plazoPagoId,
-                sancionEfectivamenteCobrada: efectivamenteCobradaId,
+                efectivamenteCobrado: efectivamenteCobradaId,
                 entePublico: entePublico,
               };
               const newSancionEconomica = await directus.request(
