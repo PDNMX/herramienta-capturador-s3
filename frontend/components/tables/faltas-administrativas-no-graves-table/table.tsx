@@ -3,9 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { Heading } from "@/components/ui/heading";
-import { Separator } from "@/components/ui/separator";
-import { Plus } from "lucide-react";
+import { Plus, Users } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createColumns } from "./columns";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
@@ -15,25 +13,36 @@ export const FaltasAdministrativasNoGravesTable = ({ data }: any) => {
     const { session } = useCurrentSession();
 
     return (
-        <>
-            <div className="flex items-start justify-between">
-                <Heading
-                    title="Faltas Administrativas No Graves - Servidores Públicos"
-                    description={`Gestión de ${data.length} registro${data.length !== 1 ? 's' : ''}`}
-                />
+        <div className="space-y-6">
+            <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                    <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-950/50 shrink-0">
+                        <Users className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                    </div>
+                    <div>
+                        <h2 className="text-xl font-bold tracking-tight text-foreground leading-none mb-1">
+                            Faltas Administrativas No Graves
+                        </h2>
+                        <p className="text-sm text-muted-foreground">
+                            Servidores Públicos
+                            <span className="mx-2 text-border">·</span>
+                            {data.length} {data.length !== 1 ? "registros" : "registro"}
+                        </p>
+                    </div>
+                </div>
                 <Button
-                    className="text-xs md:text-sm"
+                    size="sm"
+                    className="text-xs md:text-sm gap-1.5 shrink-0"
                     onClick={() => router.push(`/inicio/faltas-administrativas-no-graves/nueva`)}
                 >
-                    <Plus className="mr-2 h-4 w-4" /> Agregar nueva
+                    <Plus className="h-4 w-4" /> Agregar nueva
                 </Button>
             </div>
-            <Separator />
             <DataTable
                 searchKey="expediente"
                 columns={createColumns(session)}
                 data={data}
             />
-        </>
+        </div>
     );
 };

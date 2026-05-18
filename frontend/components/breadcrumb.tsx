@@ -14,29 +14,29 @@ type BreadCrumbPropsType = {
 
 export default function BreadCrumb({ items }: BreadCrumbPropsType) {
   return (
-    <div className="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
+    <nav className="mb-6 flex items-center space-x-1 text-xs text-muted-foreground">
       <Link
         href={"/inicio"}
-        className="overflow-hidden text-ellipsis whitespace-nowrap"
+        className="hover:text-foreground transition-colors truncate"
       >
         Inicio
       </Link>
       {items?.map((item: BreadCrumbType, index: number) => (
         <React.Fragment key={item.title}>
-          <ChevronRightIcon className="h-4 w-4" />
+          <ChevronRightIcon className="h-3.5 w-3.5 shrink-0 opacity-50" />
           <Link
             href={item.link}
             className={cn(
-              "font-medium",
+              "truncate transition-colors",
               index === items.length - 1
-                ? "text-foreground pointer-events-none"
-                : "text-muted-foreground",
+                ? "text-foreground font-medium pointer-events-none"
+                : "hover:text-foreground",
             )}
           >
             {item.title}
           </Link>
         </React.Fragment>
       ))}
-    </div>
+    </nav>
   );
 }

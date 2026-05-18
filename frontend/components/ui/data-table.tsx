@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 
-import React from 'react';
+import React from "react";
 import {
   ColumnDef,
   flexRender,
@@ -21,14 +21,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "./input";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUp, ArrowDown, ArrowUpDown, Search, FileX } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
-  columnsShow: object;
+  columnsShow?: object;
 }
 
 export function DataTable<TData, TValue>({
@@ -44,7 +43,7 @@ export function DataTable<TData, TValue>({
     columns,
     state: {
       sorting,
-      columnVisibility: columnsShow,
+      columnVisibility: columnsShow ?? {},
     },
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
@@ -52,78 +51,120 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
   });
 
+  const filteredCount = table.getFilteredRowModel().rows.length;
+
   return (
-    <>
-      <Input
-        placeholder={`Buscar por ${searchKey}...`}
-        value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn(searchKey)?.setFilterValue(event.target.value)
-        }
-        className="w-full mb-4"
-      />
-      <div className="rounded-md border h-[calc(80vh-150px)] overflow-y-auto">
-        {/* Encabezado con 'sticky' */}
-        <table className="min-w-full border-collapse">
-          <thead className="sticky top-0 z-10 bg-gray-200 dark:bg-gray-800">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <th
-                    key={header.id}
-                    className={`
-                      ${header.column.id === "nombre" ? "text-left" : "text-center"}
-                      ${header.column.getCanSort() ? 'cursor-pointer select-none' : ''}
-                      relative group transition-colors duration-200 hover:bg-gray-300 dark:hover:bg-gray-700
-                      px-4 py-2
-                    `}
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    <div className="flex items-center justify-between">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {header.column.getCanSort() && (
-                        <span className="text-gray-600 dark:text-gray-200 absolute right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                          <ArrowUpDown className="h-4 w-4" />
-                        </span>
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <td
-                      key={cell.id}
-                      className={`py-2 px-4 border-b ${
-                        cell.column.id === "nombre" ? "text-left" : "text-center"
-                      } dark:text-gray-100`}
-                    >
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={columns.length}
-                  className="h-24 text-center text-xl"
-                >
-                  Sin resultados
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+    <div className="space-y-4">
+      {/* Search bar */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+        <Input
+          placeholder={`Buscar por ${searchKey}...`}
+          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
+          onChange={(e) =>
+            table.getColumn(searchKey)?.setFilterValue(e.target.value)
+          }
+          className="pl-9 w-full"
+        />
       </div>
-    </>
+
+      {/* Table container */}
+      <div className="rounded-xl border border-border overflow-hidden shadow-sm">
+        <div className="h-[calc(80vh-200px)] overflow-y-auto">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr
+                  key={headerGroup.id}
+                  className="bg-muted/60 border-b border-border"
+                >
+                  {headerGroup.headers.map((header) => {
+                    const sorted = header.column.getIsSorted();
+                    return (
+                      <TableHead
+                        key={header.id}
+                        className={`
+                          text-xs font-semibold uppercase tracking-wider text-muted-foreground
+                          py-3 px-4 whitespace-nowrap
+                          ${header.column.getCanSort() ? "cursor-pointer select-none hover:text-foreground transition-colors" : ""}
+                        `}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                          {header.column.getCanSort() && (
+                            <span className="ml-auto shrink-0">
+                              {sorted === "asc" ? (
+                                <ArrowUp className="h-3.5 w-3.5 text-primary" />
+                              ) : sorted === "desc" ? (
+                                <ArrowDown className="h-3.5 w-3.5 text-primary" />
+                              ) : (
+                                <ArrowUpDown className="h-3.5 w-3.5 opacity-30" />
+                              )}
+                            </span>
+                          )}
+                        </div>
+                      </TableHead>
+                    );
+                  })}
+                </tr>
+              ))}
+            </TableHeader>
+
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row, index) => (
+                  <TableRow
+                    key={row.id}
+                    className={`
+                      border-b border-border/60 transition-colors
+                      hover:bg-primary/5
+                      ${index % 2 === 0 ? "bg-background" : "bg-muted/20"}
+                    `}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        className="py-3 px-4 text-sm"
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-48 text-center"
+                  >
+                    <div className="flex flex-col items-center gap-3 text-muted-foreground">
+                      <FileX className="h-10 w-10 opacity-30" />
+                      <p className="text-sm font-medium">Sin resultados</p>
+                      <p className="text-xs opacity-70">
+                        No se encontraron registros con los filtros aplicados.
+                      </p>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+
+      {/* Footer count */}
+      <p className="text-xs text-muted-foreground text-right">
+        {filteredCount === data.length
+          ? `${data.length} registro${data.length !== 1 ? "s" : ""} en total`
+          : `${filteredCount} de ${data.length} registro${data.length !== 1 ? "s" : ""}`}
+      </p>
+    </div>
   );
 }

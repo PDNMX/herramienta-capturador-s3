@@ -1,6 +1,8 @@
 import {
   AlertTriangle,
+  AlertCircle,
   ArrowRight,
+  Building2,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -24,14 +26,13 @@ import {
   Settings,
   SunMedium,
   Trash,
-  Twitter,
   User,
   User2Icon,
   UserX2Icon,
   X,
   Hotel,
   Users,
-  Notebook, // Nuevo import para el icono Book
+  Notebook,
   Shield,
 } from "lucide-react";
 
@@ -79,10 +80,11 @@ export const Icons = {
       ></path>
     </svg>
   ),
-  twitter: Twitter,
   check: Check,
   company: Hotel,
   users: Users,
-  notebook: Notebook, // Nuevo icono agregado
+  notebook: Notebook,
   shield: Shield,
+  building: Building2,
+  alertCircle: AlertCircle,
 };

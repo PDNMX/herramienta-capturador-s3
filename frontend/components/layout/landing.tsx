@@ -20,26 +20,24 @@ export default function Landing() {
             {/* Anillos de pulso múltiples */}
             <div className="absolute inset-0 animate-ping rounded-full bg-primary/20 blur-xl" style={{ animationDuration: '3s' }} />
             <div className="absolute inset-0 animate-pulse rounded-full bg-primary/30 blur-2xl" style={{ animationDuration: '4s' }} />
-            
+
             {/* Círculo exterior giratorio */}
             <div className="absolute -inset-4 rounded-full border-2 border-dashed border-primary/30 animate-spin" style={{ animationDuration: '20s' }} />
-            
+
             {/* Escudo principal */}
             <div className="relative flex h-36 w-36 items-center justify-center rounded-full border-4 border-primary/40 bg-gradient-to-br from-primary/30 via-primary/10 to-transparent shadow-2xl shadow-primary/40">
               {/* Efecto de brillo interno */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/10 to-transparent" />
-              
-              {/* Icono del sistema con Image de Next.js */}
-              <Image 
-                src={logoS3} // Si usas import (Opción B o C)
-                // src="/ico_s3.svg" // Si el archivo está en public/ (Opción A)
-                alt="Sistema Nacional" 
+
+              <Image
+                src={logoS3}
+                alt="Sistema Nacional"
                 width={80}
                 height={80}
                 className="drop-shadow-2xl"
                 priority
               />
-              
+
               {/* Destellos */}
               <div className="absolute top-1/4 right-1/4 h-2 w-2 rounded-full bg-white/80 blur-sm animate-pulse" />
               <div className="absolute bottom-1/3 left-1/3 h-1.5 w-1.5 rounded-full bg-white/60 blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
@@ -53,7 +51,6 @@ export default function Landing() {
             <span className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-transparent animate-shimmer bg-[length:200%_auto]">
               Sistema Nacional
             </span>
-            {/* Línea decorativa debajo */}
             <div className="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
           </span>
           <br />

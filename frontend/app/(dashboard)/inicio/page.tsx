@@ -8,9 +8,6 @@ import { aggregate, withToken } from "@directus/sdk";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -20,10 +17,12 @@ import {
   User,
   TrendingUp,
   ArrowRight,
-  LayoutDashboard,
+  Database,
+  RefreshCw,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { signOut } from "next-auth/react";
 
 interface DashboardData {
   faltasGravesServidores: number;
@@ -33,6 +32,57 @@ interface DashboardData {
   totalFaltas: number;
   ultimaActualizacion: string;
 }
+
+const categoryCards = [
+  {
+    title: "Faltas Administrativas Graves",
+    subtitle: "Servidores Públicos",
+    key: "faltasGravesServidores" as const,
+    icon: AlertCircle,
+    color: "from-red-500 to-rose-600",
+    textColor: "text-red-600 dark:text-red-400",
+    bgColor: "bg-red-50 dark:bg-red-950/30",
+    borderColor: "border-red-200 dark:border-red-800",
+    progressColor: "bg-gradient-to-r from-red-500 to-rose-600",
+    href: "/inicio/faltas-administrativas-graves",
+  },
+  {
+    title: "Faltas Administrativas No Graves",
+    subtitle: "Servidores Públicos",
+    key: "faltasNoGravesServidores" as const,
+    icon: Users,
+    color: "from-amber-500 to-orange-500",
+    textColor: "text-amber-600 dark:text-amber-400",
+    bgColor: "bg-amber-50 dark:bg-amber-950/30",
+    borderColor: "border-amber-200 dark:border-amber-800",
+    progressColor: "bg-gradient-to-r from-amber-500 to-orange-500",
+    href: "/inicio/faltas-administrativas-no-graves",
+  },
+  {
+    title: "Faltas Graves",
+    subtitle: "Personas Morales",
+    key: "faltasGravesPersonasMorales" as const,
+    icon: Building2,
+    color: "from-violet-500 to-purple-600",
+    textColor: "text-violet-600 dark:text-violet-400",
+    bgColor: "bg-violet-50 dark:bg-violet-950/30",
+    borderColor: "border-violet-200 dark:border-violet-800",
+    progressColor: "bg-gradient-to-r from-violet-500 to-purple-600",
+    href: "/inicio/faltas-graves-pm",
+  },
+  {
+    title: "Faltas Graves",
+    subtitle: "Personas Físicas",
+    key: "faltasGravesPersonasFisicas" as const,
+    icon: User,
+    color: "from-blue-500 to-indigo-600",
+    textColor: "text-blue-600 dark:text-blue-400",
+    bgColor: "bg-blue-50 dark:bg-blue-950/30",
+    borderColor: "border-blue-200 dark:border-blue-800",
+    progressColor: "bg-gradient-to-r from-blue-500 to-indigo-600",
+    href: "/inicio/faltas-graves-pf",
+  },
+];
 
 export default function Page() {
   const { session, status } = useCurrentSession();
@@ -44,38 +94,18 @@ export default function Page() {
     totalFaltas: 0,
     ultimaActualizacion: "—",
   });
-
   const [isLoaded, setIsLoaded] = useState(false);
 
   const fetchData = async () => {
     if (!session?.access_token) return;
+    setIsLoaded(false);
     try {
       const [gravesServidores, noGravesServidores, gravesMorales, gravesFisicas] =
         await Promise.all([
-          directus.request(
-            withToken(
-              session.access_token,
-              aggregate("faltas_administrativas_graves", { aggregate: { count: "*" } })
-            )
-          ),
-          directus.request(
-            withToken(
-              session.access_token,
-              aggregate("faltas_administrativas_no_graves", { aggregate: { count: "*" } })
-            )
-          ),
-          directus.request(
-            withToken(
-              session.access_token,
-              aggregate("faltas_graves_personas_morales", { aggregate: { count: "*" } })
-            )
-          ),
-          directus.request(
-            withToken(
-              session.access_token,
-              aggregate("faltas_graves_personas_fisicas", { aggregate: { count: "*" } })
-            )
-          ),
+          directus.request(withToken(session.access_token, aggregate("faltas_administrativas_graves", { aggregate: { count: "*" } }))),
+          directus.request(withToken(session.access_token, aggregate("faltas_administrativas_no_graves", { aggregate: { count: "*" } }))),
+          directus.request(withToken(session.access_token, aggregate("faltas_graves_personas_morales", { aggregate: { count: "*" } }))),
+          directus.request(withToken(session.access_token, aggregate("faltas_graves_personas_fisicas", { aggregate: { count: "*" } }))),
         ]);
 
       const counts = {
@@ -106,96 +136,61 @@ export default function Page() {
     if (status === "authenticated" && !session?.forceLogout) {
       fetchData();
     }
+    if (session?.forceLogout) {
+      signOut({ callbackUrl: "/" });
+    }
   }, [session, status]);
-
-  const categoryCards = [
-    {
-      title: "Faltas Administrativas Graves",
-      subtitle: "Servidores Públicos",
-      value: data.faltasGravesServidores,
-      icon: AlertCircle,
-      color: "from-red-500 to-rose-600",
-      textColor: "text-red-600 dark:text-red-400",
-      bgColor: "bg-red-50 dark:bg-red-950/30",
-      borderColor: "border-red-200 dark:border-red-800",
-      progressColor: "bg-gradient-to-r from-red-500 to-rose-600",
-      href: "/inicio/faltas-administrativas-graves",
-    },
-    {
-      title: "Faltas Administrativas No Graves",
-      subtitle: "Servidores Públicos",
-      value: data.faltasNoGravesServidores,
-      icon: Users,
-      color: "from-amber-500 to-orange-500",
-      textColor: "text-amber-600 dark:text-amber-400",
-      bgColor: "bg-amber-50 dark:bg-amber-950/30",
-      borderColor: "border-amber-200 dark:border-amber-800",
-      progressColor: "bg-gradient-to-r from-amber-500 to-orange-500",
-      href: "/inicio/faltas-administrativas-no-graves",
-    },
-    {
-      title: "Faltas Graves",
-      subtitle: "Personas Morales",
-      value: data.faltasGravesPersonasMorales,
-      icon: Building2,
-      color: "from-violet-500 to-purple-600",
-      textColor: "text-violet-600 dark:text-violet-400",
-      bgColor: "bg-violet-50 dark:bg-violet-950/30",
-      borderColor: "border-violet-200 dark:border-violet-800",
-      progressColor: "bg-gradient-to-r from-violet-500 to-purple-600",
-      href: "/inicio/faltas-graves-pm",
-    },
-    {
-      title: "Faltas Graves",
-      subtitle: "Personas Físicas",
-      value: data.faltasGravesPersonasFisicas,
-      icon: User,
-      color: "from-blue-500 to-indigo-600",
-      textColor: "text-blue-600 dark:text-blue-400",
-      bgColor: "bg-blue-50 dark:bg-blue-950/30",
-      borderColor: "border-blue-200 dark:border-blue-800",
-      progressColor: "bg-gradient-to-r from-blue-500 to-indigo-600",
-      href: "/inicio/faltas-graves-pf",
-    },
-  ];
 
   return (
     <ScrollArea className="h-full">
       <div className="flex-1 space-y-8 p-4 md:p-8 pt-6">
 
-        {/* Header Section */}
-        <div className="space-y-1">
+        {/* ── Page Header ── */}
+        <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-primary/10">
-              <LayoutDashboard className="h-6 w-6 text-primary" />
+            <div className="p-2.5 rounded-xl bg-primary/10 shrink-0">
+              <Database className="h-5 w-5 text-primary" />
             </div>
-            <h1 className="text-3xl font-bold tracking-tight">
-              Sistema 3
-            </h1>
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight leading-none mb-1">
+                Panel de Control
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Sistema Nacional de Servidores Públicos y Particulares Sancionados
+              </p>
+            </div>
           </div>
-          <p className="text-muted-foreground pl-14">
-            Sistema Nacional de Servidores Públicos y Particulares Sancionados
-          </p>
+          <button
+            onClick={fetchData}
+            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors mt-1"
+          >
+            <RefreshCw className="h-3.5 w-3.5" />
+            Actualizar
+          </button>
         </div>
 
-        {/* Welcome + Total — Hero Row */}
+        {/* ── Hero Row: Welcome + Total ── */}
         <div className="grid gap-4 md:grid-cols-3">
-          {/* Welcome Card */}
-          <Card className="md:col-span-2 border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/8 to-transparent">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-xl flex items-center gap-2">
-                Bienvenido,{" "}
-                <span className="text-primary">
-                  {session?.user?.name || "Usuario"}
-                </span>
-              </CardTitle>
-              <CardDescription className="text-sm leading-relaxed">
-                Herramienta de captura y gestión de sanciones administrativas. 
-                Aquí puedes consultar, registrar y administrar los expedientes de faltas.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-2">
+
+          {/* Welcome card */}
+          <Card className="md:col-span-2 border border-primary/20 bg-gradient-to-br from-primary/5 via-primary/[0.07] to-transparent">
+            <CardContent className="p-6 h-full flex flex-col">
+              {/* Text block — top */}
+              <div className="space-y-1.5">
+                <p className="text-base font-semibold leading-snug">
+                  Bienvenido,{" "}
+                  <span className="text-primary">
+                    {session?.user?.name || "Usuario"}
+                  </span>
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Herramienta de captura y gestión de sanciones administrativas.
+                  Consulta, registra y administra expedientes de faltas.
+                </p>
+              </div>
+
+              {/* Pills — pushed to bottom */}
+              <div className="mt-auto pt-4 border-t border-primary/10 flex flex-wrap gap-2">
                 {categoryCards.map((c, i) => (
                   <Link
                     key={i}
@@ -218,43 +213,66 @@ export default function Page() {
           </Card>
 
           {/* Total Counter Card */}
-          <Card className="border-2 border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-            <CardContent className="p-6 h-full flex flex-col justify-between">
+          <Card className="border border-border bg-card overflow-hidden relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+            <CardContent className="p-6 h-full flex flex-col gap-4 relative">
+              {/* Label + icon */}
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                   Total Registros
                 </p>
-                <div className="p-2 bg-slate-800 dark:bg-slate-600 rounded-lg">
-                  <TrendingUp className="h-4 w-4 text-white" />
+                <div className="p-2 bg-primary/10 rounded-lg shrink-0">
+                  <TrendingUp className="h-4 w-4 text-primary" />
                 </div>
               </div>
-              <div>
-                <div
-                  className={cn(
-                    "text-6xl font-black tabular-nums transition-all duration-700",
-                    isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                  )}
-                >
-                  {data.totalFaltas.toLocaleString("es-MX")}
-                </div>
-                <p className="text-xs text-muted-foreground mt-2">
-                  Actualizado: {data.ultimaActualizacion}
-                </p>
+              {/* Number */}
+              <div
+                className={cn(
+                  "text-5xl font-black tabular-nums text-foreground transition-all duration-700 leading-none",
+                  isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                )}
+              >
+                {data.totalFaltas.toLocaleString("es-MX")}
               </div>
+              {/* Mini bar chart */}
+              <div className="flex gap-1.5 h-10 items-end mt-auto">
+                {categoryCards.map((c, i) => {
+                  const val = data[c.key] ?? 0;
+                  const pct = data.totalFaltas > 0 ? (val / data.totalFaltas) * 100 : 0;
+                  return (
+                    <div key={i} title={`${c.subtitle}: ${val}`} className="flex-1 flex flex-col justify-end h-full">
+                      <div
+                        className={cn("w-full rounded-sm transition-all duration-700", c.progressColor)}
+                        style={{
+                          height: `${Math.max(pct, 8)}%`,
+                          transitionDelay: `${i * 100 + 400}ms`,
+                          opacity: isLoaded ? 1 : 0,
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              {/* Timestamp */}
+              <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500 shrink-0" />
+                Actualizado: {data.ultimaActualizacion}
+              </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Category Cards Grid */}
+        {/* ── Category Cards Grid ── */}
         <div>
-          <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-widest mb-4">
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-4">
             Desglose por categoría
-          </h2>
+          </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {categoryCards.map((category, index) => {
+              const value = data[category.key] ?? 0;
               const percentage =
                 data.totalFaltas > 0
-                  ? ((category.value / data.totalFaltas) * 100).toFixed(1)
+                  ? ((value / data.totalFaltas) * 100).toFixed(1)
                   : "0.0";
 
               return (
@@ -280,25 +298,26 @@ export default function Page() {
                       )}
                     />
 
-                    <CardHeader className="pb-2">
+                    <CardContent className="p-5 flex flex-col gap-4 flex-1">
+                      {/* Header row: subtitle pill + icon */}
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1">
-                          <div
+                        <div className="flex-1 min-w-0">
+                          <span
                             className={cn(
-                              "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold mb-2",
+                              "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold",
                               category.bgColor,
                               category.textColor
                             )}
                           >
                             {category.subtitle}
-                          </div>
-                          <CardTitle className="text-sm leading-snug">
+                          </span>
+                          <p className="text-sm font-semibold text-foreground mt-2 leading-snug">
                             {category.title}
-                          </CardTitle>
+                          </p>
                         </div>
                         <div
                           className={cn(
-                            "p-2.5 rounded-xl bg-gradient-to-br shadow-md",
+                            "p-2.5 rounded-xl bg-gradient-to-br shadow-md shrink-0",
                             "group-hover:scale-110 transition-transform duration-300",
                             category.color
                           )}
@@ -306,31 +325,29 @@ export default function Page() {
                           <category.icon className="h-5 w-5 text-white" />
                         </div>
                       </div>
-                    </CardHeader>
 
-                    <CardContent className="space-y-3 flex-1 flex flex-col justify-between">
-                      {/* Count */}
-                      <div
-                        className={cn(
-                          "text-5xl font-black tabular-nums transition-all duration-700",
-                          category.textColor,
-                          isLoaded ? "opacity-100" : "opacity-0"
-                        )}
-                      >
-                        {category.value.toLocaleString("es-MX")}
+                      {/* Count — pushed down with mt-auto so it's always at the same vertical position */}
+                      <div className="mt-auto">
+                        <div
+                          className={cn(
+                            "text-4xl font-black tabular-nums leading-none transition-all duration-700",
+                            category.textColor,
+                            isLoaded ? "opacity-100" : "opacity-0"
+                          )}
+                        >
+                          {value.toLocaleString("es-MX")}
+                        </div>
                       </div>
 
                       {/* Progress bar */}
                       <div className="space-y-1.5">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-muted-foreground">
-                            Del total
-                          </span>
-                          <span className={cn("text-xs font-bold", category.textColor)}>
+                          <span className="text-xs text-muted-foreground">Del total</span>
+                          <span className={cn("text-xs font-bold tabular-nums", category.textColor)}>
                             {percentage}%
                           </span>
                         </div>
-                        <div className="h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                           <div
                             className={cn("h-full rounded-full transition-all duration-1000 ease-out", category.progressColor)}
                             style={{
@@ -344,7 +361,7 @@ export default function Page() {
                       {/* Footer */}
                       <div
                         className={cn(
-                          "pt-2 border-t flex items-center justify-between",
+                          "pt-3 border-t flex items-center justify-between",
                           category.borderColor
                         )}
                       >
@@ -353,9 +370,9 @@ export default function Page() {
                         </span>
                         <span
                           className={cn(
-                            "text-xs font-semibold flex items-center gap-1",
+                            "text-xs font-semibold flex items-center gap-1 transition-all",
                             category.textColor,
-                            "group-hover:gap-2 transition-all"
+                            "group-hover:gap-2"
                           )}
                         >
                           Ver registros
@@ -377,6 +394,7 @@ export default function Page() {
             })}
           </div>
         </div>
+
       </div>
     </ScrollArea>
   );

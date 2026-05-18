@@ -1,6 +1,10 @@
 // Protecting routes with next-auth
-// https://next-auth.js.org/configuration/nextjs#middleware
-// https://nextjs.org/docs/app/building-your-application/routing/middleware
+import { withAuth } from "next-auth/middleware";
 
-export { default } from "next-auth/middleware";
+export default withAuth({
+  pages: {
+    signIn: "/",
+  },
+});
+
 export const config = { matcher: ["/inicio/:path*"] };

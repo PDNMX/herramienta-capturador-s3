@@ -5,12 +5,12 @@ import BreadCrumb from "@/components/breadcrumb";
 import { FaltasAdministrativasNoGravesForm } from "@/components/forms/faltasNoGraves/faltas-administrativas-no-graves-form";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import directus from "@/lib/directus";
 import { readItems, withToken } from "@directus/sdk";
 
 export default function Page({ params }) {
-  const { faltaId } = params;
+  const { faltaId } = use(params);
   const { session, status } = useCurrentSession();
 
   const [falta, setFalta] = useState(null);

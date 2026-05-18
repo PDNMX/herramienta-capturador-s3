@@ -1,6 +1,5 @@
 import Providers from "@/components/layout/providers";
 import { Toaster } from "@/components/ui/toaster";
-import "@uploadthing/react/styles.css";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { getServerSession } from "next-auth";

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useSession } from "next-auth/react";
@@ -16,14 +15,17 @@ export function LoginNav() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="secondary" className="relative text-xs md:text-sm rounded-full">
+          <Button variant="outline" size="sm" className="rounded-full px-5 text-sm font-medium">
             Ingresar
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-100" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
-            <UserAuthForm/>
-          </DropdownMenuLabel>
+        <DropdownMenuContent
+          className="w-72 rounded-xl border border-border p-6 shadow-xl"
+          align="end"
+          forceMount
+        >
+          <p className="mb-1 text-sm font-semibold text-foreground">Iniciar sesión</p>
+          <UserAuthForm />
         </DropdownMenuContent>
       </DropdownMenu>
     );
