@@ -51,5 +51,10 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.59.3"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.14"
+    }
   }
 }
