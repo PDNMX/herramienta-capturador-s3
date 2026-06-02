@@ -96,40 +96,53 @@ export default function Page() {
   });
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Wrapper que devuelve 0 si no tiene permisos en lugar de explotar
+  const safeAggregate = async (collection: string) => {
+    try {
+      const result = await directus.request(
+        withToken(session!.access_token, aggregate(collection, { aggregate: { count: "*" } }))
+      );
+      return parseInt((result as any)[0]?.count ?? "0");
+    } catch {
+      return 0;
+    }
+  };
+
   const fetchData = async () => {
     if (!session?.access_token) return;
     setIsLoaded(false);
-    try {
-      const [gravesServidores, noGravesServidores, gravesMorales, gravesFisicas] =
-        await Promise.all([
-          directus.request(withToken(session.access_token, aggregate("faltas_administrativas_graves", { aggregate: { count: "*" } }))),
-          directus.request(withToken(session.access_token, aggregate("faltas_administrativas_no_graves", { aggregate: { count: "*" } }))),
-          directus.request(withToken(session.access_token, aggregate("faltas_graves_personas_morales", { aggregate: { count: "*" } }))),
-          directus.request(withToken(session.access_token, aggregate("faltas_graves_personas_fisicas", { aggregate: { count: "*" } }))),
-        ]);
 
-      const counts = {
-        faltasGravesServidores: parseInt(gravesServidores[0]?.count ?? "0"),
-        faltasNoGravesServidores: parseInt(noGravesServidores[0]?.count ?? "0"),
-        faltasGravesPersonasMorales: parseInt(gravesMorales[0]?.count ?? "0"),
-        faltasGravesPersonasFisicas: parseInt(gravesFisicas[0]?.count ?? "0"),
-      };
+    const [
+      faltasGravesServidores,
+      faltasNoGravesServidores,
+      faltasGravesPersonasMorales,
+      faltasGravesPersonasFisicas,
+    ] = await Promise.all([
+      safeAggregate("faltas_administrativas_graves"),
+      safeAggregate("faltas_administrativas_no_graves"),
+      safeAggregate("faltas_graves_personas_morales"),
+      safeAggregate("faltas_graves_personas_fisicas"),
+    ]);
 
-      const total = Object.values(counts).reduce((acc, val) => acc + val, 0);
+    const counts = {
+      faltasGravesServidores,
+      faltasNoGravesServidores,
+      faltasGravesPersonasMorales,
+      faltasGravesPersonasFisicas,
+    };
 
-      setData({
-        ...counts,
-        totalFaltas: total,
-        ultimaActualizacion: new Date().toLocaleString("es-MX", {
-          dateStyle: "medium",
-          timeStyle: "short",
-        }),
-      });
+    const total = Object.values(counts).reduce((acc, val) => acc + val, 0);
 
-      setTimeout(() => setIsLoaded(true), 100);
-    } catch (error) {
-      console.error("Error al cargar los datos:", error);
-    }
+    setData({
+      ...counts,
+      totalFaltas: total,
+      ultimaActualizacion: new Date().toLocaleString("es-MX", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }),
+    });
+
+    setTimeout(() => setIsLoaded(true), 100);
   };
 
   useEffect(() => {

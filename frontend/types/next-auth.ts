@@ -10,19 +10,25 @@ declare module "next-auth" {
     expires: number
     refresh_token: string
     entePublico: string
+    entePublicoNombre: string
+    role: string
+    roleName: string
   }
 
   interface Session {
     user: DefaultSession["user"] & {
       id?: string
       entePublico?: string
+      entePublicoNombre?: string
+      role?: string
+      roleName?: string
     }
     access_token?: string
     expires_at?: number
     refresh_token?: string
     tokenIsRefreshed: boolean | null
     error?: string | null
-    forceLogout?: boolean;
+    forceLogout?: boolean
   }
 }
 
@@ -33,7 +39,7 @@ declare module "next-auth/jwt" {
     refresh_token?: string
     error?: string | null
     tokenIsRefreshed?: boolean | null
-    user?: UserParams  // IMPORTANTE: Agregar esto para mantener los datos del usuario en el token
+    user?: UserParams
     forceLogout?: boolean
   }
 }
@@ -45,21 +51,36 @@ export type AuthRefresh = {
 }
 
 export type UserSession = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  access_token?: string;
-  expires?: number;
-  refresh_token?: string;
-  entePublico?: string;
+  id: string
+  first_name: string
+  last_name: string
+  email: string
+  access_token?: string
+  expires?: number
+  refresh_token?: string
+  entePublico?: string
+  entePublicoNombre?: string
+  role?: string
+  roleName?: string
 }
 
 export type UserParams = {
-  id?: string;
-  name?: string;
-  first_name?: string;
-  last_name?: string;
-  email?: string;
-  entePublico?: string;
+  id?: string
+  name?: string
+  first_name?: string
+  last_name?: string
+  email?: string
+  entePublico?: string
+  entePublicoNombre?: string
+  role?: string
+  roleName?: string
 }
+
+// Role name constant — matches Directus role name exactly
+export const ROLES = {
+  ADMINISTRADOR: "Administrador",
+  CAPTURADOR: "Usuario-Capturador",
+  API: "Api-Interconexion",
+} as const
+
+export type RoleName = typeof ROLES[keyof typeof ROLES]

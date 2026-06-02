@@ -1,5 +1,15 @@
 import { NavItem } from "@/types";
 
+export const adminNavItems: NavItem[] = [
+  {
+    title: "Usuarios",
+    href: "/inicio/administracion/usuarios",
+    icon: "usersAdmin",
+    label: "usuarios",
+    description: "Gestión de usuarios del sistema",
+  },
+];
+
 export const navItems: NavItem[] = [
   {
     title: "Inicio",

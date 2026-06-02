@@ -28,12 +28,36 @@ DECLARE
 BEGIN
     -- Obtener el ID del administrador
     RAISE NOTICE '👤 Obteniendo ID del usuario administrador...';
-    SELECT u.id INTO admin_id 
+    SELECT u.id INTO admin_id
     FROM directus_users u
     JOIN directus_roles r ON u.role = r.id
     WHERE r.name = 'Administrator'
     LIMIT 1;
     RAISE NOTICE '✅ ID del administrador obtenido';
+
+    -- Crear rol Administrador del sistema S3
+    RAISE NOTICE '🔐 Creando rol Administrador S3...';
+    INSERT INTO directus_roles (
+        id, name, icon, description, ip_access,
+        enforce_tfa, admin_access, app_access
+    ) VALUES (
+        'e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b',
+        'Administrador',
+        'admin_panel_settings',
+        'Administrador del sistema S3. Gestión completa de usuarios, roles y datos.',
+        NULL,
+        false,
+        true,
+        true
+    ) ON CONFLICT (id) DO UPDATE SET
+        name = EXCLUDED.name,
+        icon = EXCLUDED.icon,
+        description = EXCLUDED.description,
+        admin_access = EXCLUDED.admin_access,
+        app_access = EXCLUDED.app_access;
+    RAISE NOTICE '✅ Rol Administrador S3 creado/actualizado';
+
+    RAISE NOTICE '✅ Roles creados. Los permisos se aplican en el bloque siguiente.';
 
     -- Insertar el archivo del logo
     RAISE NOTICE '🖼️ Insertando archivo del logo...';
@@ -160,6 +184,108 @@ BEGIN
         public_registration = EXCLUDED.public_registration,
         public_registration_verify_email = EXCLUDED.public_registration_verify_email;
     RAISE NOTICE '✅ Ajustes de Directus configurados';
+END $$;
+
+
+-- ============================================================
+-- PERMISOS DEL ROL CAPTURISTA
+-- Basados en los permisos de Usuario-Capturador (roles.json)
+-- ============================================================
+DO $$
+DECLARE
+    leg_role  uuid := 'a5862643-ea54-43ac-af3d-0ff8809ff93f';
+
+    -- Colecciones principales de faltas (read/update también filtradas por entePublico)
+    main_cols text[] := ARRAY[
+        'faltas_administrativas_graves',
+        'faltas_graves_personas_morales',
+        'faltas_administrativas_no_graves',
+        'faltas_graves_personas_fisicas'
+    ];
+
+    -- Colecciones hijas (update sin filtro)
+    child_cols text[] := ARRAY[
+        'datos_generales_personas_fisicas', 'origen_procedimiento',
+        'tipo_sancion_personas_fisicas', 'falta_cometida_particulares',
+        'resolucion', 'donde_cometio_falta', 'falta_cometida_graves',
+        'domicilio_mexico', 'falta_cometida_no_graves',
+        'tipo_sancion_personas_morales', 'amonestacion_sancion',
+        'suspension_actividades', 'datos_dg_rp', 'sancion_economica',
+        'disolucion_sociedad', 'plazo_pago', 'destitucion_empleo',
+        'datos_representante', 'suspension_empleo', 'otro_sancion',
+        'inhabilitacion', 'domicilio_extranjero', 'efectivamente_cobrado',
+        'tipo_sancion_graves', 'indemnizacion', 'tipo_sancion_no_graves',
+        'datos_generales_personas_morales', 'datos_generales_graves',
+        'datos_generales_no_graves', 'empleo_cargo_comision_graves',
+        'empleo_cargo_comision_no_graves', 'nivel_jerarquico_graves',
+        'nivel_jerarquico_no_graves', 'domicilio_mexico_morales',
+        'resolucion_no_graves', 'domicilio_extranjero_morales',
+        'efectivamente_cobrado_indemnizacion', 'normatividad_particulares',
+        'resolucion_fisica', 'normatividad_graves', 'normatividad_no_graves',
+        'resolucion_morales', 'falta_cometida_morales', 'normatividad_morales',
+        'plazo_pago_indemnizacion'
+    ];
+
+    coll text;
+    r    uuid;
+    roles_to_process uuid[];
+
+    perm_filtered  jsonb := '{"_and":[{"entePublico":{"_eq":"$CURRENT_USER.entePublico"}}]}';
+    perm_empty     jsonb := '{}';
+    preset_ente    jsonb := '{"entePublico":"$CURRENT_USER.entePublico"}';
+    perm_self_user jsonb := '{"id":{"_eq":"$CURRENT_USER.id"}}';
+
+BEGIN
+    roles_to_process := ARRAY[leg_role];
+    RAISE NOTICE '🔑 Insertando permisos para Usuario-Capturador...';
+
+    FOREACH r IN ARRAY roles_to_process LOOP
+
+        -- ── Colecciones principales: create / read(filtrado) / update(filtrado) ──
+        FOREACH coll IN ARRAY main_cols LOOP
+            INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+            SELECT r, coll, 'create', perm_empty, perm_empty, preset_ente, ARRAY['*']
+            WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection=coll AND action='create');
+
+            INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+            SELECT r, coll, 'read', perm_filtered, perm_empty, NULL, ARRAY['*']
+            WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection=coll AND action='read');
+
+            INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+            SELECT r, coll, 'update', perm_filtered, perm_empty, NULL, ARRAY['*']
+            WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection=coll AND action='update');
+        END LOOP;
+
+        -- ── Colecciones hijas: create(preset) / read(filtrado) / update(vacío) ──
+        FOREACH coll IN ARRAY child_cols LOOP
+            INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+            SELECT r, coll, 'create', perm_empty, perm_empty, preset_ente, ARRAY['*']
+            WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection=coll AND action='create');
+
+            INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+            SELECT r, coll, 'read', perm_filtered, perm_empty, NULL, ARRAY['*']
+            WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection=coll AND action='read');
+
+            INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+            SELECT r, coll, 'update', perm_empty, perm_empty, NULL, ARRAY['*']
+            WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection=coll AND action='update');
+        END LOOP;
+
+        -- ── ente_publico: solo lectura filtrada por id (para perfil y formularios) ──
+        -- Elimina permiso anterior (puede tener filtro incorrecto) y reinserta con filtro correcto
+        DELETE FROM directus_permissions WHERE role=r AND collection='ente_publico' AND action='read';
+        INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+        VALUES (r, 'ente_publico', 'read', '{"id":{"_eq":"$CURRENT_USER.entePublico"}}', '{}', NULL, ARRAY['*']);
+
+        -- ── directus_users: leer propio perfil (para readMe) ──
+        INSERT INTO directus_permissions (role, collection, action, permissions, validation, presets, fields)
+        SELECT r, 'directus_users', 'read', perm_self_user, perm_empty, NULL,
+               ARRAY['id','first_name','last_name','email','entePublico','role','status']
+        WHERE NOT EXISTS (SELECT 1 FROM directus_permissions WHERE role=r AND collection='directus_users' AND action='read');
+
+    END LOOP;
+
+    RAISE NOTICE '✅ Permisos de Usuario-Capturador configurados';
 END $$;
 
 EOF

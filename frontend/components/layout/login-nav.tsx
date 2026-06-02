@@ -15,7 +15,11 @@ export function LoginNav() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" className="rounded-full px-5 text-sm font-medium">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-full px-5 text-sm font-medium bg-white text-primary hover:bg-white/90 hover:text-primary dark:bg-white dark:text-primary dark:hover:bg-white/90"
+          >
             Ingresar
           </Button>
         </DropdownMenuTrigger>

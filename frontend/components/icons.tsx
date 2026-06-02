@@ -4,6 +4,7 @@ import {
   ArrowRight,
   Building2,
   Check,
+  ShieldCheck,
   ChevronLeft,
   ChevronRight,
   CircuitBoardIcon,
@@ -87,4 +88,5 @@ export const Icons = {
   shield: Shield,
   building: Building2,
   alertCircle: AlertCircle,
+  usersAdmin: ShieldCheck,
 };
