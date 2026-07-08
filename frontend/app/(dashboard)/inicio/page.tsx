@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
-import { aggregate, withToken } from "@directus/sdk";
+import { aggregate, readUsers, readItems, withToken } from "@directus/sdk";
 import {
   Card,
   CardContent,
@@ -19,7 +19,10 @@ import {
   ArrowRight,
   Database,
   RefreshCw,
+  ShieldCheck,
+  Activity,
 } from "lucide-react";
+import { ROLES } from "@/types/next-auth";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -94,7 +97,9 @@ export default function Page() {
     totalFaltas: 0,
     ultimaActualizacion: "—",
   });
+  const [adminStats, setAdminStats] = useState({ totalUsuarios: 0, totalEntes: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
+  const isAdmin = session?.user?.roleName === ROLES.ADMINISTRADOR;
 
   // Wrapper que devuelve 0 si no tiene permisos en lugar de explotar
   const safeAggregate = async (collection: string) => {
@@ -112,17 +117,35 @@ export default function Page() {
     if (!session?.access_token) return;
     setIsLoaded(false);
 
+    const isAdminUser = session?.user?.roleName === ROLES.ADMINISTRADOR;
+
+    const promises: Promise<any>[] = [
+      safeAggregate("faltas_administrativas_graves"),
+      safeAggregate("faltas_administrativas_no_graves"),
+      safeAggregate("faltas_graves_personas_morales"),
+      safeAggregate("faltas_graves_personas_fisicas"),
+    ];
+
+    if (isAdminUser) {
+      promises.push(
+        directus.request(withToken(session.access_token, readUsers({ aggregate: { count: "*" } } as any)))
+          .then((r: any) => parseInt(r?.[0]?.count ?? "0")).catch(() => 0),
+        directus.request(withToken(session.access_token, readItems("ente_publico" as any, { aggregate: { count: "*" } } as any)))
+          .then((r: any) => parseInt(r?.[0]?.count ?? "0")).catch(() => 0)
+      );
+    }
+
+    const results = await Promise.all(promises);
     const [
       faltasGravesServidores,
       faltasNoGravesServidores,
       faltasGravesPersonasMorales,
       faltasGravesPersonasFisicas,
-    ] = await Promise.all([
-      safeAggregate("faltas_administrativas_graves"),
-      safeAggregate("faltas_administrativas_no_graves"),
-      safeAggregate("faltas_graves_personas_morales"),
-      safeAggregate("faltas_graves_personas_fisicas"),
-    ]);
+    ] = results;
+
+    if (isAdminUser && results.length >= 6) {
+      setAdminStats({ totalUsuarios: results[4], totalEntes: results[5] });
+    }
 
     const counts = {
       faltasGravesServidores,
@@ -181,6 +204,59 @@ export default function Page() {
             Actualizar
           </button>
         </div>
+
+        {/* ── Admin Stats Row ── */}
+        {isAdmin && (
+          <div className="grid gap-4 md:grid-cols-3">
+            <Card className="border border-violet-200 dark:border-violet-800 bg-violet-50/50 dark:bg-violet-950/20">
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className="p-2.5 rounded-xl bg-violet-100 dark:bg-violet-900/50 shrink-0">
+                  <ShieldCheck className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Usuarios</p>
+                  <p className="text-3xl font-black text-foreground tabular-nums">{adminStats.totalUsuarios}</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card className="border border-blue-200 dark:border-blue-800 bg-blue-50/50 dark:bg-blue-950/20">
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className="p-2.5 rounded-xl bg-blue-100 dark:bg-blue-900/50 shrink-0">
+                  <Building2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Entes Públicos</p>
+                  <p className="text-3xl font-black text-foreground tabular-nums">{adminStats.totalEntes}</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card
+              className="border border-amber-200 dark:border-amber-800 bg-amber-50/50 dark:bg-amber-950/20 cursor-pointer hover:shadow-md transition-shadow"
+              onClick={() => window.location.href = "/inicio/administracion/actividad"}
+            >
+              <CardContent className="p-5 flex items-center gap-4">
+                <div className="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-900/50 shrink-0">
+                  <Activity className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Bitácora</p>
+                  <p className="text-sm font-semibold text-muted-foreground mt-0.5">Ver actividad →</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* ── Capturista: ente info ── */}
+        {!isAdmin && session?.user?.entePublico && (
+          <div className="rounded-xl border border-primary/20 bg-primary/5 px-5 py-3 flex items-center gap-3">
+            <Building2 className="h-4 w-4 text-primary shrink-0" />
+            <p className="text-sm text-muted-foreground">
+              Capturando registros para:{" "}
+              <span className="font-semibold text-foreground">{session.user.entePublicoNombre || session.user.entePublico}</span>
+            </p>
+          </div>
+        )}
 
         {/* ── Hero Row: Welcome + Total ── */}
         <div className="grid gap-4 md:grid-cols-3">

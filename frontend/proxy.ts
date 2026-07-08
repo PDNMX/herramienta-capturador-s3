@@ -10,7 +10,7 @@ export default withAuth({
       const { pathname } = req.nextUrl;
       // Admin routes — only Administrador role
       if (pathname.startsWith("/inicio/administracion")) {
-        return token?.user?.roleName === "Administrador";
+        return token?.user?.roleName === "Administrador-Frontend";
       }
       // All other /inicio routes — any authenticated user
       return !!token;

@@ -3,13 +3,21 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
 import { Badge } from "@/components/ui/badge";
-import { UserCircle } from "lucide-react";
+import { UserCircle, Lock } from "lucide-react";
 
 const roleColors: Record<string, string> = {
-  "Administrador": "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300",
+  "Administrador-Frontend": "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300",
   "Usuario-Capturador": "bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300",
   "Api-Interconexion": "bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300",
 };
+
+const roleDisplayNames: Record<string, string> = {
+  "Administrador-Frontend": "Administrador",
+  "Usuario-Capturador": "Capturista",
+  "Api-Interconexion": "API",
+};
+
+const isDirectusAdmin = (roleName: string) => roleName === "Administrator";
 
 export const createColumns = (session): ColumnDef<any>[] => [
   {
@@ -24,11 +32,16 @@ export const createColumns = (session): ColumnDef<any>[] => [
       const firstName = row.original.first_name ?? "";
       const lastName = row.original.last_name ?? "";
       const email = row.original.email ?? "";
+      const roleName = row.original.role?.name ?? "";
+      const isSystem = isDirectusAdmin(roleName);
       const initials = `${firstName[0] ?? ""}${lastName[0] ?? ""}`.toUpperCase();
       return (
-        <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-            <span className="text-xs font-semibold text-primary">{initials || "?"}</span>
+        <div className={`flex items-center gap-3 ${isSystem ? "opacity-60" : ""}`}>
+          <div className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 ${isSystem ? "bg-muted" : "bg-primary/10"}`}>
+            {isSystem
+              ? <Lock className="h-3.5 w-3.5 text-muted-foreground" />
+              : <span className="text-xs font-semibold text-primary">{initials || "?"}</span>
+            }
           </div>
           <div>
             <p className="font-medium text-sm leading-none">
@@ -56,10 +69,20 @@ export const createColumns = (session): ColumnDef<any>[] => [
     header: "Rol",
     cell: ({ row }) => {
       const roleName = row.original.role?.name ?? "Sin rol";
+      const isSystem = isDirectusAdmin(roleName);
+      if (isSystem) {
+        return (
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+            <Lock className="h-3 w-3" />
+            Usuario del Sistema
+          </span>
+        );
+      }
       const colorClass = roleColors[roleName] ?? "bg-muted text-muted-foreground";
+      const displayName = roleDisplayNames[roleName] ?? roleName;
       return (
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colorClass}`}>
-          {roleName}
+          {displayName}
         </span>
       );
     },
@@ -85,7 +108,11 @@ export const createColumns = (session): ColumnDef<any>[] => [
   {
     id: "actions",
     header: () => <div className="text-center"></div>,
-    cell: ({ row }) => <CellAction data={row.original} session={session} />,
+    cell: ({ row }) => {
+      const roleName = row.original.role?.name ?? "";
+      if (isDirectusAdmin(roleName)) return null;
+      return <CellAction data={row.original} session={session} />;
+    },
     enableSorting: false,
   },
 ];

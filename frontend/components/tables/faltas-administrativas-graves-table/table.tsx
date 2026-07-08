@@ -3,12 +3,13 @@
 
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
+import { ImportExportButtons } from "@/components/ui/import-export-buttons";
 import { Plus, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { createColumns } from "./columns";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 
-export const FaltasAdministrativasGravesTable = ({ data }: any) => {
+export const FaltasAdministrativasGravesTable = ({ data, onRefresh }: any) => {
     const router = useRouter();
     const { session } = useCurrentSession();
 
@@ -30,13 +31,22 @@ export const FaltasAdministrativasGravesTable = ({ data }: any) => {
                         </p>
                     </div>
                 </div>
-                <Button
-                    size="sm"
-                    className="text-xs md:text-sm gap-1.5 shrink-0"
-                    onClick={() => router.push(`/inicio/faltas-administrativas-graves/nueva`)}
-                >
-                    <Plus className="h-4 w-4" /> Agregar nueva
-                </Button>
+                <div className="flex items-center gap-2 shrink-0">
+                    <ImportExportButtons
+                        data={data}
+                        collection="faltas_administrativas_graves"
+                        exportFilename="faltas_admin_graves"
+                        accessToken={session?.access_token}
+                        onImportSuccess={onRefresh}
+                    />
+                    <Button
+                        size="sm"
+                        className="text-xs md:text-sm gap-1.5"
+                        onClick={() => router.push(`/inicio/faltas-administrativas-graves/nueva`)}
+                    >
+                        <Plus className="h-4 w-4" /> Agregar nueva
+                    </Button>
+                </div>
             </div>
             <DataTable
                 searchKey="expediente"

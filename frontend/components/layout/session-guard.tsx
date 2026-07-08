@@ -1,106 +1,106 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { signOut, getSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import { useToast } from "@/components/ui/use-toast";
+import { usePathname } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { LogIn, AlertTriangle } from "lucide-react";
 
-const SESSION_CHECK_INTERVAL = 60_000; // Check every 60 seconds
+const SESSION_CHECK_INTERVAL = 60_000; // cada 60 segundos
 
 export function SessionGuard({ children }: { children: React.ReactNode }) {
-  const { toast } = useToast();
+  const [expired, setExpired] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
   const isRedirecting = useRef(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleSessionExpired = useCallback(async () => {
+  const handleSessionExpired = useCallback(() => {
     if (isRedirecting.current) return;
     isRedirecting.current = true;
+    setExpired(true);
+  }, []);
 
-    toast({
-      variant: "destructive",
-      title: "Sesión expirada",
-      description:
-        "Tu sesión ha caducado. Serás redirigido a la página de inicio de sesión.",
-      duration: 5000,
-    });
-
-    // Small delay so the user can see the toast
-    setTimeout(async () => {
-      await signOut({ callbackUrl: "/", redirect: true });
-    }, 1500);
-  }, [toast]);
+  const handleGoToLogin = useCallback(async () => {
+    setSigningOut(true);
+    await signOut({ callbackUrl: "/", redirect: true });
+  }, []);
 
   const checkSession = useCallback(async () => {
     if (isRedirecting.current) return;
-
     try {
       const session = await getSession();
-
-      if (!session) {
-        // Session is gone entirely
+      if (!session || session.forceLogout) {
         handleSessionExpired();
-        return;
       }
-
-      if (session.forceLogout) {
-        // Backend flagged this session for forced logout (token refresh failed)
-        handleSessionExpired();
-        return;
-      }
-    } catch (error) {
-      console.error("Error al verificar la sesión:", error);
-      // If we can't even check, the session is likely invalid
+    } catch {
       handleSessionExpired();
     }
   }, [handleSessionExpired]);
 
-  // Check session on mount and periodically
+  // Revisión periódica
   useEffect(() => {
-    // Initial check
     checkSession();
-
-    // Periodic checks
     intervalRef.current = setInterval(checkSession, SESSION_CHECK_INTERVAL);
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, [checkSession]);
 
+  // Revisar al cambiar de ruta
+  useEffect(() => { checkSession(); }, [pathname, checkSession]);
+
+  // Revisar al volver a la pestaña
+  useEffect(() => {
+    const onVisible = () => { if (document.visibilityState === "visible") checkSession(); };
+    const onFocus = () => checkSession();
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", onFocus);
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", onFocus);
     };
   }, [checkSession]);
 
-  // Re-check session on route changes
-  useEffect(() => {
-    checkSession();
-  }, [pathname, checkSession]);
+  return (
+    <>
+      {children}
 
-  // Check session when the tab becomes visible again (user returns from another tab)
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        checkSession();
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, [checkSession]);
-
-  // Check session when the window regains focus
-  useEffect(() => {
-    const handleFocus = () => {
-      checkSession();
-    };
-
-    window.addEventListener("focus", handleFocus);
-    return () => {
-      window.removeEventListener("focus", handleFocus);
-    };
-  }, [checkSession]);
-
-  return <>{children}</>;
+      <Dialog open={expired}>
+        <DialogContent
+          onInteractOutside={(e) => e.preventDefault()}
+          className="sm:max-w-md [&>button]:hidden"
+        >
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-1">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-950/40 shrink-0">
+                <AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+              </div>
+              <DialogTitle className="text-lg">Sesión expirada</DialogTitle>
+            </div>
+            <DialogDescription className="text-sm text-muted-foreground">
+              Tu sesión ha caducado por inactividad o el token de acceso ya no es válido.
+              Por favor inicia sesión nuevamente para continuar.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-2">
+            <Button
+              onClick={handleGoToLogin}
+              disabled={signingOut}
+              className="w-full gap-2"
+            >
+              <LogIn className="h-4 w-4" />
+              {signingOut ? "Redirigiendo..." : "Iniciar sesión"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
 }

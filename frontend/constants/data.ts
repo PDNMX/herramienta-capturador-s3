@@ -8,6 +8,20 @@ export const adminNavItems: NavItem[] = [
     label: "usuarios",
     description: "Gestión de usuarios del sistema",
   },
+  {
+    title: "Entes Públicos",
+    href: "/inicio/administracion/entes",
+    icon: "building",
+    label: "entes",
+    description: "Gestión de entes públicos",
+  },
+  {
+    title: "Bitácora",
+    href: "/inicio/administracion/actividad",
+    icon: "activity",
+    label: "actividad",
+    description: "Registro de actividad del sistema",
+  },
 ];
 
 export const navItems: NavItem[] = [

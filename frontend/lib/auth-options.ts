@@ -8,7 +8,7 @@ import { AuthRefresh, UserSession, UserParams } from "@/types/next-auth"
 
 // Mapeo de UUID de rol → nombre (evita llamadas a directus_roles que requieren permisos de admin)
 const ROLE_ID_TO_NAME: Record<string, string> = {
-  "e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b": "Administrador",
+  "e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b": "Administrador-Frontend",
   "a5862643-ea54-43ac-af3d-0ff8809ff93f": "Usuario-Capturador",
   "80ba6d0a-3025-4bc5-9966-2acefa91d7c2": "Api-Interconexion",
   "41947437-8852-4e5b-adac-ea91d705f732": "API-Interconexión-ANA",
@@ -89,8 +89,8 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 10 * 60,
-    updateAge: 5 * 60,
+    maxAge: 24 * 60 * 60,   // cookie JWT dura 24 horas
+    updateAge: 60 * 60,      // NextAuth renueva el JWT cada hora
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
@@ -115,10 +115,26 @@ export const authOptions: NextAuthOptions = {
         return { ...token, error: null }
       }
       else {
-        return {
-          ...token,
-          error: "RefreshAccessTokenError" as const,
-          forceLogout: true
+        // Token de Directus expirado — intentar renovar con refresh_token
+        try {
+          const refreshClient = directus(token.access_token ?? "")
+          const result = await refreshClient.request(
+            refresh("json", token.refresh_token ?? "")
+          ) as any
+          return {
+            ...token,
+            access_token: result.access_token ?? token.access_token,
+            refresh_token: result.refresh_token ?? token.refresh_token,
+            expires_at: Date.now() + (result.expires ?? 2 * 60 * 60 * 1000),
+            error: null,
+            forceLogout: false,
+          }
+        } catch {
+          return {
+            ...token,
+            error: "RefreshAccessTokenError" as const,
+            forceLogout: true,
+          }
         }
       }
     },

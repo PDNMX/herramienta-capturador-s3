@@ -132,9 +132,11 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
         const result = await directus.request(
           withToken(session.access_token, readRoles({ fields: ["id", "name"] }))
         );
-        const filtered = (result as any[]).filter(
-          (r) => !r.name.startsWith("Api") && r.name !== "Administrator"
-        );
+        const S3_ROLE_IDS = [
+          "e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b",
+          "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+        ];
+        const filtered = (result as any[]).filter((r) => S3_ROLE_IDS.includes(r.id));
         setRoles(filtered);
       } catch (error: any) {
         const msg = error?.errors?.[0]?.message ?? error?.message ?? JSON.stringify(error);
@@ -323,11 +325,17 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
                   <SelectValue placeholder="Seleccionar rol..." />
                 </SelectTrigger>
                 <SelectContent>
-                  {roles.map((r) => (
-                    <SelectItem key={r.id} value={r.id}>
-                      {r.name}
-                    </SelectItem>
-                  ))}
+                  {roles.map((r) => {
+                    const label =
+                      r.name === "Administrador-Frontend" ? "Administrador" :
+                      r.name === "Usuario-Capturador"     ? "Capturador"    :
+                      r.name;
+                    return (
+                      <SelectItem key={r.id} value={r.id}>
+                        {label}
+                      </SelectItem>
+                    );
+                  })}
                 </SelectContent>
               </Select>
             </Field>

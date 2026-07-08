@@ -35,6 +35,7 @@ import {
   Users,
   Notebook,
   Shield,
+  Activity,
 } from "lucide-react";
 
 export const Icons = {
@@ -89,4 +90,5 @@ export const Icons = {
   building: Building2,
   alertCircle: AlertCircle,
   usersAdmin: ShieldCheck,
+  activity: Activity,
 };
