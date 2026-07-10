@@ -28,6 +28,10 @@ const userParams = (user: UserSession): UserParams => {
   }
 }
 
+// Refresca el token de Directus si han pasado más de 10 minutos desde el último refresh.
+// Esto evita depender de expires_at (que puede estar mal calculado en sesiones antiguas).
+const DIRECTUS_REFRESH_INTERVAL_MS = 10 * 60 * 1000
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -75,7 +79,7 @@ export const authOptions: NextAuthOptions = {
             role: roleId,
             roleName,
             access_token: auth.access_token ?? "",
-            expires: Date.now() + (2 * 60 * 60 * 1000),
+            expires: Date.now() + (auth.expires ?? 15 * 60 * 1000),
             refresh_token: auth.refresh_token ?? "",
           }
 
@@ -106,35 +110,43 @@ export const authOptions: NextAuthOptions = {
         return {
           access_token: user.access_token,
           expires_at: user.expires,
+          last_refreshed_at: Date.now(),
           refresh_token: user.refresh_token,
           user: userParams(user as UserSession),
           error: null,
         }
       }
-      else if (Date.now() < (token.expires_at ?? 0)) {
+
+      // Refrescar si: expires_at ya pasó, O si han pasado más de 10 min desde el último refresh.
+      // El segundo check cubre sesiones antiguas con expires_at mal calculado.
+      const tokenAge = Date.now() - ((token.last_refreshed_at as number) ?? 0)
+      const needsRefresh =
+        Date.now() >= (token.expires_at ?? 0) || tokenAge > DIRECTUS_REFRESH_INTERVAL_MS
+
+      if (!needsRefresh) {
         return { ...token, error: null }
       }
-      else {
-        // Token de Directus expirado — intentar renovar con refresh_token
-        try {
-          const refreshClient = directus(token.access_token ?? "")
-          const result = await refreshClient.request(
-            refresh("json", token.refresh_token ?? "")
-          ) as any
-          return {
-            ...token,
-            access_token: result.access_token ?? token.access_token,
-            refresh_token: result.refresh_token ?? token.refresh_token,
-            expires_at: Date.now() + (result.expires ?? 2 * 60 * 60 * 1000),
-            error: null,
-            forceLogout: false,
-          }
-        } catch {
-          return {
-            ...token,
-            error: "RefreshAccessTokenError" as const,
-            forceLogout: true,
-          }
+
+      // Renovar token de Directus con refresh_token
+      try {
+        const refreshClient = directus(token.access_token ?? "")
+        const result = await refreshClient.request(
+          refresh("json", token.refresh_token ?? "")
+        ) as any
+        return {
+          ...token,
+          access_token: result.access_token ?? token.access_token,
+          refresh_token: result.refresh_token ?? token.refresh_token,
+          expires_at: Date.now() + (result.expires ?? 15 * 60 * 1000),
+          last_refreshed_at: Date.now(),
+          error: null,
+          forceLogout: false,
+        }
+      } catch {
+        return {
+          ...token,
+          error: "RefreshAccessTokenError" as const,
+          forceLogout: true,
         }
       }
     },

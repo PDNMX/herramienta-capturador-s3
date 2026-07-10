@@ -1,25 +1,21 @@
 // @ts-nocheck
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
+import { LogIn, FilePenLine, FilePlus, Trash2 } from "lucide-react";
 
-const actionConfig: Record<string, { label: string; class: string }> = {
-  create: { label: "Crear", class: "bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-300" },
-  update: { label: "Actualizar", class: "bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300" },
-  delete: { label: "Eliminar", class: "bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-300" },
-  login: { label: "Login", class: "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300" },
-  logout: { label: "Logout", class: "bg-gray-100 dark:bg-gray-950/40 text-gray-600 dark:text-gray-400" },
-  authenticate: { label: "Autenticar", class: "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300" },
+const actionConfig: Record<string, { label: string; icon: any; class: string }> = {
+  login:        { label: "Inicio de sesión",  icon: LogIn,       class: "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300" },
+  authenticate: { label: "Inicio de sesión",  icon: LogIn,       class: "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300" },
+  create:       { label: "Registro creado",   icon: FilePlus,    class: "bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-300" },
+  update:       { label: "Registro editado",  icon: FilePenLine, class: "bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300" },
+  delete:       { label: "Registro eliminado",icon: Trash2,      class: "bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-300" },
 };
 
 const collectionLabels: Record<string, string> = {
-  faltas_administrativas_graves: "FAG",
-  faltas_administrativas_no_graves: "FANG",
-  faltas_graves_personas_morales: "FG-PM",
-  faltas_graves_personas_fisicas: "FG-PF",
-  directus_users: "Usuarios",
-  ente_publico: "Entes",
-  directus_files: "Archivos",
+  faltas_administrativas_graves:    "F. Adm. Graves",
+  faltas_administrativas_no_graves: "F. Adm. No Graves",
+  faltas_graves_personas_morales:   "F. Graves — P. Morales",
+  faltas_graves_personas_fisicas:   "F. Graves — P. Físicas",
 };
 
 export const columns: ColumnDef<any>[] = [
@@ -29,13 +25,16 @@ export const columns: ColumnDef<any>[] = [
     cell: ({ row }) => {
       const ts = row.original.timestamp;
       if (!ts) return <span className="text-muted-foreground">—</span>;
+      const d = new Date(ts);
       return (
-        <span className="text-xs font-mono text-muted-foreground whitespace-nowrap">
-          {new Date(ts).toLocaleString("es-MX", {
-            dateStyle: "short",
-            timeStyle: "short",
-          })}
-        </span>
+        <div className="whitespace-nowrap">
+          <p className="text-xs font-mono text-foreground">
+            {d.toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" })}
+          </p>
+          <p className="text-xs font-mono text-muted-foreground">
+            {d.toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" })}
+          </p>
+        </div>
       );
     },
     enableSorting: true,
@@ -45,13 +44,12 @@ export const columns: ColumnDef<any>[] = [
     header: "Usuario",
     cell: ({ row }) => {
       const user = row.original.user;
-      if (!user) return <span className="text-muted-foreground text-xs">Sistema</span>;
+      if (!user) return <span className="text-muted-foreground text-xs italic">Sistema</span>;
       const name = `${user.first_name ?? ""} ${user.last_name ?? ""}`.trim();
-      const email = user.email ?? "";
       return (
         <div>
           <p className="text-sm font-medium leading-none">{name || "—"}</p>
-          <p className="text-xs text-muted-foreground mt-0.5">{email}</p>
+          <p className="text-xs text-muted-foreground mt-0.5">{user.email ?? ""}</p>
         </div>
       );
     },
@@ -62,9 +60,11 @@ export const columns: ColumnDef<any>[] = [
     header: "Acción",
     cell: ({ row }) => {
       const action = row.original.action ?? "";
-      const cfg = actionConfig[action] ?? { label: action, class: "bg-muted text-muted-foreground" };
+      const cfg = actionConfig[action] ?? { label: action, icon: null, class: "bg-muted text-muted-foreground" };
+      const Icon = cfg.icon;
       return (
-        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cfg.class}`}>
+        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${cfg.class}`}>
+          {Icon && <Icon className="h-3 w-3 shrink-0" />}
           {cfg.label}
         </span>
       );
@@ -75,10 +75,20 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: "collection",
     header: "Colección",
     cell: ({ row }) => {
-      const col = row.original.collection ?? "";
+      const col = row.original.collection;
+      const action = row.original.action ?? "";
+      const isLogin = action === "login" || action === "authenticate";
+
+      if (isLogin || !col) {
+        return <span className="text-xs text-muted-foreground italic">—</span>;
+      }
+
       const label = collectionLabels[col] ?? col;
       return (
-        <span className="text-xs text-muted-foreground font-mono" title={col}>
+        <span
+          className="inline-block text-xs font-medium bg-muted text-muted-foreground rounded px-2 py-0.5 max-w-[180px] truncate"
+          title={col}
+        >
           {label}
         </span>
       );
@@ -88,21 +98,35 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: "item",
     header: "ID Registro",
-    cell: ({ row }) => (
-      <span className="text-xs font-mono text-muted-foreground truncate max-w-[120px] block" title={row.original.item}>
-        {row.original.item ?? "—"}
-      </span>
-    ),
+    cell: ({ row }) => {
+      const action = row.original.action ?? "";
+      const isLogin = action === "login" || action === "authenticate";
+      if (isLogin) return <span className="text-muted-foreground text-xs">—</span>;
+      return (
+        <span
+          className="text-xs font-mono text-muted-foreground truncate max-w-[100px] block"
+          title={row.original.item}
+        >
+          {row.original.item ?? "—"}
+        </span>
+      );
+    },
     enableSorting: false,
   },
   {
     accessorKey: "ip",
     header: "IP",
-    cell: ({ row }) => (
-      <span className="text-xs font-mono text-muted-foreground">
-        {row.original.ip ?? "—"}
-      </span>
-    ),
+    cell: ({ row }) => {
+      const action = row.original.action ?? "";
+      const isLogin = action === "login" || action === "authenticate";
+      // Solo mostrar IP en inicios de sesión (dato relevante para auditoría de accesos)
+      if (!isLogin) return <span className="text-muted-foreground text-xs">—</span>;
+      return (
+        <span className="text-xs font-mono text-muted-foreground">
+          {row.original.ip ?? "—"}
+        </span>
+      );
+    },
     enableSorting: false,
   },
 ];

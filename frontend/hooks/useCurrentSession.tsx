@@ -6,7 +6,6 @@ import { useState, useEffect, useCallback } from "react";
 // This hook doesn't rely on the session provider
 export const useCurrentSession = () => {
   const [session, setSession] = useState<Session | null>(null);
-  // Changed the default status to loading
   const [status, setStatus] = useState<string>("loading");
   const pathName = usePathname();
 
@@ -14,25 +13,39 @@ export const useCurrentSession = () => {
     try {
       const sessionData = await getSession();
       if (sessionData) {
-        setSession(sessionData);
+        // Only update state if access_token changed to avoid unnecessary re-renders
+        setSession((prev) => {
+          if ((prev as any)?.access_token === (sessionData as any)?.access_token) return prev;
+          return sessionData;
+        });
         setStatus("authenticated");
         return;
       }
       setStatus("unauthenticated");
-    } catch (error) {
+    } catch {
       setStatus("unauthenticated");
       setSession(null);
     }
   }, []);
 
+  // Fetch on mount and route change
   useEffect(() => {
-    // We only want to retrieve the session when there is no session
-    if (!session) {
-      retrieveSession();
-    }
+    retrieveSession();
+  }, [retrieveSession, pathName]);
 
-    // use the pathname to force a re-render when the user navigates to a new page
-  }, [retrieveSession, session, pathName]);
+  // Refresh when the user comes back to the tab (machine unlock, tab switch, etc.)
+  useEffect(() => {
+    const onVisible = () => {
+      if (document.visibilityState === "visible") retrieveSession();
+    };
+    const onFocus = () => retrieveSession();
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", onFocus);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", onFocus);
+    };
+  }, [retrieveSession]);
 
   return { session, status };
 };

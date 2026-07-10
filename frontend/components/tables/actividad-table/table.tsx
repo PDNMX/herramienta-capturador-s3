@@ -24,7 +24,7 @@ export const ActividadTable = ({ data, onRefresh }: ActividadTableProps) => {
               Bitácora de Actividad
             </h2>
             <p className="text-sm text-muted-foreground">
-              Movimientos recientes del sistema
+              Inicios de sesión y modificaciones en faltas
               <span className="mx-2 text-border">·</span>
               {data.length} {data.length !== 1 ? "registros" : "registro"}
             </p>

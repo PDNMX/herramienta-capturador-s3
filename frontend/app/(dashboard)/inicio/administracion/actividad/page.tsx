@@ -14,6 +14,14 @@ const breadcrumbItems = [
   { title: "Bitácora", link: "/inicio/administracion/actividad" },
 ];
 
+// Colecciones de faltas que queremos auditar
+const FALTAS_COLLECTIONS = [
+  "faltas_administrativas_graves",
+  "faltas_administrativas_no_graves",
+  "faltas_graves_personas_morales",
+  "faltas_graves_personas_fisicas",
+];
+
 export default function Page() {
   const { session, status } = useCurrentSession();
   const [actividad, setActividad] = useState([]);
@@ -26,12 +34,32 @@ export default function Page() {
           fields: [
             "id", "action", "timestamp", "ip", "collection", "item",
             "user.id", "user.first_name", "user.last_name", "user.email",
+            "user.role.name",
           ] as any,
+          filter: {
+            _or: [
+              // Inicios de sesión (cualquier usuario)
+              { action: { _in: ["login", "authenticate"] } },
+              // Modificaciones solo en las 4 colecciones de faltas
+              {
+                _and: [
+                  { action: { _in: ["create", "update", "delete"] } },
+                  { collection: { _in: FALTAS_COLLECTIONS } },
+                ],
+              },
+            ],
+          } as any,
           sort: ["-timestamp"] as any,
-          limit: 200,
+          limit: 500,
         }))
       );
-      setActividad(result as any[]);
+
+      // Excluir actividades del usuario Administrador built-in de Directus
+      const filtered = (result as any[]).filter(
+        (a) => a.user?.role?.name !== "Administrator"
+      );
+
+      setActividad(filtered);
     } catch (error) {
       console.error("Error al cargar actividad:", error);
     }
