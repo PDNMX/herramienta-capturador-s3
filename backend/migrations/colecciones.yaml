@@ -1772,10 +1772,7 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation:
-        _and:
-          - rfc:
-              _regex: ^([A-ZÑ&X]{4})([0-9]{6})([A-Z0-9]{3})$
+      validation: null
       validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
@@ -2064,11 +2061,7 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation:
-        _and:
-          - curp:
-              _regex: >-
-                ^[A-ZX]{1}[AEIOUX]{1}[A-ZX]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-ZX]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation: null
       validation_message: Formato no valido, revisa el CURP dentro de los datos personales
       width: full
     schema:
@@ -2110,10 +2103,7 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation:
-        _and:
-          - rfc:
-              _regex: ^([A-ZÑ&X]{4})([0-9]{6})([A-Z0-9]{3})$
+      validation: null
       validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
@@ -2415,11 +2405,7 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation:
-        _and:
-          - curp:
-              _regex: >-
-                ^[A-ZX]{1}[AEIOUX]{1}[A-ZX]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-ZX]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation: null
       validation_message: Formato no valido, revisa el CURP dentro de los datos personales
       width: full
     schema:
@@ -2462,10 +2448,7 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation:
-        _and:
-          - rfc:
-              _regex: ^([A-ZÑ&X]{4})([0-9]{6})([A-Z0-9]{3})$
+      validation: null
       validation_message: Formato no valido, revisa el RFC dentro de los datos personales
       width: full
     schema:
@@ -3098,10 +3081,7 @@ fields:
       translations:
         - language: es-MX
           translation: RFC con homoclave
-      validation:
-        _and:
-          - rfc:
-              _regex: ^([A-ZÑ&X]{4})([0-9]{6})([A-Z0-9]{3})$
+      validation: null
       validation_message: Formato no valido, revisa el RFC dentro de la sección de representantes
       width: full
     schema:
@@ -3225,11 +3205,7 @@ fields:
       translations:
         - language: es-MX
           translation: CURP
-      validation:
-        _and:
-          - curp:
-              _regex: >-
-                ^[A-ZX]{1}[AEIOUX]{1}[A-ZX]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-ZX]{3}[0-9A-Z]{1}[0-9]{1}$
+      validation: null
       validation_message: Formato no valido, revisa el CURP dentro de los datos del representante
       width: full
     schema:
