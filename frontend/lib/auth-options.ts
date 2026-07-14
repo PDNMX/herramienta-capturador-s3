@@ -2,7 +2,7 @@ import { NextAuthOptions, Awaitable, User, Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { handleError } from "./utils"
 import { directus, login } from "@/services/directus"
-import { readMe, refresh } from "@directus/sdk"
+import { readMe } from "@directus/sdk"
 import { JWT } from "next-auth/jwt"
 import { AuthRefresh, UserSession, UserParams } from "@/types/next-auth"
 
@@ -129,10 +129,14 @@ export const authOptions: NextAuthOptions = {
 
       // Renovar token de Directus con refresh_token
       try {
-        const refreshClient = directus(token.access_token ?? "")
-        const result = await refreshClient.request(
-          refresh("json", token.refresh_token ?? "")
-        ) as any
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ refresh_token: token.refresh_token, mode: "json" }),
+        })
+        if (!res.ok) throw new Error("Refresh failed")
+        const json = await res.json()
+        const result = json.data ?? json
         return {
           ...token,
           access_token: result.access_token ?? token.access_token,
