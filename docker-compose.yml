@@ -12,7 +12,7 @@ services:
       NEXTAUTH_URL: ${NEXTAUTH_URL}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
     ports:
-      - "0.0.0.0:3060:3000"
+      - 8080:3000
 
   api:
     build:
@@ -29,7 +29,7 @@ services:
               pm2-runtime start ecosystem.config.cjs"
     restart: always
     ports:
-      - "0.0.0.0:8055:8055"
+      - 8055:8055
     depends_on:
       - db
     env_file:
