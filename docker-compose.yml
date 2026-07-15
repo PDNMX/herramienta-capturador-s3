@@ -38,6 +38,7 @@ services:
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
       PUBLIC_URL: ${NEXT_PUBLIC_BACKEND_URL}
+      SECRET: ${DIRECTUS_SECRET}
       DB_CLIENT: "postgres"
       DB_HOST: "db"
       DB_PORT: "5432"
@@ -57,14 +58,7 @@ services:
       CORS_ALLOWED_HEADERS: "Content-Type,Authorization,Access-Control-Allow-Origin"
 
       CORS_EXPOSED_HEADERS: "Content-Range"
-      # EMAIL_FROM: ${EMAIL_FROM}
-      # EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
-      # EMAIL_SMTP_HOST: ${SMTP_HOST}
-      # EMAIL_SMTP_PORT: ${SMTP_PORT}
-      # EMAIL_SMTP_USER: ${SMTP_USER}
-      # EMAIL_SMTP_PASSWORD: ${SMTP_PASSWORD}
-      # EMAIL_SMTP_SECURE: ${SMTP_SECURE}
-      # EMAIL_SMTP_IGNORE_TLS: ${SMTP_IGNORE_TLS}
+      EMAIL_TRANSPORT: sendmail
 
   db:
     image: postgres:14-alpine
