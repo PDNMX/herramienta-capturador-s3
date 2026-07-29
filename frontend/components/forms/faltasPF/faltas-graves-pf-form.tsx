@@ -130,7 +130,7 @@ const origenProcedimientoSchema = z.object({
 
 // 4. Schema para Normatividad (parte de Falta Cometida)
 const normatividadSchema = z.object({
-  nombreNormatividad: z.string().min(1, "Selecciona la normatividad infringida del catalogo"),
+  nombreNormatividad: z.string().min(1, "Selecciona la normatividad infringida del catálogo"),
   articulo: z.string().min(1, "Indica el o los articulos infringidos"),
   fraccion: z.string().nullable().optional(),
 });
@@ -223,9 +223,9 @@ const indemnizacionSchema = z
 
 const sancionEconomicaSchema = z
   .object({
-    monto: z.number().min(0, "Ingresa el monto de la sancion economica"),
+    monto: z.number().min(0, "Ingresa el monto de la sanción económica"),
     moneda: z.enum(["MXN", "USD", "EUR"], {
-      message: "Selecciona la moneda de la sancion economica",
+      message: "Selecciona la moneda de la sanción económica",
     }),
     fechaPagoTotal: z.string().nullable().optional(),
     plazoPago: plazoPagoSchema,
@@ -513,8 +513,8 @@ const FIELD_TO_SECTION_MAP: Record<string, { accordionValue: string; sectionLabe
   resolucion_autoridadResolutora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   resolucion_autoridadInvestigadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   resolucion_autoridadSusbstanciadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
-  // Seccion 8: Tipo de sancion
-  tipoSancion: { accordionValue: "tipo-sancion", sectionLabel: "8. Tipo de sancion" },
+  // Seccion 8: Tipo de sanción
+  tipoSancion: { accordionValue: "tipo-sancion", sectionLabel: "8. Tipo de sanción" },
 };
 
 function getErrorSummary(errors: Record<string, any>): { sectionLabel: string; accordionValue: string; count: number }[] {
@@ -568,7 +568,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
     : "Registrar una nueva falta grave personas fisicas";
   const description = initialData
     ? "Edita la informacion de la falta administrativa grave"
-    : "Formato que indica los datos que se inscribiran en el Sistema Nacional de Servidores Publicos y Particulares Sancionados de la Plataforma Digital Nacional relacionados con las sanciones firmes impuestas a particulares (personas fisicas) vinculados con faltas administrativas graves en terminos de la Ley General de Responsabilidades Administrativas.";
+    : "Formato que indica los datos que se inscribirán en el Sistema Nacional de Servidores Públicos y Particulares Sancionados de la Plataforma Digital Nacional, relacionados con las sanciones firmes impuestas a particulares (personas físicas) vinculados con faltas administrativas graves en términos de la Ley General de Responsabilidades Administrativas.";
   const toastMessage = initialData
     ? "Falta grave actualizada"
     : "Nueva falta grave registrada.";
@@ -1042,7 +1042,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                 efectivamenteCobradaSEId = newCobradaSE.id;
               }
 
-              // Guardar sancion economica
+              // Guardar sanción económica
               const sancionEconomicaData = {
                 monto: sancion.sancionEconomica.monto,
                 moneda: sancion.sancionEconomica.moneda,
@@ -1348,7 +1348,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                       <FormControl>
                         <Input type="date" disabled={loading} {...field} className="border-primary/30" />
                       </FormControl>
-                      <FormDescription>Fecha en que se realiza el registro</FormDescription>
+                      <FormDescription>Indicar la fecha en la que se registra la información</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -1361,12 +1361,12 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <FormItem>
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
                         <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        2. Numero de expediente <span className="text-red-500">*</span>
+                        2. Expediente <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input disabled={loading} placeholder="Ej: EXP-2025-001" {...field} className="border-primary/30" />
                       </FormControl>
-                      <FormDescription>Numero de expediente del procedimiento</FormDescription>
+                      <FormDescription>Registrar el número de expediente, en el que recae la resolución</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -1421,7 +1421,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <MapPin className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "donde-cometio-falta") ? "text-destructive" : "text-primary"}`} />
                   </div>
                   <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "donde-cometio-falta") ? "text-destructive" : "text-primary"}`}>
-                    4. Datos del Ente publico donde se cometio la falta administrativa
+                    4. Datos del Ente público donde se cometio la falta administrativa
                   </span>
                   {errorSummary.some(s => s.accordionValue === "donde-cometio-falta") && (
                     <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
@@ -1517,7 +1517,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
               </AccordionContent>
             </AccordionItem>
 
-            {/* Seccion 8: Tipo de sancion */}
+            {/* Seccion 8: Tipo de sanción */}
             <AccordionItem
               value="tipo-sancion"
               data-section="tipo-sancion"
@@ -1529,7 +1529,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <AlertCircle className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "text-destructive" : "text-primary"}`} />
                   </div>
                   <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "text-destructive" : "text-primary"}`}>
-                    8. Tipo de sancion impuesta a la persona fisica
+                    8. Tipo de sanción impuesta a la persona fisica
                   </span>
                   {errorSummary.some(s => s.accordionValue === "tipo-sancion") && (
                     <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
@@ -1569,8 +1569,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     />
                   </FormControl>
                   <FormDescription className="text-xs text-muted-foreground">
-                    En este espacio podra realizar las aclaraciones u observaciones que considere
-                    pertinentes respecto de alguno o algunos de los apartados del documento.
+                    En este espacio se podrán realizar las aclaraciones u observaciones que se consideren pertinentes respecto de alguno o algunos de los apartados del Formato.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

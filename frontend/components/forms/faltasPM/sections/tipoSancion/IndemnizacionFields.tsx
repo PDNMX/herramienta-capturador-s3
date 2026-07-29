@@ -99,7 +99,7 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
         />
       </div>
 
-      {/* Plazo de Pago - Siempre visible */}
+      {/* Plazo de pago - Siempre visible */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
         <p className="text-sm font-semibold text-primary">Plazo de pago</p>
         <p className="text-xs text-muted-foreground">
@@ -117,7 +117,7 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
                     type="number"
                     min="0"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -132,14 +132,14 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.indemnizacion.plazoPago.meses`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Meses</FormLabel>
+                <FormLabel>Mes (es)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     max="11"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -161,7 +161,7 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
                     min="0"
                     max="30"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />

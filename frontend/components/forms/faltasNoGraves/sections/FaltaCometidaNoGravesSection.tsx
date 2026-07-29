@@ -84,7 +84,7 @@ export const FaltaCometidaNoGravesSection: React.FC<FaltaCometidaNoGravesSection
       <Button type="button" variant="outline" onClick={handleAddFalta} disabled={loading} className="w-full border-dashed border-2 h-14 group hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300"><Plus className="h-4 w-4 text-primary" /></div>
-          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otra falta cometida</span><span className="text-xs text-muted-foreground">Se pueden registrar multiples faltas para un mismo servidor publico</span></div>
+          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otra falta cometida</span><span className="text-xs text-muted-foreground">Se pueden registrar multiples faltas para un mismo servidor público</span></div>
         </div>
       </Button>
 
@@ -110,12 +110,12 @@ export const FaltaCometidaNoGravesSection: React.FC<FaltaCometidaNoGravesSection
               </div>
 
               <FormField control={form.control} name={`faltaCometida.${index}.clave`} render={({ field }) => (
-                <FormItem><FormLabel>Tipo de falta <span className="text-red-500">*</span></FormLabel><FormControl><Combobox options={TIPOS_FALTA} value={field.value} onChange={field.onChange} placeholder="Selecciona el tipo de falta" disabled={loading} searchPlaceholder="Buscar tipo de falta..." /></FormControl><FormDescription>Seleccionar el (los) tipo (s) de falta (s) cometida (s) por el servidor publico sancionado</FormDescription><FormMessage /></FormItem>
+                <FormItem><FormLabel>Tipo de falta <span className="text-red-500">*</span></FormLabel><FormControl><Combobox options={TIPOS_FALTA} value={field.value} onChange={field.onChange} placeholder="Selecciona el tipo de falta" disabled={loading} searchPlaceholder="Buscar tipo de falta..." /></FormControl><FormDescription>Seleccionar la (s) falta (s) cometida (s) por la persona servidora pública</FormDescription><FormMessage /></FormItem>
               )} />
 
               {claveValue === "OTRO" && (
                 <FormField control={form.control} name={`faltaCometida.${index}.valor`} render={({ field }) => (
-                  <FormItem><FormLabel>Especifique el tipo de falta <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Falta administrativa especial" {...field} value={field.value || ""} /></FormControl><FormDescription>En caso de seleccionar la opcion "OTRO", se debera especificar el tipo de falta cometida.</FormDescription><FormMessage /></FormItem>
+                  <FormItem><FormLabel>Especifique el tipo de falta <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Falta administrativa especial" {...field} value={field.value || ""} /></FormControl><FormDescription>En caso de seleccionar la opción "OTRO", se deberá especificar el tipo de falta cometida.</FormDescription><FormMessage /></FormItem>
                 )} />
               )}
 
@@ -125,7 +125,7 @@ export const FaltaCometidaNoGravesSection: React.FC<FaltaCometidaNoGravesSection
               </div>
 
               <FormField control={form.control} name={`faltaCometida.${index}.descripcionHechos`} render={({ field }) => (
-                <FormItem><FormLabel>Descripcion breve de los hechos <span className="text-red-500">*</span></FormLabel><FormControl><Textarea disabled={loading} placeholder="Redactar una descripcion breve de los hechos..." className="min-h-[120px]" {...field} value={field.value || ""} /></FormControl><FormDescription>Redactar una descripcion breve de los hechos, sin incluir informacion reservada o confidencial</FormDescription><FormMessage /></FormItem>
+                <FormItem><FormLabel>Descripción breve de los hechos <span className="text-red-500">*</span></FormLabel><FormControl><Textarea disabled={loading} placeholder="Redactar una descripción breve de los hechos..." className="min-h-[120px]" {...field} value={field.value || ""} /></FormControl><FormDescription>Redactar una descripción breve de los hechos, sin incluir información reservada o confidencial, de conformidad con la normatividad en materia de transparencia y protección de datos personales</FormDescription><FormMessage /></FormItem>
               )} />
             </div>
           </div>

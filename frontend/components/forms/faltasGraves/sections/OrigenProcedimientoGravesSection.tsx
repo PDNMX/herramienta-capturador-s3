@@ -51,8 +51,7 @@ export const OrigenProcedimientoGravesSection: React.FC<
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
         En el presente apartado se debera señalar el motivo que dio origen a la
-        investigacion por actos vinculados con faltas administrativas graves
-        por parte del servidor publico
+        investigacion por la comisión de la falta administrativa grave
       </p>
 
       <FormField
@@ -64,7 +63,7 @@ export const OrigenProcedimientoGravesSection: React.FC<
               Origen del procedimiento <span className="text-red-500">*</span>
             </FormLabel>
             <FormDescription>
-              Seleccionar conforme al catalogo el origen de la falta administrativa
+              Seleccionar conforme al catálogo el origen de la falta administrativa
             </FormDescription>
             <FormControl>
               <div className="space-y-3">

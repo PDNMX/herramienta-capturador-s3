@@ -1538,7 +1538,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
                       <FormControl>
                         <Input type="date" disabled={loading} {...field} className="border-primary/30" />
                       </FormControl>
-                      <FormDescription>Fecha en que se realiza el registro</FormDescription>
+                      <FormDescription>Indicar la fecha en la que se registra la información</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -1551,7 +1551,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
                     <FormItem>
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
                         <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        2. Número de expediente <span className="text-red-500">*</span>
+                        2. Expediente <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input disabled={loading} placeholder="Ej: EXP-2025-001" {...field} className="border-primary/30" />
@@ -1787,8 +1787,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
                     />
                   </FormControl>
                   <FormDescription className="text-xs text-muted-foreground">
-                    En este espacio podrá realizar las aclaraciones u observaciones que considere
-                    pertinentes respecto de alguno o algunos de los apartados del documento.
+                    En este espacio se podrán realizar las aclaraciones u observaciones que se consideren pertinentes respecto de alguno o algunos de los apartados del Formato.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

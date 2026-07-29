@@ -34,7 +34,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          C. Sanción Económica
+          C. Sanción económica
         </h5>
         <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que la persona moral sea acreedora de una sanción económica</p>
       </div>
@@ -60,7 +60,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                   onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                 />
               </FormControl>
-              <FormDescription> Colocar el monto total de la sancion economica </FormDescription>
+              <FormDescription> Colocar el monto total de la sanción económica </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -98,11 +98,11 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
         />
       </div>
 
-      {/* Plazo de Pago - Siempre visible */}
+      {/* Plazo de pago - Siempre visible */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
-        <p className="text-sm font-semibold text-primary">Plazo de Pago</p>
+        <p className="text-sm font-semibold text-primary">Plazo de pago</p>
         <p className="text-xs text-muted-foreground">
-          Señalar el plazo determinado para dar cumplimiento a la sanción económica
+          Señalar el plazo para pagar la sanción económica
         </p>
         <div className="md:grid md:grid-cols-3 gap-4">
           <FormField
@@ -116,7 +116,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                     type="number"
                     min="0"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -131,14 +131,14 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.meses`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Meses</FormLabel>
+                <FormLabel>Mes (es)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     max="11"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -160,7 +160,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                     min="0"
                     max="30"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -182,14 +182,14 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
 
       {/* Efectivamente Cobrado - Siempre visible */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
-        <p className="text-sm font-semibold text-primary">Sanción Económica Efectivamente Cobrada</p>
+        <p className="text-sm font-semibold text-primary">Sanción económica efectivamente cobrada</p>
         <div className="md:grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name={`tipoSancion.${sancionIndex}.sancionEconomica.efectivamenteCobrado.monto`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Monto cobrado</FormLabel>
+                <FormLabel>Monto</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -241,7 +241,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
           name={`tipoSancion.${sancionIndex}.sancionEconomica.efectivamenteCobrado.fechaCobro`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha de cobro</FormLabel>
+              <FormLabel>Fecha de cobro de la sanción (DD-MM-AAAA)</FormLabel>
               <FormControl>
                 <Input
                   type="date"

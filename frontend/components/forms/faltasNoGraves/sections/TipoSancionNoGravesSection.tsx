@@ -68,7 +68,7 @@ export const TipoSancionNoGravesSection: React.FC<TipoSancionNoGravesSectionProp
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-muted-foreground flex-1">Este apartado se refiere a los datos concernientes a la sancion y/o sanciones impuestas al servidor publico</p>
+        <p className="text-sm text-muted-foreground flex-1">Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona servidora pública</p>
         <div className="flex items-center gap-2 ml-4">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
             <Layers className="h-3.5 w-3.5 text-primary" />
@@ -81,7 +81,7 @@ export const TipoSancionNoGravesSection: React.FC<TipoSancionNoGravesSectionProp
       <Button type="button" variant="outline" onClick={handleAddSancion} disabled={loading} className="w-full border-dashed border-2 h-14 group hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300"><Plus className="h-4 w-4 text-primary" /></div>
-          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otro tipo de sancion</span><span className="text-xs text-muted-foreground">Se pueden registrar multiples sanciones para un mismo servidor publico</span></div>
+          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otro tipo de sanción</span><span className="text-xs text-muted-foreground">Se pueden registrar multiples sanciones para un mismo servidor público</span></div>
         </div>
       </Button>
 
@@ -101,13 +101,13 @@ export const TipoSancionNoGravesSection: React.FC<TipoSancionNoGravesSectionProp
               <div className="border-b pb-3 flex items-center gap-3">
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center border border-primary/30"><span className="text-sm font-bold text-primary">{index + 1}</span></div>
                 <div>
-                  <h4 className="font-semibold text-lg text-primary mb-0.5">Tipo de Sancion {index + 1}{fields.length > 1 && <span className="text-xs font-normal text-muted-foreground ml-2">de {fields.length}</span>}</h4>
+                  <h4 className="font-semibold text-lg text-primary mb-0.5">Tipo de Sanción {index + 1}{fields.length > 1 && <span className="text-xs font-normal text-muted-foreground ml-2">de {fields.length}</span>}</h4>
                   <p className="text-xs text-muted-foreground">{fields.length > 1 ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar segun sea necesario.` : "Puede agregar multiples sanciones usando el boton de arriba."}</p>
                 </div>
               </div>
 
               <FormField control={form.control} name={`tipoSancion.${index}.clave`} render={({ field }) => (
-                <FormItem><FormLabel>Tipo de sancion <span className="text-red-500">*</span></FormLabel><FormControl><Combobox options={TIPOS_SANCION} value={field.value} onChange={field.onChange} placeholder="Selecciona el tipo de sancion" disabled={loading} searchPlaceholder="Buscar tipo de sancion..." /></FormControl><FormDescription>Elegir la sancion, segun corresponda, conforme al catalogo y que fue dictaminada en la resolucion definitiva</FormDescription><FormMessage /></FormItem>
+                <FormItem><FormLabel>Tipo de sanción <span className="text-red-500">*</span></FormLabel><FormControl><Combobox options={TIPOS_SANCION} value={field.value} onChange={field.onChange} placeholder="Selecciona el tipo de sanción" disabled={loading} searchPlaceholder="Buscar tipo de sanción..." /></FormControl><FormDescription>Elegir la sanción, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva</FormDescription><FormMessage /></FormItem>
               )} />
 
               {claveValue === "AMONESTACION" && (<AmonestacionNoGravesFields form={form} loading={loading} sancionIndex={index} />)}

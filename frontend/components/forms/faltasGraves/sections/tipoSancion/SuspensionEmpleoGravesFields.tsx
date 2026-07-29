@@ -29,17 +29,24 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
           A. Suspension del empleo, cargo o comision
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolucion se determino sancionar con una suspension del empleo, cargo o comision
+          Se debera llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión
         </p>
       </div>
-
+      <div>
+        <h5 className="font-semibold text-base text-primary mb-1">
+          Plazo de la suspensión
+        </h5>
+        <p className="text-xs text-muted-foreground">
+          Colocarel plazo de la suspensión de la persona servidora pública
+        </p>
+      </div>
       <div className="md:grid md:grid-cols-2 gap-6">
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.suspensionEmpleo.plazoMeses`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mes(es) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Mes (es) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input type="number" min="0" disabled={loading} placeholder="El valor minimo es 0 (cero)" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>
@@ -53,7 +60,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
           name={`tipoSancion.${sancionIndex}.suspensionEmpleo.plazoDias`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Dia(s) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Día (s) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input type="number" min="0" max="30" disabled={loading} placeholder="El valor minimo es 0 (cero)" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>
@@ -73,7 +80,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Indicar la fecha en que inicio la suspension</FormDescription>
+              <FormDescription>Indicar la fecha en la que inició la suspensión del empleo, cargo o comisión de la persona servidora pública</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -88,7 +95,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Indicar la fecha en la que se concluyo la suspension</FormDescription>
+              <FormDescription>Indicar la fecha en la que se concluye la suspensión del empleo, cargo o comisión de la persona servidora pública</FormDescription>
               <FormMessage />
             </FormItem>
           )}

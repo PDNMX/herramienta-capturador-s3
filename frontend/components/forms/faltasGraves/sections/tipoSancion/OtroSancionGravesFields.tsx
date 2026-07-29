@@ -29,7 +29,7 @@ export const OtroSancionGravesFields: React.FC<OtroSancionGravesFieldsProps> = (
           E. Otro
         </h5>
         <p className="text-xs text-muted-foreground">
-          Llenar este apartado en caso de que el servidor publico sea acreedor a otro tipo de sancion
+          Llenar este apartado en caso de que la persona servidora pública sea acreedora a otro tipo de sanción prevista en las leyes locales anticorrupción de las entidades federativas
         </p>
       </div>
 
@@ -38,12 +38,12 @@ export const OtroSancionGravesFields: React.FC<OtroSancionGravesFieldsProps> = (
         name={`tipoSancion.${sancionIndex}.otro.denominacionSancion`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Denominacion de la sancion <span className="text-red-500">*</span></FormLabel>
+            <FormLabel>Denominación de la sanción <span className="text-red-500">*</span></FormLabel>
             <FormControl>
               <Input disabled={loading} placeholder="Especifique el tipo de sancion" {...field} />
             </FormControl>
             <FormDescription>
-              Indicar el nombre de la sancion, sin abreviaturas, sin acentos, ni signos especiales
+              Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales
             </FormDescription>
             <FormMessage />
           </FormItem>

@@ -37,7 +37,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos generales del servidor publico sancionado
+        En el presente apartado se establecen los datos concernientes a la persona servidora pública que cometió la falta administrativa
       </p>
 
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -52,7 +52,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
               <FormControl>
                 <Input disabled={loading} placeholder="Ej: Juan Carlos" {...field} />
               </FormControl>
-              <FormDescription>Se deberá escribir el o los nombres del servidor público sancionado</FormDescription>
+              <FormDescription>Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -69,7 +69,6 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
               <FormControl>
                 <Input disabled={loading} placeholder="Ej: Garcia" {...field} />
               </FormControl>
-              <FormDescription>Escribir el primer apellido del servidor publico</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -85,7 +84,6 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
             <FormControl>
               <Input disabled={loading} placeholder="Ej: Lopez" {...field} value={field.value || ""} />
             </FormControl>
-            <FormDescription>Escribir el segundo apellido del servidor publico (si aplica)</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -103,7 +101,19 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
               <FormControl>
                 <Input disabled={loading} placeholder="Ej: GARL850101HDFRPN09" maxLength={18} {...field} />
               </FormControl>
-              <FormDescription>Escribir los dieciocho caracteres alfanuméricos que componen la CURP del servidor público</FormDescription>
+              <FormDescription>
+                  Escribir los dieciocho caracteres alfanuméricos como aparece
+                  en el documento que emite la Secretaría de Gobernación. En
+                  caso de no contar con ese dato, podrá consultarlo en:{" "}
+                  <a
+                    href="https://www.gob.mx/curp/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    https://www.gob.mx/curp/
+                  </a>
+                </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -174,7 +184,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
                 </div>
               </div>
             </FormControl>
-            <FormDescription>Seleccionar el sexo del servidor publico sancionado</FormDescription>
+            <FormDescription>Seleccionar la opción que corresponda</FormDescription>
             <FormMessage />
           </FormItem>
         )}

@@ -37,7 +37,7 @@ export const DatosGeneralesGravesSection: React.FC<DatosGeneralesGravesSectionPr
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos generales del servidor publico sancionado
+        En el presente apartado se establecen los datos concernientes a la persona servidora pública que cometió la falta administrativa
       </p>
 
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -81,9 +81,6 @@ export const DatosGeneralesGravesSection: React.FC<DatosGeneralesGravesSectionPr
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
-                Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -105,9 +102,6 @@ export const DatosGeneralesGravesSection: React.FC<DatosGeneralesGravesSectionPr
                 value={field.value || ""}
               />
             </FormControl>
-            <FormDescription>
-              Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -132,8 +126,18 @@ export const DatosGeneralesGravesSection: React.FC<DatosGeneralesGravesSectionPr
                 />
               </FormControl>
               <FormDescription>
-                Escribir los dieciocho caracteres alfanuméricos como aparece en el documento que emite la Secretaría de Gobernación.  En caso de no contar con ese dato, podrá consultarlo en la siguiente página: https://www.gob.mx/curp/
-              </FormDescription>
+                  Escribir los dieciocho caracteres alfanuméricos como aparece
+                  en el documento que emite la Secretaría de Gobernación. En
+                  caso de no contar con ese dato, podrá consultarlo en:{" "}
+                  <a
+                    href="https://www.gob.mx/curp/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    https://www.gob.mx/curp/
+                  </a>
+                </FormDescription>
               <FormMessage />
             </FormItem>
           )}

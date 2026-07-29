@@ -71,7 +71,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
       {/* Section header with counter badge */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground flex-1">
-          Este apartado se refiere a los datos concernientes a la sancion y/o sanciones impuestas a la persona fisica
+          Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona fisica
         </p>
         <div className="flex items-center gap-2 ml-4">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
@@ -99,7 +99,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
             <Plus className="h-4 w-4 text-primary" />
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-sm font-medium">Agregar otro tipo de sancion</span>
+            <span className="text-sm font-medium">Agregar otro tipo de sanción</span>
             <span className="text-xs text-muted-foreground">
               Se pueden registrar multiples sanciones para una misma persona fisica
             </span>
@@ -154,7 +154,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
                 </div>
                 <div>
                   <h4 className="font-semibold text-lg text-primary mb-0.5">
-                    Tipo de Sancion {index + 1}
+                    Tipo de Sanción {index + 1}
                     {fields.length > 1 && (
                       <span className="text-xs font-normal text-muted-foreground ml-2">
                         de {fields.length}
@@ -169,23 +169,23 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
                 </div>
               </div>
 
-              {/* Selector de tipo de sancion */}
+              {/* Selector de tipo de sanción */}
               <FormField
                 control={form.control}
                 name={`tipoSancion.${index}.clave`}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Tipo de sancion: elegir la sancion, segun corresponda, conforme al catalogo y que fue dictaminada en la resolucion definitiva <span className="text-red-500">*</span>
+                      Tipo de sanción: elegir la sancion, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Combobox
                         options={TIPOS_SANCION_PF}
                         value={field.value}
                         onChange={field.onChange}
-                        placeholder="Selecciona el tipo de sancion"
+                        placeholder="Selecciona el tipo de sanción"
                         disabled={loading}
-                        searchPlaceholder="Buscar tipo de sancion..."
+                        searchPlaceholder="Buscar tipo de sanción..."
                       />
                     </FormControl>
                     <FormMessage />
@@ -193,7 +193,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
                 )}
               />
 
-              {/* Campos condicionales segun el tipo de sancion */}
+              {/* Campos condicionales segun el tipo de sanción */}
               {claveValue === "INHABILITACION" && (
                 <InhabilitacionPFFields
                   form={form}

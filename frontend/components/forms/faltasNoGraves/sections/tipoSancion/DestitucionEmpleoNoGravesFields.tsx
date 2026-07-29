@@ -26,10 +26,10 @@ export const DestitucionEmpleoNoGravesFields: React.FC<DestitucionEmpleoNoGraves
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          C. Destitucion del empleo, cargo o comision
+          C. Destitución del empleo, cargo o comisión
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolucion se determino sancionar con la destitucion del empleo, cargo o comision
+          Se deberá llenar si en la resolución definitiva se impuso destitución del empleo, cargo o comisión a la persona servidora pública
         </p>
       </div>
 
@@ -38,11 +38,11 @@ export const DestitucionEmpleoNoGravesFields: React.FC<DestitucionEmpleoNoGraves
         name={`tipoSancion.${sancionIndex}.destitucionEmpleo.fechaDestitucion`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Fecha de destitucion (DD-MM-AAAA)</FormLabel>
+            <FormLabel>Fecha de la destitución (DD-MM-AAAA)</FormLabel>
             <FormControl>
               <Input type="date" disabled={loading} {...field} value={field.value || ""} className="h-10" />
             </FormControl>
-            <FormDescription>Indicar la fecha en que se ejecuto la destitucion del servidor publico (opcional)</FormDescription>
+            <FormDescription>Indicar la fecha de destitución de la persona servidora pública. <p> Si al momento de registrar la información la autoridad no cuenta con dicho dato, posteriormente podrá registrar mediante una actualización. </p> (opcional)</FormDescription>
             <FormMessage />
           </FormItem>
         )}

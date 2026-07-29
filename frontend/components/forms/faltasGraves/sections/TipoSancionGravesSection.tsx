@@ -71,7 +71,7 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground flex-1">
-          Este apartado se refiere a los datos concernientes a la sancion y/o sanciones impuestas al servidor publico
+          Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona servidora pública
         </p>
         <div className="flex items-center gap-2 ml-4">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
@@ -100,7 +100,7 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
           <div className="flex flex-col items-start">
             <span className="text-sm font-medium">Agregar otro tipo de sancion</span>
             <span className="text-xs text-muted-foreground">
-              Se pueden registrar multiples sanciones para un mismo servidor publico
+              Se pueden registrar multiples sanciones para un mismo servidor público
             </span>
           </div>
         </div>
@@ -139,7 +139,7 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
                 </div>
                 <div>
                   <h4 className="font-semibold text-lg text-primary mb-0.5">
-                    Tipo de Sancion {index + 1}
+                    Tipo de Sanción {index + 1}
                     {fields.length > 1 && <span className="text-xs font-normal text-muted-foreground ml-2">de {fields.length}</span>}
                   </h4>
                   <p className="text-xs text-muted-foreground">
@@ -156,7 +156,7 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Tipo de sancion <span className="text-red-500">*</span>
+                      Tipo de sanción <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Combobox
@@ -169,7 +169,7 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
                       />
                     </FormControl>
                     <FormDescription>
-                      Elegir la sancion, segun corresponda, conforme al catalogo y que fue dictaminada en la resolucion definitiva
+                      Elegir la sanción, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

@@ -35,7 +35,7 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
         <h5 className="font-semibold text-base text-primary mb-1">
           B. Indemnizacion
         </h5>
-        <p className="text-xs text-muted-foreground">Se debera llenar si en la resolucion definitiva se impuso indemnizacion</p>
+        <p className="text-xs text-muted-foreground">Se debera llenar si en la resolución definitiva se impuso indemnizacion</p>
       </div>
 
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -97,7 +97,7 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
         />
       </div>
 
-      {/* Plazo de Pago - Siempre visible */}
+      {/* Plazo de pago - Siempre visible */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
         <p className="text-sm font-semibold text-primary">Plazo de pago</p>
         <p className="text-xs text-muted-foreground">
@@ -109,13 +109,13 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.indemnizacion.plazoPago.anios`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Anios</FormLabel>
+                <FormLabel>Año (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -130,14 +130,14 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.indemnizacion.plazoPago.meses`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Meses</FormLabel>
+                <FormLabel>Mes (es)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     max="11"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -152,14 +152,14 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.indemnizacion.plazoPago.dias`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Dias</FormLabel>
+                <FormLabel>Día (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     max="30"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -249,7 +249,7 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
                   className="h-10"
                 />
               </FormControl>
-              <FormDescription> Especificar la fecha en que se realizo el cobro </FormDescription>
+              <FormDescription> Especificar la fecha en que se realizó el cobro de la sanción económica </FormDescription>
               <FormMessage />
             </FormItem>
           )}

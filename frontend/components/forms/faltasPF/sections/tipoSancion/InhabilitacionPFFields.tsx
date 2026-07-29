@@ -34,7 +34,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
       </div>
 
       <div className="md:grid md:grid-cols-3 gap-6">
-        {/* Anios */}
+        {/* Año (s) */}
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoAnios`}
@@ -48,7 +48,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                   type="number"
                   min="0"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -58,7 +58,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
           )}
         />
 
-        {/* Meses */}
+        {/* Mes (es) */}
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoMeses`}
@@ -73,7 +73,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                   min="0"
                   max="11"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -83,7 +83,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
           )}
         />
 
-        {/* Dias */}
+        {/* Día (s) */}
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoDias`}
@@ -98,7 +98,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                   min="0"
                   max="30"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />

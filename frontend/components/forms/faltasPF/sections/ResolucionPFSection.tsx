@@ -52,12 +52,12 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Titulo del documento <span className="text-red-500">*</span>
+              Título del documento <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Input
                 disabled={loading}
-                placeholder="Ej: Resolucion Administrativa RA-001/2025"
+                placeholder="Ej: Resolución Administrativa RA-001/2025"
                 {...field}
               />
             </FormControl>
@@ -132,7 +132,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              URL de la version publica de la resolucion de sancion{" "}
+              URL de la versión pública de la resolución de sanción en formato digital de sancion{" "}
               <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
@@ -163,7 +163,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fecha en que adquirio firmeza (DD-MM-AAAA){" "}
+                Fecha en que adquirió firmeza la resolución (DD-MM-AAAA){" "}
                 <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
@@ -245,7 +245,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
         name="resolucion_fechaEjecucion"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Fecha de ejecucion de la sancion (DD-MM-AAAA)</FormLabel>
+            <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
             <FormControl>
               <Input
                 type="date"
@@ -350,7 +350,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
             <FormControl>
               <Input
                 disabled={loading}
-                placeholder="Ej: Secretaria de la Funcion Publica"
+                placeholder="Ej: Secretaría de la Función Pública"
                 {...field}
               />
             </FormControl>
@@ -374,7 +374,7 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
             <FormControl>
               <Input
                 disabled={loading}
-                placeholder="Ej: Organo Interno de Control"
+                placeholder="Ej: Órgano Interno de Control"
                 {...field}
               />
             </FormControl>

@@ -36,12 +36,13 @@ export const OrigenProcedimientoNoGravesSection: React.FC<OrigenProcedimientoNoG
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-muted-foreground">En el presente apartado se debera señalar el motivo que dio origen a la investigacion por actos vinculados con faltas administrativas no graves por parte del servidor publico</p>
+      <p className="text-sm text-muted-foreground">En el presente apartado se deberá señalar el motivo que dio origen a la
+        investigación por la comisión de la falta administrativa no grave</p>
 
       <FormField control={form.control} name="origenProcedimiento_clave" render={({ field }) => (
         <FormItem className="space-y-3">
           <FormLabel>Origen del procedimiento <span className="text-red-500">*</span></FormLabel>
-          <FormDescription>Seleccionar conforme al catalogo el origen de la falta administrativa</FormDescription>
+          <FormDescription>Seleccionar conforme al catálogo el origen de la falta administrativa</FormDescription>
           <FormControl>
             <div className="space-y-3">
               {opciones.map((opcion) => (
@@ -63,7 +64,7 @@ export const OrigenProcedimientoNoGravesSection: React.FC<OrigenProcedimientoNoG
           <FormItem>
             <FormLabel>Especifique el origen <span className="text-red-500">*</span></FormLabel>
             <FormControl><Input disabled={loading} placeholder="Especifique el motivo que dio origen a la investigación" {...field} value={field.value || ""} /></FormControl>
-            <FormDescription>En caso de seleccionar la opcion "OTRO", se debera especificar el motivo que dio origen a la investigacion</FormDescription>
+            <FormDescription>En caso de seleccionar la opción "OTRO", se deberá especificar el motivo que dio origen a la investigación</FormDescription>
             <FormMessage />
           </FormItem>
         )} />

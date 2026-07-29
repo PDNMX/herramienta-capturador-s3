@@ -103,7 +103,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos del empleo, cargo o comision del servidor publico sancionado
+        En el presente apartado se establecen los datos concernientes al empleo, cargo o comision que ostenta u ostentaba la persona servidora pública al momento de cometer la falta administrativa
       </p>
 
       {/* Entidad Federativa */}
@@ -174,14 +174,14 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
         )}
       />
 
-      {/* Ambito publico */}
+      {/* Ambito público */}
       <FormField
         control={form.control}
         name="empleo_ambitoPublico"
         render={({ field }) => (
           <FormItem className="space-y-3">
             <FormLabel>
-              Ambito publico <span className="text-red-500">*</span>
+              Ambito público <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -213,14 +213,14 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
       />
 
       <div className="md:grid md:grid-cols-2 gap-6">
-        {/* Nombre del ente publico */}
+        {/* Nombre del Ente público */}
         <FormField
           control={form.control}
           name="empleo_nombreEntePublico"
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Nombre del ente publico <span className="text-red-500">*</span>
+                Nombre del Ente público <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -244,7 +244,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
           name="empleo_siglasEntePublico"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Siglas del ente publico</FormLabel>
+              <FormLabel>Siglas del Ente público</FormLabel>
               <FormControl>
                 <Input
                   disabled={loading}
@@ -254,7 +254,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
                 />
               </FormControl>
               <FormDescription>
-                Indicar las siglas del Ente publico
+                Indicar las siglas del Ente público
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -269,7 +269,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Nivel jerarquico <span className="text-red-500">*</span>
+              Nivle jerárquico del empleo, cargo o comisión <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Combobox
@@ -281,9 +281,6 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
                 searchPlaceholder="Buscar nivel jerarquico..."
               />
             </FormControl>
-            <FormDescription>
-              Seleccionar el nivel jerarquico del servidor publico
-            </FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -333,21 +330,21 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
               />
             </FormControl>
             <FormDescription>
-              Indicar la denominacion del empleo, cargo o comision del servidor publico
+              Escribir la denominación completa  del empleo, cargo o comisión que aparece en el recibo de nómina, nombramiento, contrato u oficio de comisión, sin abreviaturas, sin acentos, ni signos especiales
             </FormDescription>
             <FormMessage />
           </FormItem>
         )}
       />
 
-      {/* Area de adscripcion */}
+      {/* Área de adscripción */}
       <FormField
         control={form.control}
         name="empleo_areaAdscripcion"
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Area de adscripcion <span className="text-red-500">*</span>
+              Área de adscripción <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Input
@@ -357,7 +354,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
               />
             </FormControl>
             <FormDescription>
-              Indicar el area de adscripcion del servidor publico
+              Especificar el nombre de la Unidad Administrativa del Ente públco a la que está o estaba adscrita la persona servidora pública sancionada, sin abreviaturas, sin acentos, ni signos especiales
             </FormDescription>
             <FormMessage />
           </FormItem>

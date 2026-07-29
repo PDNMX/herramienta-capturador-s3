@@ -47,7 +47,7 @@ export const OtroSancionFields: React.FC<OtroSancionFieldsProps> = ({
               />
             </FormControl>
             <FormDescription>
-              Indicar el nombre de la sancion, sin abreviaturas, sin acentos, ni signos especiales
+              Indicar el nombre de la sanción, sin abreviaturas, sin acentos, ni signos especiales
             </FormDescription>
             <FormMessage />
           </FormItem>

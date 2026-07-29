@@ -26,20 +26,27 @@ export const InhabilitacionNoGravesFields: React.FC<InhabilitacionNoGravesFields
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          D. Inhabilitacion
+          D. Inhabilitación temporal para desempeñar empleos, cargos o comisiones en el servicio público y para participar en adquisiciones, arrendamientos, servicios u obras públicas
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolucion se determino sancionar con una inhabilitacion
+          Llenar este apartado en caso de que la persona servidora pública haya sido inhabilitada
         </p>
       </div>
-
+      <div>
+        <h5 className="font-semibold text-base text-primary mb-1">
+          Plazo de la inhabilitación
+        </h5>
+        <p className="text-xs text-muted-foreground">
+          Colocar el plazo de la inhabilitación
+        </p>
+      </div>
       <div className="md:grid md:grid-cols-3 gap-6">
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoAnios`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Anio(s) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Año (s) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input type="number" min="0" disabled={loading} placeholder="Ej: 2" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>
@@ -53,7 +60,7 @@ export const InhabilitacionNoGravesFields: React.FC<InhabilitacionNoGravesFields
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoMeses`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mes(es) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Mes (es) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input type="number" min="0" disabled={loading} placeholder="Ej: 6" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>
@@ -67,7 +74,7 @@ export const InhabilitacionNoGravesFields: React.FC<InhabilitacionNoGravesFields
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoDias`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Dia(s) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Día (s) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input type="number" min="0" disabled={loading} placeholder="Ej: 15" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>

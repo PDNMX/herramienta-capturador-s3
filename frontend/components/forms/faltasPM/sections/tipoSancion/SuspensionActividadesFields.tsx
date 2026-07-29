@@ -47,7 +47,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
                   type="number"
                   min="0"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -57,7 +57,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           )}
         />
 
-        {/* Meses */}
+        {/* Mes (es) */}
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionMeses`}
@@ -70,7 +70,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
                   min="0"
                   max="11"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -93,7 +93,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
                   min="0"
                   max="30"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />

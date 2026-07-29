@@ -33,9 +33,9 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          C. Sancion Economica
+          C. Sanción económica
         </h5>
-        <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que la persona fisica sea acreedora de una sancion economica</p>
+        <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que la persona fisica sea acreedora de una sanción económica</p>
       </div>
 
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -59,7 +59,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
                   onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                 />
               </FormControl>
-              <FormDescription> Colocar el monto total de la sancion economica </FormDescription>
+              <FormDescription> Colocar el monto total de la sanción económica </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -97,11 +97,11 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
         />
       </div>
 
-      {/* Plazo de Pago - Siempre visible */}
+      {/* Plazo de pago - Siempre visible */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
-        <p className="text-sm font-semibold text-primary">Plazo de Pago</p>
+        <p className="text-sm font-semibold text-primary">Plazo de pago</p>
         <p className="text-xs text-muted-foreground">
-          Senalar el plazo determinado para dar cumplimiento a la sancion economica
+          Senalar el plazo determinado para dar cumplimiento a la sanción económica
         </p>
         <div className="md:grid md:grid-cols-3 gap-4">
           <FormField
@@ -109,13 +109,13 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.anios`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Anios</FormLabel>
+                <FormLabel>Año (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -130,14 +130,14 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.meses`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Meses</FormLabel>
+                <FormLabel>Mes (es)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     max="11"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -152,14 +152,14 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.dias`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Dias</FormLabel>
+                <FormLabel>Día (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
                     min="0"
                     max="30"
                     disabled={loading}
-                    placeholder="El valor minimo es 0 (cero)"
+                    placeholder="El valor mínimo es 0 (cero)"
                     {...field}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
@@ -181,14 +181,14 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
 
       {/* Efectivamente Cobrada - Siempre visible */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
-        <p className="text-sm font-semibold text-primary">Sancion Economica Efectivamente Cobrada</p>
+        <p className="text-sm font-semibold text-primary">Sanción económica efectivamente cobrada</p>
         <div className="md:grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name={`tipoSancion.${sancionIndex}.sancionEconomica.efectivamenteCobrada.monto`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Monto cobrado</FormLabel>
+                <FormLabel>Monto</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -240,7 +240,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
           name={`tipoSancion.${sancionIndex}.sancionEconomica.efectivamenteCobrada.fechaCobro`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha de cobro</FormLabel>
+              <FormLabel>Fecha de cobro de la sanción (DD-MM-AAAA)</FormLabel>
               <FormControl>
                 <Input
                   type="date"
@@ -249,7 +249,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
                   className="h-10"
                 />
               </FormControl>
-              <FormDescription> Especificar la fecha en que se realizo el cobro de la sancion economica </FormDescription>
+              <FormDescription> Especificar la fecha en que se realizó el cobro de la sanción económica de la sanción económica </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -280,13 +280,13 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
               />
             </FormControl>
             <FormMessage />
-            <FormDescription>Especificar la fecha en que se cubrio el pago total de la sancion economica.</FormDescription>
+            <FormDescription>Especificar la fecha en que se cubrió el pago total de la sanción económica. <p> Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción, este podrá registrarse posteriormente mediante una actualización de su registro </p>.</FormDescription>
             <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-900 mt-2">
               <svg className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
               <p className="text-xs text-blue-800 dark:text-blue-200">
-                Si al momento de registrar la informacion la autoridad no cuenta con el dato de fecha en que se realizo el pago total de la sancion economica, este podra registrarse posteriormente mediante una actualizacion de su registro
+                Si al momento de registrar la informacion la autoridad no cuenta con el dato de fecha en que se realizo el pago total de la sanción económica, este podra registrarse posteriormente mediante una actualizacion de su registro
               </p>
             </div>
           </FormItem>

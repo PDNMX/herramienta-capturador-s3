@@ -40,7 +40,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos concernientes a la resolucion firme
+        En el presente apartado se establecen los datos concernientes a la resolución firme
       </p>
 
       {/* Titulo del documento */}
@@ -56,7 +56,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
               <Input disabled={loading} placeholder="Ej: Resolucion Administrativa RA-001/2025" {...field} />
             </FormControl>
             <FormDescription>
-              Escribir el nombre del documento que resuelve el procedimiento de responsabilidad administrativa
+              Escribir el nombre del documento que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme, sin abreviaturas, sin acentos ni signos especiales
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -88,7 +88,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Indicar la fecha en que se notifica la resolucion al servidor publico</FormDescription>
+              <FormDescription>Indicar la fecha en que se notifica la resolución definitiva a la persona servidora pública sancionada</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -101,14 +101,14 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         name="resolucion_urlResolucion"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>URL de la version publica de la resolucion <span className="text-red-500">*</span></FormLabel>
+            <FormLabel>URL de la versión pública de la resolución de sanción en formato digital <span className="text-red-500">*</span></FormLabel>
             <FormControl>
               <div className="relative">
                 <LinkIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input type="url" disabled={loading} placeholder="https://ejemplo.gob.mx/resolucion.pdf" className="pl-10" {...field} />
               </div>
             </FormControl>
-            <FormDescription>Colocar el enlace de la version publica de la resolucion</FormDescription>
+            <FormDescription>Colocar el enlace de la versión pública de la resolución emitida por la autoridad a la que corresponde la sanción</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -120,11 +120,11 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
           name="resolucion_fechaResolucionFirme"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha en que adquirio firmeza (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Fecha en que adquirió firmeza la resolución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Colocar la fecha en que adquirio firmeza la resolucion</FormDescription>
+              <FormDescription>Colocar la fecha en que adquirio firmeza la resolución de la persona servidora pública</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -171,12 +171,12 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         name="resolucion_fechaEjecucion"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Fecha de ejecucion de la sancion (DD-MM-AAAA)</FormLabel>
+            <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
             <FormControl>
               <Input type="date" disabled={loading} {...field} className="h-10" />
             </FormControl>
             <FormDescription>
-              Anotar la fecha en la que se ejecuto la sancion. Si al momento de registrar la informacion no se cuenta con el dato, este podra registrarse posteriormente
+              Anotar la fecha en la que se ejecutó la sanción a la persona servidora pública. <p> Si al momento de registrar la indormación la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro </p>
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -213,7 +213,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
                 ))}
               </div>
             </FormControl>
-            <FormDescription>Seleccionar la opcion correspondiente al orden jurisdiccional</FormDescription>
+            <FormDescription>Seleccionar la opción correspondiente al orden jurisdiccional del Ente público que emetió la reolución</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -229,7 +229,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormControl>
               <Input disabled={loading} placeholder="Ej: Tribunal de Justicia Administrativa" {...field} />
             </FormControl>
-            <FormDescription>Indicar el nombre de la autoridad facultada para dictar la sancion</FormDescription>
+            <FormDescription>Indicar el nombre de la autoridad facultada para dictar la sanción</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -244,7 +244,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormControl>
               <Input disabled={loading} placeholder="Ej: Organo Interno de Control" {...field} />
             </FormControl>
-            <FormDescription>Especificar el nombre de la autoridad encargada de la investigacion</FormDescription>
+            <FormDescription>Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa grave</FormDescription>
             <FormMessage />
           </FormItem>
         )}

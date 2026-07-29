@@ -38,34 +38,34 @@ export const ResolucionNoGravesSection: React.FC<ResolucionNoGravesSectionProps>
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-muted-foreground">En el presente apartado se establecen los datos concernientes a la resolucion firme</p>
+      <p className="text-sm text-muted-foreground">En el presente apartado se establecen los datos concernientes a la resolución firme</p>
 
       <FormField control={form.control} name="resolucion_tituloResolucion" render={({ field }) => (
-        <FormItem><FormLabel>Titulo del documento <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Resolucion Administrativa RA-001/2025" {...field} /></FormControl><FormDescription>Escribir el nombre del documento que resuelve el procedimiento de responsabilidad administrativa</FormDescription><FormMessage /></FormItem>
+        <FormItem><FormLabel>Título del documento <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Resolución Administrativa RA-001/2025" {...field} /></FormControl><FormDescription>Escribir el nombre del documento que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme, sin abreviaturas, sin acentos ni signos especiales</FormDescription><FormMessage /></FormItem>
       )} />
 
       <div className="md:grid md:grid-cols-2 gap-6">
         <FormField control={form.control} name="resolucion_fechaResolucion" render={({ field }) => (
-          <FormItem><FormLabel>Fecha de la resolucion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Colocar la fecha en la que se emite la resolucion sancionatoria</FormDescription><FormMessage /></FormItem>
+          <FormItem><FormLabel>Fecha de la resolución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Colocar la fecha en la que se emite la resolución sancionatoria</FormDescription><FormMessage /></FormItem>
         )} />
 
         <FormField control={form.control} name="resolucion_fechaNotificacion" render={({ field }) => (
-          <FormItem><FormLabel>Fecha de notificacion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Indicar la fecha en que se notifica la resolucion al servidor publico</FormDescription><FormMessage /></FormItem>
+          <FormItem><FormLabel>Fecha de notificación (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Indicar la fecha en que se notifica la resolución definitiva a la persona servidora pública sancionada</FormDescription><FormMessage /></FormItem>
         )} />
       </div>
 
       <div className="md:grid md:grid-cols-2 gap-6">
         <FormField control={form.control} name="resolucion_fechaResolucionFirme" render={({ field }) => (
-          <FormItem><FormLabel>Fecha en que adquirio firmeza (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Colocar la fecha en que adquirio firmeza la resolucion</FormDescription><FormMessage /></FormItem>
+          <FormItem><FormLabel>Fecha en que adquirió firmeza la resolución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Colocar la fecha en que adquirió firmeza la resolución de la persona servidora pública</FormDescription><FormMessage /></FormItem>
         )} />
 
         <FormField control={form.control} name="resolucion_fechaNotificacionFirme" render={({ field }) => (
-          <FormItem><FormLabel>Fecha de notificacion de la resolucion firme (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Indicar la fecha en que se notifica que la resolucion ha quedado firme</FormDescription><FormMessage /></FormItem>
+          <FormItem><FormLabel>Fecha de notificación de la resolución firme (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Indicar la fecha en que se notifica que la resolución ha quedado firme</FormDescription><FormMessage /></FormItem>
         )} />
       </div>
 
       <FormField control={form.control} name="resolucion_fechaEjecucion" render={({ field }) => (
-        <FormItem><FormLabel>Fecha de ejecucion de la sancion (DD-MM-AAAA)</FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Anotar la fecha en la que se ejecuto la sancion. Si al momento de registrar la informacion no se cuenta con el dato, este podra registrarse posteriormente</FormDescription><FormMessage /></FormItem>
+        <FormItem><FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel><FormControl><Input type="date" disabled={loading} {...field} className="h-10" /></FormControl><FormDescription>Anotar la fecha en la que se ejecutó la sanción a la persona servidora pública. <p> Si al momento de registrar la información la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro </p></FormDescription><FormMessage /></FormItem>
       )} />
 
       <FormField
@@ -97,18 +97,18 @@ export const ResolucionNoGravesSection: React.FC<ResolucionNoGravesSectionProps>
                 ))}
               </div>
             </FormControl>
-            <FormDescription>Seleccionar la opcion correspondiente al orden jurisdiccional</FormDescription>
+            <FormDescription>Seleccionar la opción correspondiente al orden jurisdiccional del Ente público que emitió la resolución</FormDescription>
             <FormMessage />
           </FormItem>
         )}
       />
 
       <FormField control={form.control} name="resolucion_autoridadResolutora" render={({ field }) => (
-        <FormItem><FormLabel>Autoridad resolutora <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Tribunal de Justicia Administrativa" {...field} /></FormControl><FormDescription>Indicar el nombre de la autoridad facultada para dictar la sancion</FormDescription><FormMessage /></FormItem>
+        <FormItem><FormLabel>Autoridad resolutora <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Tribunal de Justicia Administrativa" {...field} /></FormControl><FormDescription>Indicar el nombre de la autoridad facultada para dictar la sanción</FormDescription><FormMessage /></FormItem>
       )} />
 
       <FormField control={form.control} name="resolucion_autoridadInvestigadora" render={({ field }) => (
-        <FormItem><FormLabel>Autoridad investigadora <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Organo Interno de Control" {...field} /></FormControl><FormDescription>Especificar el nombre de la autoridad encargada de la investigacion</FormDescription><FormMessage /></FormItem>
+        <FormItem><FormLabel>Autoridad investigadora <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Órgano Interno de Control" {...field} /></FormControl><FormDescription>Especificar el nombre de la autoridad encargada de la investigación de la falta administrativa grave</FormDescription><FormMessage /></FormItem>
       )} />
 
       <FormField control={form.control} name="resolucion_autoridadSusbstanciadora" render={({ field }) => (

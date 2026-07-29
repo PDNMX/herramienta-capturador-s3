@@ -106,7 +106,7 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
           <div className="flex flex-col items-start">
             <span className="text-sm font-medium">Agregar otra falta cometida</span>
             <span className="text-xs text-muted-foreground">
-              Se pueden registrar multiples faltas para un mismo servidor publico
+              Se pueden registrar multiples faltas para un mismo servidor público
             </span>
           </div>
         </div>
@@ -166,7 +166,7 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
                     <FormControl>
                       <Combobox options={TIPOS_FALTA} value={field.value} onChange={field.onChange} placeholder="Selecciona el tipo de falta" disabled={loading} searchPlaceholder="Buscar tipo de falta..." />
                     </FormControl>
-                    <FormDescription>Seleccionar el (los) tipo (s) de falta (s) cometida (s) por el servidor publico sancionado</FormDescription>
+                    <FormDescription>Seleccionar la (s) falta (s) cometida (s) por la persona servidora pública</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -206,7 +206,7 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
                     <FormControl>
                       <Textarea disabled={loading} placeholder="Redactar una descripcion breve de los hechos..." className="min-h-[120px]" {...field} value={field.value || ""} />
                     </FormControl>
-                    <FormDescription>Redactar una descripcion breve de los hechos, sin incluir informacion reservada o confidencial</FormDescription>
+                    <FormDescription>Redactar una descripcion breve de los hechos, sin incluir informacion reservada o confidencial, de conformidad con la normatividad en materia de transparencia y proteccion de datos personales</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

@@ -50,7 +50,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   type="number"
                   min="0"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -60,7 +60,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
           )}
         />
 
-        {/* Meses */}
+        {/* Mes (es) */}
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.plazoMeses`}
@@ -75,7 +75,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   min="0"
                   max="11"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />
@@ -100,7 +100,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   min="0"
                   max="30"
                   disabled={loading}
-                  placeholder="El valor minimo es 0 (cero)"
+                  placeholder="El valor mínimo es 0 (cero)"
                   {...field}
                   onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                 />

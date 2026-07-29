@@ -61,10 +61,10 @@ import { TipoSancionNoGravesSection } from "./sections/TipoSancionNoGravesSectio
 const datosGeneralesSchema = z.object({
   nombres: z
     .string()
-    .min(1, "Ingresa el nombre o nombres del servidor publico"),
+    .min(1, "Ingresa el nombre o nombres del servidor público"),
   primerApellido: z
     .string()
-    .min(1, "Ingresa el primer apellido del servidor publico"),
+    .min(1, "Ingresa el primer apellido del servidor público"),
   segundoApellido: z.string().nullable().optional(),
   curp: z
     .string()
@@ -76,7 +76,7 @@ const datosGeneralesSchema = z.object({
     .max(13, "El RFC no puede tener mas de 13 caracteres"),
   sexo: z.enum(
     ["MUJER", "HOMBRE"],
-    { message: "Selecciona el sexo del servidor publico" }
+    { message: "Selecciona el sexo del servidor público" }
   ),
 });
 
@@ -87,9 +87,9 @@ const empleoCargoComisionSchema = z.object({
     message: "Selecciona el nivel u orden de gobierno",
   }),
   empleo_ambitoPublico: z.enum(["EJECUTIVO", "LEGISLATIVO", "JUDICIAL", "ORGANO_AUTONOMO"], {
-    message: "Selecciona el ambito publico",
+    message: "Selecciona el ambito público",
   }),
-  empleo_nombreEntePublico: z.string().min(1, "Ingresa el nombre del ente publico"),
+  empleo_nombreEntePublico: z.string().min(1, "Ingresa el nombre del Ente público"),
   empleo_siglasEntePublico: z.string().nullable().optional(),
   empleo_nivelJerarquico_clave: z.string().min(1, "Selecciona el nivel jerarquico"),
   empleo_nivelJerarquico_valor: z.string().nullable().optional(),
@@ -126,7 +126,7 @@ const faltaCometidaItemSchema = z.object({
       "OTRO",
     ],
     {
-      message: "Selecciona el tipo de falta cometida por el servidor publico",
+      message: "Selecciona el tipo de falta cometida por el servidor público",
     }
   ),
   valor: z.string().nullable().optional(),
@@ -205,7 +205,7 @@ const tipoSancionItemSchema = z.object({
       "OTRO",
     ],
     {
-      message: "Selecciona el tipo de sancion impuesta al servidor publico",
+      message: "Selecciona el tipo de sancion impuesta al servidor público",
     }
   ),
   amonestacion: amonestacionSchema,
@@ -382,13 +382,13 @@ const FIELD_TO_SECTION_MAP: Record<string, { accordionValue: string; sectionLabe
   rfc: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
   sexo: { accordionValue: "datos-generales", sectionLabel: "3. Datos generales" },
   // Seccion 4: Empleo, Cargo o Comision
-  empleo_entidadFederativa: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
-  empleo_nivelOrdenGobierno: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
-  empleo_ambitoPublico: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
-  empleo_nombreEntePublico: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
-  empleo_nivelJerarquico_clave: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
-  empleo_denominacion: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
-  empleo_areaAdscripcion: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Empleo, cargo o comision" },
+  empleo_entidadFederativa: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
+  empleo_nivelOrdenGobierno: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
+  empleo_ambitoPublico: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
+  empleo_nombreEntePublico: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
+  empleo_nivelJerarquico_clave: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
+  empleo_denominacion: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
+  empleo_areaAdscripcion: { accordionValue: "empleo-cargo-comision", sectionLabel: "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada" },
   // Seccion 5: Origen del procedimiento
   origenProcedimiento_clave: { accordionValue: "origen-procedimiento", sectionLabel: "5. Origen del procedimiento" },
   origenProcedimiento_valor: { accordionValue: "origen-procedimiento", sectionLabel: "5. Origen del procedimiento" },
@@ -403,8 +403,8 @@ const FIELD_TO_SECTION_MAP: Record<string, { accordionValue: string; sectionLabe
   resolucion_autoridadResolutora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   resolucion_autoridadInvestigadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
   resolucion_autoridadSusbstanciadora: { accordionValue: "resolucion", sectionLabel: "7. Resolucion" },
-  // Seccion 8: Tipo de sancion
-  tipoSancion: { accordionValue: "tipo-sancion", sectionLabel: "8. Tipo de sancion" },
+  // Seccion 8: Tipo de sanción
+  tipoSancion: { accordionValue: "tipo-sancion", sectionLabel: "8. Tipo de sanción" },
 };
 
 function getErrorSummary(errors: Record<string, any>): { sectionLabel: string; accordionValue: string; count: number }[] {
@@ -461,8 +461,8 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
     ? "Actualizar falta administrativa no grave"
     : "Registrar una nueva falta administrativa no grave";
   const description = initialData
-    ? "Edita la informacion de la falta administrativa no grave del servidor publico"
-    : "Formato que indica los datos que se inscribiran en el Sistema Nacional de Servidores Publicos y Particulares Sancionados de la Plataforma Digital Nacional relacionados con las sanciones firmes impuestas a servidores publicos vinculados con faltas administrativas no graves en terminos de la Ley General de Responsabilidades Administrativas.";
+    ? "Edita la informacion de la falta administrativa no grave del servidor público"
+    : "Formato que indica los datos que se inscribirán en el Sistema Nacional de Servidores Públicos y Particulares Sancionados de la Plataforma Digital Nacional relacionados con las sanciones firmes impuestas a las personas servidoras públicas por la comisión de faltas administrativas no graves en términos de la Ley General de Responsabilidades Administrativas.";
   const toastMessage = initialData
     ? "Falta administrativa no grave actualizada"
     : "Nueva falta administrativa no grave registrada.";
@@ -1092,7 +1092,7 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
                       <FormControl>
                         <Input type="date" disabled={loading} {...field} className="border-primary/30" />
                       </FormControl>
-                      <FormDescription>Fecha en que se realiza el registro</FormDescription>
+                      <FormDescription>Indicar la fecha en la que se registra la información</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -1105,12 +1105,12 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
                     <FormItem>
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
                         <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        2. Numero de expediente <span className="text-red-500">*</span>
+                        2. Expediente <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
                         <Input disabled={loading} placeholder="Ej: EXP-2025-001" {...field} className="border-primary/30" />
                       </FormControl>
-                      <FormDescription>Numero de expediente del procedimiento</FormDescription>
+                      <FormDescription>Registrar el número de expediente, en el que recae la resolución</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -1126,12 +1126,12 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
             onValueChange={setOpenSections}
             className="w-full space-y-4"
           >
-            {renderAccordionSection("datos-generales", "3. Datos generales del servidor publico sancionado", Users, <DatosGeneralesNoGravesSection form={form} loading={loading} />)}
-            {renderAccordionSection("empleo-cargo-comision", "4. Empleo, cargo o comision", Briefcase, <EmpleoCargoComisionNoGravesSection form={form} loading={loading} />)}
+            {renderAccordionSection("datos-generales", "3.  Datos generales de la persona servidora pública sancionada", Users, <DatosGeneralesNoGravesSection form={form} loading={loading} />)}
+            {renderAccordionSection("empleo-cargo-comision", "4. Datos del empleo, cargo o comisión de la persona servidora pública sancionada", Briefcase, <EmpleoCargoComisionNoGravesSection form={form} loading={loading} />)}
             {renderAccordionSection("origen-procedimiento", "5. Origen del procedimiento", Search, <OrigenProcedimientoNoGravesSection form={form} loading={loading} />)}
-            {renderAccordionSection("falta-cometida", "6. Tipo de falta cometida por el servidor publico", AlertCircle, <FaltaCometidaNoGravesSection form={form} loading={loading} />)}
-            {renderAccordionSection("resolucion", "7. Resolucion sancionatoria", FileText, <ResolucionNoGravesSection form={form} loading={loading} />)}
-            {renderAccordionSection("tipo-sancion", "8. Tipo de sancion impuesta al servidor publico", Shield, <TipoSancionNoGravesSection form={form} loading={loading} />)}
+            {renderAccordionSection("falta-cometida", "6. Tipo de falta cometida por la persona servidora pública sancionada", AlertCircle, <FaltaCometidaNoGravesSection form={form} loading={loading} />)}
+            {renderAccordionSection("resolucion", "7. Resolución sancionatoria de la falta cometida por la persona servidora pública", FileText, <ResolucionNoGravesSection form={form} loading={loading} />)}
+            {renderAccordionSection("tipo-sancion", "8. Tipo de sanción impuesta a la persona servidora pública", Shield, <TipoSancionNoGravesSection form={form} loading={loading} />)}
           </Accordion>
 
           {/* Campo 9: Observaciones */}
@@ -1158,8 +1158,7 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
                     />
                   </FormControl>
                   <FormDescription className="text-xs text-muted-foreground">
-                    En este espacio podra realizar las aclaraciones u observaciones que considere
-                    pertinentes respecto de alguno o algunos de los apartados del documento.
+                    En este espacio se podrán realizar las aclaraciones u observaciones que se consideren pertinentes respecto de alguno o algunos de los apartados del Formato.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

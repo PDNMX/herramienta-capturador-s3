@@ -184,9 +184,6 @@ export const DatosGeneralesPFSection: React.FC<
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
-                Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -209,9 +206,6 @@ export const DatosGeneralesPFSection: React.FC<
                   value={field.value || ""}
                 />
               </FormControl>
-              <FormDescription>
-                Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -235,8 +229,18 @@ export const DatosGeneralesPFSection: React.FC<
                 />
               </FormControl>
               <FormDescription>
-                Escribir los dieciocho caracteres alfanuméricos como aparece en el documento que emite la Secretaría de Gobernación.  En caso de no contar con ese dato, podrá consultarlo en la siguiente página: https://www.gob.mx/curp/
-              </FormDescription>
+                  Escribir los dieciocho caracteres alfanuméricos como aparece
+                  en el documento que emite la Secretaría de Gobernación. En
+                  caso de no contar con ese dato, podrá consultarlo en:{" "}
+                  <a
+                    href="https://www.gob.mx/curp/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    https://www.gob.mx/curp/
+                  </a>
+                </FormDescription>
               <FormMessage />
             </FormItem>
           )}

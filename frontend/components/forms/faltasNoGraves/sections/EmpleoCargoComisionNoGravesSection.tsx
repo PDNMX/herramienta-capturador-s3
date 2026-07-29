@@ -52,12 +52,18 @@ const ENTIDADES_FEDERATIVAS = [
 const NIVELES_JERARQUICO = [
   { value: "OPERATIVO_HOMOLOGO", label: "Operativo u homólogo" },
   { value: "ENLACE_HOMOLOGO", label: "Enlace u homólogo" },
-  { value: "JEFATURA_DEPTO_HOMOLOGO", label: "Jefatura de departamento u homólogo" },
+  {
+    value: "JEFATURA_DEPTO_HOMOLOGO",
+    label: "Jefatura de departamento u homólogo",
+  },
   { value: "SUBDIRECCION_HOMOLOGO", label: "Subdirección de área u homólogo" },
   { value: "DIRECCION_HOMOLOGO", label: "Dirección de área u homólogo" },
   { value: "DG_HOMOLOGO", label: "Dirección general u homólogo" },
   { value: "JEFATURA_UNIDAD_HOMOLOGO", label: "Jefatura de unidad u homólogo" },
-  { value: "SUBSECRETARIA_HOMOLOGO", label: "Subsecretaría de estado oficialía mayor u homólogo" },
+  {
+    value: "SUBSECRETARIA_HOMOLOGO",
+    label: "Subsecretaría de estado oficialía mayor u homólogo",
+  },
   { value: "SECRETARIA_HOMOLOGO", label: "Secretaría de estado u homólogo" },
   { value: "OTRO", label: "Otro (especifique):" },
 ];
@@ -67,82 +73,315 @@ interface EmpleoCargoComisionNoGravesSectionProps {
   loading: boolean;
 }
 
-export const EmpleoCargoComisionNoGravesSection: React.FC<EmpleoCargoComisionNoGravesSectionProps> = ({
-  form,
-  loading,
-}) => {
-  const [nivelOrdenGobierno, setNivelOrdenGobierno] = useState(form.watch("empleo_nivelOrdenGobierno") ?? null);
-  const [ambitoPublico, setAmbitoPublico] = useState(form.watch("empleo_ambitoPublico") ?? null);
+export const EmpleoCargoComisionNoGravesSection: React.FC<
+  EmpleoCargoComisionNoGravesSectionProps
+> = ({ form, loading }) => {
+  const [nivelOrdenGobierno, setNivelOrdenGobierno] = useState(
+    form.watch("empleo_nivelOrdenGobierno") ?? null,
+  );
+  const [ambitoPublico, setAmbitoPublico] = useState(
+    form.watch("empleo_ambitoPublico") ?? null,
+  );
   const nivelJerarquicoClave = form.watch("empleo_nivelJerarquico_clave");
 
   const handleNivelClick = (value: string) => {
-    if (nivelOrdenGobierno === value) { setNivelOrdenGobierno(null); form.setValue("empleo_nivelOrdenGobierno", null); }
-    else { setNivelOrdenGobierno(value); form.setValue("empleo_nivelOrdenGobierno", value); }
+    if (nivelOrdenGobierno === value) {
+      setNivelOrdenGobierno(null);
+      form.setValue("empleo_nivelOrdenGobierno", null);
+    } else {
+      setNivelOrdenGobierno(value);
+      form.setValue("empleo_nivelOrdenGobierno", value);
+    }
   };
 
   const handleAmbitoClick = (value: string) => {
-    if (ambitoPublico === value) { setAmbitoPublico(null); form.setValue("empleo_ambitoPublico", null); }
-    else { setAmbitoPublico(value); form.setValue("empleo_ambitoPublico", value); }
+    if (ambitoPublico === value) {
+      setAmbitoPublico(null);
+      form.setValue("empleo_ambitoPublico", null);
+    } else {
+      setAmbitoPublico(value);
+      form.setValue("empleo_ambitoPublico", value);
+    }
   };
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-muted-foreground">En el presente apartado se establecen los datos del empleo, cargo o comision del servidor publico sancionado</p>
+      <p className="text-sm text-muted-foreground">
+        En el presente apartado se establecen los datos concernientes al empleo,
+        cargo o comision que ostenta u ostentaba la persona servidora pública al
+        momento de cometer la falta administrativa
+      </p>
 
-      <FormField control={form.control} name="empleo_entidadFederativa" render={({ field }) => (
-        <FormItem><FormLabel>Entidad federativa <span className="text-red-500">*</span></FormLabel><FormControl><Combobox options={ENTIDADES_FEDERATIVAS} value={field.value} onChange={field.onChange} placeholder="Selecciona la entidad federativa" disabled={loading} searchPlaceholder="Buscar entidad federativa..." /></FormControl><FormDescription>Seleccionar la entidad federativa donde se ubique el Ente publico</FormDescription><FormMessage /></FormItem>
-      )} />
+      <FormField
+        control={form.control}
+        name="empleo_entidadFederativa"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              Entidad federativa <span className="text-red-500">*</span>
+            </FormLabel>
+            <FormControl>
+              <Combobox
+                options={ENTIDADES_FEDERATIVAS}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Selecciona la entidad federativa"
+                disabled={loading}
+                searchPlaceholder="Buscar entidad federativa..."
+              />
+            </FormControl>
+            <FormDescription>
+              Seleccionar la entidad federativa donde se ubica el Ente público
+              donde labora o laboraba la persona servidora pública sancionada,
+              al momento de cometer la falta administrativa
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <FormField control={form.control} name="empleo_nivelOrdenGobierno" render={({ field }) => (
-        <FormItem className="space-y-3"><FormLabel>Nivel / Orden de gobierno <span className="text-red-500">*</span></FormLabel><FormControl>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[{ value: "FEDERAL", label: "Federal" },{ value: "ESTATAL", label: "Estatal" },{ value: "MUNICIPAL_ALCALDIA", label: "Municipal / Alcaldía" }].map((option) => (
-              <div key={option.value} onClick={() => !loading && handleNivelClick(option.value)} className={`relative flex cursor-pointer rounded-xl border-2 p-4 hover:bg-accent transition-colors ${nivelOrdenGobierno === option.value ? "border-primary bg-accent" : "border-muted"} ${loading ? "opacity-50 cursor-not-allowed" : ""}`}>
-                <div className="flex items-start space-x-3 w-full"><div className={`mt-0.5 h-4 w-4 rounded-full border-2 flex items-center justify-center ${nivelOrdenGobierno === option.value ? "border-primary" : "border-muted-foreground"}`}>{nivelOrdenGobierno === option.value && <div className="h-2 w-2 rounded-full bg-primary" />}</div><div className="flex-1"><Label className="font-medium cursor-pointer">{option.label}</Label></div></div>
+      <FormField
+        control={form.control}
+        name="empleo_nivelOrdenGobierno"
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>
+              Nivel / Orden de gobierno <span className="text-red-500">*</span>
+            </FormLabel>
+            <FormControl>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { value: "FEDERAL", label: "Federal" },
+                  { value: "ESTATAL", label: "Estatal" },
+                  {
+                    value: "MUNICIPAL_ALCALDIA",
+                    label: "Municipal / Alcaldía",
+                  },
+                ].map((option) => (
+                  <div
+                    key={option.value}
+                    onClick={() => !loading && handleNivelClick(option.value)}
+                    className={`relative flex cursor-pointer rounded-xl border-2 p-4 hover:bg-accent transition-colors ${nivelOrdenGobierno === option.value ? "border-primary bg-accent" : "border-muted"} ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <div className="flex items-start space-x-3 w-full">
+                      <div
+                        className={`mt-0.5 h-4 w-4 rounded-full border-2 flex items-center justify-center ${nivelOrdenGobierno === option.value ? "border-primary" : "border-muted-foreground"}`}
+                      >
+                        {nivelOrdenGobierno === option.value && (
+                          <div className="h-2 w-2 rounded-full bg-primary" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <Label className="font-medium cursor-pointer">
+                          {option.label}
+                        </Label>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </FormControl><FormDescription>Seleccionar el nivel u orden de gobierno al que pertenece el Ente publico</FormDescription><FormMessage /></FormItem>
-      )} />
+            </FormControl>
+            <FormDescription>
+              Seleccionar el nivel u orden de gobierno
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <FormField control={form.control} name="empleo_ambitoPublico" render={({ field }) => (
-        <FormItem className="space-y-3"><FormLabel>Ambito publico <span className="text-red-500">*</span></FormLabel><FormControl>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {[{ value: "EJECUTIVO", label: "Ejecutivo" },{ value: "LEGISLATIVO", label: "Legislativo" },{ value: "JUDICIAL", label: "Judicial" },{ value: "ORGANO_AUTONOMO", label: "Órgano autónomo" }].map((option) => (
-              <div key={option.value} onClick={() => !loading && handleAmbitoClick(option.value)} className={`relative flex cursor-pointer rounded-xl border-2 p-3 hover:bg-accent transition-colors ${ambitoPublico === option.value ? "border-primary bg-accent" : "border-muted"} ${loading ? "opacity-50 cursor-not-allowed" : ""}`}>
-                <div className="flex items-center space-x-2 w-full justify-center"><div className={`h-4 w-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${ambitoPublico === option.value ? "border-primary" : "border-muted-foreground"}`}>{ambitoPublico === option.value && <div className="h-2 w-2 rounded-full bg-primary" />}</div><Label className="font-medium cursor-pointer text-center">{option.label}</Label></div>
+      <FormField
+        control={form.control}
+        name="empleo_ambitoPublico"
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>
+              Ambito público <span className="text-red-500">*</span>
+            </FormLabel>
+            <FormControl>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {[
+                  { value: "EJECUTIVO", label: "Ejecutivo" },
+                  { value: "LEGISLATIVO", label: "Legislativo" },
+                  { value: "JUDICIAL", label: "Judicial" },
+                  { value: "ORGANO_AUTONOMO", label: "Órgano autónomo" },
+                ].map((option) => (
+                  <div
+                    key={option.value}
+                    onClick={() => !loading && handleAmbitoClick(option.value)}
+                    className={`relative flex cursor-pointer rounded-xl border-2 p-3 hover:bg-accent transition-colors ${ambitoPublico === option.value ? "border-primary bg-accent" : "border-muted"} ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+                  >
+                    <div className="flex items-center space-x-2 w-full justify-center">
+                      <div
+                        className={`h-4 w-4 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${ambitoPublico === option.value ? "border-primary" : "border-muted-foreground"}`}
+                      >
+                        {ambitoPublico === option.value && (
+                          <div className="h-2 w-2 rounded-full bg-primary" />
+                        )}
+                      </div>
+                      <Label className="font-medium cursor-pointer text-center">
+                        {option.label}
+                      </Label>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </FormControl><FormDescription>Seleccionar el ambito publico</FormDescription><FormMessage /></FormItem>
-      )} />
+            </FormControl>
+            <FormDescription>Seleccionar el ámbito público</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
       <div className="md:grid md:grid-cols-2 gap-6">
-        <FormField control={form.control} name="empleo_nombreEntePublico" render={({ field }) => (
-          <FormItem><FormLabel>Nombre del ente publico <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Secretaría de Hacienda y Crédito Público" {...field} value={field.value || ""} /></FormControl><FormDescription>Indicar el nombre completo del Ente publico</FormDescription><FormMessage /></FormItem>
-        )} />
-        <FormField control={form.control} name="empleo_siglasEntePublico" render={({ field }) => (
-          <FormItem><FormLabel>Siglas del ente publico</FormLabel><FormControl><Input disabled={loading} placeholder="Ej: SHCP" {...field} value={field.value || ""} /></FormControl><FormDescription>Indicar las siglas del Ente publico</FormDescription><FormMessage /></FormItem>
-        )} />
+        <FormField
+          control={form.control}
+          name="empleo_nombreEntePublico"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Nombre del Ente público <span className="text-red-500">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  disabled={loading}
+                  placeholder="Ej: Secretaría de Hacienda y Crédito Público"
+                  {...field}
+                  value={field.value || ""}
+                />
+              </FormControl>
+              <FormDescription>
+                Indicar el nombre completo del Ente público, sin abreviaturas,
+                sin acentos, ni signos especiales
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="empleo_siglasEntePublico"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Siglas del Ente público</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={loading}
+                  placeholder="Ej: SHCP"
+                  {...field}
+                  value={field.value || ""}
+                />
+              </FormControl>
+              <FormDescription>
+                Indicar las siglas del Ente público
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </div>
 
-      <FormField control={form.control} name="empleo_nivelJerarquico_clave" render={({ field }) => (
-        <FormItem><FormLabel>Nivel jerarquico <span className="text-red-500">*</span></FormLabel><FormControl><Combobox options={NIVELES_JERARQUICO} value={field.value} onChange={field.onChange} placeholder="Selecciona el nivel jerarquico" disabled={loading} searchPlaceholder="Buscar nivel jerarquico..." /></FormControl><FormDescription>Seleccionar el nivel jerarquico del servidor publico</FormDescription><FormMessage /></FormItem>
-      )} />
+      <FormField
+        control={form.control}
+        name="empleo_nivelJerarquico_clave"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              Nivel jerárquico del empleo, cargo o comisión{" "}
+              <span className="text-red-500">*</span>
+            </FormLabel>
+            <FormControl>
+              <Combobox
+                options={NIVELES_JERARQUICO}
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Selecciona el nivel jerárquico"
+                disabled={loading}
+                searchPlaceholder="Buscar nivel jerárquico..."
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
       {nivelJerarquicoClave === "OTRO" && (
-        <FormField control={form.control} name="empleo_nivelJerarquico_valor" render={({ field }) => (
-          <FormItem><FormLabel>Especifique el nivel jerarquico <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Especifique el nivel jerarquico" {...field} value={field.value || ""} /></FormControl><FormDescription>En caso de seleccionar la opcion "OTRO", se debera especificar el nivel jerarquico</FormDescription><FormMessage /></FormItem>
-        )} />
+        <FormField
+          control={form.control}
+          name="empleo_nivelJerarquico_valor"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Especifique el nivel jerárquico{" "}
+                <span className="text-red-500">*</span>
+              </FormLabel>
+              <FormControl>
+                <Input
+                  disabled={loading}
+                  placeholder="Especifique el nivel jerárquico"
+                  {...field}
+                  value={field.value || ""}
+                />
+              </FormControl>
+              <FormDescription>
+                En caso de seleccionar la opción "OTRO", se deberá especificar
+                el nivel jerárquico
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       )}
 
-      <FormField control={form.control} name="empleo_denominacion" render={({ field }) => (
-        <FormItem><FormLabel>Denominacion del empleo, cargo o comision <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Director General de Administracion" {...field} /></FormControl><FormDescription>Indicar la denominacion del empleo, cargo o comision del servidor publico</FormDescription><FormMessage /></FormItem>
-      )} />
+      <FormField
+        control={form.control}
+        name="empleo_denominacion"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              Denominación del empleo, cargo o comisión{" "}
+              <span className="text-red-500">*</span>
+            </FormLabel>
+            <FormControl>
+              <Input
+                disabled={loading}
+                placeholder="Ej: Director General de Administración"
+                {...field}
+              />
+            </FormControl>
+            <FormDescription>
+              Escribir la denominación completa del empleo, cargo o comisión que
+              aparece en el recibo de nómina, nombramiento, contrato u oficio de
+              comisión, sin abreviaturas, sin acentos, ni signos especiales
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
 
-      <FormField control={form.control} name="empleo_areaAdscripcion" render={({ field }) => (
-        <FormItem><FormLabel>Area de adscripcion <span className="text-red-500">*</span></FormLabel><FormControl><Input disabled={loading} placeholder="Ej: Direccion General de Recursos Humanos" {...field} /></FormControl><FormDescription>Indicar el area de adscripcion del servidor publico</FormDescription><FormMessage /></FormItem>
-      )} />
+      <FormField
+        control={form.control}
+        name="empleo_areaAdscripcion"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>
+              Área de adscripción <span className="text-red-500">*</span>
+            </FormLabel>
+            <FormControl>
+              <Input
+                disabled={loading}
+                placeholder="Ej: Dirección General de Recursos Humanos"
+                {...field}
+              />
+            </FormControl>
+            <FormDescription>
+              Especificar el nombre de la Unidad Administrativa del Ente público
+              a la que está o estaba adscrita la persona servidora pública
+              sancionada, sin abreviaturas, sin acentos, ni signos especiales
+            </FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 };

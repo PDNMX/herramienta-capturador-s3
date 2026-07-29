@@ -33,9 +33,9 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          C. Sancion Economica
+          C. Sanción económica
         </h5>
-        <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que el servidor publico sea acreedor de una sancion economica</p>
+        <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que la persona servidora pública sea acreedora de una sanción económica</p>
       </div>
 
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -48,7 +48,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
               <FormControl>
                 <Input type="number" min="0" step="0.01" disabled={loading} placeholder="0.00" {...field} onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)} />
               </FormControl>
-              <FormDescription>Colocar el monto total de la sancion economica</FormDescription>
+              <FormDescription>Colocar el monto total de la sanción económica</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -70,24 +70,24 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
                   <SelectItem value="EUR">EUR - Euro</SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>Colocar el tipo de moneda en formato ISO 4217</FormDescription>
+              <FormDescription>Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
       </div>
 
-      {/* Plazo de Pago */}
+      {/* Plazo de pago */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
-        <p className="text-sm font-semibold text-primary">Plazo de Pago</p>
-        <p className="text-xs text-muted-foreground">Señalar el plazo determinado para dar cumplimiento a la sancion economica</p>
+        <p className="text-sm font-semibold text-primary">Plazo de pago</p>
+        <p className="text-xs text-muted-foreground">Señalar el plazo para pagar la sanción económica</p>
         <div className="md:grid md:grid-cols-3 gap-4">
           <FormField
             control={form.control}
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.anios`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Anios</FormLabel>
+                <FormLabel>Año (s)</FormLabel>
                 <FormControl>
                   <Input type="number" min="0" disabled={loading} placeholder="0" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
                 </FormControl>
@@ -100,7 +100,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.meses`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Meses</FormLabel>
+                <FormLabel>Mes (es)</FormLabel>
                 <FormControl>
                   <Input type="number" min="0" max="11" disabled={loading} placeholder="0" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
                 </FormControl>
@@ -113,7 +113,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.dias`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Dias</FormLabel>
+                <FormLabel>Día (s)</FormLabel>
                 <FormControl>
                   <Input type="number" min="0" max="30" disabled={loading} placeholder="0" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
                 </FormControl>
@@ -127,21 +127,21 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
           <p className="text-xs text-blue-800 dark:text-blue-200">
-            Si al momento de registrar la informacion no se cuenta con los datos senalados en esta seccion, estos podran registrarse posteriormente
+            Si al momento de registrar la información la autoridad no cuenta con los datos señalados en esta sección, estos se podrán registrarse posteriormente mediante una actualización de su registro.
           </p>
         </div>
       </div>
 
       {/* Efectivamente Cobrada */}
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
-        <p className="text-sm font-semibold text-primary">Sancion Economica Efectivamente Cobrada</p>
+        <p className="text-sm font-semibold text-primary">Sanción económica efectivamente cobrada</p>
         <div className="md:grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name={`tipoSancion.${sancionIndex}.sancionEconomica.sancionEfectivamenteCobrada.monto`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Monto cobrado</FormLabel>
+                <FormLabel>Monto</FormLabel>
                 <FormControl>
                   <Input type="number" min="0" step="0.01" disabled={loading} placeholder="0.00" {...field} onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)} />
                 </FormControl>
@@ -167,7 +167,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
                     <SelectItem value="EUR">EUR</SelectItem>
                   </SelectContent>
                 </Select>
-                <FormDescription>Tipo de moneda ISO 4217</FormDescription>
+                <FormDescription>Colocar el tipo de moneda en formato de tres letras, establecidos en el ISO 4217</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -179,11 +179,11 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
           name={`tipoSancion.${sancionIndex}.sancionEconomica.sancionEfectivamenteCobrada.fechaCobro`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha de cobro</FormLabel>
+              <FormLabel>Fecha de cobro de la sanción (DD-MM-AAAA)</FormLabel>
               <FormControl>
                 <Input type="date" disabled={loading} {...field} className="h-10" />
               </FormControl>
-              <FormDescription>Especificar la fecha en que se realizo el cobro</FormDescription>
+              <FormDescription>Especificar la fecha en que se realizó el cobro de la sanción económica</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -193,7 +193,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
           <p className="text-xs text-blue-800 dark:text-blue-200">
-            Si al momento de registrar la informacion no se cuenta con los datos senalados, estos podran registrarse posteriormente
+            Si al momento de registrar la información la autoridad no cuenta con los datos señalados en esta sección, estos podrán registrarse posteriormente mediante una actualización de su registro.
           </p>
         </div>
       </div>
@@ -208,7 +208,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
             <FormControl>
               <Input type="date" disabled={loading} {...field} className="h-10" />
             </FormControl>
-            <FormDescription>Especificar la fecha en que se cubrio el pago total de la sancion economica</FormDescription>
+            <FormDescription>Especificar la fecha en que se cubrió el pago total de la sanción económica. <p> Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción, este podrá registrarse posteriormente mediante una actualización de su registro </p></FormDescription>
             <FormMessage />
           </FormItem>
         )}
