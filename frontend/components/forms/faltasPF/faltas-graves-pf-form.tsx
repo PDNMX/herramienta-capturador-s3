@@ -1096,7 +1096,6 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
 
       console.log("=== GUARDADO EXITOSO ===");
 
-      router.refresh();
       router.push("/inicio/faltas-graves-pf");
       toast({
         variant: "default",

@@ -24,7 +24,7 @@ export default function Page({ params }: { params: Promise<{ enteId: string }> }
     if (status !== "authenticated" || !session?.access_token) return;
     directus.request(
       withToken(session.access_token, readItem("ente_publico" as any, enteId, {
-        fields: ["id", "nombre"] as any,
+        fields: ["id", "nombre", "faltasGraves", "faltasNoGraves", "faltasMorales", "faltasFisicas"] as any,
       }))
     )
       .then((res: any) => setEnte(res))

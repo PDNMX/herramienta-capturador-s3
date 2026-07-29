@@ -17,7 +17,7 @@ import { updateUser, withToken } from "@directus/sdk";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 
-export const CellAction = ({ data, session }: any) => {
+export const CellAction = ({ data, session, onRefresh }: any) => {
   const [loading, setLoading] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const { toast } = useToast();
@@ -35,7 +35,7 @@ export const CellAction = ({ data, session }: any) => {
         title: isActive ? "Usuario desactivado" : "Usuario activado",
         description: `${fullName} ha sido ${isActive ? "desactivado" : "activado"}.`,
       });
-      window.location.reload();
+      onRefresh?.();
     } catch (error: any) {
       toast({
         variant: "destructive",

@@ -18,27 +18,29 @@ export default function Page() {
   const { session, status } = useCurrentSession();
   const [usuarios, setUsuarios] = useState([]);
 
+  const fetchData = async () => {
+    if (!session?.access_token) return;
+    try {
+      const result = await directus.request(
+        withToken(
+          session.access_token,
+          readUsers({
+            fields: ["id", "first_name", "last_name", "email", "status", "entePublico.id", "entePublico.nombre", "role.id", "role.name"],
+            sort: ["first_name"],
+            limit: -1,
+          })
+        )
+      );
+      setUsuarios(result as any[]);
+    } catch (error) {
+      console.error("Error al cargar usuarios:", error);
+    }
+  };
+
   useEffect(() => {
     if (session?.forceLogout) {
       signOut({ callbackUrl: "/" });
     } else if (status === "authenticated") {
-      async function fetchData() {
-        try {
-          const result = await directus.request(
-            withToken(
-              session?.access_token,
-              readUsers({
-                fields: ["id", "first_name", "last_name", "email", "status", "entePublico.id", "entePublico.nombre", "role.id", "role.name"],
-                sort: ["first_name"],
-                limit: -1,
-              })
-            )
-          );
-          setUsuarios(result as any[]);
-        } catch (error) {
-          console.error("Error al cargar usuarios:", error);
-        }
-      }
       fetchData();
     }
   }, [session, status]);
@@ -46,7 +48,7 @@ export default function Page() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <BreadCrumb items={breadcrumbItems} />
-      <UsuariosTable data={usuarios} />
+      <UsuariosTable data={usuarios} onRefresh={fetchData} />
     </div>
   );
 }

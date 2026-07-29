@@ -13,7 +13,7 @@ import {
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
-export const createColumns = (session): ColumnDef<any>[] => [
+export const createColumns = (session, onRefresh?: () => void): ColumnDef<any>[] => [
     {
         accessorKey: "expediente",
         header: () => (
@@ -112,7 +112,7 @@ export const createColumns = (session): ColumnDef<any>[] => [
     {
         id: "actions",
         header: () => <div className="text-center"></div>,
-        cell: ({ row }) => <CellAction data={row.original} session={session} />,
+        cell: ({ row }) => <CellAction data={row.original} session={session} onRefresh={onRefresh} />,
         size: 80,
         enableSorting: false,
     },

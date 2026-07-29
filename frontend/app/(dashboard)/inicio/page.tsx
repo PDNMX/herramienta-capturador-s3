@@ -22,7 +22,8 @@ import {
   ShieldCheck,
   Activity,
 } from "lucide-react";
-import { ROLES } from "@/types/next-auth";
+import { ROLES, FormPermisos } from "@/types/next-auth";
+import { useFormPermisos } from "@/hooks/useFormPermisos";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
@@ -41,6 +42,7 @@ const categoryCards = [
     title: "Faltas Administrativas Graves",
     subtitle: "Servidores Públicos",
     key: "faltasGravesServidores" as const,
+    permisoKey: "faltasGraves" as keyof FormPermisos,
     icon: AlertCircle,
     color: "from-red-500 to-rose-600",
     textColor: "text-red-600 dark:text-red-400",
@@ -53,6 +55,7 @@ const categoryCards = [
     title: "Faltas Administrativas No Graves",
     subtitle: "Servidores Públicos",
     key: "faltasNoGravesServidores" as const,
+    permisoKey: "faltasNoGraves" as keyof FormPermisos,
     icon: Users,
     color: "from-amber-500 to-orange-500",
     textColor: "text-amber-600 dark:text-amber-400",
@@ -65,6 +68,7 @@ const categoryCards = [
     title: "Faltas Graves",
     subtitle: "Personas Morales",
     key: "faltasGravesPersonasMorales" as const,
+    permisoKey: "faltasMorales" as keyof FormPermisos,
     icon: Building2,
     color: "from-violet-500 to-purple-600",
     textColor: "text-violet-600 dark:text-violet-400",
@@ -77,6 +81,7 @@ const categoryCards = [
     title: "Faltas Graves",
     subtitle: "Personas Físicas",
     key: "faltasGravesPersonasFisicas" as const,
+    permisoKey: "faltasFisicas" as keyof FormPermisos,
     icon: User,
     color: "from-blue-500 to-indigo-600",
     textColor: "text-blue-600 dark:text-blue-400",
@@ -89,6 +94,14 @@ const categoryCards = [
 
 export default function Page() {
   const { session, status } = useCurrentSession();
+  const isAdmin = session?.user?.roleName === ROLES.ADMINISTRADOR;
+  const formPermisos = useFormPermisos();
+
+  const visibleCards = categoryCards.filter((c) => {
+    if (isAdmin || !formPermisos) return true;
+    return formPermisos[c.permisoKey] !== false;
+  });
+
   const [data, setData] = useState<DashboardData>({
     faltasGravesServidores: 0,
     faltasNoGravesServidores: 0,
@@ -99,7 +112,6 @@ export default function Page() {
   });
   const [adminStats, setAdminStats] = useState({ totalUsuarios: 0, totalEntes: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
-  const isAdmin = session?.user?.roleName === ROLES.ADMINISTRADOR;
 
   // Wrapper que devuelve 0 si no tiene permisos en lugar de explotar
   const safeAggregate = async (collection: string) => {
@@ -280,7 +292,7 @@ export default function Page() {
 
               {/* Pills — pushed to bottom */}
               <div className="mt-auto pt-4 border-t border-primary/10 flex flex-wrap gap-2">
-                {categoryCards.map((c, i) => (
+                {visibleCards.map((c, i) => (
                   <Link
                     key={i}
                     href={c.href}
@@ -325,7 +337,7 @@ export default function Page() {
               </div>
               {/* Mini bar chart */}
               <div className="flex gap-1.5 h-10 items-end mt-auto">
-                {categoryCards.map((c, i) => {
+                {visibleCards.map((c, i) => {
                   const val = data[c.key] ?? 0;
                   const pct = data.totalFaltas > 0 ? (val / data.totalFaltas) * 100 : 0;
                   return (
@@ -357,7 +369,7 @@ export default function Page() {
             Desglose por categoría
           </p>
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-            {categoryCards.map((category, index) => {
+            {visibleCards.map((category, index) => {
               const value = data[category.key] ?? 0;
               const percentage =
                 data.totalFaltas > 0

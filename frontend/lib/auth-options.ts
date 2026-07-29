@@ -2,9 +2,9 @@ import { NextAuthOptions, Awaitable, User, Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { handleError } from "./utils"
 import { directus, login } from "@/services/directus"
-import { readMe } from "@directus/sdk"
+import { readMe, readItem } from "@directus/sdk"
 import { JWT } from "next-auth/jwt"
-import { AuthRefresh, UserSession, UserParams } from "@/types/next-auth"
+import { AuthRefresh, UserSession, UserParams, FormPermisos } from "@/types/next-auth"
 
 // Mapeo de UUID de rol → nombre (evita llamadas a directus_roles que requieren permisos de admin)
 const ROLE_ID_TO_NAME: Record<string, string> = {
@@ -25,6 +25,7 @@ const userParams = (user: UserSession): UserParams => {
     entePublicoNombre: user.entePublicoNombre || "",
     role: user.role || "",
     roleName: user.roleName || "",
+    formPermisos: user.formPermisos,
   }
 }
 
@@ -67,7 +68,28 @@ export const authOptions: NextAuthOptions = {
           const entePublicoId = loggedInUser.entePublico
             ? String(loggedInUser.entePublico)
             : ""
-          const entePublicoNombre = ""
+
+          let entePublicoNombre = ""
+          let formPermisos: FormPermisos | undefined = undefined
+
+          if (entePublicoId) {
+            try {
+              const ente = await apiAuth.request(
+                readItem("ente_publico" as any, entePublicoId, {
+                  fields: ["nombre", "faltasGraves", "faltasNoGraves", "faltasMorales", "faltasFisicas"],
+                } as any)
+              ) as any
+              entePublicoNombre = ente?.nombre ?? ""
+              formPermisos = {
+                faltasGraves: ente?.faltasGraves ?? true,
+                faltasNoGraves: ente?.faltasNoGraves ?? true,
+                faltasMorales: ente?.faltasMorales ?? true,
+                faltasFisicas: ente?.faltasFisicas ?? true,
+              }
+            } catch {
+              // Si falla la consulta del ente, no restringir acceso
+            }
+          }
 
           const user: Awaitable<User> = {
             id: loggedInUser.id,
@@ -81,6 +103,7 @@ export const authOptions: NextAuthOptions = {
             access_token: auth.access_token ?? "",
             expires: Date.now() + (auth.expires ?? 15 * 60 * 1000),
             refresh_token: auth.refresh_token ?? "",
+            formPermisos,
           }
 
           return user
@@ -163,7 +186,7 @@ export const authOptions: NextAuthOptions = {
         ).toISOString()
       } else {
         if (token.user) {
-          const { id, name, email, entePublico, entePublicoNombre, role, roleName } = token.user as UserParams
+          const { id, name, email, entePublico, entePublicoNombre, role, roleName, formPermisos } = token.user as UserParams
           session.user = {
             id,
             name,
@@ -172,6 +195,7 @@ export const authOptions: NextAuthOptions = {
             entePublicoNombre: entePublicoNombre || "",
             role: role || "",
             roleName: roleName || "",
+            formPermisos,
           }
         }
         session.access_token = token.access_token

@@ -98,7 +98,7 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [roles, setRoles] = useState<{ id: string; name: string }[]>([]);
-  const [entes, setEntes] = useState<{ id: number; nombre: string }[]>([]);
+  const [entes, setEntes] = useState<any[]>([]);
 
   // Dialog para nuevo ente público
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -148,7 +148,7 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
       try {
         const result = await directus.request(
           withToken(session.access_token, readItems("ente_publico", {
-            fields: ["id", "nombre"],
+            fields: ["id", "nombre", "faltasGraves", "faltasNoGraves", "faltasMorales", "faltasFisicas"],
             sort: ["nombre"],
             limit: -1,
           }))
@@ -210,7 +210,6 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
         toast({ title: "Usuario creado", description: "El nuevo usuario ha sido registrado." });
       }
       router.push("/inicio/administracion/usuarios");
-      router.refresh();
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -341,6 +340,52 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
             </Field>
 
           </div>
+
+          {/* Formularios disponibles del ente seleccionado */}
+          {(() => {
+            const enteId = form.watch("entePublico");
+            const enteSeleccionado = entes.find((e) => String(e.id) === enteId);
+            if (!enteSeleccionado) return null;
+
+            const FORMULARIOS = [
+              { key: "faltasGraves",   label: "Faltas Administrativas Graves",   color: "text-red-600 dark:text-red-400",    bg: "bg-red-50 dark:bg-red-950/30" },
+              { key: "faltasNoGraves", label: "Faltas Administrativas No Graves", color: "text-amber-600 dark:text-amber-400", bg: "bg-amber-50 dark:bg-amber-950/30" },
+              { key: "faltasMorales",  label: "Faltas Graves · Personas Morales", color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-950/30" },
+              { key: "faltasFisicas",  label: "Faltas Graves · Personas Físicas", color: "text-blue-600 dark:text-blue-400",  bg: "bg-blue-50 dark:bg-blue-950/30" },
+            ];
+
+            return (
+              <div className="mt-4 rounded-lg border bg-muted/30 p-4 space-y-2">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  Formularios disponibles para este ente
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {FORMULARIOS.map((f) => {
+                    const activo = enteSeleccionado[f.key] !== false;
+                    return (
+                      <span
+                        key={f.key}
+                        className={[
+                          "inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full",
+                          activo
+                            ? `${f.bg} ${f.color}`
+                            : "bg-muted text-muted-foreground line-through opacity-50",
+                        ].join(" ")}
+                      >
+                        {activo ? "✓" : "✗"} {f.label}
+                      </span>
+                    );
+                  })}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Para modificar los formularios habilitados, edita el ente en{" "}
+                  <a href="/inicio/administracion/entes" className="text-primary underline underline-offset-2 hover:opacity-80">
+                    Administración → Entes Públicos
+                  </a>.
+                </p>
+              </div>
+            );
+          })()}
         </SectionCard>
 
         {/* Acciones */}

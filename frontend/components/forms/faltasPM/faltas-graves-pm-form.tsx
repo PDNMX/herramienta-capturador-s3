@@ -1286,7 +1286,6 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
 
       console.log("=== GUARDADO EXITOSO ===");
 
-      router.refresh();
       router.push("/inicio/faltas-graves-pm");
       toast({
         variant: "default",

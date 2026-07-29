@@ -848,7 +848,6 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
 
       console.log("=== GUARDADO EXITOSO ===");
 
-      router.refresh();
       router.push("/inicio/faltas-administrativas-no-graves");
       toast({
         variant: "default",

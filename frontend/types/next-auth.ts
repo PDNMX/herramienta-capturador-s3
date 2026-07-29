@@ -1,5 +1,12 @@
 import { DefaultSession } from "next-auth"
 
+export type FormPermisos = {
+  faltasGraves: boolean
+  faltasNoGraves: boolean
+  faltasMorales: boolean
+  faltasFisicas: boolean
+}
+
 declare module "next-auth" {
   interface User {
     id: string
@@ -13,6 +20,7 @@ declare module "next-auth" {
     entePublicoNombre: string
     role: string
     roleName: string
+    formPermisos?: FormPermisos
   }
 
   interface Session {
@@ -22,6 +30,7 @@ declare module "next-auth" {
       entePublicoNombre?: string
       role?: string
       roleName?: string
+      formPermisos?: FormPermisos
     }
     access_token?: string
     expires_at?: number
@@ -42,6 +51,7 @@ declare module "next-auth/jwt" {
     tokenIsRefreshed?: boolean | null
     user?: UserParams
     forceLogout?: boolean
+    formPermisos?: FormPermisos
   }
 }
 
@@ -63,6 +73,7 @@ export type UserSession = {
   entePublicoNombre?: string
   role?: string
   roleName?: string
+  formPermisos?: FormPermisos
 }
 
 export type UserParams = {
@@ -75,6 +86,7 @@ export type UserParams = {
   entePublicoNombre?: string
   role?: string
   roleName?: string
+  formPermisos?: FormPermisos
 }
 
 // Role name constant — matches Directus role name exactly

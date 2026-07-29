@@ -19,7 +19,7 @@ const roleDisplayNames: Record<string, string> = {
 
 const isDirectusAdmin = (roleName: string) => roleName === "Administrator";
 
-export const createColumns = (session): ColumnDef<any>[] => [
+export const createColumns = (session, onRefresh?: () => void): ColumnDef<any>[] => [
   {
     accessorKey: "email",
     header: () => (
@@ -111,7 +111,7 @@ export const createColumns = (session): ColumnDef<any>[] => [
     cell: ({ row }) => {
       const roleName = row.original.role?.name ?? "";
       if (isDirectusAdmin(roleName)) return null;
-      return <CellAction data={row.original} session={session} />;
+      return <CellAction data={row.original} session={session} onRefresh={onRefresh} />;
     },
     enableSorting: false,
   },

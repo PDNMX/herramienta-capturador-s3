@@ -5,10 +5,18 @@ import { navItems, adminNavItems } from "@/constants/data";
 import { cn } from "@/lib/utils";
 import { Database, LogOut } from "lucide-react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
-import { ROLES } from "@/types/next-auth";
+import { ROLES, FormPermisos } from "@/types/next-auth";
+import { useFormPermisos } from "@/hooks/useFormPermisos";
 import { signOut } from "next-auth/react";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+
+const FORM_PERMISSION_MAP: Record<string, keyof FormPermisos> = {
+  "/inicio/faltas-administrativas-graves": "faltasGraves",
+  "/inicio/faltas-administrativas-no-graves": "faltasNoGraves",
+  "/inicio/faltas-graves-pm": "faltasMorales",
+  "/inicio/faltas-graves-pf": "faltasFisicas",
+};
 
 const roleLabels: Record<string, string> = {
   [ROLES.ADMINISTRADOR]: "Administrador",
@@ -20,6 +28,14 @@ export default function Sidebar() {
   const isAdmin = session?.user?.roleName === ROLES.ADMINISTRADOR;
   const roleName = session?.user?.roleName ?? "";
   const roleLabel = roleLabels[roleName] ?? roleName;
+  const formPermisos = useFormPermisos();
+
+  const filteredNavItems = navItems.filter((item) => {
+    if (isAdmin || !item.href) return true;
+    const permisoKey = FORM_PERMISSION_MAP[item.href];
+    if (!permisoKey || !formPermisos) return true;
+    return formPermisos[permisoKey] !== false;
+  });
 
   const initials = session?.user?.name
     ?.split(" ")
@@ -60,7 +76,7 @@ export default function Sidebar() {
           <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60 px-2 mb-1.5">
             Navegación
           </p>
-          <DashboardNav items={navItems} />
+          <DashboardNav items={filteredNavItems} />
         </div>
 
         {/* Admin nav */}

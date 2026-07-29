@@ -17,21 +17,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { deleteItem, withToken } from "@directus/sdk";
 import Link from "next/link";
 
-export const CellAction = ({ data, session }: any) => {
+export const CellAction = ({ data, session, onRefresh }: any) => {
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const { toast } = useToast();
-
-    useEffect(() => {
-        if (localStorage.getItem("deleted-falta-pm") === "true") {
-            toast({
-                variant: "default",
-                title: "Registro eliminado",
-                description: "La falta grave ha sido eliminada exitosamente.",
-            });
-            localStorage.removeItem("deleted-falta-pm");
-        }
-    }, [toast]);
 
     const onConfirm = async () => {
         try {
@@ -43,8 +32,8 @@ export const CellAction = ({ data, session }: any) => {
                         deleteItem("faltas_graves_personas_morales", data.id)
                     )
                 );
-                localStorage.setItem("deleted-falta-pm", "true");
-                window.location.reload();
+                toast({ title: "Registro eliminado", description: "La falta grave (PM) ha sido eliminada." });
+                onRefresh?.();
             }
         } catch (error: any) {
             console.error("Error:", error);

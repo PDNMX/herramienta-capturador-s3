@@ -50,7 +50,7 @@ export const FaltasAdministrativasGravesTable = ({ data, onRefresh }: any) => {
             </div>
             <DataTable
                 searchKey="expediente"
-                columns={createColumns(session)}
+                columns={createColumns(session, onRefresh)}
                 data={data}
             />
         </div>

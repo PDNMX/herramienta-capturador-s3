@@ -40,7 +40,7 @@ export const navItems: NavItem[] = [
     description: "Servidores públicos · graves",
   },
   {
-    title: "Faltas No Graves",
+    title: "Faltas Administrativas No Graves",
     href: "/inicio/faltas-administrativas-no-graves",
     icon: "users",
     label: "no graves",

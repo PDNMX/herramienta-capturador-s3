@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { createColumns } from "./columns";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 
-export const UsuariosTable = ({ data }: any) => {
+export const UsuariosTable = ({ data, onRefresh }: any) => {
   const router = useRouter();
   const { session } = useCurrentSession();
 
@@ -40,7 +40,7 @@ export const UsuariosTable = ({ data }: any) => {
       </div>
       <DataTable
         searchKey="email"
-        columns={createColumns(session)}
+        columns={createColumns(session, onRefresh)}
         data={data}
       />
     </div>
