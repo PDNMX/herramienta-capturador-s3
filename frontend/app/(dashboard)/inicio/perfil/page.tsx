@@ -8,7 +8,7 @@ import { z } from "zod";
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import directus from "@/lib/directus";
-import { updateUser, readItems, withToken } from "@directus/sdk";
+import { updateUser, readMe, withToken } from "@directus/sdk";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -47,20 +47,24 @@ export default function Page() {
   const { session } = useCurrentSession();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [enteNombre, setEnteNombre] = useState("");
+  const [enteNombre, setEnteNombre] = useState(() => session?.user?.entePublicoNombre ?? "");
 
   useEffect(() => {
+    if (session?.user?.entePublicoNombre) {
+      setEnteNombre(session.user.entePublicoNombre);
+      return;
+    }
     if (!session?.access_token || !session?.user?.entePublico) return;
+    // Usa /users/me con expansión de relación para evitar 403 en lectura directa de ente_publico
     directus.request(
-      withToken(session.access_token, readItems("ente_publico" as any, {
-        filter: { id: { _eq: session.user.entePublico } } as any,
-        fields: ["id", "nombre"] as any,
-        limit: 1,
-      }))
+      withToken(session.access_token, readMe({ fields: ["entePublico.nombre"] as any }))
     )
-      .then((res: any) => setEnteNombre(res?.[0]?.nombre ?? session.user?.entePublico ?? ""))
-      .catch(() => setEnteNombre(session?.user?.entePublico ?? ""));
-  }, [session?.access_token, session?.user?.entePublico]);
+      .then((me: any) => {
+        const nombre = me?.entePublico?.nombre;
+        if (nombre) setEnteNombre(nombre);
+      })
+      .catch(() => {});
+  }, [session?.access_token, session?.user?.entePublico, session?.user?.entePublicoNombre]);
 
   const form = useForm({
     resolver: zodResolver(passwordSchema),
@@ -135,10 +139,10 @@ export default function Page() {
                   <Mail className="h-4 w-4 shrink-0" />
                   <span>{session?.user?.email || "—"}</span>
                 </div>
-                {(enteNombre || session?.user?.entePublico) && (
+                {enteNombre && (
                   <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Building2 className="h-4 w-4 shrink-0" />
-                    <span>{enteNombre || session?.user?.entePublico}</span>
+                    <span>{enteNombre}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -177,7 +181,7 @@ export default function Page() {
               <div className="space-y-1">
                 <p className="text-xs text-muted-foreground">Ente Público</p>
                 <p className="text-sm font-medium">
-                  {enteNombre || session?.user?.entePublico || "—"}
+                  {enteNombre || "—"}
                 </p>
               </div>
               <div className="space-y-1">

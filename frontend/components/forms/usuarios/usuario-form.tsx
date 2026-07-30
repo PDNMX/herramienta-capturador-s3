@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import directus from "@/lib/directus";
 import { createUser, updateUser, readRoles, readItems, createItem, withToken } from "@directus/sdk";
+import { Switch } from "@/components/ui/switch";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,8 +24,47 @@ import {
 } from "@/components/ui/dialog";
 import {
   Loader2, Save, ArrowLeft, User, Mail, Lock, Building2,
-  ShieldCheck, Eye, EyeOff, Plus,
+  ShieldCheck, Eye, EyeOff, Plus, FileText,
 } from "lucide-react";
+
+// ── Constantes ────────────────────────────────────────────────────────────────
+
+const FORMULARIOS = [
+  {
+    key: "faltasGraves",
+    label: "Faltas Administrativas Graves",
+    description: "Servidores públicos · infracciones graves",
+    color: "text-red-600 dark:text-red-400",
+    bg: "bg-red-50/70 dark:bg-red-950/20",
+    dot: "bg-red-500",
+  },
+  {
+    key: "faltasNoGraves",
+    label: "Faltas Administrativas No Graves",
+    description: "Servidores públicos · infracciones menores",
+    color: "text-amber-600 dark:text-amber-400",
+    bg: "bg-amber-50/70 dark:bg-amber-950/20",
+    dot: "bg-amber-500",
+  },
+  {
+    key: "faltasMorales",
+    label: "Faltas Graves — Personas Morales",
+    description: "Particulares · personas morales",
+    color: "text-violet-600 dark:text-violet-400",
+    bg: "bg-violet-50/70 dark:bg-violet-950/20",
+    dot: "bg-violet-500",
+  },
+  {
+    key: "faltasFisicas",
+    label: "Faltas Graves — Personas Físicas",
+    description: "Particulares · personas físicas",
+    color: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-50/70 dark:bg-blue-950/20",
+    dot: "bg-blue-500",
+  },
+] as const;
+
+const DEFAULT_PERMISOS = { faltasGraves: true, faltasNoGraves: true, faltasMorales: true, faltasFisicas: true };
 
 // ── Schemas ───────────────────────────────────────────────────────────────────
 
@@ -103,6 +143,7 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
   // Dialog para nuevo ente público
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newEnteName, setNewEnteName] = useState("");
+  const [newEntePermisos, setNewEntePermisos] = useState({ ...DEFAULT_PERMISOS });
   const [savingEnte, setSavingEnte] = useState(false);
 
   const schema = isEditing ? editSchema : createSchema;
@@ -133,8 +174,7 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
           withToken(session.access_token, readRoles({ fields: ["id", "name"] }))
         );
         const S3_ROLE_IDS = [
-          "e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b",
-          "a5862643-ea54-43ac-af3d-0ff8809ff93f",
+          "a5862643-ea54-43ac-af3d-0ff8809ff93f", // Usuario-Capturador
         ];
         const filtered = (result as any[]).filter((r) => S3_ROLE_IDS.includes(r.id));
         setRoles(filtered);
@@ -170,13 +210,21 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
     try {
       setSavingEnte(true);
       const created = await directus.request(
-        withToken(session?.access_token, createItem("ente_publico", { nombre: newEnteName.trim() }))
+        withToken(session?.access_token, createItem("ente_publico", {
+          nombre: newEnteName.trim(),
+          ...newEntePermisos,
+        }))
       ) as any;
-      const newEnte = { id: created.id, nombre: created.nombre };
+      const newEnte = {
+        id: created.id,
+        nombre: created.nombre,
+        ...newEntePermisos,
+      };
       setEntes((prev) => [...prev, newEnte].sort((a, b) => a.nombre.localeCompare(b.nombre)));
       form.setValue("entePublico", String(created.id));
       setDialogOpen(false);
       setNewEnteName("");
+      setNewEntePermisos({ ...DEFAULT_PERMISOS });
       toast({ title: "Ente público creado", description: `"${created.nombre}" ha sido registrado.` });
     } catch (error: any) {
       toast({
@@ -326,9 +374,7 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
                 <SelectContent>
                   {roles.map((r) => {
                     const label =
-                      r.name === "Administrador-Frontend" ? "Administrador" :
-                      r.name === "Usuario-Capturador"     ? "Capturador"    :
-                      r.name;
+                      r.name === "Usuario-Capturador" ? "Capturador" : r.name;
                     return (
                       <SelectItem key={r.id} value={r.id}>
                         {label}
@@ -411,42 +457,131 @@ export function UsuarioForm({ initialData }: UsuarioFormProps) {
       </form>
 
       {/* Dialog: nuevo ente público */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-primary" />
-              Nuevo Ente Público
-            </DialogTitle>
-          </DialogHeader>
-          <div className="py-2">
-            <Label htmlFor="newEnteName" className="text-sm font-medium">
-              Nombre del ente público
-            </Label>
-            <Input
-              id="newEnteName"
-              className="mt-1.5"
-              placeholder="Ej. Secretaría de Gobernación"
-              value={newEnteName}
-              onChange={(e) => setNewEnteName(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleCreateEnte();
-                }
-              }}
-              autoFocus
-            />
+      <Dialog open={dialogOpen} onOpenChange={(open) => {
+        if (!savingEnte) {
+          setDialogOpen(open);
+          if (!open) { setNewEnteName(""); setNewEntePermisos({ ...DEFAULT_PERMISOS }); }
+        }
+      }}>
+        <DialogContent className="sm:max-w-lg p-0 overflow-hidden gap-0">
+
+          {/* Cabecera */}
+          <div className="px-6 pt-6 pb-5 border-b bg-card">
+            <DialogTitle className="sr-only">Nuevo Ente Público</DialogTitle>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="rounded-xl bg-blue-100 dark:bg-blue-950/60 p-2.5 shrink-0">
+                  <Building2 className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest leading-none mb-1.5">
+                    Nuevo ente público
+                  </p>
+                  <h2 className="text-base font-semibold text-foreground leading-tight max-w-[260px] truncate">
+                    {newEnteName.trim() || "Sin nombre aún"}
+                  </h2>
+                </div>
+              </div>
+              <span className="shrink-0 rounded-full border bg-muted/60 px-3 py-1 text-xs font-semibold text-muted-foreground tabular-nums whitespace-nowrap">
+                {Object.values(newEntePermisos).filter(Boolean).length} / 4 activos
+              </span>
+            </div>
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => { setDialogOpen(false); setNewEnteName(""); }}>
+
+          {/* Cuerpo */}
+          <div className="px-6 py-5 space-y-5">
+
+            {/* Nombre */}
+            <div className="rounded-lg border bg-muted/30 p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="newEnteName" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                  <FileText className="h-3 w-3" />
+                  Nombre del ente
+                </Label>
+                <span className="text-xs text-muted-foreground/70 italic">Requerido</span>
+              </div>
+              <Input
+                id="newEnteName"
+                value={newEnteName}
+                onChange={(e) => setNewEnteName(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleCreateEnte(); } }}
+                disabled={savingEnte}
+                autoFocus
+                className="font-medium bg-background"
+                placeholder="Ej. Secretaría de Gobernación"
+              />
+              <p className="text-xs text-muted-foreground">
+                Este nombre es visible para todos los usuarios asignados a este ente.
+              </p>
+            </div>
+
+            {/* Formularios */}
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                  <FileText className="h-3.5 w-3.5" />
+                  Formularios habilitados
+                </Label>
+                <span className="text-xs text-muted-foreground">
+                  Solo los activos serán visibles para capturistas
+                </span>
+              </div>
+              <div className="rounded-lg border overflow-hidden divide-y">
+                {FORMULARIOS.map((f) => {
+                  const isActive = newEntePermisos[f.key];
+                  return (
+                    <div
+                      key={f.key}
+                      className={[
+                        "flex items-center gap-4 px-4 py-3.5 transition-colors",
+                        isActive ? f.bg : "bg-muted/20 dark:bg-muted/10",
+                      ].join(" ")}
+                    >
+                      <div className={`h-2 w-2 rounded-full shrink-0 transition-colors ${isActive ? f.dot : "bg-muted-foreground/25"}`} />
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-medium leading-none transition-colors ${isActive ? f.color : "text-muted-foreground"}`}>
+                          {f.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">{f.description}</p>
+                      </div>
+                      <span className={[
+                        "text-xs font-semibold px-2.5 py-0.5 rounded-full shrink-0 transition-colors",
+                        isActive
+                          ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-400"
+                          : "bg-muted text-muted-foreground",
+                      ].join(" ")}>
+                        {isActive ? "Activo" : "Inactivo"}
+                      </span>
+                      <Switch
+                        checked={isActive}
+                        onCheckedChange={(val) => setNewEntePermisos((prev) => ({ ...prev, [f.key]: val }))}
+                        disabled={savingEnte}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-end gap-2 px-6 py-4 border-t bg-muted/30">
+            <Button
+              variant="outline"
+              onClick={() => { setDialogOpen(false); setNewEnteName(""); setNewEntePermisos({ ...DEFAULT_PERMISOS }); }}
+              disabled={savingEnte}
+            >
               Cancelar
             </Button>
             <Button onClick={handleCreateEnte} disabled={savingEnte || !newEnteName.trim()}>
-              {savingEnte ? <Loader2 className="h-4 w-4 mr-1.5 animate-spin" /> : <Plus className="h-4 w-4 mr-1.5" />}
-              Agregar
+              {savingEnte
+                ? <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
+                : <Plus className="h-4 w-4 mr-1.5" />
+              }
+              Crear ente
             </Button>
-          </DialogFooter>
+          </div>
+
         </DialogContent>
       </Dialog>
     </>

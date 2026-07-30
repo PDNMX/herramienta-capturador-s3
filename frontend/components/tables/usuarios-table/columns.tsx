@@ -6,13 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { UserCircle, Lock } from "lucide-react";
 
 const roleColors: Record<string, string> = {
-  "Administrador-Frontend": "bg-violet-100 dark:bg-violet-950/40 text-violet-700 dark:text-violet-300",
   "Usuario-Capturador": "bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300",
   "Api-Interconexion": "bg-amber-100 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300",
 };
 
 const roleDisplayNames: Record<string, string> = {
-  "Administrador-Frontend": "Administrador",
   "Usuario-Capturador": "Capturista",
   "Api-Interconexion": "API",
 };

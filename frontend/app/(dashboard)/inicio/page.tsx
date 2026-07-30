@@ -260,12 +260,12 @@ export default function Page() {
         )}
 
         {/* ── Capturista: ente info ── */}
-        {!isAdmin && session?.user?.entePublico && (
+        {!isAdmin && session?.user?.entePublicoNombre && (
           <div className="rounded-xl border border-primary/20 bg-primary/5 px-5 py-3 flex items-center gap-3">
             <Building2 className="h-4 w-4 text-primary shrink-0" />
             <p className="text-sm text-muted-foreground">
               Capturando registros para:{" "}
-              <span className="font-semibold text-foreground">{session.user.entePublicoNombre || session.user.entePublico}</span>
+              <span className="font-semibold text-foreground">{session.user.entePublicoNombre}</span>
             </p>
           </div>
         )}

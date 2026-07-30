@@ -91,7 +91,7 @@ export type UserParams = {
 
 // Role name constant — matches Directus role name exactly
 export const ROLES = {
-  ADMINISTRADOR: "Administrador-Frontend",
+  ADMINISTRADOR: "Administrator",
   CAPTURADOR: "Usuario-Capturador",
   API: "Api-Interconexion",
 } as const

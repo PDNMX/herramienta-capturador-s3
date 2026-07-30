@@ -6,9 +6,9 @@ import { readMe, readItem } from "@directus/sdk"
 import { JWT } from "next-auth/jwt"
 import { AuthRefresh, UserSession, UserParams, FormPermisos } from "@/types/next-auth"
 
-// Mapeo de UUID de rol → nombre (evita llamadas a directus_roles que requieren permisos de admin)
+// Fallback UUID → nombre para roles sin admin_access (el rol Administrator de Directus
+// ya viene con su nombre real vía role.name en el readMe)
 const ROLE_ID_TO_NAME: Record<string, string> = {
-  "e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b": "Administrador-Frontend",
   "a5862643-ea54-43ac-af3d-0ff8809ff93f": "Usuario-Capturador",
   "80ba6d0a-3025-4bc5-9966-2acefa91d7c2": "Api-Interconexion",
   "41947437-8852-4e5b-adac-ea91d705f732": "API-Interconexión-ANA",
@@ -59,14 +59,14 @@ export const authOptions: NextAuthOptions = {
           const apiAuth = directus(auth.access_token ?? "")
           const loggedInUser = await apiAuth.request(
             readMe({
-              fields: ["id", "email", "first_name", "last_name", "entePublico", "role"],
+              fields: ["id", "email", "first_name", "last_name", "entePublico", "role", "role.name"] as any,
             })
-          )
+          ) as any
 
-          const roleId = loggedInUser.role as string ?? ""
-          const roleName = ROLE_ID_TO_NAME[roleId] ?? ""
+          const roleId = (loggedInUser.role?.id ?? loggedInUser.role) as string ?? ""
+          const roleName = loggedInUser.role?.name ?? ROLE_ID_TO_NAME[roleId] ?? ""
           const entePublicoId = loggedInUser.entePublico
-            ? String(loggedInUser.entePublico)
+            ? String(loggedInUser.entePublico?.id ?? loggedInUser.entePublico)
             : ""
 
           let entePublicoNombre = ""
