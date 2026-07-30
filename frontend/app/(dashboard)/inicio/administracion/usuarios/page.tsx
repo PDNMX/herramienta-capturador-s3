@@ -26,6 +26,7 @@ export default function Page() {
           session.access_token,
           readUsers({
             fields: ["id", "first_name", "last_name", "email", "status", "entePublico.id", "entePublico.nombre", "role.id", "role.name"],
+            filter: { role: { name: { _neq: "Api-Interconexion" } } } as any,
             sort: ["first_name"],
             limit: -1,
           })

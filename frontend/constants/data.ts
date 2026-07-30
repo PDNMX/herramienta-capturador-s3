@@ -22,6 +22,13 @@ export const adminNavItems: NavItem[] = [
     label: "actividad",
     description: "Registro de actividad del sistema",
   },
+  {
+    title: "Interconexión",
+    href: "/inicio/administracion/interconexion",
+    icon: "plug",
+    label: "interconexion",
+    description: "Tokens de acceso para la PDN",
+  },
 ];
 
 export const navItems: NavItem[] = [

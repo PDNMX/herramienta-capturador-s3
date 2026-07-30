@@ -90,13 +90,13 @@ export function DataTable<TData, TValue>({
                         `}
                         onClick={header.column.getToggleSortingHandler()}
                       >
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center justify-center gap-1.5">
                           {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
                           )}
                           {header.column.getCanSort() && (
-                            <span className="ml-auto shrink-0">
+                            <span className="shrink-0">
                               {sorted === "asc" ? (
                                 <ArrowUp className="h-3.5 w-3.5 text-primary" />
                               ) : sorted === "desc" ? (

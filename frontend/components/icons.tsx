@@ -36,6 +36,7 @@ import {
   Notebook,
   Shield,
   Activity,
+  Plug,
 } from "lucide-react";
 
 export const Icons = {
@@ -91,4 +92,5 @@ export const Icons = {
   alertCircle: AlertCircle,
   usersAdmin: ShieldCheck,
   activity: Activity,
+  plug: Plug,
 };

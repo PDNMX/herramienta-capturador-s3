@@ -29,9 +29,8 @@ const userParams = (user: UserSession): UserParams => {
   }
 }
 
-// Refresca el token de Directus si han pasado más de 10 minutos desde el último refresh.
-// Esto evita depender de expires_at (que puede estar mal calculado en sesiones antiguas).
-const DIRECTUS_REFRESH_INTERVAL_MS = 10 * 60 * 1000
+// Refresca el token de Directus si ya expiró o si han pasado más de 20 horas.
+const DIRECTUS_REFRESH_INTERVAL_MS = 20 * 60 * 60 * 1000
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -116,8 +115,8 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60,   // cookie JWT dura 24 horas
-    updateAge: 60 * 60,      // NextAuth renueva el JWT cada hora
+    maxAge: 30 * 24 * 60 * 60,   // cookie JWT dura 30 días
+    updateAge: 24 * 60 * 60,     // NextAuth renueva el JWT cada 24 horas
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
@@ -164,12 +163,18 @@ export const authOptions: NextAuthOptions = {
           ...token,
           access_token: result.access_token ?? token.access_token,
           refresh_token: result.refresh_token ?? token.refresh_token,
-          expires_at: Date.now() + (result.expires ?? 15 * 60 * 1000),
+          expires_at: Date.now() + (result.expires ?? 24 * 60 * 60 * 1000),
           last_refreshed_at: Date.now(),
           error: null,
           forceLogout: false,
         }
       } catch {
+        // Si el access_token todavía no expiró, dejamos la sesión activa y reintentamos después.
+        // Solo forzamos logout si el token ya expiró y no hay forma de renovarlo.
+        const tokenStillValid = Date.now() < (token.expires_at ?? 0)
+        if (tokenStillValid) {
+          return { ...token, error: null, forceLogout: false }
+        }
         return {
           ...token,
           error: "RefreshAccessTokenError" as const,
