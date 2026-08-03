@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { RFC_PM_REGEX } from "@/lib/curp-rfc";
 import { Combobox } from "@/components/ui/combobox";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -177,6 +178,11 @@ export const DatosGeneralesPMSection: React.FC<
         <FormField
           control={form.control}
           name="rfc"
+          rules={{
+            validate: {
+              formato: (v) => RFC_PM_REGEX.test(v?.toUpperCase() ?? "") || "El RFC de persona moral debe tener 12 caracteres (3 letras, 6 dígitos fecha, 3 homoclave)",
+            },
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -185,14 +191,16 @@ export const DatosGeneralesPMSection: React.FC<
               <FormControl>
                 <Input
                   disabled={loading}
-                  placeholder="Ej: ABC123456XYZ"
-                  maxLength={13}
+                  placeholder="Ej: ABC850101XY9"
+                  maxLength={12}
                   {...field}
+                  onChange={(e) => field.onChange(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+                  onBlur={() => form.trigger("rfc")}
                 />
               </FormControl>
               <FormDescription>
                 Escribir los primeros nueve caracteres básicos y los tres
-                correspondientes a la homoclave
+                correspondientes a la homoclave (12 caracteres en total)
               </FormDescription>
               <FormMessage />
             </FormItem>

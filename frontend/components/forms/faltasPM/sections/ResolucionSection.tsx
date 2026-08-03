@@ -10,6 +10,8 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { sanitizeInput } from "@/lib/sanitize";
+import { useWatch } from "react-hook-form";
 import {
   Select,
   SelectContent,
@@ -33,6 +35,9 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
   const [ordenJurisdiccional, setOrdenJurisdiccional] = useState(
     form.watch("resolucion_ordenJurisdiccional") ?? null
   );
+
+  const fechaResolucion = useWatch({ control: form.control, name: "resolucion_fechaResolucion" });
+  const fechaResolucionFirme = useWatch({ control: form.control, name: "resolucion_fechaResolucionFirme" });
 
   const handleOrdenClick = (value: string) => {
     if (ordenJurisdiccional === value) {
@@ -64,8 +69,9 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
             <FormControl>
               <Input
                 disabled={loading}
-                placeholder="Ej: Resolución Administrativa RA-001/2025"
+                placeholder="Ej: Resolucion Administrativa RA-001/2025"
                 {...field}
+                onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
               />
             </FormControl>
             <FormDescription>
@@ -95,6 +101,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                   disabled={loading}
                   {...field}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }}
                 />
               </FormControl>
               <FormDescription>
@@ -109,6 +116,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         <FormField
           control={form.control}
           name="resolucion_fechaNotificacion"
+          rules={{ validate: (v) => !v || !fechaResolucion || v >= fechaResolucion || "No puede ser anterior a la fecha de resolución" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -120,7 +128,10 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                   type="date"
                   disabled={loading}
                   {...field}
+                  min={fechaResolucion || undefined}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacion"); }}
+                  onBlur={() => form.trigger("resolucion_fechaNotificacion")}
                 />
               </FormControl>
               <FormDescription>
@@ -169,6 +180,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         <FormField
           control={form.control}
           name="resolucion_fechaResolucionFirme"
+          rules={{ validate: (v) => !v || !fechaResolucion || v >= fechaResolucion || "No puede ser anterior a la fecha de resolución" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -180,7 +192,10 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                   type="date"
                   disabled={loading}
                   {...field}
+                  min={fechaResolucion || undefined}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }}
+                  onBlur={() => form.trigger("resolucion_fechaResolucionFirme")}
                 />
               </FormControl>
               <FormDescription>
@@ -196,6 +211,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
         <FormField
           control={form.control}
           name="resolucion_fechaNotificacionFirme"
+          rules={{ validate: (v) => !v || !fechaResolucionFirme || v >= fechaResolucionFirme || "No puede ser anterior a la fecha de firmeza" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -207,7 +223,10 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                   type="date"
                   disabled={loading}
                   {...field}
+                  min={fechaResolucionFirme || undefined}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacionFirme"); }}
+                  onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")}
                 />
               </FormControl>
               <FormDescription>
@@ -256,6 +275,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
       <FormField
         control={form.control}
         name="resolucion_fechaEjecucion"
+        rules={{ validate: (v) => !v || !fechaResolucionFirme || v >= fechaResolucionFirme || "No puede ser anterior a la fecha de firmeza" }}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
@@ -264,7 +284,10 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                   type="date"
                   disabled={loading}
                   {...field}
+                  min={fechaResolucionFirme || undefined}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaEjecucion"); }}
+                  onBlur={() => form.trigger("resolucion_fechaEjecucion")}
                 />
               </FormControl>
             <FormDescription>

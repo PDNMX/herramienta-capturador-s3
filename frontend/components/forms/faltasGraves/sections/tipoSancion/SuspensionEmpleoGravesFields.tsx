@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useWatch } from "react-hook-form";
 
 interface SuspensionEmpleoGravesFieldsProps {
   form: any;
@@ -22,6 +23,9 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
   loading,
   sancionIndex,
 }) => {
+  const fechaResolucion = useWatch({ control: form.control, name: "resolucion_fechaResolucion" });
+  const fechaInicial = useWatch({ control: form.control, name: `tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial` });
+
   return (
     <div className="border-t pt-6 space-y-6">
       <div>
@@ -74,11 +78,12 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`}
+          rules={{ validate: (v) => !v || !fechaResolucion || v >= fechaResolucion || "No puede ser anterior a la fecha de resolución" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger([`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`, `tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`]); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`)} />
               </FormControl>
               <FormDescription>Indicar la fecha en la que inició la suspensión del empleo, cargo o comisión de la persona servidora pública</FormDescription>
               <FormMessage />
@@ -89,11 +94,12 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`}
+          rules={{ validate: (v) => !v || !fechaInicial || v > fechaInicial || "Debe ser posterior a la fecha inicial" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaInicial || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`)} />
               </FormControl>
               <FormDescription>Indicar la fecha en la que se concluye la suspensión del empleo, cargo o comisión de la persona servidora pública</FormDescription>
               <FormMessage />

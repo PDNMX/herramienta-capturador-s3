@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Link as LinkIcon } from "lucide-react";
+import { sanitizeInput } from "@/lib/sanitize";
+import { useWatch } from "react-hook-form";
 
 interface ResolucionGravesSectionProps {
   form: any;
@@ -26,6 +28,9 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
   const [ordenJurisdiccional, setOrdenJurisdiccional] = useState(
     form.watch("resolucion_ordenJurisdiccional") ?? null
   );
+
+  const fechaResolucion = useWatch({ control: form.control, name: "resolucion_fechaResolucion" });
+  const fechaResolucionFirme = useWatch({ control: form.control, name: "resolucion_fechaResolucionFirme" });
 
   const handleOrdenClick = (value: string) => {
     if (ordenJurisdiccional === value) {
@@ -53,7 +58,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
               Titulo del documento <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
-              <Input disabled={loading} placeholder="Ej: Resolucion Administrativa RA-001/2025" {...field} />
+              <Input disabled={loading} placeholder="Ej: Resolucion Administrativa RA-001/2025" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} />
             </FormControl>
             <FormDescription>
               Escribir el nombre del documento que resuelve el procedimiento de responsabilidad administrativa y que ha quedado firme, sin abreviaturas, sin acentos ni signos especiales
@@ -71,7 +76,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormItem>
               <FormLabel>Fecha de la resolucion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }} />
               </FormControl>
               <FormDescription>Colocar la fecha en la que se emite la resolucion sancionatoria</FormDescription>
               <FormMessage />
@@ -82,11 +87,15 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         <FormField
           control={form.control}
           name="resolucion_fechaNotificacion"
+          rules={{
+            validate: (v) => !v || !fechaResolucion || v >= fechaResolucion ||
+              "La fecha de notificación no puede ser anterior a la fecha de resolución",
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha de notificacion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacion"); }} onBlur={() => form.trigger("resolucion_fechaNotificacion")} />
               </FormControl>
               <FormDescription>Indicar la fecha en que se notifica la resolución definitiva a la persona servidora pública sancionada</FormDescription>
               <FormMessage />
@@ -118,11 +127,15 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         <FormField
           control={form.control}
           name="resolucion_fechaResolucionFirme"
+          rules={{
+            validate: (v) => !v || !fechaResolucion || v >= fechaResolucion ||
+              "La fecha de firmeza no puede ser anterior a la fecha de resolución",
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha en que adquirió firmeza la resolución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }} onBlur={() => form.trigger("resolucion_fechaResolucionFirme")} />
               </FormControl>
               <FormDescription>Colocar la fecha en que adquirio firmeza la resolución de la persona servidora pública</FormDescription>
               <FormMessage />
@@ -133,11 +146,15 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         <FormField
           control={form.control}
           name="resolucion_fechaNotificacionFirme"
+          rules={{
+            validate: (v) => !v || !fechaResolucionFirme || v >= fechaResolucionFirme ||
+              "La fecha de notificación de firmeza no puede ser anterior a la fecha de firmeza",
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha de notificacion de la resolucion firme (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaResolucionFirme || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacionFirme"); }} onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")} />
               </FormControl>
               <FormDescription>Indicar la fecha en que se notifica que la resolucion ha quedado firme</FormDescription>
               <FormMessage />
@@ -169,11 +186,15 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
       <FormField
         control={form.control}
         name="resolucion_fechaEjecucion"
+        rules={{
+          validate: (v) => !v || !fechaResolucionFirme || v >= fechaResolucionFirme ||
+            "La fecha de ejecución no puede ser anterior a la fecha de firmeza",
+        }}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
             <FormControl>
-              <Input type="date" disabled={loading} {...field} className="h-10" />
+              <Input type="date" disabled={loading} {...field} min={fechaResolucionFirme || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaEjecucion"); }} onBlur={() => form.trigger("resolucion_fechaEjecucion")} />
             </FormControl>
             <FormDescription>
               Anotar la fecha en la que se ejecutó la sanción a la persona servidora pública. <p> Si al momento de registrar la indormación la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro </p>

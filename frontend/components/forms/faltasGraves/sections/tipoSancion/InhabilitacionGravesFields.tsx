@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useWatch } from "react-hook-form";
 
 interface InhabilitacionGravesFieldsProps {
   form: any;
@@ -22,6 +23,9 @@ export const InhabilitacionGravesFields: React.FC<InhabilitacionGravesFieldsProp
   loading,
   sancionIndex,
 }) => {
+  const fechaResolucion = useWatch({ control: form.control, name: "resolucion_fechaResolucion" });
+  const fechaInicial = useWatch({ control: form.control, name: `tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial` });
+
   return (
     <div className="border-t pt-6 space-y-6">
       <div>
@@ -88,11 +92,12 @@ export const InhabilitacionGravesFields: React.FC<InhabilitacionGravesFieldsProp
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`}
+          rules={{ validate: (v) => !v || !fechaResolucion || v >= fechaResolucion || "No puede ser anterior a la fecha de resolución" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger([`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`, `tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`]); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`)} />
               </FormControl>
               <FormDescription>Indicar la fecha en que inició la inhabilitación</FormDescription>
               <FormMessage />
@@ -103,11 +108,12 @@ export const InhabilitacionGravesFields: React.FC<InhabilitacionGravesFieldsProp
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`}
+          rules={{ validate: (v) => !v || !fechaInicial || v > fechaInicial || "Debe ser posterior a la fecha inicial" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" />
+                <Input type="date" disabled={loading} {...field} min={fechaInicial || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`)} />
               </FormControl>
               <FormDescription>Indicar la fecha en la que se concluyó la inhabilitación</FormDescription>
               <FormMessage />

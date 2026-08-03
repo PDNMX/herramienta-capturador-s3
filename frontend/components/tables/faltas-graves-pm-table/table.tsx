@@ -50,6 +50,14 @@ export const FaltasGravesPMTable = ({ data, onRefresh }: any) => {
             </div>
             <DataTable
                 searchKey="expediente"
+                searchPlaceholder="Buscar por RFC, razón social o expediente..."
+                globalFilterFn={(row: any, q: string) => {
+                    const dg = row.datosGenerales ?? {};
+                    const nombre = (dg.nombreRazonSocial ?? "").toLowerCase();
+                    const rfc = (dg.rfc ?? "").toLowerCase();
+                    const expediente = (row.expediente ?? "").toLowerCase();
+                    return nombre.includes(q) || rfc.includes(q) || expediente.includes(q);
+                }}
                 columns={createColumns(session, onRefresh)}
                 data={data}
             />

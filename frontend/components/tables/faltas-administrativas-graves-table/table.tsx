@@ -50,6 +50,15 @@ export const FaltasAdministrativasGravesTable = ({ data, onRefresh }: any) => {
             </div>
             <DataTable
                 searchKey="expediente"
+                searchPlaceholder="Buscar por RFC, nombre o expediente..."
+                globalFilterFn={(row: any, q: string) => {
+                    const dg = row.datosGenerales ?? {};
+                    const nombre = [dg.nombres, dg.primerApellido, dg.segundoApellido]
+                        .filter(Boolean).join(" ").toLowerCase();
+                    const rfc = (dg.rfc ?? "").toLowerCase();
+                    const expediente = (row.expediente ?? "").toLowerCase();
+                    return nombre.includes(q) || rfc.includes(q) || expediente.includes(q);
+                }}
                 columns={createColumns(session, onRefresh)}
                 data={data}
             />

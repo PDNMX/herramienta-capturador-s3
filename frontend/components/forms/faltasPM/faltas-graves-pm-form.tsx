@@ -31,6 +31,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
+import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
   AccordionContent,
@@ -71,8 +72,7 @@ const datosGeneralesSchema = z.object({
     .min(3, "La denominación o razón social debe tener al menos 3 caracteres"),
   rfc: z
     .string()
-    .min(12, "El RFC debe tener al menos 12 caracteres incluyendo la homoclave")
-    .max(13, "El RFC no puede tener más de 13 caracteres"),
+    .length(12, "El RFC de persona moral debe tener exactamente 12 caracteres"),
   objetoSocial: z.string().optional(),
   tipoDomicilio: z
     .enum(["DOMICILIO_MEXICO", "DOMICILIO_EXTRANJERO"])
@@ -721,6 +721,29 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
 
       if (!accessToken) {
         throw new Error("No se encontró el token de acceso");
+      }
+
+      // ============================================
+      // VERIFICACIÓN DE DUPLICADOS
+      // ============================================
+      if (!initialData?.id) {
+        const { isDuplicate } = await checkDuplicate(
+          "faltas_graves_personas_morales",
+          data.expediente,
+          data.rfc,
+          accessToken
+          // personas morales no tienen CURP; coincidencia por RFC + expediente
+        );
+        if (isDuplicate) {
+          toast({
+            variant: "destructive",
+            title: "Registro duplicado",
+            description:
+              "Ya existe un registro con el mismo RFC y número de expediente. No se permite capturar sanciones duplicadas.",
+          });
+          setLoading(false);
+          return;
+        }
       }
 
       console.log("=== INICIANDO GUARDADO ===");

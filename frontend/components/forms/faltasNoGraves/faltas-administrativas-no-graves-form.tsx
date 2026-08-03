@@ -24,6 +24,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
+import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
   AccordionContent,
@@ -141,8 +142,8 @@ const resolucionSchema = z.object({
   resolucion_tituloResolucion: z.string().min(1, "Ingresa el titulo del documento de resolucion"),
   resolucion_fechaResolucion: z.string().min(1, "Selecciona la fecha de la resolucion sancionatoria"),
   resolucion_fechaNotificacion: z.string().min(1, "Selecciona la fecha de notificacion de la resolucion"),
-  resolucion_fechaResolucionFirme: z.string().min(1, "Selecciona la fecha en que la resolucion adquirio firmeza"),
-  resolucion_fechaNotificacionFirme: z.string().min(1, "Selecciona la fecha de notificacion de la resolucion firme"),
+  resolucion_fechaResolucionFirme: z.string().nullable().optional(),
+  resolucion_fechaNotificacionFirme: z.string().nullable().optional(),
   resolucion_fechaEjecucion: z.string().nullable().optional(),
   resolucion_autoridadResolutora: z.string().min(1, "Ingresa el nombre de la autoridad resolutora"),
   resolucion_autoridadInvestigadora: z.string().min(1, "Ingresa el nombre de la autoridad investigadora"),
@@ -541,6 +542,29 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
 
       if (!accessToken) {
         throw new Error("No se encontro el token de acceso");
+      }
+
+      // ============================================
+      // VERIFICACIÓN DE DUPLICADOS
+      // ============================================
+      if (!initialData?.id) {
+        const { isDuplicate } = await checkDuplicate(
+          "faltas_administrativas_no_graves",
+          data.expediente,
+          data.rfc,
+          accessToken,
+          data.curp
+        );
+        if (isDuplicate) {
+          toast({
+            variant: "destructive",
+            title: "Registro duplicado",
+            description:
+              "Ya existe un registro con la misma persona (CURP y RFC) y el mismo número de expediente. No se permite capturar sanciones duplicadas.",
+          });
+          setLoading(false);
+          return;
+        }
       }
 
       console.log("=== INICIANDO GUARDADO ===");

@@ -10,6 +10,8 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { sanitizeInput } from "@/lib/sanitize";
+import { CURP_REGEX, RFC_REGEX, validarCoincidenciaLetras } from "@/lib/curp-rfc";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 
@@ -50,7 +52,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
                 Nombre(s) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input disabled={loading} placeholder="Ej: Juan Carlos" {...field} />
+                <Input disabled={loading} placeholder="Ej: Juan Carlos" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} />
               </FormControl>
               <FormDescription>Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco</FormDescription>
               <FormMessage />
@@ -67,7 +69,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
                 Primer apellido <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input disabled={loading} placeholder="Ej: Garcia" {...field} />
+                <Input disabled={loading} placeholder="Ej: Garcia" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,7 +84,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
           <FormItem>
             <FormLabel>Segundo apellido</FormLabel>
             <FormControl>
-              <Input disabled={loading} placeholder="Ej: Lopez" {...field} value={field.value || ""} />
+              <Input disabled={loading} placeholder="Ej: Lopez" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} value={field.value || ""} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -93,13 +95,30 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
         <FormField
           control={form.control}
           name="curp"
+          rules={{
+            validate: {
+              formato: (v) => CURP_REGEX.test(v?.toUpperCase() ?? "") || "La CURP no tiene el formato correcto (18 caracteres alfanuméricos)",
+              coincidencia: (v) => {
+                const { nombres, primerApellido, segundoApellido } = form.getValues();
+                return validarCoincidenciaLetras(v ?? "", nombres ?? "", primerApellido ?? "", segundoApellido) ||
+                  "Las primeras letras de la CURP no corresponden con el nombre y apellidos capturados";
+              },
+            },
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
                 CURP <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input disabled={loading} placeholder="Ej: GARL850101HDFRPN09" maxLength={18} {...field} />
+                <Input
+                  disabled={loading}
+                  placeholder="Ej: GARL850101HDFRPN09"
+                  maxLength={18}
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+                  onBlur={() => form.trigger("curp")}
+                />
               </FormControl>
               <FormDescription>
                   Escribir los dieciocho caracteres alfanuméricos como aparece
@@ -122,13 +141,30 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
         <FormField
           control={form.control}
           name="rfc"
+          rules={{
+            validate: {
+              formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (12 ó 13 caracteres: 4 letras, fecha, homoclave)",
+              coincidencia: (v) => {
+                const { nombres, primerApellido, segundoApellido } = form.getValues();
+                return validarCoincidenciaLetras(v ?? "", nombres ?? "", primerApellido ?? "", segundoApellido) ||
+                  "Las primeras letras del RFC no corresponden con el nombre y apellidos capturados";
+              },
+            },
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
                 RFC <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input disabled={loading} placeholder="Ej: GARL850101AB1" maxLength={13} {...field} />
+                <Input
+                  disabled={loading}
+                  placeholder="Ej: GARL850101AB1"
+                  maxLength={13}
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+                  onBlur={() => form.trigger("rfc")}
+                />
               </FormControl>
               <FormDescription>Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave</FormDescription>
               <FormMessage />

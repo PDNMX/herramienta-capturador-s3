@@ -10,6 +10,8 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { sanitizeInput } from "@/lib/sanitize";
+import { CURP_REGEX, RFC_REGEX, validarCoincidenciaLetras } from "@/lib/curp-rfc";
 import { Combobox } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -158,6 +160,7 @@ export const DatosGeneralesPFSection: React.FC<
                   disabled={loading}
                   placeholder="Ej: Juan Carlos"
                   {...field}
+                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
                 />
               </FormControl>
               <FormDescription>
@@ -180,8 +183,9 @@ export const DatosGeneralesPFSection: React.FC<
               <FormControl>
                 <Input
                   disabled={loading}
-                  placeholder="Ej: García"
+                  placeholder="Ej: Garcia"
                   {...field}
+                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
                 />
               </FormControl>
               <FormMessage />
@@ -201,8 +205,9 @@ export const DatosGeneralesPFSection: React.FC<
               <FormControl>
                 <Input
                   disabled={loading}
-                  placeholder="Ej: López"
+                  placeholder="Ej: Lopez"
                   {...field}
+                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
                   value={field.value || ""}
                 />
               </FormControl>
@@ -215,6 +220,16 @@ export const DatosGeneralesPFSection: React.FC<
         <FormField
           control={form.control}
           name="curp"
+          rules={{
+            validate: {
+              formato: (v) => CURP_REGEX.test(v?.toUpperCase() ?? "") || "La CURP no tiene el formato correcto (18 caracteres alfanuméricos)",
+              coincidencia: (v) => {
+                const { nombres, primerApellido, segundoApellido } = form.getValues();
+                return validarCoincidenciaLetras(v ?? "", nombres ?? "", primerApellido ?? "", segundoApellido) ||
+                  "Las primeras letras de la CURP no corresponden con el nombre y apellidos capturados";
+              },
+            },
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -226,6 +241,8 @@ export const DatosGeneralesPFSection: React.FC<
                   placeholder="Ej: GARC850101HDFRRL09"
                   maxLength={18}
                   {...field}
+                  onChange={(e) => field.onChange(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+                  onBlur={() => form.trigger("curp")}
                 />
               </FormControl>
               <FormDescription>
@@ -250,6 +267,16 @@ export const DatosGeneralesPFSection: React.FC<
         <FormField
           control={form.control}
           name="rfc"
+          rules={{
+            validate: {
+              formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (12 ó 13 caracteres: 4 letras, fecha, homoclave)",
+              coincidencia: (v) => {
+                const { nombres, primerApellido, segundoApellido } = form.getValues();
+                return validarCoincidenciaLetras(v ?? "", nombres ?? "", primerApellido ?? "", segundoApellido) ||
+                  "Las primeras letras del RFC no corresponden con el nombre y apellidos capturados";
+              },
+            },
+          }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -261,6 +288,8 @@ export const DatosGeneralesPFSection: React.FC<
                   placeholder="Ej: GARC8501019A0"
                   maxLength={13}
                   {...field}
+                  onChange={(e) => field.onChange(e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, ""))}
+                  onBlur={() => form.trigger("rfc")}
                 />
               </FormControl>
               <FormDescription>

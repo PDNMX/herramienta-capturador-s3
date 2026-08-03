@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { sanitizeInput } from "@/lib/sanitize";
 import { Combobox } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -244,8 +245,9 @@ export const EmpleoCargoComisionNoGravesSection: React.FC<
               <FormControl>
                 <Input
                   disabled={loading}
-                  placeholder="Ej: Secretaría de Hacienda y Crédito Público"
+                  placeholder="Ej: Secretaria de Hacienda y Credito Publico"
                   {...field}
+                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
                   value={field.value || ""}
                 />
               </FormControl>
@@ -344,8 +346,9 @@ export const EmpleoCargoComisionNoGravesSection: React.FC<
             <FormControl>
               <Input
                 disabled={loading}
-                placeholder="Ej: Director General de Administración"
+                placeholder="Ej: Director General de Administracion"
                 {...field}
+                onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
               />
             </FormControl>
             <FormDescription>
@@ -369,8 +372,9 @@ export const EmpleoCargoComisionNoGravesSection: React.FC<
             <FormControl>
               <Input
                 disabled={loading}
-                placeholder="Ej: Dirección General de Recursos Humanos"
+                placeholder="Ej: Direccion General de Recursos Humanos"
                 {...field}
+                onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
               />
             </FormControl>
             <FormDescription>

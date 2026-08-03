@@ -24,6 +24,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
 import { createItem, updateItem, withToken } from "@directus/sdk";
+import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
   AccordionContent,
@@ -600,6 +601,29 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
 
       if (!accessToken) {
         throw new Error("No se encontro el token de acceso");
+      }
+
+      // ============================================
+      // VERIFICACIÓN DE DUPLICADOS
+      // ============================================
+      if (!initialData?.id) {
+        const { isDuplicate } = await checkDuplicate(
+          "faltas_administrativas_graves",
+          data.expediente,
+          data.rfc,
+          accessToken,
+          data.curp
+        );
+        if (isDuplicate) {
+          toast({
+            variant: "destructive",
+            title: "Registro duplicado",
+            description:
+              "Ya existe un registro con la misma persona (CURP y RFC) y el mismo número de expediente. No se permite capturar sanciones duplicadas.",
+          });
+          setLoading(false);
+          return;
+        }
       }
 
       console.log("=== INICIANDO GUARDADO ===");

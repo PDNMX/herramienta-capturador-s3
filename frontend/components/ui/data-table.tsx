@@ -21,12 +21,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "./input";
-import { ArrowUp, ArrowDown, ArrowUpDown, Search, FileX } from "lucide-react";
+import { ArrowUp, ArrowDown, ArrowUpDown, Search, FileX, X } from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
+  searchPlaceholder?: string;
+  /** When provided, replaces the single-column search with a global filter across multiple fields */
+  globalFilterFn?: (row: TData, searchValue: string) => boolean;
   columnsShow?: object;
 }
 
@@ -34,12 +37,24 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   searchKey,
+  searchPlaceholder,
+  globalFilterFn,
   columnsShow,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState("");
+
+  // When globalFilterFn is provided, filter client-side before passing to table
+  const filteredData = React.useMemo(() => {
+    if (!globalFilterFn || !globalFilter.trim()) return data;
+    const q = globalFilter.trim().toLowerCase();
+    return data.filter((row) => globalFilterFn(row, q));
+  }, [data, globalFilter, globalFilterFn]);
+
+  const tableData = globalFilterFn ? filteredData : data;
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     state: {
       sorting,
@@ -51,7 +66,30 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
   });
 
-  const filteredCount = table.getFilteredRowModel().rows.length;
+  const filteredCount = globalFilterFn
+    ? filteredData.length
+    : table.getFilteredRowModel().rows.length;
+
+  const placeholder = searchPlaceholder ?? `Buscar por ${searchKey}...`;
+  const searchValue = globalFilterFn
+    ? globalFilter
+    : (table.getColumn(searchKey)?.getFilterValue() as string) ?? "";
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (globalFilterFn) {
+      setGlobalFilter(e.target.value);
+    } else {
+      table.getColumn(searchKey)?.setFilterValue(e.target.value);
+    }
+  };
+
+  const handleClear = () => {
+    if (globalFilterFn) {
+      setGlobalFilter("");
+    } else {
+      table.getColumn(searchKey)?.setFilterValue("");
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -59,13 +97,20 @@ export function DataTable<TData, TValue>({
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         <Input
-          placeholder={`Buscar por ${searchKey}...`}
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-          onChange={(e) =>
-            table.getColumn(searchKey)?.setFilterValue(e.target.value)
-          }
-          className="pl-9 w-full"
+          placeholder={placeholder}
+          value={searchValue}
+          onChange={handleSearch}
+          className="pl-9 pr-9 w-full"
         />
+        {searchValue && (
+          <button
+            onClick={handleClear}
+            className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Limpiar búsqueda"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       {/* Table container */}

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "lucide-react";
-import { Form } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 
 interface InhabilitacionFieldsProps {
   form: any;
@@ -24,6 +24,9 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
   loading,
   sancionIndex,
 }) => {
+  const fechaResolucion = useWatch({ control: form.control, name: "resolucion_fechaResolucion" });
+  const fechaInicial = useWatch({ control: form.control, name: `tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial` });
+
   return (
     <div className="border-t pt-6 space-y-6">
       <div>
@@ -116,6 +119,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`}
+          rules={{ validate: (v) => !v || !fechaResolucion || v >= fechaResolucion || "No puede ser anterior a la fecha de resolución" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -126,7 +130,10 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   type="date"
                   disabled={loading}
                   {...field}
+                  min={fechaResolucion || undefined}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger([`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`, `tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`]); }}
+                  onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`)}
                 />
               </FormControl>
               <FormDescription>
@@ -141,6 +148,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
         <FormField
           control={form.control}
           name={`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`}
+          rules={{ validate: (v) => !v || !fechaInicial || v > fechaInicial || "Debe ser posterior a la fecha inicial" }}
           render={({ field }) => (
             <FormItem>
               <FormLabel>
@@ -151,7 +159,10 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                   type="date"
                   disabled={loading}
                   {...field}
+                  min={fechaInicial || undefined}
                   className="h-10"
+                  onChange={(e) => { field.onChange(e.target.value); form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`); }}
+                  onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`)}
                 />
               </FormControl>
               <FormDescription>
