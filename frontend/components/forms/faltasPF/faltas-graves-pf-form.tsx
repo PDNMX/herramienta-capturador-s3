@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Select,
   SelectContent,
@@ -30,7 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
-import { createItem, updateItem, withToken } from "@directus/sdk";
+import { createItem, deleteItem, updateItem, withToken } from "@directus/sdk";
 import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
@@ -648,12 +649,15 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
 
   const onSubmit = async (rawData: FaltasGravesPFFormValues) => {
     const data = sanitizePayload(rawData) as FaltasGravesPFFormValues;
+    const accessToken = session?.access_token;
+    const createdRecords: Array<{ collection: string; id: number | string }> = [];
+    let currentStep = "verificando datos";
+
     try {
       setLoading(true);
 
       // IMPORTANTE: Tomar entePublico del usuario logueado
       const entePublico = session?.user?.entePublico || data.entePublico || null;
-      const accessToken = session?.access_token;
 
       if (!accessToken) {
         throw new Error("No se encontro el token de acceso");
@@ -688,6 +692,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
       // ============================================
       // 1. DOMICILIO MEXICO (si aplica)
       // ============================================
+      currentStep = "domicilio México";
       let domicilioMexicoId = null;
       if (data.tipoDomicilio === "DOMICILIO_MEXICO") {
         const domicilioMexicoData = {
@@ -719,6 +724,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
             withToken(accessToken, createItem("domicilio_mexico", domicilioMexicoData))
           );
           domicilioMexicoId = newDomicilioMexico.id;
+          createdRecords.push({ collection: "domicilio_mexico", id: domicilioMexicoId });
         }
         console.log("Domicilio Mexico guardado:", domicilioMexicoId);
       }
@@ -726,6 +732,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
       // ============================================
       // 2. DOMICILIO EXTRANJERO (si aplica)
       // ============================================
+      currentStep = "domicilio extranjero";
       let domicilioExtranjeroId = null;
       if (data.tipoDomicilio === "DOMICILIO_EXTRANJERO") {
         const domicilioExtranjeroData = {
@@ -759,6 +766,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
             )
           );
           domicilioExtranjeroId = newDomicilioExtranjero.id;
+          createdRecords.push({ collection: "domicilio_extranjero", id: domicilioExtranjeroId });
         }
         console.log("Domicilio Extranjero guardado:", domicilioExtranjeroId);
       }
@@ -766,6 +774,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
       // ============================================
       // 3. DATOS GENERALES (Persona Fisica)
       // ============================================
+      currentStep = "datos generales de la persona física";
       const datosGeneralesData = {
         nombres: data.nombres,
         primerApellido: data.primerApellido,
@@ -796,12 +805,14 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           withToken(accessToken, createItem("datos_generales_personas_fisicas", datosGeneralesData))
         );
         datosGeneralesId = newDatosGenerales.id;
+        createdRecords.push({ collection: "datos_generales_personas_fisicas", id: datosGeneralesId });
       }
       console.log("Datos Generales guardados:", datosGeneralesId);
 
       // ============================================
       // 4. DONDE COMETIO LA FALTA
       // ============================================
+      currentStep = "dónde cometió la falta";
       const dondeCometioData = {
         entidadFederativa: data.dondeCometio_entidadFederativa,
         nivelOrdenGobierno: data.dondeCometio_nivelOrdenGobierno,
@@ -825,12 +836,14 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           withToken(accessToken, createItem("donde_cometio_falta", dondeCometioData))
         );
         dondeCometioId = newDondeCometio.id;
+        createdRecords.push({ collection: "donde_cometio_falta", id: dondeCometioId });
       }
       console.log("Donde cometio la falta guardado:", dondeCometioId);
 
       // ============================================
       // 5. ORIGEN DEL PROCEDIMIENTO
       // ============================================
+      currentStep = "origen del procedimiento";
       const origenData = {
         clave: data.origenProcedimiento_clave,
         valor: data.origenProcedimiento_clave === "OTRO" ? data.origenProcedimiento_valor : null,
@@ -851,12 +864,14 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           withToken(accessToken, createItem("origen_procedimiento", origenData))
         );
         origenId = newOrigen.id;
+        createdRecords.push({ collection: "origen_procedimiento", id: origenId });
       }
       console.log("Origen del procedimiento guardado:", origenId);
 
       // ============================================
       // 6. RESOLUCION (Persona Fisica)
       // ============================================
+      currentStep = "resolución";
       const resolucionData = {
         tituloResolucion: data.resolucion_tituloResolucion,
         fechaResolucion: data.resolucion_fechaResolucion,
@@ -884,12 +899,14 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           withToken(accessToken, createItem("resolucion_fisica", resolucionData))
         );
         resolucionId = newResolucion.id;
+        createdRecords.push({ collection: "resolucion_fisica", id: resolucionId });
       }
       console.log("Resolucion guardada:", resolucionId);
 
       // ============================================
       // 7. REGISTRO PRINCIPAL
       // ============================================
+      currentStep = "registro principal";
       const registroPrincipalData = {
         entePublico: entePublico, // entePublico incluido
         status: data.status,
@@ -916,12 +933,14 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           withToken(accessToken, createItem("faltas_graves_personas_fisicas", registroPrincipalData))
         );
         registroPrincipalId = newRegistroPrincipal.id;
+        createdRecords.push({ collection: "faltas_graves_personas_fisicas", id: registroPrincipalId });
       }
       console.log("Registro principal guardado:", registroPrincipalId);
 
       // ============================================
       // 8. FALTAS COMETIDAS (O2M con normatividades anidadas)
       // ============================================
+      currentStep = "faltas cometidas";
       const faltasFiltradas = (data.faltaCometida ?? []).filter((f: any) => f?.clave);
       for (const falta of faltasFiltradas) {
         const normatividadesIds = [];
@@ -940,6 +959,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
             withToken(accessToken, createItem("normatividad_particulares", normatividadData))
           );
           normatividadesIds.push(newNormatividad.id);
+          createdRecords.push({ collection: "normatividad_particulares", id: newNormatividad.id });
         }
 
         // Guardar la falta con las normatividades
@@ -952,15 +972,17 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           normatividadInfringida: normatividadesIds,
         };
 
-        await directus.request(
+        const newFalta = await directus.request(
           withToken(accessToken, createItem("falta_cometida_particulares", faltaData))
         );
+        createdRecords.push({ collection: "falta_cometida_particulares", id: newFalta.id });
       }
       console.log("Faltas cometidas guardadas");
 
       // ============================================
       // 9. TIPO DE SANCION (O2M complejo)
       // ============================================
+      currentStep = "tipo de sanción";
       const sancionesFiltradas = (data.tipoSancion ?? []).filter((s: any) => s?.clave);
       for (const sancion of sancionesFiltradas) {
         let sancionEspecificaId = null;
@@ -980,6 +1002,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                 withToken(accessToken, createItem("inhabilitacion", inhabilitacionData))
               );
               sancionEspecificaId = newInhabilitacion.id;
+              createdRecords.push({ collection: "inhabilitacion", id: sancionEspecificaId });
             }
             break;
 
@@ -998,6 +1021,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                   withToken(accessToken, createItem("plazo_pago_indemnizacion", plazoPagoData))
                 );
                 plazoPagoId = newPlazoPago.id;
+                createdRecords.push({ collection: "plazo_pago_indemnizacion", id: plazoPagoId });
               }
 
               // Guardar efectivamenteCobrada si existe
@@ -1016,6 +1040,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                   )
                 );
                 efectivamenteCobradaId = newCobrada.id;
+                createdRecords.push({ collection: "efectivamente_cobrado_indemnizacion", id: efectivamenteCobradaId });
               }
 
               // Guardar indemnizacion
@@ -1031,6 +1056,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                 withToken(accessToken, createItem("indemnizacion", indemnizacionData))
               );
               sancionEspecificaId = newIndemnizacion.id;
+              createdRecords.push({ collection: "indemnizacion", id: sancionEspecificaId });
             }
             break;
 
@@ -1049,6 +1075,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                   withToken(accessToken, createItem("plazo_pago", plazoPagoSEData))
                 );
                 plazoPagoSEId = newPlazoPagoSE.id;
+                createdRecords.push({ collection: "plazo_pago", id: plazoPagoSEId });
               }
 
               // Guardar efectivamenteCobrada si existe
@@ -1064,6 +1091,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                   withToken(accessToken, createItem("efectivamente_cobrado", cobradaSEData))
                 );
                 efectivamenteCobradaSEId = newCobradaSE.id;
+                createdRecords.push({ collection: "efectivamente_cobrado", id: efectivamenteCobradaSEId });
               }
 
               // Guardar sanción económica
@@ -1079,6 +1107,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                 withToken(accessToken, createItem("sancion_economica", sancionEconomicaData))
               );
               sancionEspecificaId = newSancionEconomica.id;
+              createdRecords.push({ collection: "sancion_economica", id: sancionEspecificaId });
             }
             break;
 
@@ -1092,6 +1121,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                 withToken(accessToken, createItem("otro_sancion", otroData))
               );
               sancionEspecificaId = newOtro.id;
+              createdRecords.push({ collection: "otro_sancion", id: sancionEspecificaId });
             }
             break;
         }
@@ -1112,9 +1142,10 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
           tipoSancionData.sancionEconomica = sancionEspecificaId;
         else if (sancion.clave === "OTRO") tipoSancionData.otro = sancionEspecificaId;
 
-        await directus.request(
+        const newTipoSancion = await directus.request(
           withToken(accessToken, createItem("tipo_sancion_personas_fisicas", tipoSancionData))
         );
+        createdRecords.push({ collection: "tipo_sancion_personas_fisicas", id: newTipoSancion.id });
       }
       console.log("Tipos de sancion guardados");
 
@@ -1128,26 +1159,31 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
         description: toastMessage,
       });
     } catch (error: any) {
-      console.error("=== ERROR AL GUARDAR ===");
-      console.error("Error completo:", error);
-      console.error("Detalles:", {
-        message: error.message,
-        errors: error.errors,
-        response: error.response,
-      });
+      console.error("=== ERROR AL GUARDAR ===", error);
 
-      let errorMessage = "Error al intentar guardar el registro";
+      // Revertir todos los registros creados en este intento
+      if (accessToken && createdRecords.length > 0) {
+        console.log("Revirtiendo", createdRecords.length, "registros creados...");
+        for (const record of [...createdRecords].reverse()) {
+          try {
+            await directus.request(withToken(accessToken, deleteItem(record.collection, record.id)));
+          } catch (e) {
+            console.error(`Error al revertir ${record.collection}:${record.id}`, e);
+          }
+        }
+      }
 
+      let errorDetail = "";
       if (error.errors && Array.isArray(error.errors)) {
-        errorMessage = error.errors.map((e: any) => e.message).join(", ");
+        errorDetail = error.errors.map((e: any) => e.message).join(", ");
       } else if (error.message) {
-        errorMessage = error.message;
+        errorDetail = error.message;
       }
 
       toast({
         variant: "destructive",
-        title: "Error",
-        description: errorMessage,
+        title: "Error al guardar",
+        description: `Falló en: ${currentStep}. ${errorDetail}`,
       });
     } finally {
       setLoading(false);
@@ -1369,7 +1405,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                         1. Fecha de registro (DD-MM-AAAA) <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input type="date" disabled={loading} {...field} className="border-primary/30" />
+                        <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
                       </FormControl>
                       <FormDescription>Indicar la fecha en la que se registra la información</FormDescription>
                       <FormMessage />

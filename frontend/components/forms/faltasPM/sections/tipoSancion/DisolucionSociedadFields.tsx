@@ -9,8 +9,7 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Calendar } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface DisolucionSociedadFieldsProps {
   form: any;
@@ -41,12 +40,7 @@ export const DisolucionSociedadFields: React.FC<DisolucionSociedadFieldsProps> =
           <FormItem>
             <FormLabel>Fecha de la disolución</FormLabel>
             <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
+                <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
             <FormDescription>
               Especificar la fecha a partir de la cual se disuelve la sociedad de la persona moral

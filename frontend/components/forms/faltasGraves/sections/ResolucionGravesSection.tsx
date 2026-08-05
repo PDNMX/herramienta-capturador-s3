@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Link as LinkIcon } from "lucide-react";
@@ -76,7 +77,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormItem>
               <FormLabel>Fecha de la resolucion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }} />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription>Colocar la fecha en la que se emite la resolucion sancionatoria</FormDescription>
               <FormMessage />
@@ -95,7 +96,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormItem>
               <FormLabel>Fecha de notificacion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacion"); }} onBlur={() => form.trigger("resolucion_fechaNotificacion")} />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaNotificacion"); }} onBlur={() => form.trigger("resolucion_fechaNotificacion")} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>Indicar la fecha en que se notifica la resolución definitiva a la persona servidora pública sancionada</FormDescription>
               <FormMessage />
@@ -135,7 +136,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormItem>
               <FormLabel>Fecha en que adquirió firmeza la resolución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }} onBlur={() => form.trigger("resolucion_fechaResolucionFirme")} />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }} onBlur={() => form.trigger("resolucion_fechaResolucionFirme")} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>Colocar la fecha en que adquirio firmeza la resolución de la persona servidora pública</FormDescription>
               <FormMessage />
@@ -154,7 +155,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
             <FormItem>
               <FormLabel>Fecha de notificacion de la resolucion firme (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} min={fechaResolucionFirme || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacionFirme"); }} onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")} />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaNotificacionFirme"); }} onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")} disabled={loading} min={fechaResolucionFirme || undefined} />
               </FormControl>
               <FormDescription>Indicar la fecha en que se notifica que la resolucion ha quedado firme</FormDescription>
               <FormMessage />
@@ -194,7 +195,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
           <FormItem>
             <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
             <FormControl>
-              <Input type="date" disabled={loading} {...field} min={fechaResolucionFirme || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaEjecucion"); }} onBlur={() => form.trigger("resolucion_fechaEjecucion")} />
+              <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaEjecucion"); }} onBlur={() => form.trigger("resolucion_fechaEjecucion")} disabled={loading} min={fechaResolucionFirme || undefined} />
             </FormControl>
             <FormDescription>
               Anotar la fecha en la que se ejecutó la sanción a la persona servidora pública. <p> Si al momento de registrar la indormación la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro </p>

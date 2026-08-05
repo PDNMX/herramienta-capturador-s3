@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface InhabilitacionPFFieldsProps {
   form: any;
@@ -120,12 +121,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                 Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
+                <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que inició la inhabilitación
@@ -145,12 +141,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
                 Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
+                <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en la que se concluyó la inhabilitación

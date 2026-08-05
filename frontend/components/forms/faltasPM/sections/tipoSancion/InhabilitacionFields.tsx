@@ -10,7 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Calendar } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 import { useWatch } from "react-hook-form";
 
 interface InhabilitacionFieldsProps {
@@ -126,15 +126,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                 Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaResolucion || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger([`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`, `tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`]); }}
-                  onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`)}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger([`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`, `tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`]); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaInicial`)} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que inició la inhabilitación
@@ -155,15 +147,7 @@ export const InhabilitacionFields: React.FC<InhabilitacionFieldsProps> = ({
                 Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaInicial || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`); }}
-                  onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`)}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.inhabilitacion.fechaFinal`)} disabled={loading} min={fechaInicial || undefined} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en la que se concluyó la inhabilitación

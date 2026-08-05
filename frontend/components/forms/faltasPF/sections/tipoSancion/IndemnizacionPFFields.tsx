@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Select,
   SelectContent,
@@ -242,12 +243,7 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
             <FormItem>
               <FormLabel>Fecha de cobro de la indemnizacion</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
+                <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription> Especificar la fecha en que se realizó el cobro de la sanción económica </FormDescription>
               <FormMessage />
@@ -272,12 +268,7 @@ export const IndemnizacionPFFields: React.FC<IndemnizacionPFFieldsProps> = ({
           <FormItem>
             <FormLabel>Fecha en que se realizo el pago total de la indemnizacion (DD-MM-AAAA)</FormLabel>
             <FormControl>
-              <Input
-                type="date"
-                disabled={loading}
-                {...field}
-                className="h-10"
-              />
+              <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
             </FormControl>
             <FormMessage />
             <FormDescription>Especificar la fecha en que se cubrio el pago total de la indemnizacion.</FormDescription>

@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import { useWatch } from "react-hook-form";
 
 interface SuspensionEmpleoGravesFieldsProps {
@@ -83,7 +84,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
             <FormItem>
               <FormLabel>Fecha inicial (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} min={fechaResolucion || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger([`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`, `tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`]); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`)} />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger([`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`, `tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`]); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaInicial`)} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>Indicar la fecha en la que inició la suspensión del empleo, cargo o comisión de la persona servidora pública</FormDescription>
               <FormMessage />
@@ -99,7 +100,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
             <FormItem>
               <FormLabel>Fecha final (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="date" disabled={loading} {...field} min={fechaInicial || undefined} className="h-10" onChange={(e) => { field.onChange(e.target.value); form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`)} />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionEmpleo.fechaFinal`)} disabled={loading} min={fechaInicial || undefined} />
               </FormControl>
               <FormDescription>Indicar la fecha en la que se concluye la suspensión del empleo, cargo o comisión de la persona servidora pública</FormDescription>
               <FormMessage />

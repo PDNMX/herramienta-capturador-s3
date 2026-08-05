@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Select,
   SelectContent,
@@ -17,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar } from "lucide-react";
 
 interface SancionEconomicaFieldsProps {
   form: any;
@@ -243,12 +243,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
             <FormItem>
               <FormLabel>Fecha de cobro de la sanción (DD-MM-AAAA)</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
+                <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription> Especificar la fecha en que se realizó el cobro de la sanción económica </FormDescription>
               <FormMessage />
@@ -273,13 +268,8 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
           <FormItem>
             <FormLabel>Fecha de pago total (opcional)</FormLabel>
             <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
-              </FormControl>
+              <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
+            </FormControl>
             <FormMessage />
             <FormDescription>Especificar la fecha en que se cubrió el pago total de la sanción económica.</FormDescription>
             <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-900 mt-2">

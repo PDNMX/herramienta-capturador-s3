@@ -10,6 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Select,
   SelectContent,
@@ -17,8 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar } from "lucide-react";
-import { Form } from "react-hook-form";
 
 interface IndemnizacionFieldsProps {
   form: any;
@@ -244,12 +243,7 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
             <FormItem>
               <FormLabel>Fecha de cobro de la indemnización</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
+                <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription> Especificar la fecha en que se realizó el cobro </FormDescription>
               <FormMessage />
@@ -274,13 +268,8 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
           <FormItem>
             <FormLabel>Fecha en que se realizó el pago total de la indemnización (DD-MM-AAAA)</FormLabel>
             <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                />
-              </FormControl>
+              <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
+            </FormControl>
             <FormMessage />
             <FormDescription>Especificar la fecha en que se cubrió el pago total de la indemnización.</FormDescription>
             <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-900 mt-2">

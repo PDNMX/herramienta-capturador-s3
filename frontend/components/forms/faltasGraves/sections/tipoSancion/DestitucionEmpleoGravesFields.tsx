@@ -9,7 +9,7 @@ import {
   FormMessage,
   FormDescription,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface DestitucionEmpleoGravesFieldsProps {
   form: any;
@@ -40,7 +40,7 @@ export const DestitucionEmpleoGravesFields: React.FC<DestitucionEmpleoGravesFiel
           <FormItem>
             <FormLabel>Fecha de la destitución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
             <FormControl>
-              <Input type="date" disabled={loading} {...field} className="h-10" />
+              <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
             </FormControl>
             <FormDescription>Indicar la fecha de destitución de la persona servidora pública. <p> Si al momento de registrar la información la autoridad no cuenta con dicho dato, posteriormente podrá registrar mediante una actualización. </p></FormDescription>
             <FormMessage />

@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { Calendar, Link as LinkIcon } from "lucide-react";
+import { Link as LinkIcon } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 
 interface ResolucionSectionProps {
   form: any;
@@ -96,13 +97,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                 <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
               <FormDescription>
                 Colocar la fecha en la que se emite la resolución sancionatoria
@@ -124,15 +119,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                 <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaResolucion || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacion"); }}
-                  onBlur={() => form.trigger("resolucion_fechaNotificacion")}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaNotificacion"); }} onBlur={() => form.trigger("resolucion_fechaNotificacion")} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que se notifica la resolución a la persona
@@ -188,15 +175,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                 <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaResolucion || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }}
-                  onBlur={() => form.trigger("resolucion_fechaResolucionFirme")}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }} onBlur={() => form.trigger("resolucion_fechaResolucionFirme")} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>
                 Colocar la fecha en que adquirió firmeza la resolución de la
@@ -219,15 +198,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
                 <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaResolucionFirme || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaNotificacionFirme"); }}
-                  onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaNotificacionFirme"); }} onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")} disabled={loading} min={fechaResolucionFirme || undefined} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que se notifica a la persona moral que la
@@ -280,15 +251,7 @@ export const ResolucionSection: React.FC<ResolucionSectionProps> = ({
           <FormItem>
             <FormLabel>Fecha de ejecución de la sanción (DD-MM-AAAA)</FormLabel>
            <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaResolucionFirme || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger("resolucion_fechaEjecucion"); }}
-                  onBlur={() => form.trigger("resolucion_fechaEjecucion")}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaEjecucion"); }} onBlur={() => form.trigger("resolucion_fechaEjecucion")} disabled={loading} min={fechaResolucionFirme || undefined} />
               </FormControl>
             <FormDescription>
               Anotar la fecha en la que se ejecutó la sanción de la persona

@@ -10,7 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Calendar } from "lucide-react";
+import { DatePicker } from "@/components/ui/date-picker";
 import { useWatch } from "react-hook-form";
 
 interface SuspensionActividadesFieldsProps {
@@ -118,15 +118,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
             <FormItem>
               <FormLabel>Fecha inicial (DD/MM/AAAA)</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaResolucion || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger([`tipoSancion.${sancionIndex}.suspensionActividades.fechaInicial`, `tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`]); }}
-                  onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionActividades.fechaInicial`)}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger([`tipoSancion.${sancionIndex}.suspensionActividades.fechaInicial`, `tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`]); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionActividades.fechaInicial`)} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que inicia la suspensión de actividades
@@ -145,15 +137,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
             <FormItem>
               <FormLabel>Fecha final (DD/MM/AAAA)</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  disabled={loading}
-                  {...field}
-                  min={fechaInicial || undefined}
-                  className="h-10"
-                  onChange={(e) => { field.onChange(e.target.value); form.trigger(`tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`); }}
-                  onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`)}
-                />
+                <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(`tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`); }} onBlur={() => form.trigger(`tipoSancion.${sancionIndex}.suspensionActividades.fechaFinal`)} disabled={loading} min={fechaInicial || undefined} />
               </FormControl>
               <FormDescription>
                 Indicar la fecha en que concluye la suspensión de actividades

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Heading } from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,7 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
-import { createItem, updateItem, withToken } from "@directus/sdk";
+import { createItem, deleteItem, updateItem, withToken } from "@directus/sdk";
 import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
@@ -593,11 +594,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
 
   const onSubmit = async (rawData: FaltasAdministrativasGravesFormValues) => {
     const data = sanitizePayload(rawData) as FaltasAdministrativasGravesFormValues;
+    const accessToken = session?.access_token;
+    const createdRecords: Array<{ collection: string; id: number | string }> = [];
+    let currentStep = "verificando datos";
+
     try {
       setLoading(true);
 
       const entePublico = session?.user?.entePublico || data.entePublico || null;
-      const accessToken = session?.access_token;
 
       if (!accessToken) {
         throw new Error("No se encontro el token de acceso");
@@ -631,6 +635,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
       // ============================================
       // 1. DATOS GENERALES (Servidor Publico)
       // ============================================
+      currentStep = "datos generales del servidor público";
       const datosGeneralesData = {
         nombres: data.nombres,
         primerApellido: data.primerApellido,
@@ -652,12 +657,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           withToken(accessToken, createItem("datos_generales_graves", datosGeneralesData))
         );
         datosGeneralesId = newDatosGenerales.id;
+        createdRecords.push({ collection: "datos_generales_graves", id: datosGeneralesId });
       }
       console.log("Datos Generales guardados:", datosGeneralesId);
 
       // ============================================
       // 2. NIVEL JERARQUICO (M2O dentro de empleoCargoComision)
       // ============================================
+      currentStep = "nivel jerárquico";
       const nivelJerarquicoData = {
         clave: data.empleo_nivelJerarquico_clave,
         valor: data.empleo_nivelJerarquico_clave === "OTRO" ? data.empleo_nivelJerarquico_valor : null,
@@ -675,12 +682,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           withToken(accessToken, createItem("nivel_jerarquico_graves", nivelJerarquicoData))
         );
         nivelJerarquicoId = newNivelJerarquico.id;
+        createdRecords.push({ collection: "nivel_jerarquico_graves", id: nivelJerarquicoId });
       }
       console.log("Nivel Jerarquico guardado:", nivelJerarquicoId);
 
       // ============================================
       // 3. EMPLEO, CARGO O COMISION
       // ============================================
+      currentStep = "empleo, cargo o comisión";
       const empleoCargoComisionData = {
         entidadFederativa: data.empleo_entidadFederativa,
         nivelOrdenGobierno: data.empleo_nivelOrdenGobierno,
@@ -704,12 +713,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           withToken(accessToken, createItem("empleo_cargo_comision_graves", empleoCargoComisionData))
         );
         empleoCargoComisionId = newEmpleoCargoComision.id;
+        createdRecords.push({ collection: "empleo_cargo_comision_graves", id: empleoCargoComisionId });
       }
       console.log("Empleo Cargo Comision guardado:", empleoCargoComisionId);
 
       // ============================================
       // 4. ORIGEN DEL PROCEDIMIENTO
       // ============================================
+      currentStep = "origen del procedimiento";
       const origenData = {
         clave: data.origenProcedimiento_clave,
         valor: data.origenProcedimiento_clave === "OTRO" ? data.origenProcedimiento_valor : null,
@@ -727,12 +738,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           withToken(accessToken, createItem("origen_procedimiento", origenData))
         );
         origenId = newOrigen.id;
+        createdRecords.push({ collection: "origen_procedimiento", id: origenId });
       }
       console.log("Origen del procedimiento guardado:", origenId);
 
       // ============================================
       // 5. RESOLUCION
       // ============================================
+      currentStep = "resolución";
       const resolucionData = {
         tituloResolucion: data.resolucion_tituloResolucion,
         fechaResolucion: data.resolucion_fechaResolucion,
@@ -760,12 +773,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           withToken(accessToken, createItem("resolucion", resolucionData))
         );
         resolucionId = newResolucion.id;
+        createdRecords.push({ collection: "resolucion", id: resolucionId });
       }
       console.log("Resolucion guardada:", resolucionId);
 
       // ============================================
       // 6. REGISTRO PRINCIPAL
       // ============================================
+      currentStep = "registro principal";
       const registroPrincipalData = {
         entePublico: entePublico,
         status: data.status,
@@ -789,12 +804,14 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           withToken(accessToken, createItem("faltas_administrativas_graves", registroPrincipalData))
         );
         registroPrincipalId = newRegistroPrincipal.id;
+        createdRecords.push({ collection: "faltas_administrativas_graves", id: registroPrincipalId });
       }
       console.log("Registro principal guardado:", registroPrincipalId);
 
       // ============================================
       // 7. FALTAS COMETIDAS (O2M con normatividades anidadas)
       // ============================================
+      currentStep = "faltas cometidas";
       const faltasFiltradas = (data.faltaCometida ?? []).filter((f: any) => f?.clave);
       for (const falta of faltasFiltradas) {
         const normatividadesIds = [];
@@ -812,6 +829,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
             withToken(accessToken, createItem("normatividad_graves", normatividadData))
           );
           normatividadesIds.push(newNormatividad.id);
+          createdRecords.push({ collection: "normatividad_graves", id: newNormatividad.id });
         }
 
         const faltaData = {
@@ -823,15 +841,17 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           normatividadInfringida: normatividadesIds,
         };
 
-        await directus.request(
+        const newFalta = await directus.request(
           withToken(accessToken, createItem("falta_cometida_graves", faltaData))
         );
+        createdRecords.push({ collection: "falta_cometida_graves", id: newFalta.id });
       }
       console.log("Faltas cometidas guardadas");
 
       // ============================================
       // 8. TIPO DE SANCION (O2M complejo)
       // ============================================
+      currentStep = "tipo de sanción";
       const sancionesFiltradas = (data.tipoSancion ?? []).filter((s: any) => s?.clave);
       for (const sancion of sancionesFiltradas) {
         let suspensionEmpleoId = null;
@@ -854,6 +874,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                 withToken(accessToken, createItem("suspension_empleo", suspensionData))
               );
               suspensionEmpleoId = newSuspension.id;
+              createdRecords.push({ collection: "suspension_empleo", id: suspensionEmpleoId });
             }
             break;
 
@@ -867,6 +888,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                 withToken(accessToken, createItem("destitucion_empleo", destitucionData))
               );
               destitucionEmpleoId = newDestitucion.id;
+              createdRecords.push({ collection: "destitucion_empleo", id: destitucionEmpleoId });
             }
             break;
 
@@ -884,6 +906,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                   withToken(accessToken, createItem("plazo_pago", plazoPagoData))
                 );
                 plazoPagoId = newPlazoPago.id;
+                createdRecords.push({ collection: "plazo_pago", id: plazoPagoId });
               }
 
               let efectivamenteCobradaId = null;
@@ -898,6 +921,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                   withToken(accessToken, createItem("efectivamente_cobrado", cobradaData))
                 );
                 efectivamenteCobradaId = newCobrada.id;
+                createdRecords.push({ collection: "efectivamente_cobrado", id: efectivamenteCobradaId });
               }
 
               const sancionEconomicaData = {
@@ -912,6 +936,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                 withToken(accessToken, createItem("sancion_economica", sancionEconomicaData))
               );
               sancionEconomicaId = newSancionEconomica.id;
+              createdRecords.push({ collection: "sancion_economica", id: sancionEconomicaId });
             }
             break;
 
@@ -929,6 +954,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                 withToken(accessToken, createItem("inhabilitacion", inhabilitacionData))
               );
               inhabilitacionId = newInhabilitacion.id;
+              createdRecords.push({ collection: "inhabilitacion", id: inhabilitacionId });
             }
             break;
 
@@ -942,6 +968,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                 withToken(accessToken, createItem("otro_sancion", otroData))
               );
               otroId = newOtro.id;
+              createdRecords.push({ collection: "otro_sancion", id: otroId });
             }
             break;
         }
@@ -958,9 +985,10 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
         else if (sancion.clave === "INHABILITACION") tipoSancionData.inhabilitacion = inhabilitacionId;
         else if (sancion.clave === "OTRO") tipoSancionData.otro = otroId;
 
-        await directus.request(
+        const newTipoSancion = await directus.request(
           withToken(accessToken, createItem("tipo_sancion_graves", tipoSancionData))
         );
+        createdRecords.push({ collection: "tipo_sancion_graves", id: newTipoSancion.id });
       }
       console.log("Tipos de sancion guardados");
 
@@ -974,21 +1002,31 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
         description: toastMessage,
       });
     } catch (error: any) {
-      console.error("=== ERROR AL GUARDAR ===");
-      console.error("Error completo:", error);
+      console.error("=== ERROR AL GUARDAR ===", error);
 
-      let errorMessage = "Error al intentar guardar el registro";
+      // Revertir todos los registros creados en este intento
+      if (accessToken && createdRecords.length > 0) {
+        console.log("Revirtiendo", createdRecords.length, "registros creados...");
+        for (const record of [...createdRecords].reverse()) {
+          try {
+            await directus.request(withToken(accessToken, deleteItem(record.collection, record.id)));
+          } catch (e) {
+            console.error(`Error al revertir ${record.collection}:${record.id}`, e);
+          }
+        }
+      }
 
+      let errorDetail = "";
       if (error.errors && Array.isArray(error.errors)) {
-        errorMessage = error.errors.map((e: any) => e.message).join(", ");
+        errorDetail = error.errors.map((e: any) => e.message).join(", ");
       } else if (error.message) {
-        errorMessage = error.message;
+        errorDetail = error.message;
       }
 
       toast({
         variant: "destructive",
-        title: "Error",
-        description: errorMessage,
+        title: "Error al guardar",
+        description: `Falló en: ${currentStep}. ${errorDetail}`,
       });
     } finally {
       setLoading(false);
@@ -1220,7 +1258,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
                         1. Fecha de registro (DD-MM-AAAA) <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input type="date" disabled={loading} {...field} className="border-primary/30" />
+                        <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
                       </FormControl>
                       <FormDescription>Indicar la fecha en la que se registra la información</FormDescription>
                       <FormMessage />
