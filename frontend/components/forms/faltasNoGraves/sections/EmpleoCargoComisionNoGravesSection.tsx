@@ -109,7 +109,7 @@ export const EmpleoCargoComisionNoGravesSection: React.FC<
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
         En el presente apartado se establecen los datos concernientes al empleo,
-        cargo o comision que ostenta u ostentaba la persona servidora pública al
+        cargo o comisión que ostenta u ostentaba la persona servidora pública al
         momento de cometer la falta administrativa
       </p>
 
@@ -196,7 +196,7 @@ export const EmpleoCargoComisionNoGravesSection: React.FC<
         render={({ field }) => (
           <FormItem className="space-y-3">
             <FormLabel>
-              Ambito público <span className="text-red-500">*</span>
+              Ámbito público <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

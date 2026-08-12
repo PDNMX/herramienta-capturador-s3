@@ -27,10 +27,10 @@ export const SuspensionEmpleoNoGravesFields: React.FC<SuspensionEmpleoNoGravesFi
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          B. Suspension del empleo, cargo o comision
+          B. Suspensión del empleo, cargo o comisión
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión
+          Se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión
         </p>
       </div>
 

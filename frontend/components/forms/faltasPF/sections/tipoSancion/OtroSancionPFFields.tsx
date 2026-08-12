@@ -29,7 +29,7 @@ export const OtroSancionPFFields: React.FC<OtroSancionPFFieldsProps> = ({
           D. Otro
         </h5>
         <p className="text-xs text-muted-foreground">
-          Llenar este apartado en caso de que la persona fisica sea acreedora a otro tipo de sanción prevista en las leyes locales anticorrupcion de las entidades federativas
+          Llenar este apartado en caso de que la persona física sea acreedora a otro tipo de sanción prevista en las leyes locales anticorrupción de las entidades federativas
         </p>
       </div>
 

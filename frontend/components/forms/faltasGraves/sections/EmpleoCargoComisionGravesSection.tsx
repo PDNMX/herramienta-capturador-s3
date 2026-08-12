@@ -104,7 +104,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
   return (
     <div className="space-y-6">
       <p className="text-sm text-muted-foreground">
-        En el presente apartado se establecen los datos concernientes al empleo, cargo o comision que ostenta u ostentaba la persona servidora pública al momento de cometer la falta administrativa
+        En el presente apartado se establecen los datos concernientes al empleo, cargo o comisión que ostenta u ostentaba la persona servidora pública al momento de cometer la falta administrativa
       </p>
 
       {/* Entidad Federativa */}
@@ -182,7 +182,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
         render={({ field }) => (
           <FormItem className="space-y-3">
             <FormLabel>
-              Ambito público <span className="text-red-500">*</span>
+              Ámbito público <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -271,16 +271,16 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Nivle jerárquico del empleo, cargo o comisión <span className="text-red-500">*</span>
+              Nivel jerárquico del empleo, cargo o comisión <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Combobox
                 options={NIVELES_JERARQUICO}
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="Selecciona el nivel jerarquico"
+                placeholder="Selecciona el nivel jerárquico"
                 disabled={loading}
-                searchPlaceholder="Buscar nivel jerarquico..."
+                searchPlaceholder="Buscar nivel jerárquico..."
               />
             </FormControl>
             <FormMessage />
@@ -296,18 +296,18 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Especifique el nivel jerarquico <span className="text-red-500">*</span>
+                Especifique el nivel jerárquico <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
                   disabled={loading}
-                  placeholder="Especifique el nivel jerarquico"
+                  placeholder="Especifique el nivel jerárquico"
                   {...field}
                   value={field.value || ""}
                 />
               </FormControl>
               <FormDescription>
-                En caso de seleccionar la opcion "OTRO", se debera especificar el nivel jerarquico
+                En caso de seleccionar la opción "OTRO", se deberá especificar el nivel jerárquico
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -322,7 +322,7 @@ export const EmpleoCargoComisionGravesSection: React.FC<EmpleoCargoComisionGrave
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Denominacion del empleo, cargo o comision <span className="text-red-500">*</span>
+              Denominación del empleo, cargo o comisión <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Input

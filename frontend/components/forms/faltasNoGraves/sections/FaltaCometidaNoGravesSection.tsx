@@ -84,7 +84,7 @@ export const FaltaCometidaNoGravesSection: React.FC<FaltaCometidaNoGravesSection
       <Button type="button" variant="outline" onClick={handleAddFalta} disabled={loading} className="w-full border-dashed border-2 h-14 group hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300"><Plus className="h-4 w-4 text-primary" /></div>
-          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otra falta cometida</span><span className="text-xs text-muted-foreground">Se pueden registrar multiples faltas para un mismo servidor público</span></div>
+          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otra falta cometida</span><span className="text-xs text-muted-foreground">Se pueden registrar múltiples faltas para un mismo servidor público</span></div>
         </div>
       </Button>
 
@@ -105,7 +105,7 @@ export const FaltaCometidaNoGravesSection: React.FC<FaltaCometidaNoGravesSection
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center border border-primary/30"><span className="text-sm font-bold text-primary">{index + 1}</span></div>
                 <div>
                   <h4 className="font-semibold text-lg text-primary mb-0.5">Falta Cometida {index + 1}{fields.length > 1 && <span className="text-xs font-normal text-muted-foreground ml-2">de {fields.length}</span>}</h4>
-                  <p className="text-xs text-muted-foreground">{fields.length > 1 ? `Registrando ${fields.length} faltas administrativas. Puede agregar o eliminar faltas segun sea necesario.` : "Puede agregar multiples faltas cometidas usando el boton de arriba."}</p>
+                  <p className="text-xs text-muted-foreground">{fields.length > 1 ? `Registrando ${fields.length} faltas administrativas. Puede agregar o eliminar faltas según sea necesario.` : "Puede agregar múltiples faltas cometidas usando el botón de arriba."}</p>
                 </div>
               </div>
 
@@ -120,7 +120,7 @@ export const FaltaCometidaNoGravesSection: React.FC<FaltaCometidaNoGravesSection
               )}
 
               <div className="border-t border-b py-6">
-                <div className="mb-4"><h5 className="font-semibold text-base text-primary mb-1">Normatividad(es) Infringida(s)</h5><p className="text-xs text-muted-foreground">Agregue una o mas normatividades que fueron infringidas por esta falta.</p></div>
+                <div className="mb-4"><h5 className="font-semibold text-base text-primary mb-1">Normatividad(es) Infringida(s)</h5><p className="text-xs text-muted-foreground">Agregue una o más normatividades que fueron infringidas por esta falta.</p></div>
                 <NormatividadNoGravesFields form={form} loading={loading} faltaIndex={index} />
               </div>
 

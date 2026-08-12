@@ -10,7 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { sanitizeInput } from "@/lib/sanitize";
+import { sanitizeInput, sanitizeName } from "@/lib/sanitize";
 import { CURP_REGEX, RFC_REGEX, validarCoincidenciaLetras } from "@/lib/curp-rfc";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
@@ -52,7 +52,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
                 Nombre(s) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input disabled={loading} placeholder="Ej: Juan Carlos" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} />
+                <Input disabled={loading} placeholder="Ej: Juan Carlos" {...field} onChange={(e) => field.onChange(sanitizeName(e.target.value))} />
               </FormControl>
               <FormDescription>Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco</FormDescription>
               <FormMessage />
@@ -69,7 +69,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
                 Primer apellido <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
-                <Input disabled={loading} placeholder="Ej: Garcia" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} />
+                <Input disabled={loading} placeholder="Ej: Garcia" {...field} onChange={(e) => field.onChange(sanitizeName(e.target.value))} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -84,7 +84,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
           <FormItem>
             <FormLabel>Segundo apellido</FormLabel>
             <FormControl>
-              <Input disabled={loading} placeholder="Ej: Lopez" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} value={field.value || ""} />
+              <Input disabled={loading} placeholder="Ej: Lopez" {...field} onChange={(e) => field.onChange(sanitizeName(e.target.value))} value={field.value || ""} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -143,7 +143,7 @@ export const DatosGeneralesNoGravesSection: React.FC<DatosGeneralesNoGravesSecti
           name="rfc"
           rules={{
             validate: {
-              formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (12 ó 13 caracteres: 4 letras, fecha, homoclave)",
+              formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (13 caracteres: 4 letras, 6 dígitos de fecha y 3 de homoclave)",
               coincidencia: (v) => {
                 const { nombres, primerApellido, segundoApellido } = form.getValues();
                 return validarCoincidenciaLetras(v ?? "", nombres ?? "", primerApellido ?? "", segundoApellido) ||

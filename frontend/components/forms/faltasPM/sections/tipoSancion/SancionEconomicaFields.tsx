@@ -57,6 +57,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                   disabled={loading}
                   placeholder="0.00"
                   {...field}
+                  value={field.value ?? 0}
                   onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                 />
               </FormControl>
@@ -110,7 +111,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.anios`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Años</FormLabel>
+                <FormLabel>Año (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -118,6 +119,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                     disabled={loading}
                     placeholder="El valor mínimo es 0 (cero)"
                     {...field}
+                    value={field.value ?? 0}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
                 </FormControl>
@@ -140,6 +142,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                     disabled={loading}
                     placeholder="El valor mínimo es 0 (cero)"
                     {...field}
+                    value={field.value ?? 0}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
                 </FormControl>
@@ -153,7 +156,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.sancionEconomica.plazoPago.dias`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Días</FormLabel>
+                <FormLabel>Día (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"
@@ -162,6 +165,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                     disabled={loading}
                     placeholder="El valor mínimo es 0 (cero)"
                     {...field}
+                    value={field.value ?? 0}
                     onChange={(e) => field.onChange(parseInt(e.target.value) || 0)}
                   />
                 </FormControl>
@@ -198,6 +202,7 @@ export const SancionEconomicaFields: React.FC<SancionEconomicaFieldsProps> = ({
                     disabled={loading}
                     placeholder="0.00"
                     {...field}
+                    value={field.value ?? 0}
                     onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                   />
                 </FormControl>

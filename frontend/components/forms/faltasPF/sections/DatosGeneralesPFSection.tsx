@@ -10,7 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { sanitizeInput } from "@/lib/sanitize";
+import { sanitizeInput, sanitizeName } from "@/lib/sanitize";
 import { CURP_REGEX, RFC_REGEX, validarCoincidenciaLetras } from "@/lib/curp-rfc";
 import { Combobox } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
@@ -160,7 +160,7 @@ export const DatosGeneralesPFSection: React.FC<
                   disabled={loading}
                   placeholder="Ej: Juan Carlos"
                   {...field}
-                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
+                  onChange={(e) => field.onChange(sanitizeName(e.target.value))}
                 />
               </FormControl>
               <FormDescription>
@@ -185,7 +185,7 @@ export const DatosGeneralesPFSection: React.FC<
                   disabled={loading}
                   placeholder="Ej: Garcia"
                   {...field}
-                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
+                  onChange={(e) => field.onChange(sanitizeName(e.target.value))}
                 />
               </FormControl>
               <FormMessage />
@@ -207,7 +207,7 @@ export const DatosGeneralesPFSection: React.FC<
                   disabled={loading}
                   placeholder="Ej: Lopez"
                   {...field}
-                  onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
+                  onChange={(e) => field.onChange(sanitizeName(e.target.value))}
                   value={field.value || ""}
                 />
               </FormControl>
@@ -269,7 +269,7 @@ export const DatosGeneralesPFSection: React.FC<
           name="rfc"
           rules={{
             validate: {
-              formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (12 ó 13 caracteres: 4 letras, fecha, homoclave)",
+              formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (13 caracteres: 4 letras, 6 dígitos de fecha y 3 de homoclave)",
               coincidencia: (v) => {
                 const { nombres, primerApellido, segundoApellido } = form.getValues();
                 return validarCoincidenciaLetras(v ?? "", nombres ?? "", primerApellido ?? "", segundoApellido) ||

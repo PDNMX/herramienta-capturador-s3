@@ -52,6 +52,7 @@ import {
 } from "lucide-react";
 import * as z from "zod";
 import { sanitizePayload } from "@/lib/utils";
+import { sanitizeName } from "@/lib/sanitize";
 
 // Imports de secciones
 import { DatosGeneralesPFSection } from "./sections/DatosGeneralesPFSection";
@@ -69,10 +70,10 @@ import { TipoSancionPFSection } from "./sections/TipoSancionPFSection";
 const datosGeneralesSchema = z.object({
   nombres: z
     .string()
-    .min(1, "Ingresa el nombre o nombres de la persona fisica"),
+    .min(1, "Ingresa el nombre o nombres de la persona física"),
   primerApellido: z
     .string()
-    .min(1, "Ingresa el primer apellido de la persona fisica"),
+    .min(1, "Ingresa el primer apellido de la persona física"),
   segundoApellido: z.string().nullable().optional(),
   curp: z
     .string()
@@ -152,7 +153,7 @@ const faltaCometidaItemSchema = z.object({
       "OTRO",
     ],
     {
-      message: "Selecciona el tipo de falta cometida por la persona fisica",
+      message: "Selecciona el tipo de falta cometida por la persona física",
     }
   ),
   valor: z.string().nullable().optional(),
@@ -212,9 +213,9 @@ const inhabilitacionSchema = z
 
 const indemnizacionSchema = z
   .object({
-    monto: z.number().min(0, "Ingresa el monto de la indemnizacion"),
+    monto: z.number().min(0, "Ingresa el monto de la indemnización"),
     moneda: z.enum(["MXN", "USD", "EUR"], {
-      message: "Selecciona la moneda de la indemnizacion",
+      message: "Selecciona la moneda de la indemnización",
     }),
     fechaPagoTotal: z.string().nullable().optional(),
     plazoPago: plazoPagoSchema,
@@ -252,7 +253,7 @@ const tipoSancionItemSchema = z.object({
       "OTRO",
     ],
     {
-      message: "Selecciona el tipo de sancion impuesta a la persona fisica",
+      message: "Selecciona el tipo de sancion impuesta a la persona física",
     }
   ),
   inhabilitacion: inhabilitacionSchema,
@@ -316,9 +317,9 @@ function getFaltasGravesPFDefaults(
     observaciones: initialData?.observaciones ?? "",
 
     // Datos Generales (Persona Fisica)
-    nombres: initialData?.datosGenerales?.nombres ?? "",
-    primerApellido: initialData?.datosGenerales?.primerApellido ?? "",
-    segundoApellido: initialData?.datosGenerales?.segundoApellido ?? null,
+    nombres: sanitizeName(initialData?.datosGenerales?.nombres ?? ""),
+    primerApellido: sanitizeName(initialData?.datosGenerales?.primerApellido ?? ""),
+    segundoApellido: initialData?.datosGenerales?.segundoApellido ? sanitizeName(initialData.datosGenerales.segundoApellido) : null,
     curp: initialData?.datosGenerales?.curp ?? "",
     rfc: initialData?.datosGenerales?.rfc ?? "",
     tipoDomicilio: initialData?.datosGenerales?.tipoDomicilio ?? null,
@@ -1173,9 +1174,21 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
         }
       }
 
+      const FIELD_LABELS: Record<string, string> = {
+        nombres: "Nombre(s)",
+        primerApellido: "Primer apellido",
+        segundoApellido: "Segundo apellido",
+      };
       let errorDetail = "";
       if (error.errors && Array.isArray(error.errors)) {
-        errorDetail = error.errors.map((e: any) => e.message).join(", ");
+        errorDetail = error.errors.map((e: any) => {
+          const match = e.message?.match(/field\s+"?(\w+)"?/i);
+          const field = match?.[1];
+          if (field && FIELD_LABELS[field] && e.message?.includes("correct format")) {
+            return `${FIELD_LABELS[field]}: solo se permiten letras, espacios y guiones`;
+          }
+          return e.message;
+        }).join(". ");
       } else if (error.message) {
         errorDetail = error.message;
       }
@@ -1280,10 +1293,10 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <div className="flex items-start justify-between gap-4">
                       <FormLabel className="text-sm font-semibold text-primary flex items-center gap-2">
                         <div className="h-1.5 w-1.5 rounded-full bg-primary"></div>
-                        Estatus de la resolucion <span className="text-destructive">*</span>
+                        Estatus de la resolución <span className="text-destructive">*</span>
                       </FormLabel>
                       <FormDescription className="text-xs text-muted-foreground italic text-right">
-                        Indicar si la resolucion es firme o no firme
+                        Indicar si la resolución es firme o no firme
                       </FormDescription>
                     </div>
 
@@ -1386,6 +1399,30 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                       </div>
                     </div>
 
+                    <div className={`flex items-start gap-3 p-3 rounded-lg border text-sm transition-all duration-300 ${
+                      field.value === "FIRME"
+                        ? "bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-900"
+                        : "bg-muted/40 border-muted"
+                    }`}>
+                      <div className="mt-0.5 flex-shrink-0">
+                        {field.value === "FIRME" ? (
+                          <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        ) : (
+                          <svg className="w-4 h-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clipRule="evenodd" />
+                            <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                          </svg>
+                        )}
+                      </div>
+                      <p className={`text-xs leading-relaxed ${field.value === "FIRME" ? "text-green-800 dark:text-green-200" : "text-muted-foreground"}`}>
+                        {field.value === "FIRME"
+                          ? "Este registro será publicado en la Plataforma Digital Nacional y estará disponible públicamente una vez guardado."
+                          : "Este registro no será visible en la Plataforma Digital Nacional. Permanecerá en el sistema interno hasta que la resolución adquiera firmeza."}
+                      </p>
+                    </div>
+
                     <FormMessage />
                   </FormItem>
                 )}
@@ -1453,7 +1490,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <FileText className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "datos-generales") ? "text-destructive" : "text-primary"}`} />
                   </div>
                   <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "datos-generales") ? "text-destructive" : "text-primary"}`}>
-                    3. Datos generales de la persona fisica sancionada
+                    3. Datos generales de la persona física sancionada
                   </span>
                   {errorSummary.some(s => s.accordionValue === "datos-generales") && (
                     <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
@@ -1534,7 +1571,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <AlertCircle className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "falta-cometida") ? "text-destructive" : "text-primary"}`} />
                   </div>
                   <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "falta-cometida") ? "text-destructive" : "text-primary"}`}>
-                    6. Tipo de falta cometida por la persona fisica sancionada
+                    6. Tipo de falta cometida por la persona física sancionada
                   </span>
                   {errorSummary.some(s => s.accordionValue === "falta-cometida") && (
                     <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
@@ -1561,7 +1598,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <FileText className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "resolucion") ? "text-destructive" : "text-primary"}`} />
                   </div>
                   <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "resolucion") ? "text-destructive" : "text-primary"}`}>
-                    7. Resolucion sancionatoria de la falta cometida por la persona fisica
+                    7. Resolución sancionatoria de la falta cometida por la persona física
                   </span>
                   {errorSummary.some(s => s.accordionValue === "resolucion") && (
                     <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
@@ -1588,7 +1625,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                     <AlertCircle className={`h-5 w-5 ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "text-destructive" : "text-primary"}`} />
                   </div>
                   <span className={`text-left text-lg font-semibold ${errorSummary.some(s => s.accordionValue === "tipo-sancion") ? "text-destructive" : "text-primary"}`}>
-                    8. Tipo de sanción impuesta a la persona fisica
+                    8. Tipo de sanción impuesta a la persona física
                   </span>
                   {errorSummary.some(s => s.accordionValue === "tipo-sancion") && (
                     <span className="ml-auto mr-2 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-destructive/10 text-destructive border border-destructive/20">
@@ -1621,7 +1658,7 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
                   <FormControl>
                     <Textarea
                       disabled={loading}
-                      placeholder="Ej: Informacion adicional sobre el caso..."
+                      placeholder="Ej: Información adicional sobre el caso..."
                       className="min-h-[100px]"
                       {...field}
                       value={field.value || ""}

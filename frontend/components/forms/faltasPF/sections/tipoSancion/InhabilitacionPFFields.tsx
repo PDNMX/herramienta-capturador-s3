@@ -42,7 +42,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Anio (s) <span className="text-red-500">*</span>
+                Año (s) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -91,7 +91,7 @@ export const InhabilitacionPFFields: React.FC<InhabilitacionPFFieldsProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Dia (s) <span className="text-red-500">*</span>
+                Día (s) <span className="text-red-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input

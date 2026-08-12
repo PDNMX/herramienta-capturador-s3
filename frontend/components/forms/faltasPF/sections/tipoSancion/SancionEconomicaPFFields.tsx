@@ -36,7 +36,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
         <h5 className="font-semibold text-base text-primary mb-1">
           C. Sanción económica
         </h5>
-        <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que la persona fisica sea acreedora de una sanción económica</p>
+        <p className="text-xs text-muted-foreground">Llenar este apartado en caso de que la persona física sea acreedora de una sanción económica</p>
       </div>
 
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -87,7 +87,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="MXN">MXN - Peso Mexicano</SelectItem>
-                  <SelectItem value="USD">USD - Dolar Americano</SelectItem>
+                  <SelectItem value="USD">USD - Dólar Americano</SelectItem>
                   <SelectItem value="EUR">EUR - Euro</SelectItem>
                 </SelectContent>
               </Select>
@@ -102,7 +102,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
       <div className="p-4 bg-muted/30 rounded-lg border border-muted space-y-4">
         <p className="text-sm font-semibold text-primary">Plazo de pago</p>
         <p className="text-xs text-muted-foreground">
-          Senalar el plazo determinado para dar cumplimiento a la sanción económica
+          Señalar el plazo determinado para dar cumplimiento a la sanción económica
         </p>
         <div className="md:grid md:grid-cols-3 gap-4">
           <FormField
@@ -175,7 +175,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
           <p className="text-xs text-blue-800 dark:text-blue-200">
-            Si al momento de registrar la informacion la autoridad no cuenta con los datos senalados en esta seccion, estos podran registrarse posteriormente mediante una actualizacion de su registro
+            Si al momento de registrar la información la autoridad no cuenta con los datos señalados en esta sección, estos podrán registrarse posteriormente mediante una actualización de su registro
           </p>
         </div>
       </div>
@@ -255,7 +255,7 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
           <p className="text-xs text-blue-800 dark:text-blue-200">
-            Si al momento de registrar la informacion la autoridad no cuenta con los datos senalados en esta seccion, estos podran registrarse posteriormente mediante una actualizacion de su registro
+            Si al momento de registrar la información la autoridad no cuenta con los datos señalados en esta sección, estos podrán registrarse posteriormente mediante una actualización de su registro
           </p>
         </div>
       </div>
@@ -271,13 +271,16 @@ export const SancionEconomicaPFFields: React.FC<SancionEconomicaPFFieldsProps> =
               <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
             </FormControl>
             <FormMessage />
-            <FormDescription>Especificar la fecha en que se cubrió el pago total de la sanción económica. <p> Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción, este podrá registrarse posteriormente mediante una actualización de su registro </p>.</FormDescription>
+            <FormDescription>
+              Especificar la fecha en que se cubrió el pago total de la sanción económica.
+              <span className="block mt-1">Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción, este podrá registrarse posteriormente mediante una actualización de su registro.</span>
+            </FormDescription>
             <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-md border border-blue-200 dark:border-blue-900 mt-2">
               <svg className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
               <p className="text-xs text-blue-800 dark:text-blue-200">
-                Si al momento de registrar la informacion la autoridad no cuenta con el dato de fecha en que se realizo el pago total de la sanción económica, este podra registrarse posteriormente mediante una actualizacion de su registro
+                Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción económica, este podrá registrarse posteriormente mediante una actualización de su registro
               </p>
             </div>
           </FormItem>

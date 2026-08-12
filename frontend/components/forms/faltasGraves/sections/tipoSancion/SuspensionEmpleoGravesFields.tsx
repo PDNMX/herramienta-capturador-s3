@@ -31,10 +31,10 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
     <div className="border-t pt-6 space-y-6">
       <div>
         <h5 className="font-semibold text-base text-primary mb-1">
-          A. Suspension del empleo, cargo o comision
+          A. Suspensión del empleo, cargo o comisión
         </h5>
         <p className="text-xs text-muted-foreground">
-          Se debera llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión
+          Se deberá llenar si en la resolución se determinó sancionar con la suspensión del empleo, cargo o comisión
         </p>
       </div>
       <div>
@@ -42,7 +42,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
           Plazo de la suspensión
         </h5>
         <p className="text-xs text-muted-foreground">
-          Colocarel plazo de la suspensión de la persona servidora pública
+          Colocar el plazo de la suspensión de la persona servidora pública
         </p>
       </div>
       <div className="md:grid md:grid-cols-2 gap-6">
@@ -53,7 +53,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
             <FormItem>
               <FormLabel>Mes (es) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="number" min="0" disabled={loading} placeholder="El valor minimo es 0 (cero)" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
+                <Input type="number" min="0" disabled={loading} placeholder="El valor mínimo es 0 (cero)" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,7 +67,7 @@ export const SuspensionEmpleoGravesFields: React.FC<SuspensionEmpleoGravesFields
             <FormItem>
               <FormLabel>Día (s) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
-                <Input type="number" min="0" max="30" disabled={loading} placeholder="El valor minimo es 0 (cero)" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
+                <Input type="number" min="0" max="30" disabled={loading} placeholder="El valor mínimo es 0 (cero)" {...field} onChange={(e) => field.onChange(parseInt(e.target.value) || 0)} />
               </FormControl>
               <FormMessage />
             </FormItem>

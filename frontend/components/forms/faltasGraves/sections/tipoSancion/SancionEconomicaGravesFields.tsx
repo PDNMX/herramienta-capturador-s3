@@ -67,7 +67,7 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
                 </FormControl>
                 <SelectContent>
                   <SelectItem value="MXN">MXN - Peso Mexicano</SelectItem>
-                  <SelectItem value="USD">USD - Dolar Americano</SelectItem>
+                  <SelectItem value="USD">USD - Dólar Americano</SelectItem>
                   <SelectItem value="EUR">EUR - Euro</SelectItem>
                 </SelectContent>
               </Select>
@@ -209,7 +209,10 @@ export const SancionEconomicaGravesFields: React.FC<SancionEconomicaGravesFields
             <FormControl>
               <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
             </FormControl>
-            <FormDescription>Especificar la fecha en que se cubrió el pago total de la sanción económica. <p> Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción, este podrá registrarse posteriormente mediante una actualización de su registro </p></FormDescription>
+            <FormDescription>
+              Especificar la fecha en que se cubrió el pago total de la sanción económica.
+              <span className="block mt-1">Si al momento de registrar la información la autoridad no cuenta con el dato de fecha en que se realizó el pago total de la sanción, este podrá registrarse posteriormente mediante una actualización de su registro.</span>
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

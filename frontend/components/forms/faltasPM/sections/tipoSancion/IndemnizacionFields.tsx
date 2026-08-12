@@ -60,7 +60,7 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
                   onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                 />
               </FormControl>
-              <FormDescription> Colocar el monto total de la indemnizacion </FormDescription>
+              <FormDescription> Colocar el monto total de la indemnización </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -153,7 +153,7 @@ export const IndemnizacionFields: React.FC<IndemnizacionFieldsProps> = ({
             name={`tipoSancion.${sancionIndex}.indemnizacion.plazoPago.dias`}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Días</FormLabel>
+                <FormLabel>Día (s)</FormLabel>
                 <FormControl>
                   <Input
                     type="number"

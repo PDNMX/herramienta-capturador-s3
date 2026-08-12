@@ -90,7 +90,7 @@ export const SuspensionActividadesFields: React.FC<SuspensionActividadesFieldsPr
           name={`tipoSancion.${sancionIndex}.suspensionActividades.plazoSuspensionDias`}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Días <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Día (s) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <Input
                   type="number"

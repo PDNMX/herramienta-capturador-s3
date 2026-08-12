@@ -1,8 +1,8 @@
 // CURP: 4 letras + 6 dígitos fecha + sexo + 2 estado + 3 consonantes + 1 diferenciador + 1 verificador
 export const CURP_REGEX = /^[A-Z]{4}\d{6}[HM][A-Z]{2}[A-Z]{3}[A-Z\d]\d$/;
 
-// RFC persona física: 4 letras + 6 dígitos fecha + 2-3 homoclave (12 ó 13 chars)
-export const RFC_REGEX = /^[A-Z]{4}\d{6}[A-Z\d]{2,3}$/;
+// RFC persona física: 4 letras + 6 dígitos fecha + 3 homoclave (siempre 13 chars)
+export const RFC_REGEX = /^[A-Z]{4}\d{6}[A-Z\d]{3}$/;
 
 // RFC persona moral: 3 letras (razón social) + 6 dígitos fecha + 3 homoclave (siempre 12 chars)
 export const RFC_PM_REGEX = /^[A-Z]{3}\d{6}[A-Z\d]{3}$/;

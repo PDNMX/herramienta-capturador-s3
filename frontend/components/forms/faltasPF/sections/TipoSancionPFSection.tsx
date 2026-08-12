@@ -71,7 +71,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
       {/* Section header with counter badge */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-muted-foreground flex-1">
-          Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona fisica
+          Este apartado se refiere a los datos concernientes a la sanción y/o sanciones impuestas a la persona física
         </p>
         <div className="flex items-center gap-2 ml-4">
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
@@ -80,7 +80,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
               {fields.length}
             </span>
             <span className="text-xs text-muted-foreground">
-              {fields.length === 1 ? "sancion" : "sanciones"}
+              {fields.length === 1 ? "sanción" : "sanciones"}
             </span>
           </div>
         </div>
@@ -101,7 +101,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
           <div className="flex flex-col items-start">
             <span className="text-sm font-medium">Agregar otro tipo de sanción</span>
             <span className="text-xs text-muted-foreground">
-              Se pueden registrar multiples sanciones para una misma persona fisica
+              Se pueden registrar múltiples sanciones para una misma persona física
             </span>
           </div>
         </div>
@@ -163,8 +163,8 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
                   </h4>
                   <p className="text-xs text-muted-foreground">
                     {fields.length > 1
-                      ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar segun sea necesario.`
-                      : "Puede agregar multiples sanciones usando el boton de arriba."}
+                      ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar según sea necesario.`
+                      : "Puede agregar múltiples sanciones usando el botón de arriba."}
                   </p>
                 </div>
               </div>
@@ -176,7 +176,7 @@ export const TipoSancionPFSection: React.FC<TipoSancionPFSectionProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Tipo de sanción: elegir la sancion, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva <span className="text-red-500">*</span>
+                      Tipo de sanción: elegir la sanción, según corresponda, conforme al catálogo y que fue dictaminada en la resolución definitiva <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
                       <Combobox

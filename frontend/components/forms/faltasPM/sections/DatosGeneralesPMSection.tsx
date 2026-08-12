@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RFC_PM_REGEX } from "@/lib/curp-rfc";
+import { sanitizeAddress } from "@/lib/sanitize";
 import { Combobox } from "@/components/ui/combobox";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -368,6 +369,7 @@ export const DatosGeneralesPMSection: React.FC<
                         placeholder="Ej: Insurgentes"
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => field.onChange(sanitizeAddress(e.target.value))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -388,6 +390,7 @@ export const DatosGeneralesPMSection: React.FC<
                         placeholder="Ej: 123"
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value.replace(/[^a-zA-Z0-9 \-\/]/g, ""))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -408,6 +411,7 @@ export const DatosGeneralesPMSection: React.FC<
                         placeholder="Ej: 4A (si aplica)"
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value.replace(/[^a-zA-Z0-9 \-\/]/g, ""))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -428,6 +432,7 @@ export const DatosGeneralesPMSection: React.FC<
                         placeholder="Ej: Roma Norte"
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => field.onChange(sanitizeAddress(e.target.value))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -448,6 +453,7 @@ export const DatosGeneralesPMSection: React.FC<
                         placeholder="Ej: Cuauhtémoc"
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => field.onChange(sanitizeAddress(e.target.value))}
                       />
                     </FormControl>
                     <FormMessage />
@@ -467,8 +473,10 @@ export const DatosGeneralesPMSection: React.FC<
                         disabled={loading}
                         placeholder="Ej: 06700"
                         maxLength={5}
+                        inputMode="numeric"
                         {...field}
                         value={field.value || ""}
+                        onChange={(e) => field.onChange(e.target.value.replace(/[^0-9]/g, ""))}
                       />
                     </FormControl>
                     <FormMessage />

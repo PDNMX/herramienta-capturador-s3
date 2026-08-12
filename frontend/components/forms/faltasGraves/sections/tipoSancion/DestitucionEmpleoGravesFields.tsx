@@ -42,7 +42,10 @@ export const DestitucionEmpleoGravesFields: React.FC<DestitucionEmpleoGravesFiel
             <FormControl>
               <DatePicker value={field.value} onChange={field.onChange} onBlur={field.onBlur} disabled={loading} />
             </FormControl>
-            <FormDescription>Indicar la fecha de destitución de la persona servidora pública. <p> Si al momento de registrar la información la autoridad no cuenta con dicho dato, posteriormente podrá registrar mediante una actualización. </p></FormDescription>
+            <FormDescription>
+              Indicar la fecha de destitución de la persona servidora pública.
+              <span className="block mt-1">Si al momento de registrar la información la autoridad no cuenta con dicho dato, posteriormente podrá registrar mediante una actualización.</span>
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

@@ -106,7 +106,7 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
           <div className="flex flex-col items-start">
             <span className="text-sm font-medium">Agregar otra falta cometida</span>
             <span className="text-xs text-muted-foreground">
-              Se pueden registrar multiples faltas para un mismo servidor público
+              Se pueden registrar múltiples faltas para un mismo servidor público
             </span>
           </div>
         </div>
@@ -150,8 +150,8 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
                   </h4>
                   <p className="text-xs text-muted-foreground">
                     {fields.length > 1
-                      ? `Registrando ${fields.length} faltas administrativas. Puede agregar o eliminar faltas segun sea necesario.`
-                      : "Puede agregar multiples faltas cometidas usando el boton de arriba."
+                      ? `Registrando ${fields.length} faltas administrativas. Puede agregar o eliminar faltas según sea necesario.`
+                      : "Puede agregar múltiples faltas cometidas usando el botón de arriba."
                     }
                   </p>
                 </div>
@@ -182,7 +182,7 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
                       <FormControl>
                         <Input disabled={loading} placeholder="Ej: Falta administrativa especial" {...field} value={field.value || ""} />
                       </FormControl>
-                      <FormDescription>En caso de seleccionar la opcion "OTRO", se debera especificar el tipo de falta cometida.</FormDescription>
+                      <FormDescription>En caso de seleccionar la opción "OTRO", se deberá especificar el tipo de falta cometida.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -192,7 +192,7 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
               <div className="border-t border-b py-6">
                 <div className="mb-4">
                   <h5 className="font-semibold text-base text-primary mb-1">Normatividad(es) Infringida(s)</h5>
-                  <p className="text-xs text-muted-foreground">Agregue una o mas normatividades que fueron infringidas por esta falta.</p>
+                  <p className="text-xs text-muted-foreground">Agregue una o más normatividades que fueron infringidas por esta falta.</p>
                 </div>
                 <NormatividadGravesFields form={form} loading={loading} faltaIndex={index} />
               </div>
@@ -202,11 +202,11 @@ export const FaltaCometidaGravesSection: React.FC<FaltaCometidaGravesSectionProp
                 name={`faltaCometida.${index}.descripcionHechos`}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Descripcion breve de los hechos <span className="text-red-500">*</span></FormLabel>
+                    <FormLabel>Descripción breve de los hechos <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Textarea disabled={loading} placeholder="Redactar una descripcion breve de los hechos..." className="min-h-[120px]" {...field} value={field.value || ""} />
+                      <Textarea disabled={loading} placeholder="Redactar una descripción breve de los hechos..." className="min-h-[120px]" {...field} value={field.value || ""} />
                     </FormControl>
-                    <FormDescription>Redactar una descripcion breve de los hechos, sin incluir informacion reservada o confidencial, de conformidad con la normatividad en materia de transparencia y proteccion de datos personales</FormDescription>
+                    <FormDescription>Redactar una descripción breve de los hechos, sin incluir información reservada o confidencial, de conformidad con la normatividad en materia de transparencia y protección de datos personales</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

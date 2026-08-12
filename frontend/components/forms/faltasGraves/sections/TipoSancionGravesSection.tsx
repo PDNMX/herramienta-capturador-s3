@@ -80,7 +80,7 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
               {fields.length}
             </span>
             <span className="text-xs text-muted-foreground">
-              {fields.length === 1 ? "sancion" : "sanciones"}
+              {fields.length === 1 ? "sanción" : "sanciones"}
             </span>
           </div>
         </div>
@@ -98,9 +98,9 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
             <Plus className="h-4 w-4 text-primary" />
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-sm font-medium">Agregar otro tipo de sancion</span>
+            <span className="text-sm font-medium">Agregar otro tipo de sanción</span>
             <span className="text-xs text-muted-foreground">
-              Se pueden registrar multiples sanciones para un mismo servidor público
+              Se pueden registrar múltiples sanciones para un mismo servidor público
             </span>
           </div>
         </div>
@@ -144,8 +144,8 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
                   </h4>
                   <p className="text-xs text-muted-foreground">
                     {fields.length > 1
-                      ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar segun sea necesario.`
-                      : "Puede agregar multiples sanciones usando el boton de arriba."}
+                      ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar según sea necesario.`
+                      : "Puede agregar múltiples sanciones usando el botón de arriba."}
                   </p>
                 </div>
               </div>
@@ -163,9 +163,9 @@ export const TipoSancionGravesSection: React.FC<TipoSancionGravesSectionProps> =
                         options={TIPOS_SANCION}
                         value={field.value}
                         onChange={field.onChange}
-                        placeholder="Selecciona el tipo de sancion"
+                        placeholder="Selecciona el tipo de sanción"
                         disabled={loading}
-                        searchPlaceholder="Buscar tipo de sancion..."
+                        searchPlaceholder="Buscar tipo de sanción..."
                       />
                     </FormControl>
                     <FormDescription>

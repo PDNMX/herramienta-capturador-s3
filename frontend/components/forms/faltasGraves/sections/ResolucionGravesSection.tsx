@@ -56,7 +56,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         render={({ field }) => (
           <FormItem>
             <FormLabel>
-              Titulo del documento <span className="text-red-500">*</span>
+              Título del documento <span className="text-red-500">*</span>
             </FormLabel>
             <FormControl>
               <Input disabled={loading} placeholder="Ej: Resolucion Administrativa RA-001/2025" {...field} onChange={(e) => field.onChange(sanitizeInput(e.target.value))} />
@@ -75,11 +75,11 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
           name="resolucion_fechaResolucion"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha de la resolucion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Fecha de la resolución (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(["resolucion_fechaNotificacion", "resolucion_fechaResolucionFirme"]); }} onBlur={field.onBlur} disabled={loading} />
               </FormControl>
-              <FormDescription>Colocar la fecha en la que se emite la resolucion sancionatoria</FormDescription>
+              <FormDescription>Colocar la fecha en la que se emite la resolución sancionatoria</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -94,7 +94,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
           }}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha de notificacion (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Fecha de notificación (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaNotificacion"); }} onBlur={() => form.trigger("resolucion_fechaNotificacion")} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
@@ -138,7 +138,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
               <FormControl>
                 <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger(["resolucion_fechaResolucionFirme", "resolucion_fechaNotificacionFirme", "resolucion_fechaEjecucion"]); }} onBlur={() => form.trigger("resolucion_fechaResolucionFirme")} disabled={loading} min={fechaResolucion || undefined} />
               </FormControl>
-              <FormDescription>Colocar la fecha en que adquirio firmeza la resolución de la persona servidora pública</FormDescription>
+              <FormDescription>Colocar la fecha en que adquirió firmeza la resolución de la persona servidora pública</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -153,11 +153,11 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
           }}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fecha de notificacion de la resolucion firme (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
+              <FormLabel>Fecha de notificación de la resolución firme (DD-MM-AAAA) <span className="text-red-500">*</span></FormLabel>
               <FormControl>
                 <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaNotificacionFirme"); }} onBlur={() => form.trigger("resolucion_fechaNotificacionFirme")} disabled={loading} min={fechaResolucionFirme || undefined} />
               </FormControl>
-              <FormDescription>Indicar la fecha en que se notifica que la resolucion ha quedado firme</FormDescription>
+              <FormDescription>Indicar la fecha en que se notifica que la resolución ha quedado firme</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -170,14 +170,14 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
         name="resolucion_urlResolucionFirme"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>URL de la version publica del acuerdo firme <span className="text-red-500">*</span></FormLabel>
+            <FormLabel>URL de la versión pública del acuerdo firme <span className="text-red-500">*</span></FormLabel>
             <FormControl>
               <div className="relative">
                 <LinkIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input type="url" disabled={loading} placeholder="https://ejemplo.gob.mx/acuerdo-firme.pdf" className="pl-10" {...field} />
               </div>
             </FormControl>
-            <FormDescription>Colocar el enlace de la version publica del acuerdo que declara firme la resolucion</FormDescription>
+            <FormDescription>Colocar el enlace de la versión pública del acuerdo que declara firme la resolución</FormDescription>
             <FormMessage />
           </FormItem>
         )}
@@ -198,7 +198,8 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
               <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaEjecucion"); }} onBlur={() => form.trigger("resolucion_fechaEjecucion")} disabled={loading} min={fechaResolucionFirme || undefined} />
             </FormControl>
             <FormDescription>
-              Anotar la fecha en la que se ejecutó la sanción a la persona servidora pública. <p> Si al momento de registrar la indormación la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro </p>
+              Anotar la fecha en la que se ejecutó la sanción a la persona servidora pública.
+              <span className="block mt-1">Si al momento de registrar la información la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro.</span>
             </FormDescription>
             <FormMessage />
           </FormItem>
@@ -235,7 +236,7 @@ export const ResolucionGravesSection: React.FC<ResolucionGravesSectionProps> = (
                 ))}
               </div>
             </FormControl>
-            <FormDescription>Seleccionar la opción correspondiente al orden jurisdiccional del Ente público que emetió la reolución</FormDescription>
+            <FormDescription>Seleccionar la opción correspondiente al orden jurisdiccional del Ente público que emitió la resolución</FormDescription>
             <FormMessage />
           </FormItem>
         )}

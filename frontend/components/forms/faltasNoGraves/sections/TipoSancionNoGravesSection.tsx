@@ -73,7 +73,7 @@ export const TipoSancionNoGravesSection: React.FC<TipoSancionNoGravesSectionProp
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
             <Layers className="h-3.5 w-3.5 text-primary" />
             <span className={`text-sm font-semibold text-primary ${fields.length > 1 ? "animate-badge-pulse" : ""}`}>{fields.length}</span>
-            <span className="text-xs text-muted-foreground">{fields.length === 1 ? "sancion" : "sanciones"}</span>
+            <span className="text-xs text-muted-foreground">{fields.length === 1 ? "sanción" : "sanciones"}</span>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@ export const TipoSancionNoGravesSection: React.FC<TipoSancionNoGravesSectionProp
       <Button type="button" variant="outline" onClick={handleAddSancion} disabled={loading} className="w-full border-dashed border-2 h-14 group hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
         <div className="flex items-center gap-3">
           <div className="w-7 h-7 rounded-full bg-primary/10 group-hover:bg-primary/20 flex items-center justify-center transition-colors duration-300"><Plus className="h-4 w-4 text-primary" /></div>
-          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otro tipo de sanción</span><span className="text-xs text-muted-foreground">Se pueden registrar multiples sanciones para un mismo servidor público</span></div>
+          <div className="flex flex-col items-start"><span className="text-sm font-medium">Agregar otro tipo de sanción</span><span className="text-xs text-muted-foreground">Se pueden registrar múltiples sanciones para un mismo servidor público</span></div>
         </div>
       </Button>
 
@@ -102,7 +102,7 @@ export const TipoSancionNoGravesSection: React.FC<TipoSancionNoGravesSectionProp
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center border border-primary/30"><span className="text-sm font-bold text-primary">{index + 1}</span></div>
                 <div>
                   <h4 className="font-semibold text-lg text-primary mb-0.5">Tipo de Sanción {index + 1}{fields.length > 1 && <span className="text-xs font-normal text-muted-foreground ml-2">de {fields.length}</span>}</h4>
-                  <p className="text-xs text-muted-foreground">{fields.length > 1 ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar segun sea necesario.` : "Puede agregar multiples sanciones usando el boton de arriba."}</p>
+                  <p className="text-xs text-muted-foreground">{fields.length > 1 ? `Registrando ${fields.length} sanciones. Puede agregar o eliminar según sea necesario.` : "Puede agregar múltiples sanciones usando el botón de arriba."}</p>
                 </div>
               </div>
 

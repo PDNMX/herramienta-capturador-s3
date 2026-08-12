@@ -10,7 +10,7 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { sanitizeInput } from "@/lib/sanitize";
+import { sanitizeInput, sanitizeName } from "@/lib/sanitize";
 import { CURP_REGEX, RFC_REGEX, validarCoincidenciaLetras } from "@/lib/curp-rfc";
 
 interface DatosRepresentanteFieldsProps {
@@ -45,12 +45,11 @@ export const DatosRepresentanteFields: React.FC<
                     disabled={loading}
                     placeholder="Ej: Juan Carlos"
                     {...field}
-                    onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
+                    onChange={(e) => field.onChange(sanitizeName(e.target.value))}
                   />
                 </FormControl>
                 <FormDescription>
-                  Escribir el o los nombres, sin abreviaturas, sin acentos ni
-                  signos especiales
+                  Se deberá escribir el o los nombres, así como los apellidos, sin abreviaturas, sin acentos, ni signos especiales. En caso de tener sólo un apellido, deberá colocarse en el espacio del primer apellido y dejar el espacio del segundo apellido en blanco
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -71,13 +70,9 @@ export const DatosRepresentanteFields: React.FC<
                     disabled={loading}
                     placeholder="Ej: Garcia"
                     {...field}
-                    onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
+                    onChange={(e) => field.onChange(sanitizeName(e.target.value))}
                   />
                 </FormControl>
-                <FormDescription>
-                  En caso de tener un sólo apellido, deberá colocarse aquí y
-                  dejar el segundo apellido en blanco
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -95,7 +90,7 @@ export const DatosRepresentanteFields: React.FC<
                     disabled={loading}
                     placeholder="Ej: Perez (si aplica)"
                     {...field}
-                    onChange={(e) => field.onChange(sanitizeInput(e.target.value))}
+                    onChange={(e) => field.onChange(sanitizeName(e.target.value))}
                     value={field.value || ""}
                   />
                 </FormControl>
@@ -110,7 +105,7 @@ export const DatosRepresentanteFields: React.FC<
             name={`${fieldPrefix}.rfc`}
             rules={{
               validate: {
-                formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (12 ó 13 caracteres: 4 letras, fecha, homoclave)",
+                formato: (v) => RFC_REGEX.test(v?.toUpperCase() ?? "") || "El RFC no tiene el formato correcto (13 caracteres: 4 letras, 6 dígitos de fecha y 3 de homoclave)",
                 coincidencia: (v) => {
                   const values = form.getValues()[fieldPrefix] ?? {};
                   return validarCoincidenciaLetras(v ?? "", values.nombre ?? "", values.primerApellido ?? "", values.segundoApellido) ||
@@ -133,8 +128,7 @@ export const DatosRepresentanteFields: React.FC<
                   />
                 </FormControl>
                 <FormDescription>
-                  Escribir los primeros diez caracteres básicos y los tres
-                  correspondientes a la homoclave
+                  Escribir los primeros diez caracteres básicos y los tres correspondientes a la homoclave
                 </FormDescription>
                 <FormMessage />
               </FormItem>

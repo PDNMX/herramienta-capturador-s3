@@ -241,7 +241,8 @@ export const ResolucionPFSection: React.FC<ResolucionPFSectionProps> = ({
               <DatePicker value={field.value} onChange={(val) => { field.onChange(val); form.trigger("resolucion_fechaEjecucion"); }} onBlur={() => form.trigger("resolucion_fechaEjecucion")} disabled={loading} min={fechaResolucionFirme || undefined} />
             </FormControl>
             <FormDescription>
-              Anotar la fecha en la que se ejecutó la sanción a la persona física. &lt;p&gt; Si al momento de registrar la información la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro
+              Anotar la fecha en la que se ejecutó la sanción a la persona física.
+              <span className="block mt-1">Si al momento de registrar la información la autoridad no cuenta con el dato señalado en el presente numeral, este podrá registrarse posteriormente mediante una actualización de su registro.</span>
             </FormDescription>
             <FormMessage />
           </FormItem>
