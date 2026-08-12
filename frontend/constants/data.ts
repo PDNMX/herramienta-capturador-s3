@@ -27,7 +27,7 @@ export const adminNavItems: NavItem[] = [
     href: "/inicio/administracion/interconexion",
     icon: "plug",
     label: "interconexion",
-    description: "Tokens de acceso para la PDN",
+    description: "Gestión de tokens de acceso",
   },
 ];
 

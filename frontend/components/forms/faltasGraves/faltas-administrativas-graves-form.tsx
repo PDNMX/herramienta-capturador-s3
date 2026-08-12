@@ -24,7 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
-import { createItem, deleteItem, updateItem, withToken } from "@directus/sdk";
+import { createItem, deleteItem, deleteItems, readItems, updateItem, withToken } from "@directus/sdk";
 import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
@@ -813,6 +813,25 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
       // 7. FALTAS COMETIDAS (O2M con normatividades anidadas)
       // ============================================
       currentStep = "faltas cometidas";
+
+      // En edición: borrar registros existentes antes de recrear
+      if (initialData?.id) {
+        const existentes = await directus.request(
+          withToken(accessToken, readItems("falta_cometida_graves", {
+            limit: -1,
+            filter: { fk_id: { _eq: registroPrincipalId } },
+            fields: ["id", "normatividadInfringida.id"],
+          }))
+        ) as any[];
+        for (const fc of existentes) {
+          const normIds = (fc.normatividadInfringida ?? []).map((n: any) => n.id ?? n).filter(Boolean);
+          if (normIds.length > 0) {
+            await directus.request(withToken(accessToken, deleteItems("normatividad_graves", normIds)));
+          }
+          await directus.request(withToken(accessToken, deleteItem("falta_cometida_graves", fc.id)));
+        }
+      }
+
       const faltasFiltradas = (data.faltaCometida ?? []).filter((f: any) => f?.clave);
       for (const falta of faltasFiltradas) {
         const normatividadesIds = [];
@@ -837,7 +856,7 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
           clave: falta.clave,
           valor: falta.clave === "OTRO" ? falta.valor : null,
           descripcionHechos: falta.descripcionHechos,
-          fk_graves: registroPrincipalId,
+          fk_id: registroPrincipalId,
           entePublico: entePublico,
           normatividadInfringida: normatividadesIds,
         };
@@ -853,6 +872,31 @@ export const FaltasAdministrativasGravesForm: React.FC<FaltasAdministrativasGrav
       // 8. TIPO DE SANCION (O2M complejo)
       // ============================================
       currentStep = "tipo de sanción";
+
+      if (initialData?.id) {
+        const sancionesExistentes = await directus.request(
+          withToken(accessToken, readItems("tipo_sancion_graves", {
+            limit: -1,
+            filter: { fk_id: { _eq: registroPrincipalId } },
+            fields: ["id", "suspensionEmpleo.id", "destitucionEmpleo.id",
+              "sancionEconomica.id", "sancionEconomica.plazoPago.id", "sancionEconomica.efectivamenteCobrado.id",
+              "inhabilitacion.id", "otro.id"],
+          }))
+        ) as any[];
+        for (const ts of sancionesExistentes) {
+          if (ts.suspensionEmpleo?.id) await directus.request(withToken(accessToken, deleteItem("suspension_empleo", ts.suspensionEmpleo.id)));
+          if (ts.destitucionEmpleo?.id) await directus.request(withToken(accessToken, deleteItem("destitucion_empleo", ts.destitucionEmpleo.id)));
+          if (ts.sancionEconomica?.id) {
+            if (ts.sancionEconomica.plazoPago?.id) await directus.request(withToken(accessToken, deleteItem("plazo_pago", ts.sancionEconomica.plazoPago.id)));
+            if (ts.sancionEconomica.efectivamenteCobrado?.id) await directus.request(withToken(accessToken, deleteItem("efectivamente_cobrado", ts.sancionEconomica.efectivamenteCobrado.id)));
+            await directus.request(withToken(accessToken, deleteItem("sancion_economica", ts.sancionEconomica.id)));
+          }
+          if (ts.inhabilitacion?.id) await directus.request(withToken(accessToken, deleteItem("inhabilitacion", ts.inhabilitacion.id)));
+          if (ts.otro?.id) await directus.request(withToken(accessToken, deleteItem("otro_sancion", ts.otro.id)));
+          await directus.request(withToken(accessToken, deleteItem("tipo_sancion_graves", ts.id)));
+        }
+      }
+
       const sancionesFiltradas = (data.tipoSancion ?? []).filter((s: any) => s?.clave);
       for (const sancion of sancionesFiltradas) {
         let suspensionEmpleoId = null;

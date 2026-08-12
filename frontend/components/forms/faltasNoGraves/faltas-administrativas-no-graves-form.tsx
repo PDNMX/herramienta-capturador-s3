@@ -24,7 +24,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { useCurrentSession } from "@/hooks/useCurrentSession";
 import directus from "@/lib/directus";
-import { createItem, deleteItem, updateItem, withToken } from "@directus/sdk";
+import { createItem, deleteItem, deleteItems, readItems, updateItem, withToken } from "@directus/sdk";
 import { checkDuplicate } from "@/lib/duplicate-check";
 import {
   Accordion,
@@ -751,6 +751,22 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
       // 7. FALTAS COMETIDAS (O2M con normatividades anidadas)
       // ============================================
       currentStep = "faltas cometidas";
+
+      if (initialData?.id) {
+        const existentes = await directus.request(
+          withToken(accessToken, readItems("falta_cometida_no_graves", {
+            limit: -1,
+            filter: { fk_id: { _eq: registroPrincipalId } },
+            fields: ["id", "normatividadInfringida.id"],
+          }))
+        ) as any[];
+        for (const fc of existentes) {
+          const normIds = (fc.normatividadInfringida ?? []).map((n: any) => n.id ?? n).filter(Boolean);
+          if (normIds.length > 0) await directus.request(withToken(accessToken, deleteItems("normatividad_no_graves", normIds)));
+          await directus.request(withToken(accessToken, deleteItem("falta_cometida_no_graves", fc.id)));
+        }
+      }
+
       const faltasFiltradas = (data.faltaCometida ?? []).filter((f: any) => f?.clave);
       for (const falta of faltasFiltradas) {
         const normatividadesIds = [];
@@ -775,7 +791,7 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
           clave: falta.clave,
           valor: falta.clave === "OTRO" ? falta.valor : null,
           descripcionHechos: falta.descripcionHechos,
-          fk_no_graves: registroPrincipalId,
+          fk_id: registroPrincipalId,
           entePublico: entePublico,
           normatividadInfringida: normatividadesIds,
         };
@@ -791,6 +807,26 @@ export const FaltasAdministrativasNoGravesForm: React.FC<FaltasAdministrativasNo
       // 8. TIPO DE SANCION (O2M)
       // ============================================
       currentStep = "tipo de sanción";
+
+      if (initialData?.id) {
+        const sancionesExistentes = await directus.request(
+          withToken(accessToken, readItems("tipo_sancion_no_graves", {
+            limit: -1,
+            filter: { fk_id: { _eq: registroPrincipalId } },
+            fields: ["id", "amonestacion.id", "suspensionEmpleo.id",
+              "destitucionEmpleo.id", "inhabilitacion.id", "otro.id"],
+          }))
+        ) as any[];
+        for (const ts of sancionesExistentes) {
+          if (ts.amonestacion?.id) await directus.request(withToken(accessToken, deleteItem("amonestacion_sancion", ts.amonestacion.id)));
+          if (ts.suspensionEmpleo?.id) await directus.request(withToken(accessToken, deleteItem("suspension_empleo", ts.suspensionEmpleo.id)));
+          if (ts.destitucionEmpleo?.id) await directus.request(withToken(accessToken, deleteItem("destitucion_empleo", ts.destitucionEmpleo.id)));
+          if (ts.inhabilitacion?.id) await directus.request(withToken(accessToken, deleteItem("inhabilitacion", ts.inhabilitacion.id)));
+          if (ts.otro?.id) await directus.request(withToken(accessToken, deleteItem("otro_sancion", ts.otro.id)));
+          await directus.request(withToken(accessToken, deleteItem("tipo_sancion_no_graves", ts.id)));
+        }
+      }
+
       const sancionesFiltradas = (data.tipoSancion ?? []).filter((s: any) => s?.clave);
       for (const sancion of sancionesFiltradas) {
         let amonestacionId = null;

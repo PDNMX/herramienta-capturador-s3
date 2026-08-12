@@ -31,6 +31,7 @@ migrate-alan.sh
 
 # vercel
 .vercel
+.claude/
 
 # typescript
 *.tsbuildinfo

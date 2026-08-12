@@ -23,7 +23,8 @@ export default function Page({ params }) {
     if (status === "authenticated") {
       async function fetchData() {
         try {
-          const result = await directus.request(
+          const [result, faltasCometidas] = await Promise.all([
+            directus.request(
             withToken(
               session?.access_token,
               readItems("faltas_graves_personas_fisicas", {
@@ -155,9 +156,28 @@ export default function Page({ params }) {
                 ],
               })
             )
-          );
-          console.log("=== DATOS CARGADOS PARA EDICIÓN ===", JSON.stringify(result[0], null, 2));
-          setFalta(result[0]);
+            ),
+            directus.request(
+              withToken(
+                session?.access_token,
+                readItems("falta_cometida_particulares", {
+                  limit: -1,
+                  filter: { fk_id: { _eq: faltaId } },
+                  fields: [
+                    "id", "clave", "valor", "descripcionHechos",
+                    "normatividadInfringida.id",
+                    "normatividadInfringida.nombreNormatividad",
+                    "normatividadInfringida.articulo",
+                    "normatividadInfringida.fraccion",
+                  ],
+                })
+              )
+            ),
+          ]);
+          const record = result[0];
+          if (record) record.faltaCometida = faltasCometidas;
+          console.log("=== DATOS CARGADOS PARA EDICIÓN ===", JSON.stringify(record, null, 2));
+          setFalta(record);
         } catch (error) {
           console.error("Error al cargar los datos:", error);
         } finally {

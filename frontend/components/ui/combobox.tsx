@@ -10,7 +10,6 @@ import React, {
 import { createPortal } from "react-dom";
 import { Check, ChevronsUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
 interface ComboboxOption {
   value: string;
@@ -242,7 +241,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
           ? `${window.innerHeight - position.top + 4}px`
           : undefined,
         left: `${position.left}px`,
-        width: `${position.width}px`,
+        width: `${Math.max(position.width, 360)}px`,
+        maxWidth: `calc(100vw - ${position.left}px - 16px)`,
       }}
       onKeyDown={handleKeyDown}
     >
@@ -298,7 +298,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                 onClick={() => handleSelect(option.value)}
                 onMouseEnter={() => setHighlightedIndex(index)}
                 className={cn(
-                  "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
+                  "relative flex cursor-pointer select-none items-start rounded-sm px-2 py-2 text-sm outline-none transition-colors",
                   isHighlighted && "bg-accent text-accent-foreground",
                   isSelected && !isHighlighted && "bg-accent/50",
                   !isHighlighted &&
@@ -308,11 +308,11 @@ export const Combobox: React.FC<ComboboxProps> = ({
               >
                 <Check
                   className={cn(
-                    "mr-2 h-4 w-4 flex-shrink-0",
+                    "mr-2 h-4 w-4 flex-shrink-0 mt-0.5",
                     isSelected ? "opacity-100" : "opacity-0"
                   )}
                 />
-                <span className="truncate flex-1">{option.label}</span>
+                <span className="line-clamp-2 flex-1 min-w-0 leading-snug">{option.label}</span>
               </li>
             );
           })
@@ -322,21 +322,21 @@ export const Combobox: React.FC<ComboboxProps> = ({
   ) : null;
 
   return (
-    <div onKeyDown={handleKeyDown}>
-      <Button
+    <div onKeyDown={handleKeyDown} className="w-full min-w-0 overflow-hidden">
+      <button
         ref={triggerRef}
         type="button"
-        variant="outline"
         role="combobox"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-controls={isOpen ? listboxId : undefined}
         disabled={disabled}
-        className="w-full justify-between min-h-[2.25rem] h-auto py-1.5 font-normal"
         onClick={handleToggle}
+        className="flex min-h-9 w-full items-start justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
       >
         <span
-          className="truncate flex-1 text-left mr-2"
+          className="mr-2 text-left"
+          style={{ flex: "1 1 0%", minWidth: 0 }}
           title={selectedOption?.label}
         >
           {selectedOption ? (
@@ -345,8 +345,8 @@ export const Combobox: React.FC<ComboboxProps> = ({
             <span className="text-muted-foreground">{placeholder}</span>
           )}
         </span>
-        <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50 ml-2" />
-      </Button>
+        <ChevronsUpDown className="h-4 w-4 flex-shrink-0 opacity-50 mt-0.5" />
+      </button>
 
       {typeof window !== "undefined" &&
         createPortal(dropdownContent, document.body)}
