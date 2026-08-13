@@ -970,7 +970,6 @@ export const FaltasGravesPFForm: React.FC<FaltasGravesPFFormProps> = ({ initialD
             articulo: normatividad.articulo,
             fraccion: normatividad.fraccion,
             entePublico: entePublico, // entePublico incluido
-            fk_particulares: registroPrincipalId,
           };
 
           const newNormatividad = await directus.request(
