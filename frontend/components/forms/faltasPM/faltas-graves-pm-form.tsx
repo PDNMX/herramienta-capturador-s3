@@ -1106,7 +1106,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
         const existentes = await directus.request(
           withToken(accessToken, readItems("falta_cometida_morales", {
             limit: -1,
-            filter: { fk_id: { _eq: registroPrincipalId } },
+            filter: { fk_morales: { _eq: registroPrincipalId } },
             fields: ["id", "normatividadInfringida.id"],
           }))
         ) as any[];
@@ -1129,6 +1129,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
             articulo: normatividad.articulo,
             fraccion: normatividad.fraccion,
             entePublico: entePublico, // ✅ entePublico incluido
+            fk_morales: registroPrincipalId,
           };
 
           const newNormatividad = await directus.request(
@@ -1143,7 +1144,7 @@ export const FaltasGravesPMForm: React.FC<FaltasGravesPMFormProps> = ({ initialD
           clave: falta.clave,
           valor: falta.clave === "OTRO" ? falta.valor : null,
           descripcionHechos: falta.descripcionHechos,
-          fk_id: registroPrincipalId,
+          fk_morales: registroPrincipalId,
           entePublico: entePublico, // ✅ entePublico incluido
           normatividadInfringida: normatividadesIds,
         };
