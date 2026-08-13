@@ -187,7 +187,7 @@ export default function Page({ params }) {
                 session?.access_token,
                 readItems("falta_cometida_morales", {
                   limit: -1,
-                  filter: { fk_id: { _eq: faltaId } },
+                  filter: { fk_morales: { _eq: faltaId } },
                   fields: [
                     "id", "clave", "valor", "descripcionHechos",
                     "normatividadInfringida.id",

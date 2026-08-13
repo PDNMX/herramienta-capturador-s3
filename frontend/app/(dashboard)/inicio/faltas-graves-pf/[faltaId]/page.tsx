@@ -162,7 +162,7 @@ export default function Page({ params }) {
                 session?.access_token,
                 readItems("falta_cometida_particulares", {
                   limit: -1,
-                  filter: { fk_id: { _eq: faltaId } },
+                  filter: { fk_personas_fisicas: { _eq: faltaId } },
                   fields: [
                     "id", "clave", "valor", "descripcionHechos",
                     "normatividadInfringida.id",
