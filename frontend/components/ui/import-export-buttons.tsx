@@ -27,6 +27,7 @@ interface ImportExportButtonsProps {
   exportFilename: string;
   accessToken?: string;
   onImportSuccess?: () => void;
+  exportFields?: string[];
 }
 
 const EXPORT_EXCLUDE_FIELDS = ["date_created", "date_updated", "user_created", "user_updated", "ente_publico", "entePublico", "fk_id", "id", "fk_graves", "fk_personas_fisicas", "fk_no_graves", "fk_morales", "fk_particulares"];
@@ -53,6 +54,7 @@ export function ImportExportButtons({
   exportFilename,
   accessToken,
   onImportSuccess,
+  exportFields = ["*.*.*.*"],
 }: ImportExportButtonsProps) {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -72,7 +74,7 @@ export function ImportExportButtons({
       const fullData = await directus.request(
         withToken(accessToken, readItems(collection as any, {
           limit: -1,
-          fields: ["*.*.*.*"],
+          fields: exportFields,
         }))
       ) as any[];
       const cleanData = stripExcludedFields(fullData);

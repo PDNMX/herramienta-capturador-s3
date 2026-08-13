@@ -38,6 +38,43 @@ export const FaltasGravesPMTable = ({ data, onRefresh }: any) => {
                         exportFilename="faltas_graves_pm"
                         accessToken={session?.access_token}
                         onImportSuccess={onRefresh}
+                        exportFields={[
+                          "*",
+                          "datosGenerales.*",
+                          "datosGenerales.domicilioMexico.*",
+                          "datosGenerales.domicilioExtranjero.*",
+                          "datosDirGeneralReprLegal.*",
+                          "datosDirGeneralReprLegal.directorGeneral.*",
+                          "datosDirGeneralReprLegal.representanteLegal.*",
+                          "dondeCometioLaFalta.*",
+                          "origenProcedimiento.*",
+                          "resolucion.id",
+                          "resolucion.tituloResolucion",
+                          "resolucion.fechaResolucion",
+                          "resolucion.fechaNotificacion",
+                          "resolucion.urlResolucion",
+                          "resolucion.fechaResolucionFirme",
+                          "resolucion.fechaNotificacionFirme",
+                          "resolucion.urlResolucionFirme",
+                          "resolucion.fechaEjecucion",
+                          "resolucion.ordenJurisdiccional",
+                          "resolucion.autoridadResolutora",
+                          "resolucion.autoridadInvestigadora",
+                          "resolucion.autoridadSusbstanciadora",
+                          "faltaCometida.*",
+                          "faltaCometida.normatividadInfringida.*",
+                          "tipoSancion.*",
+                          "tipoSancion.inhabilitacion.*",
+                          "tipoSancion.indemnizacion.*",
+                          "tipoSancion.indemnizacion.plazoPago.*",
+                          "tipoSancion.indemnizacion.efectivamenteCobrado.*",
+                          "tipoSancion.sancionEconomica.*",
+                          "tipoSancion.sancionEconomica.plazoPago.*",
+                          "tipoSancion.sancionEconomica.efectivamenteCobrado.*",
+                          "tipoSancion.suspensionActividades.*",
+                          "tipoSancion.disolucionSociedad.*",
+                          "tipoSancion.otro.*",
+                        ]}
                     />
                     <Button
                         size="sm"

@@ -27,8 +27,6 @@ export default function Page() {
           fields: [
             "id", "expediente", "fecha", "status", "observaciones", "date_created",
             "datosGenerales.id", "datosGenerales.nombres", "datosGenerales.primerApellido", "datosGenerales.segundoApellido", "datosGenerales.rfc",
-            "faltaCometida.id", "faltaCometida.clave", "faltaCometida.valor",
-            "tipoSancion.id", "tipoSancion.clave",
           ],
         }))
       );
